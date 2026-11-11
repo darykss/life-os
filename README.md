@@ -60,7 +60,7 @@ Cette URL permet de lire ton agenda : ne la partage pas. Le script ne fait que l
 
 - `index.html`, `styles.css`, `app.js` : l'app
 - `targets.js` : la liste des cibles LinkedIn (modifiable)
-- `sw.js`, `manifest.webmanifest`, `icons/` : installation et mode hors ligne
+- `sw.js`, `manifest.webmanifest`, `icon-180.png`, `icon-512.png` : installation et mode hors ligne
 - `google-apps-script/Code.gs` : le script à coller dans Google Apps Script
 
 Pour tester sur ordinateur : `python3 -m http.server 8765` dans ce dossier, puis `http://localhost:8765`.

@@ -1,8 +1,8 @@
 // Service worker : rend l'app utilisable hors ligne.
 // Stratégie « réseau d'abord » : on prend toujours la dernière version en ligne,
 // et on retombe sur le cache quand il n'y a pas de connexion.
-const CACHE = 'lifeos-shell-v1';
-const SHELL = ['./', 'index.html', 'styles.css', 'app.js', 'targets.js', 'manifest.webmanifest', 'icons/icon-180.png', 'icons/icon-512.png'];
+const CACHE = 'lifeos-shell-v2';
+const SHELL = ['./', 'index.html', 'styles.css', 'app.js', 'targets.js', 'manifest.webmanifest', 'icon-180.png', 'icon-512.png'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
