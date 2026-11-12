@@ -23,9 +23,15 @@ const DEFAULTS = {
   li: { history: [], offset: 0 },
   habits: {},
   fin: { entries: [], subs: [] },
+  habitList: [],                       // habitudes modifiables (remplies au premier lancement)
+  work: { days: {} },                  // { 'AAAA-MM-JJ': { pomos, manual } }
+  pomo: { phase: 'work', running: false, endAt: 0, left: 25 * 60e3 },
+  apps: [],                            // candidatures
+  recapSeen: '',
   lastRefresh: 0,
 };
 
+// Habitudes proposées au premier lancement (ensuite modifiables dans l'app).
 const HABITS = [
   { id: 'sleep', icon: '😴', title: 'Sommeil', desc: '7h à 8h de sommeil' },
   { id: 'sport', icon: '💪', title: 'Sport', desc: 'Séance de sport faite' },
@@ -40,7 +46,7 @@ const GCAL_COLORS = { 1: '#7986cb', 2: '#33b679', 3: '#8e24aa', 4: '#e67c73', 5:
 /* ---------- État ---------- */
 
 let S = loadState();
-const UI = { tab: 'home', habitDay: null, finType: 'out', liMsg: 'note', refreshing: false, pendingRender: false, showDone: false, allDeadlines: false };
+const UI = { tab: 'home', habitDay: null, habitWeek: 0, habitEdit: false, chartMode: 'w', agendaDay: null, finMonth: null, appsClosed: false, recapWeek: null, finType: 'out', liMsg: 'note', refreshing: false, pendingRender: false, showDone: false, allDeadlines: false };
 
 function loadState() {
   let raw = {};
@@ -50,6 +56,11 @@ function loadState() {
     if (raw[k] == null) continue;
     const plain = typeof DEFAULTS[k] === 'object' && !Array.isArray(DEFAULTS[k]);
     out[k] = plain ? Object.assign(out[k], raw[k]) : raw[k];
+  }
+  // Migrations depuis la première version
+  if (!raw.habitList) out.habitList = HABITS.map((h) => ({ ...h }));
+  for (const sub of out.fin.subs) {
+    if (!sub.from) { const ts = parseInt(String(sub.id).slice(0, -5), 36); const d = new Date(ts > 1e12 ? ts : Date.now()); sub.from = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`; }
   }
   return out;
 }
@@ -185,7 +196,6 @@ async function refresh(manual) {
   save();
   UI.refreshing = false;
   $('#refreshBtn').classList.remove('spin');
-  UI.habitDay = null;
   render(true);
   if (manual) toast(S.cal.error && S.settings.gcalUrl ? 'Agenda : ' + S.cal.error : 'À jour ✓');
 }
@@ -212,6 +222,7 @@ function pinnedItems() {
   const out = [];
   for (const p of Object.values(S.pins)) if (!p.date || p.date >= t) out.push({ title: p.title, date: p.date });
   for (const x of S.tasks) if (x.pinned && !x.done) out.push({ title: x.title, date: x.due || '' });
+  for (const a of S.apps) if (a.pinned && (appOpen(a) || appWaiting(a))) out.push({ title: a.title, date: a.due || '' });
   return out.sort((a, b) => (a.date || '9999').localeCompare(b.date || '9999'));
 }
 
@@ -253,11 +264,11 @@ function render(fromRefresh) {
   if (fromRefresh && a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) { UI.pendingRender = true; return; }
   UI.pendingRender = false;
 
-  const titles = { home: cap(new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'short' })), li: 'Réseau LinkedIn', habits: 'Routine du soir', fin: 'Finances' };
+  const titles = { home: cap(new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'short' })), li: 'Réseau LinkedIn', habits: 'Habitudes', fin: 'Finances', work: 'Travail', apps: 'Candidatures' };
   $('#title').textContent = titles[UI.tab];
   $('#subtitle').textContent = S.lastRefresh ? 'Actualisé à ' + new Date(S.lastRefresh).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) : '';
   document.querySelectorAll('#tabs button').forEach((b) => b.classList.toggle('on', b.dataset.tab === UI.tab));
-  $('#view').innerHTML = { home: viewHome, li: viewLinkedIn, habits: viewHabits, fin: viewFinance }[UI.tab]();
+  $('#view').innerHTML = { home: viewHome, li: viewLinkedIn, habits: viewHabits, fin: viewFinance, work: viewWork, apps: viewApps }[UI.tab]();
 }
 
 const card = (title, body, extra) => `<section class="card"><div class="card-h"><h2>${title}</h2>${extra || ''}</div>${body}</section>`;
@@ -280,19 +291,35 @@ function viewHome() {
     html += `<div class="banner">Agenda non actualisé (${esc(S.cal.error)}) — affichage des dernières données connues.</div>`;
   }
 
-  /* Emploi du temps du jour */
-  const todays = evs.filter((e) => evOnDay(e, t)).sort((a, b) => (a.allDay ? 0 : 1) - (b.allDay ? 0 : 1) || String(a.start).localeCompare(String(b.start)));
+  if (parseYmd(t).getDay() === 0) {
+    html += `<section class="card connect recap-card">
+      <h2>Ton récap de la semaine est prêt 🗓️</h2>
+      <p>Habitudes, sport, travail, tâches, candidatures, finances et LinkedIn : le bilan de ta semaine.</p>
+      <button class="btn primary" data-a="recap">Voir mon récap</button>
+    </section>`;
+  }
+
+  /* Emploi du temps : navigation par jour et par semaine */
+  const day = UI.agendaDay || t;
+  const wmon = mondayOf(day);
+  const dayEvs = evs.filter((e) => evOnDay(e, day)).sort((a, b) => (a.allDay ? 0 : 1) - (b.allDay ? 0 : 1) || String(a.start).localeCompare(String(b.start)));
   const now = Date.now();
-  html += card("Aujourd'hui", todays.length ? `<ul class="agenda">${todays.map((e) => {
-    const past = !e.allDay && new Date(e.end) < now;
-    const live = !e.allDay && new Date(e.start) <= now && new Date(e.end) >= now;
+  const strip = navBar('agendaWeek', weekLabel(wmon), weekRange(wmon), true) + `<div class="days cal">${DOW.map((l, i) => {
+    const d = addDays(wmon, i);
+    return `<button class="${d === day ? 'on' : ''} ${d === t ? 'today' : ''}" data-a="agendaDay" data-id="${d}">
+        <span>${l}</span><i>${parseYmd(d).getDate()}</i><u class="${evs.some((e) => evOnDay(e, d)) ? 'has' : ''}"></u>
+      </button>`;
+  }).join('')}</div>`;
+  html += card(day === t ? "Aujourd'hui" : esc(cap(fmtDate(day, { weekday: 'long', day: 'numeric', month: 'long' }))), strip + (dayEvs.length ? `<ul class="agenda">${dayEvs.map((e) => {
+    const past = day < t || (day === t && !e.allDay && new Date(e.end) < now);
+    const live = day === t && !e.allDay && new Date(e.start) <= now && new Date(e.end) >= now;
     return `<li class="${past ? 'past' : ''} ${live ? 'live' : ''}">
       <div class="when">${e.allDay ? '<span>Journée</span>' : `<span>${fmtTime(e.start)}</span><small>${fmtTime(e.end)}</small>`}</div>
       <i style="background:${esc(evColor(e))}"></i>
       <div class="what"><b>${esc(e.title)}</b>${e.location ? `<small>${esc(e.location)}</small>` : ''}${live ? '<em>En cours</em>' : ''}</div>
     </li>`;
-  }).join('')}</ul>` : empty(S.settings.gcalUrl ? 'Rien de prévu aujourd’hui.' : 'Ton programme du jour apparaîtra ici.'),
-  `<span class="count">${todays.length || ''}</span>`);
+  }).join('')}</ul>` : empty(!S.settings.gcalUrl ? 'Ton programme apparaîtra ici.' : day === t ? 'Rien de prévu aujourd’hui.' : 'Rien de prévu ce jour-là.')),
+  day === t ? `<span class="count">${dayEvs.length || ''}</span>` : '<button class="chipbtn" data-a="agendaToday">Aujourd’hui</button>');
 
   /* Échéances (événements rouges) */
   const reds = evs.filter((e) => isRed(e) && (evDay(e) >= t || evOnDay(e, t))).sort((a, b) => evDay(a).localeCompare(evDay(b)));
@@ -312,6 +339,7 @@ function viewHome() {
 
   html += viewWorkouts(t, evs);
   html += viewTasks(t);
+  if (parseYmd(t).getDay() !== 0) html += '<button class="link" data-a="recap" data-id="last">Voir le récap de la semaine dernière</button>';
   return html;
 }
 
@@ -458,75 +486,160 @@ function viewLinkedIn() {
   return html;
 }
 
-/* ---------- Onglet 3 : Habitudes ---------- */
+/* ---------- Onglet : Habitudes ---------- */
 
-const habitCount = (d) => HABITS.filter((h) => (S.habits[d] || {})[h.id]).length;
+// Une habitude compte pour un jour donné si elle existait déjà et n'avait pas encore été retirée.
+const activeHabits = (d) => S.habitList.filter((h) => (!h.from || h.from <= d) && (!h.end || d < h.end));
+function habitStat(d) {
+  const list = activeHabits(d); const st = S.habits[d] || {};
+  return { n: list.filter((h) => st[h.id]).length, total: list.length };
+}
+const habitFull = (d) => { const s = habitStat(d); return s.total > 0 && s.n === s.total; };
 function habitStreak() {
   let d = logicalDay(); let n = 0;
-  if (habitCount(d) < HABITS.length) d = addDays(d, -1);
-  while (habitCount(d) === HABITS.length) { n++; d = addDays(d, -1); }
+  if (!habitFull(d)) d = addDays(d, -1);
+  while (habitFull(d)) { n++; d = addDays(d, -1); }
   return n;
 }
+function habitFirstDay() {
+  const days = Object.keys(S.habits).filter((d) => Object.values(S.habits[d]).some(Boolean)).sort();
+  return days[0] || logicalDay();
+}
+// Taux de réussite entre deux dates incluses ; null si aucune journée suivie sur la période.
+function habitRate(a, b, first) {
+  first = first || habitFirstDay();
+  const cur = logicalDay();
+  let n = 0, total = 0;
+  for (let d = a < first ? first : a; d <= b && d <= cur; d = addDays(d, 1)) { const s = habitStat(d); n += s.n; total += s.total; }
+  return total ? n / total : null;
+}
+function habitBest() {
+  const cur = logicalDay(); let best = 0, run = 0;
+  for (let d = habitFirstDay(); d <= cur; d = addDays(d, 1)) { run = habitFull(d) ? run + 1 : 0; best = Math.max(best, run); }
+  return best;
+}
+const habitWeekMon = () => addDays(mondayOf(logicalDay()), 7 * UI.habitWeek);
+const habitDefaultDay = () => (UI.habitWeek === 0 ? logicalDay() : addDays(habitWeekMon(), 6));
+const habitSelDay = () => UI.habitDay || habitDefaultDay();
+const pctTxt = (r) => (r == null ? '—' : Math.round(r * 100) + ' %');
 
 function viewHabits() {
   const cur = logicalDay();
-  const day = UI.habitDay || cur;
+  const mon = habitWeekMon();
+  const day = habitSelDay();
   const state = S.habits[day] || {};
-  const n = habitCount(day);
-  const pct = n / HABITS.length;
+  const list = activeHabits(day);
+  const { n, total } = habitStat(day);
+  const pct = total ? n / total : 0;
   const C = 2 * Math.PI * 52;
   const streak = habitStreak();
+  const first = habitFirstDay();
 
   let html = `<section class="card ring-card">
       <svg class="ring" viewBox="0 0 120 120"><circle cx="60" cy="60" r="52"/><circle class="fill ${pct === 1 ? 'full' : ''}" cx="60" cy="60" r="52" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - pct)}"/></svg>
-      <div class="ring-num"><b>${n}</b><span>/ ${HABITS.length}</span></div>
+      <div class="ring-num"><b>${n}</b><span>/ ${total}</span></div>
       <div class="ring-side">
         <h2>${day === cur ? 'Ce soir' : esc(cap(fmtDate(day, { weekday: 'long', day: 'numeric', month: 'long' })))}</h2>
-        <p>${pct === 1 ? 'Routine complète, bien joué 👏' : n === 0 ? 'Coche tes habitudes du jour.' : `Encore ${HABITS.length - n} pour une journée parfaite.`}</p>
+        <p>${!total ? 'Aucune habitude suivie ce jour-là.' : pct === 1 ? 'Routine complète, bien joué 👏' : n === 0 ? (day === cur ? 'Coche tes habitudes du jour.' : 'Rien de coché ce jour-là.') : `${day === cur ? 'Encore' : 'Il manquait'} ${total - n} pour une journée parfaite.`}</p>
         <span class="chip ${streak ? 'green' : 'soft'}">🔥 ${streak} jour${streak > 1 ? 's' : ''} parfait${streak > 1 ? 's' : ''} d’affilée</span>
       </div>
     </section>`;
 
-  html += `<div class="days">${[6, 5, 4, 3, 2, 1, 0].map((i) => {
-    const d = addDays(cur, -i);
-    const c = habitCount(d);
-    return `<button class="${d === day ? 'on' : ''}" data-a="habitDay" data-id="${d}">
-        <span>${DOW[(parseYmd(d).getDay() + 6) % 7]}</span>
-        <i class="${c === HABITS.length ? 'full' : c ? 'part' : ''}" style="--p:${c / HABITS.length}">${parseYmd(d).getDate()}</i>
+  /* Semaine affichée : navigation vers les semaines passées */
+  html += `<section class="card">${navBar('habitWeek', weekLabel(mon), weekRange(mon) + ' · ' + pctTxt(habitRate(mon, addDays(mon, 6), first)), UI.habitWeek < 0)}
+    <div class="days">${DOW.map((l, i) => {
+      const d = addDays(mon, i);
+      const s = habitStat(d);
+      const future = d > cur;
+      return `<button class="${d === day ? 'on' : ''}" data-a="habitDay" data-id="${d}" ${future ? 'disabled' : ''}>
+        <span>${l}</span>
+        <i class="${future ? '' : habitFull(d) ? 'full' : s.n ? 'part' : ''}" style="--p:${s.total ? s.n / s.total : 0}">${parseYmd(d).getDate()}</i>
       </button>`;
-  }).join('')}</div>`;
+    }).join('')}</div></section>`;
 
-  html += `<ul class="habits">${HABITS.map((h) => `<li class="${state[h.id] ? 'on' : ''}" data-a="toggleHabit" data-id="${h.id}">
-      <span class="emoji">${h.icon}</span>
-      <div><b>${h.title}</b><small>${h.desc}</small></div>
-      <span class="tick">${ICON.check}</span>
-    </li>`).join('')}</ul>`;
+  html += list.length ? `<ul class="habits ${UI.habitEdit ? 'edit' : ''}">${list.map((h) => `<li class="${state[h.id] ? 'on' : ''}" data-a="toggleHabit" data-id="${h.id}">
+      <span class="emoji">${esc(h.icon)}</span>
+      <div><b>${esc(h.title)}</b>${h.desc ? `<small>${esc(h.desc)}</small>` : ''}</div>
+      ${UI.habitEdit ? `<button class="ghost del" data-a="delHabit" data-id="${h.id}" aria-label="Retirer">${ICON.trash}</button>` : `<span class="tick">${ICON.check}</span>`}
+    </li>`).join('')}</ul>` : `<section class="card">${empty('Aucune habitude pour ce jour. Ajoute-en une ci-dessous.')}</section>`;
+
+  html += UI.habitEdit
+    ? card('Ajouter une habitude', `<form class="stack" data-f="addHabit">
+        <div class="emoji-row"><input name="icon" placeholder="🙂" maxlength="4" autocomplete="off" aria-label="Emoji"><input name="title" placeholder="Nom (ex. Lecture)" autocomplete="off"></div>
+        <input name="desc" placeholder="Objectif (ex. 20 pages) — optionnel" autocomplete="off" enterkeyhint="done">
+        <button class="btn primary wide">Ajouter</button>
+      </form>
+      <p class="hint">Une habitude retirée disparaît à partir d’aujourd’hui, mais reste dans ton historique.</p>
+      <button class="link" data-a="habitEdit">Terminer</button>`)
+    : '<button class="link" data-a="habitEdit">Ajouter ou retirer des habitudes</button>';
+
+  /* La semaine en un coup d'œil */
+  const days = DOW.map((_, i) => addDays(mon, i));
+  const rowsH = S.habitList.filter((h) => days.some((d) => d <= cur && activeHabits(d).includes(h)));
+  if (rowsH.length) {
+    html += card('La semaine en un coup d’œil', `<div class="matrix">
+        <div class="mrow head"><span></span>${DOW.map((l) => `<i>${l}</i>`).join('')}</div>
+        ${rowsH.map((h) => `<div class="mrow"><span>${esc(h.icon)} ${esc(h.title)}</span>${days.map((d) => {
+          const on = (S.habits[d] || {})[h.id];
+          const off = d > cur || !activeHabits(d).includes(h);
+          return `<i class="${off ? 'na' : on ? 'on' : 'miss'}"></i>`;
+        }).join('')}</div>`).join('')}
+      </div>`);
+  }
+
+  /* Courbe de progression */
+  let pts;
+  if (UI.chartMode === 'w') {
+    const m0 = mondayOf(cur);
+    pts = Array.from({ length: 12 }, (_, i) => {
+      const m = addDays(m0, -7 * (11 - i));
+      return { v: addDays(m, 6) < first ? null : habitRate(m, addDays(m, 6), first), label: i === 0 || i === 11 || i === 6 ? fmtDate(m, { day: 'numeric', month: 'short' }) : '' };
+    });
+  } else {
+    pts = Array.from({ length: 30 }, (_, i) => {
+      const d = addDays(cur, -(29 - i));
+      return { v: d < first ? null : habitRate(d, d, first), label: i === 0 || i === 29 || i === 15 ? fmtDate(d, { day: 'numeric', month: 'short' }) : '' };
+    });
+  }
+  const best = Math.max(habitBest(), streak);
+  html += card('Progression', `
+      <div class="seg"><button class="${UI.chartMode === 'w' ? 'on' : ''}" data-a="chartMode" data-id="w">12 semaines</button><button class="${UI.chartMode === 'd' ? 'on' : ''}" data-a="chartMode" data-id="d">30 jours</button></div>
+      ${lineChart(pts)}
+      <div class="stats3 flat">
+        <div><b>${pctTxt(habitRate(addDays(cur, -6), cur, first))}</b><small>7 derniers jours</small></div>
+        <div><b>${pctTxt(habitRate(addDays(cur, -29), cur, first))}</b><small>30 derniers jours</small></div>
+        <div><b>${best} j</b><small>record de jours parfaits</small></div>
+      </div>
+      <p class="hint">Part des habitudes cochées ${UI.chartMode === 'w' ? 'chaque semaine' : 'chaque jour'}, en %.</p>`);
   html += '<p class="hint center">La journée se termine à 05h00 : tu peux cocher ta routine après minuit.</p>';
   return html;
 }
 
-/* ---------- Onglet 4 : Finances ---------- */
+/* ---------- Onglet : Finances ---------- */
 
-function finTotals() {
-  const t = today();
-  const mon = mondayOf(t), sun = addDays(mon, 6);
-  const m0 = t.slice(0, 8) + '01';
-  const last = new Date(parseYmd(t).getFullYear(), parseYmd(t).getMonth() + 1, 0).getDate();
-  const m1 = t.slice(0, 8) + pad(last);
-  const sum = (type, a, b) => S.fin.entries.filter((e) => e.type === type && e.date >= a && e.date <= b).reduce((s, e) => s + e.amount, 0);
-  const subDate = (s) => t.slice(0, 8) + pad(Math.min(s.day, last));
-  const subsMonth = S.fin.subs.reduce((s, x) => s + x.amount, 0);
-  const subsWeek = S.fin.subs.filter((x) => subDate(x) >= mon && subDate(x) <= sun).reduce((s, x) => s + x.amount, 0);
-  return {
-    m0, m1, subDate, subsMonth, subsWeek,
-    week: { in: sum('in', mon, sun), out: sum('out', mon, sun) + subsWeek },
-    month: { in: sum('in', m0, m1), out: sum('out', m0, m1) + subsMonth },
-  };
+const curMonth = () => today().slice(0, 7);
+const monthLast = (ym) => { const [y, m] = ym.split('-').map(Number); return new Date(y, m, 0).getDate(); };
+const addMonths = (ym, n) => { const [y, m] = ym.split('-').map(Number); const d = new Date(y, m - 1 + n, 1); return `${d.getFullYear()}-${pad(d.getMonth() + 1)}`; };
+// Un abonnement compte à partir du mois où il a été créé, jusqu'au mois où il a été arrêté (exclu).
+const subActive = (s, ym) => (!s.from || s.from <= ym) && (!s.end || ym < s.end);
+const subDate = (s, ym) => ym + '-' + pad(Math.min(s.day, monthLast(ym)));
+
+// Totaux entre deux dates incluses (au plus deux mois à cheval), abonnements compris.
+function finRange(a, b) {
+  const r = { in: 0, out: 0, subs: 0 };
+  for (const e of S.fin.entries) if (e.date >= a && e.date <= b) r[e.type] += e.amount;
+  for (const ym of new Set([a.slice(0, 7), b.slice(0, 7)])) for (const s of S.fin.subs) {
+    const d = subDate(s, ym);
+    if (subActive(s, ym) && d >= a && d <= b) { r.out += s.amount; r.subs += s.amount; }
+  }
+  return r;
 }
 
 function viewFinance() {
   const t = today();
-  const T = finTotals();
+  const ym = UI.finMonth || curMonth();
+  const isCur = ym === curMonth();
+  const m0 = ym + '-01', m1 = ym + '-' + pad(monthLast(ym));
   const block = (label, sub, x) => {
     const bal = x.in - x.out;
     const max = Math.max(x.in, x.out, 1);
@@ -539,38 +652,51 @@ function viewFinance() {
       </div>
     </section>`;
   };
-  const mon = mondayOf(t);
-  let html = block('Cette semaine', `${fmtDate(mon, { day: 'numeric', month: 'short' })} → ${fmtDate(addDays(mon, 6), { day: 'numeric', month: 'short' })}`, T.week);
-  html += block(cap(parseYmd(t).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })), T.subsMonth ? `dont ${eur(T.subsMonth)} d’abonnements` : 'Mois en cours', T.month);
+  const monthName = cap(parseYmd(m0).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' }));
+  const M = finRange(m0, m1);
+  const prev = finRange(addMonths(ym, -1) + '-01', addMonths(ym, -1) + '-' + pad(monthLast(addMonths(ym, -1))));
+  const hasPrev = prev.in || prev.out;
+
+  let html = `<section class="card slim">${navBar('finMonth', monthName, isCur ? 'Mois en cours' : 'Historique', !isCur)}</section>`;
+  if (isCur) {
+    const mon = mondayOf(t);
+    html += block('Cette semaine', weekRange(mon), finRange(mon, addDays(mon, 6)));
+  }
+  html += block(isCur ? 'Ce mois-ci' : 'Bilan du mois', M.subs ? `dont ${eur(M.subs)} d’abonnements` : '', M);
+  if (hasPrev) html += `<p class="hint center">Mois précédent : ${eur(prev.in)} gagnés, ${eur(prev.out)} dépensés.</p>`;
 
   html += card('Ajouter', `<form class="stack" data-f="addEntry">
       <div class="seg"><button type="button" class="${UI.finType === 'out' ? 'on red' : ''}" data-a="finType" data-id="out">Dépense</button><button type="button" class="${UI.finType === 'in' ? 'on green' : ''}" data-a="finType" data-id="in">Revenu</button></div>
-      <div class="two"><input name="amount" inputmode="decimal" placeholder="Montant €" autocomplete="off"><input type="date" name="date" value="${t}"></div>
+      <div class="two"><input name="amount" inputmode="decimal" placeholder="Montant €" autocomplete="off"><input type="date" name="date" value="${isCur ? t : m1}"></div>
       <input name="label" placeholder="${UI.finType === 'out' ? 'Libellé (ex. Courses)' : 'Libellé (ex. Vente, salaire)'}" autocomplete="off" enterkeyhint="done">
       <button class="btn primary wide">Enregistrer ${UI.finType === 'out' ? 'la dépense' : 'le revenu'}</button>
     </form>`);
 
-  const moves = S.fin.entries.filter((e) => e.date >= T.m0 && e.date <= T.m1).map((e) => ({ ...e }))
-    .concat(S.fin.subs.map((s) => ({ id: '', type: 'out', amount: s.amount, label: s.label, date: T.subDate(s), sub: true })))
+  const moves = S.fin.entries.filter((e) => e.date >= m0 && e.date <= m1).map((e) => ({ ...e }))
+    .concat(S.fin.subs.filter((s) => subActive(s, ym)).map((s) => ({ id: '', type: 'out', amount: s.amount, label: s.label, date: subDate(s, ym), sub: true })))
     .sort((a, b) => b.date.localeCompare(a.date));
   html += card('Mouvements du mois', moves.length ? `<ul class="rows">${moves.map((e) => `<li>
       <div class="sign ${e.type}">${e.type === 'in' ? '+' : '−'}</div>
       <div class="what"><b>${esc(e.label || (e.type === 'in' ? 'Revenu' : 'Dépense'))}</b><small>${esc(fmtDate(e.date))}${e.sub ? ' · abonnement' : ''}</small></div>
       <b class="amt ${e.type}">${e.type === 'in' ? '+' : '−'}${eur(e.amount)}</b>
       ${e.sub ? '' : `<button class="ghost" data-a="delEntry" data-id="${e.id}" aria-label="Supprimer">${ICON.trash}</button>`}
-    </li>`).join('')}</ul>` : empty('Aucun mouvement ce mois-ci.'));
+    </li>`).join('')}</ul>` : empty(isCur ? 'Aucun mouvement ce mois-ci.' : 'Aucun mouvement enregistré ce mois-là.'), `<span class="count">${moves.length || ''}</span>`);
 
-  html += card('Abonnements mensuels', `${S.fin.subs.length ? `<ul class="rows">${S.fin.subs.map((s) => `<li>
-      <div class="datebox"><b>${s.day}</b><small>/ mois</small></div>
-      <div class="what"><b>${esc(s.label)}</b><small>Compté automatiquement chaque mois</small></div>
-      <b class="amt out">${eur(s.amount)}</b>
-      <button class="ghost" data-a="delSub" data-id="${s.id}" aria-label="Supprimer">${ICON.trash}</button>
-    </li>`).join('')}</ul>` : empty('Ajoute tes abonnements fixes (Spotify, salle, forfait…).')}
-    <form class="stack" data-f="addSub">
-      <input name="label" placeholder="Nom de l’abonnement" autocomplete="off">
-      <div class="two"><input name="amount" inputmode="decimal" placeholder="Montant € / mois" autocomplete="off"><input name="day" inputmode="numeric" placeholder="Jour de prélèvement (1-31)" autocomplete="off"></div>
-      <button class="btn wide">Ajouter l’abonnement</button>
-    </form>`, `<span class="count">${T.subsMonth ? eur(T.subsMonth) + ' / mois' : ''}</span>`);
+  if (isCur) {
+    const subs = S.fin.subs.filter((s) => subActive(s, ym));
+    const subsTotal = subs.reduce((x, s) => x + s.amount, 0);
+    html += card('Abonnements mensuels', `${subs.length ? `<ul class="rows">${subs.map((s) => `<li>
+        <div class="datebox"><b>${s.day}</b><small>/ mois</small></div>
+        <div class="what"><b>${esc(s.label)}</b><small>Compté automatiquement chaque mois</small></div>
+        <b class="amt out">${eur(s.amount)}</b>
+        <button class="ghost" data-a="delSub" data-id="${s.id}" aria-label="Arrêter">${ICON.trash}</button>
+      </li>`).join('')}</ul>` : empty('Ajoute tes abonnements fixes (Spotify, salle, forfait…).')}
+      <form class="stack" data-f="addSub">
+        <input name="label" placeholder="Nom de l’abonnement" autocomplete="off">
+        <div class="two"><input name="amount" inputmode="decimal" placeholder="Montant € / mois" autocomplete="off"><input name="day" inputmode="numeric" placeholder="Jour de prélèvement (1-31)" autocomplete="off"></div>
+        <button class="btn wide">Ajouter l’abonnement</button>
+      </form>`, `<span class="count">${subsTotal ? eur(subsTotal) + ' / mois' : ''}</span>`);
+  }
   return html;
 }
 
@@ -638,10 +764,10 @@ const ACTIONS = {
 
   toggleWorkout(k) {
     if (S.wk.done[k]) { delete S.wk.done[k]; return; }
-    S.wk.done[k] = Date.now();
+    const info = workoutList(S.cal.events).find((x) => x.key === k) || {};
+    S.wk.done[k] = { at: Date.now(), title: info.title || 'Séance', date: info.date || today() };
     // Une séance faite aujourd'hui coche aussi l'habitude « Sport ».
-    const w = workoutList(S.cal.events).find((x) => x.key === k);
-    if (w && w.date === today()) { const d = logicalDay(); (S.habits[d] = S.habits[d] || {}).sport = true; }
+    if (info.date === today() && S.habitList.some((h) => h.id === 'sport' && !h.end)) { const d = logicalDay(); (S.habits[d] = S.habits[d] || {}).sport = true; }
   },
   delWorkout(k) { S.wk.manual = S.wk.manual.filter((m) => 'm:' + m.id !== k); delete S.wk.done[k]; },
 
@@ -655,17 +781,38 @@ const ACTIONS = {
   },
   liUndo() { const { mon } = weekTarget(); S.li.history = S.li.history.filter((h) => h.week !== mon); },
 
-  habitDay(d) { UI.habitDay = d === logicalDay() ? null : d; },
+  habitDay(d) { UI.habitDay = d === habitDefaultDay() ? null : d; },
+  habitWeek(delta) { UI.habitWeek = Math.min(0, UI.habitWeek + Number(delta)); UI.habitDay = null; },
+  habitEdit() { UI.habitEdit = !UI.habitEdit; },
+  chartMode(id) { UI.chartMode = id; },
   toggleHabit(id) {
-    const d = UI.habitDay || logicalDay();
+    const d = habitSelDay();
     const st = (S.habits[d] = S.habits[d] || {});
     st[id] = !st[id];
-    if (habitCount(d) === HABITS.length) toast('Routine complète 👏');
+    if (st[id] && habitFull(d)) toast('Routine complète 👏');
   },
+  delHabit(id) {
+    const h = S.habitList.find((x) => x.id === id);
+    if (!h || !confirm(`Retirer l’habitude « ${h.title} » ?`)) return;
+    const cur = logicalDay();
+    // Créée aujourd'hui : on l'efface. Sinon on l'arrête à partir d'aujourd'hui pour garder l'historique.
+    if (h.from === cur) S.habitList = S.habitList.filter((x) => x.id !== id); else h.end = cur;
+    toast('Habitude retirée');
+  },
+
+  agendaDay(d) { UI.agendaDay = d === today() ? null : d; },
+  agendaWeek(delta) { const d = addDays(UI.agendaDay || today(), 7 * Number(delta)); UI.agendaDay = d === today() ? null : d; },
+  agendaToday() { UI.agendaDay = null; },
+  finMonth(delta) { const m = addMonths(UI.finMonth || curMonth(), Number(delta)); UI.finMonth = m >= curMonth() ? null : m; },
 
   finType(id) { UI.finType = id; },
   delEntry(id) { S.fin.entries = S.fin.entries.filter((e) => e.id !== id); },
-  delSub(id) { S.fin.subs = S.fin.subs.filter((e) => e.id !== id); },
+  delSub(id) {
+    const s = S.fin.subs.find((e) => e.id === id);
+    if (!s || !confirm(`Arrêter l’abonnement « ${s.label} » ?`)) return;
+    // Créé ce mois-ci : on l'efface. Sinon il reste compté dans les mois passés.
+    if (s.from === curMonth()) S.fin.subs = S.fin.subs.filter((e) => e.id !== id); else s.end = curMonth();
+  },
 
   export() {
     const blob = new Blob([JSON.stringify(S, null, 2)], { type: 'application/json' });
@@ -675,7 +822,8 @@ const ACTIONS = {
     setTimeout(() => URL.revokeObjectURL(a.href), 5000);
   },
 };
-const NO_RENDER = new Set(['refresh', 'settings', 'closeSheet', 'liCopy', 'export']);
+Object.assign(ACTIONS, EXTRA_ACTIONS);
+const NO_RENDER = new Set(['refresh', 'settings', 'closeSheet', 'liCopy', 'export', 'recap', 'recapWeek']);
 
 const FORMS = {
   addTask(f) {
@@ -701,7 +849,13 @@ const FORMS = {
     const amount = num(f.amount); const label = f.label.trim();
     if (!label || !amount) { toast('Nom et montant requis'); return false; }
     const day = Math.min(31, Math.max(1, parseInt(f.day, 10) || 1));
-    S.fin.subs.push({ id: uid(), label, amount, day });
+    S.fin.subs.push({ id: uid(), label, amount, day, from: curMonth() });
+  },
+  addHabit(f) {
+    const title = f.title.trim();
+    if (!title) { toast('Donne un nom à l’habitude'); return false; }
+    S.habitList.push({ id: uid(), icon: f.icon.trim() || '✅', title, desc: f.desc.trim(), from: logicalDay() });
+    toast('Habitude ajoutée');
   },
   saveSettings(f) {
     const changed = f.gcalUrl.trim() !== S.settings.gcalUrl;
@@ -712,9 +866,11 @@ const FORMS = {
   },
 };
 
+Object.assign(FORMS, EXTRA_FORMS);
+
 document.addEventListener('click', (ev) => {
   const tab = ev.target.closest('#tabs button');
-  if (tab) { UI.tab = tab.dataset.tab; UI.habitDay = null; render(); window.scrollTo(0, 0); return; }
+  if (tab) { UI.tab = tab.dataset.tab; UI.habitDay = null; UI.habitWeek = 0; UI.habitEdit = false; render(); window.scrollTo(0, 0); return; }
   if (ev.target.closest('#splash')) { hideSplash(); return; }
   const el = ev.target.closest('[data-a]');
   if (!el) return;
@@ -744,6 +900,8 @@ document.addEventListener('submit', (ev) => {
 });
 
 document.addEventListener('change', (ev) => {
+  const c = ev.target.dataset && ev.target.dataset.c;
+  if (c && EXTRA_CHANGES[c]) { EXTRA_CHANGES[c](ev.target.dataset.id, ev.target.value); save(); render(); return; }
   if (ev.target.id !== 'importFile' || !ev.target.files[0]) return;
   const reader = new FileReader();
   reader.onload = () => {
@@ -768,15 +926,21 @@ let hiddenAt = 0;
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) { hiddenAt = Date.now(); return; }
   const away = Date.now() - hiddenAt;
+  if (pomoSync()) { save(); render(true); }  // le minuteur a pu se terminer pendant l'absence
+  if (S.pomo.running) keepAwake(true);
   if (away > 20000) showSplash();   // l'app est rouverte : on réaffiche l'échéance épinglée
   if (away > 5000) refresh();       // et on actualise
+  maybeSundayRecap();
 });
 
 cleanup();
+if (pomoSync()) save();
 render();
 showSplash();
 refresh();
 scheduleDailyRefresh();
+maybeSundayRecap();
+setInterval(pomoTick, 500);
 
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
   navigator.serviceWorker.register('sw.js').catch(() => {});

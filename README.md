@@ -42,23 +42,39 @@ Cette URL permet de lire ton agenda : ne la partage pas. Le script ne fait que l
 
 ## Comment ça marche
 
-**Actualisation.** L'app s'actualise à chaque ouverture, à chaque retour au premier plan et avec le bouton **Actualiser**. Si elle est ouverte à 05h00, elle s'actualise aussi à ce moment-là. iOS n'autorise pas une web app à tourner en arrière-plan : quand l'app est fermée à 05h00, le rattrapage se fait à l'ouverture suivante, ce qui revient au même à l'écran. La journée des habitudes change à 05h00.
+**Actualisation.** L'app s'actualise à chaque ouverture, à chaque retour au premier plan et avec le bouton **Actualiser**. Si elle est ouverte à 05h00, elle s'actualise aussi à ce moment-là. iOS n'autorise pas une web app à tourner en arrière-plan : quand l'app est fermée à 05h00, le rattrapage se fait à l'ouverture suivante. La journée des habitudes et du travail change à 05h00.
+
+**Agenda.** L'accueil affiche le programme du jour ; les flèches changent de semaine et un toucher sur un jour l'affiche. Le script fournit 60 jours en arrière et 180 jours en avant.
 
 **Échéances.** Ce sont les événements **rouges** de ton agenda : couleur « Tomate » sur l'événement, ou événement sans couleur propre dans un agenda rouge. Seuls les agendas cochés dans Google Agenda sont lus.
 
-**Épinglage.** L'icône 📌 d'une échéance ou d'une tâche l'épingle. À chaque ouverture, l'élément épinglé le plus proche s'affiche en très grand pendant 2 secondes (les autres sont listés en dessous). Un toucher ferme l'écran plus tôt. L'épingle disparaît quand la date est passée ou la tâche terminée.
+**Épinglage.** L'icône 📌 d'une échéance, d'une tâche ou d'une candidature l'épingle. À chaque ouverture, l'élément épinglé le plus proche s'affiche en très grand pendant 2 secondes. Un toucher ferme l'écran plus tôt.
 
-**Sport.** Une séance est un événement de l'agenda dont le titre contient un des mots-clés réglables dans ⚙︎ (muscu, footing, run…). Tu peux aussi en ajouter une à la main. Cocher la séance du jour coche aussi l'habitude « Sport ».
+**Sport.** Une séance est un événement de l'agenda dont le titre contient un des mots-clés réglables dans ⚙︎. Tu peux aussi en ajouter une à la main. Cocher la séance du jour coche aussi l'habitude « Sport ».
 
-**LinkedIn.** Une nouvelle cible chaque lundi parmi 48 profils (entrepreneuriat, commerce, management, business), avec la recherche LinkedIn correspondante et deux messages : une note d'invitation de moins de 200 caractères (limite des comptes gratuits) et un message complet.
+**Travail.** La série 🔥 compte les jours de travail d'affilée : un jour est validé par une session Pomodoro terminée ou par le bouton « J'ai travaillé aujourd'hui ». Le sablier ⏳ signale une série qui s'éteindra le soir même. Le Pomodoro enchaîne 25 minutes de travail puis 5 minutes de pause, avec un signal sonore et visuel à la fin. Garde l'app ouverte pendant la session : iOS ne laisse pas une web app sonner en arrière-plan, mais la session est bien comptée au retour.
 
-**Finances.** Les totaux portent sur la semaine en cours (lundi à dimanche) et le mois en cours. Les abonnements sont comptés chaque mois, et dans la semaine où tombe leur jour de prélèvement.
+**Habitudes.** « Ajouter ou retirer des habitudes » ouvre la gestion de la liste. Une habitude retirée reste dans l'historique. Les flèches remontent les semaines passées, et la courbe montre le taux de réussite sur 12 semaines ou 30 jours.
+
+**Candidatures.** Chaque candidature a un type, une date limite et un statut (À faire, En cours, Envoyée, Entretien, Acceptée, Refusée). La liste « À préparer » est triée par date limite.
+
+**LinkedIn.** Une nouvelle cible chaque lundi parmi 48 profils, avec la recherche LinkedIn correspondante et deux messages : une note d'invitation de moins de 200 caractères et un message complet.
+
+**Finances.** Les totaux portent sur la semaine en cours et sur le mois affiché ; les flèches remontent les mois précédents. Un abonnement compte à partir du mois où il est ajouté ; arrêté, il reste dans les mois passés.
+
+**Récap de la semaine.** Le dimanche, le bilan s'ouvre tout seul à la première ouverture et reste accessible depuis l'accueil. Les autres jours, un lien en bas de l'accueil ouvre celui de la semaine précédente.
 
 **Sauvegarde.** Les données vivent uniquement sur l'iPhone. ⚙︎ **Réglages › Exporter** crée un fichier de sauvegarde, **Importer** le restaure. Supprimer l'app de l'écran d'accueil efface ses données.
 
+## Mettre l'app à jour
+
+Renvoie tous les fichiers du dossier sur GitHub (page **Add file › Upload files** du dépôt), puis **Commit changes**. L'app installée récupère la nouvelle version à l'ouverture suivante, sans perdre tes données.
+
+Pour une mise à jour du script Google : colle le nouveau `Code.gs`, puis **Déployer › Gérer les déploiements › Modifier › Version : Nouvelle version › Déployer**. L'URL ne change pas.
+
 ## Fichiers
 
-- `index.html`, `styles.css`, `app.js` : l'app
+- `index.html`, `styles.css`, `app.js`, `extra.js` : l'app
 - `targets.js` : la liste des cibles LinkedIn (modifiable)
 - `sw.js`, `manifest.webmanifest`, `icon-180.png`, `icon-512.png` : installation et mode hors ligne
 - `google-apps-script/Code.gs` : le script à coller dans Google Apps Script
