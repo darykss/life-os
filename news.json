@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-14T00:14:26.387668+00:00",
+ "generatedAt": "2026-11-14T00:48:59.066918+00:00",
  "sections": [
   {
    "id": "une",
@@ -179,6 +179,20 @@
    "title": "Monde",
    "items": [
     {
+     "title": "Un navire-citerne percute un bateau de croisière à La Nouvelle-Orléans, aucun blessé grave",
+     "desc": "Douze personnes ont été sorties de l’eau et 32 autres ont été transportées à l’hôpital. La collision a eu lieu alors que le bateau de la compagnie American Cruise Lines était amarré à quai, sur le Mississippi, avec ses…",
+     "link": "https://www.lemonde.fr/international/article/2026/11/14/un-navire-citerne-percute-un-bateau-de-croisiere-a-la-nouvelle-orleans-aucun-blesse-grave_6809455_3210.html",
+     "source": "Le Monde",
+     "date": "2026-11-14T00:35:34+00:00"
+    },
+    {
+     "title": "Après la Finlande et la Norvège, la Suède veut à son tour empêcher les athlètes russes de concourir sur son sol",
+     "desc": "Stockholm souhaite présenter prochainement une « solution consistant à refuser l’entrée de son territoire aux athlètes russes », a annoncé le ministre des affaires sociales et de la santé publique, Jakob Forssmed. La…",
+     "link": "https://www.lemonde.fr/sport/article/2026/11/14/apres-la-finlande-et-la-norvege-la-suede-veut-a-son-tour-empecher-les-athletes-russes-de-concourir-sur-son-sol_6809422_3242.html",
+     "source": "Le Monde",
+     "date": "2026-11-14T00:21:48+00:00"
+    },
+    {
      "title": "Aux Etats-Unis, l'administration fédérale de l'aviation ordonne l'arrêt de tous les vols à cause d'un \"problème de communication\"",
      "desc": "Le ministre américain des Transports, Sean Duffy, a expliqué vendredi que des techniciens \"enquêtent\" actuellement \"sur le problème\".",
      "link": "https://www.franceinfo.fr/monde/usa/aux-etats-unis-l-administration-federale-de-l-aviation-ordonne-l-arret-de-tous-les-vols-a-cause-d-un-probleme-de-communication_8281691.html#xtor=RSS-3-%5Bmonde%5D",
@@ -240,20 +254,6 @@
      "link": "https://www.franceinfo.fr/monde/usa/menace-nucleaire-catastrophes-naturelles-intrusions-quand-les-americains-se-bunkerisent_8281655.html#xtor=RSS-3-%5Bmonde%5D",
      "source": "franceinfo",
      "date": "2026-11-13T20:42:12+00:00"
-    },
-    {
-     "title": "EN DIRECT, guerre en Ukraine : la France, l’Allemagne, le Royaume-Uni, l’Italie et la Pologne représenteront les Européens lors des prochains pourparlers sur l’Ukraine",
-     "desc": "« L’Europe doit parler d’une voix claire et unie dans toutes les discussions qui façonnent l’avenir de l’Ukraine et la sécurité de notre continent », a déclaré Antonio Costa, le président du Conseil européen.",
-     "link": "https://www.lemonde.fr/international/live/2026/11/13/en-direct-guerre-en-ukraine-la-france-l-allemagne-le-royaume-uni-l-italie-et-la-pologne-representeront-les-europeens-lors-des-prochains-pourparlers-sur-l-ukraine_6808609_3210.html",
-     "source": "Le Monde",
-     "date": "2026-11-13T19:35:30+00:00"
-    },
-    {
-     "title": "Au Pérou, le pape Léon XIV, de retour dans son ancien diocèse, acclamé par une foule gigantesque de fidèles",
-     "desc": "Le Vatican a estimé qu’un million de personnes s’étaient massées le long du parcours emprunté par le cortège du pape pour se rendre à l’office auquel 500 000 fidèles auraient assisté.",
-     "link": "https://www.lemonde.fr/international/article/2026/11/13/au-perou-le-pape-leon-xiv-de-retour-dans-son-ancien-diocese-acclame-par-une-foule-gigantesque-de-fideles_6809380_3210.html",
-     "source": "Le Monde",
-     "date": "2026-11-13T19:00:10+00:00"
     }
    ]
   },
@@ -266,7 +266,7 @@
      "desc": "L'ancienne patronne du circuit WTA a été battue en trois manches, vendredi soir à Indian Wells, par l'Ukrainienne Elina Svitolina, 6e mondiale.",
      "link": "https://www.franceinfo.fr/sports/tennis/masters/la-numero-2-mondiale-aryna-sabalenka-prend-la-porte-des-la-phase-de-groupes-du-masters-wta-apres-sa-defaite-face-a-elina-svitolina_8281739.html#xtor=RSS-3-%5Bsports%5D",
      "source": "franceinfo",
-     "date": "2026-11-14T00:01:08+00:00"
+     "date": "2026-11-14T00:20:23+00:00"
     },
     {
      "title": "Héroïque, le XV de France s’offre l'Afrique du Sud double championne du monde en titre pour la première fois depuis 2022",
