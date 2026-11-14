@@ -81,13 +81,13 @@ function bindSwipe() {
 }
 
 /* ============================================================
-   Écran de lancement : citation du jour, puis échéances épinglées.
+   Écran de lancement, à chaque ouverture : citation du jour, puis échéances épinglées.
    Un toucher fait passer à l'élément suivant.
    ============================================================ */
 
 function showSplash() {
   const q = [];
-  if (S.quoteSeen !== today()) q.push({ type: 'quote', ...quoteOfDay(today()) });
+  q.push({ type: 'quote', ...quoteOfDay(today()) });   // à chaque ouverture ; la citation change chaque jour
   for (const p of pinnedItems()) q.push({ type: 'pin', ...p });
   UI.queue = q; UI.qi = 0;
   if (!q.length) { $('#splash').hidden = true; return; }
@@ -99,7 +99,6 @@ function paintSplash() {
   const n = UI.queue.length;
   const foot = `<div class="splash-foot">${n > 1 ? `<div class="splash-dots">${UI.queue.map((_, i) => `<i class="${i === UI.qi ? 'on' : ''}"></i>`).join('')}</div>` : ''}<span>Touche l’écran pour ${UI.qi < n - 1 ? 'continuer' : 'entrer'}</span></div>`;
   if (item.type === 'quote') {
-    S.quoteSeen = today(); save();
     const len = item.text.length;
     el.className = 'splash quote';
     el.innerHTML = `<div class="quote-bg"></div><div class="splash-in">

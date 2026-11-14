@@ -66,7 +66,7 @@ Cette URL permet de lire ton agenda : ne la partage pas. Le script ne fait que l
 
 **Sauvegarde.** Les données vivent uniquement sur l'iPhone. ⚙︎ **Réglages › Exporter** crée un fichier de sauvegarde, **Importer** le restaure. Supprimer l'app de l'écran d'accueil efface ses données.
 
-**Écran de lancement.** À la première ouverture du jour, une citation s'affiche sur l'image `quote-bg.jpg`, puis les échéances épinglées, de la plus proche à la plus lointaine. Un toucher passe à la suivante.
+**Écran de lancement.** À chaque ouverture, la citation du jour s'affiche sur l'image `quote-bg.jpg`, puis les échéances épinglées, de la plus proche à la plus lointaine. Un toucher passe à la suivante.
 
 **Navigation.** Glisser le doigt à gauche ou à droite change d'onglet ; la barre du bas défile. Dans l'onglet Séances, le glissement appartient à l'app intégrée : on en sort par la barre du bas.
 
