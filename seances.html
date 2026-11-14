@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- App « Suivi muscu » de raph4L-hypen (github.com/raph4L-hypen/suivi-muscu), reprise avec son accord.
+       Seul le pont de stockage ci-dessous a été ajouté : les données restent sur l'appareil. -->
+  <base target="_top">
+  <meta charset="utf-8">
+  <title>Séances de sport</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+  :root {
+    --sport-bg: #08090b;
+    --sport-card: rgba(24, 27, 32, .62);
+    --sport-card2: rgba(255, 255, 255, .06);
+    --sport-line: rgba(255, 255, 255, .07);
+    --sport-text: #f3f5f4;
+    --sport-mute: #8d968f;
+    --sport-accent: #39ff8e;
+    --sport-accent-dim: rgba(57, 255, 142, .13);
+    --sport-glow: 0 0 18px rgba(57, 255, 142, .55), 0 0 2px rgba(57, 255, 142, .9);
+    --sport-red: #ff4d4f;
+    --sport-red-dim: rgba(255, 77, 79, .15);
+    --sport-amber: #f5b83d;
+    --sport-blue: #4da3ff;
+    --sport-blue-dim: rgba(77, 163, 255, .15);
+    --sport-radius: 16px;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; height: 100%; background: var(--sport-bg); color: var(--sport-text);
+    font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; overscroll-behavior: none;
+    -webkit-font-smoothing: antialiased; }
+  body { overflow: hidden; }
+  button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer; }
+  input, select, textarea { font: inherit; color: var(--sport-text); background: var(--sport-card2);
+    border: 1px solid var(--sport-line); border-radius: 10px; padding: 10px 12px; width: 100%; }
+  input:focus, select:focus, textarea:focus { outline: 2px solid var(--sport-accent); border-color: transparent; }
+  .hidden { display: none !important; }
+
+  /* ---------- Pager (3 écrans à faire glisser) ---------- */
+  #sport-pager { position: fixed; inset: 0; z-index: 2; overflow: hidden;
+    transition: transform .45s cubic-bezier(.2, .8, .2, 1), filter .45s; transform-origin: 50% 40%; }
+  .sport-page { position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden; touch-action: pan-y;
+    padding: 18px 16px 110px; -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
+    will-change: transform; transform-origin: 50% 50%; backface-visibility: hidden; background: rgba(7, 8, 10, .45); }
+  /* page qui arrive : plus sombre, avec une ombre sur son bord gauche */
+  .sport-page.incoming { background: rgba(7, 8, 10, .9); box-shadow: -26px 0 44px rgba(0,0,0,.8), -1px 0 0 rgba(57,255,142,.22); }
+  body.sheet-open #sport-pager { transform: scale(.93) translateX(-4%); filter: brightness(.45) blur(1px); }
+
+  /* Fond : photo de salle floutée + logo */
+  #sport-bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; background: #050607; }
+  #sport-bgphoto { position: absolute; inset: -40px; background-size: cover; background-position: center;
+    filter: blur(16px) grayscale(.6) brightness(.38) contrast(1.1); transform: scale(1.08); opacity: 0; transition: opacity 1.2s; }
+  #sport-bgphoto.ok { opacity: 1; }
+  #sport-bgshade { position: absolute; inset: 0;
+    background: radial-gradient(120% 70% at 50% 0%, rgba(57,255,142,.10), transparent 55%),
+                radial-gradient(90% 60% at 50% 110%, rgba(57,255,142,.08), transparent 60%),
+                linear-gradient(180deg, rgba(8,9,11,.35), rgba(8,9,11,.85)); }
+  #sport-bglogo { position: absolute; left: 50%; top: 46%; width: 118vw; max-width: 620px; aspect-ratio: 1;
+    transform: translate(-50%, -50%) rotate(-18deg); opacity: .10; transition: opacity .2s linear; filter: drop-shadow(0 0 30px rgba(57,255,142,.35)); }
+  #sport-bglogo svg { width: 100%; height: 100%; }
+
+  /* Barre de navigation : icônes lumineuses */
+  #sport-tabs { position: fixed; z-index: 30; left: 14px; right: 14px; bottom: calc(12px + env(safe-area-inset-bottom)); height: 64px;
+    display: flex; border-radius: 22px; background: rgba(16, 18, 22, .72); border: 1px solid rgba(255,255,255,.07);
+    backdrop-filter: blur(22px) saturate(1.4); -webkit-backdrop-filter: blur(22px) saturate(1.4);
+    box-shadow: 0 14px 40px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.05); }
+  #sport-tabs button { position: relative; z-index: 1; flex: 1; display: flex; align-items: center; justify-content: center; color: #6f7872; }
+  #sport-tabs svg { width: 27px; height: 27px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: all .3s; }
+  #sport-tabs svg .fill { fill: currentColor; stroke: none; }
+  #sport-tabs button.on { color: var(--sport-accent); }
+  #sport-tabs button.on svg { filter: drop-shadow(0 0 6px rgba(57,255,142,.9)) drop-shadow(0 0 14px rgba(57,255,142,.5)); transform: translateY(-1px) scale(1.08); }
+  #sport-tabglow { position: absolute; bottom: 7px; left: 0; width: 33.33%; height: 3px; display: flex; justify-content: center; pointer-events: none;
+    transition: transform .35s cubic-bezier(.2, .8, .2, 1); }
+  #sport-tabglow::after { content: ""; width: 22px; height: 3px; border-radius: 3px; background: var(--sport-accent); box-shadow: var(--sport-glow); }
+
+  /* ---------- Éléments communs ---------- */
+  h1 { font-size: 26px; margin: 4px 0 2px; letter-spacing: -.5px; }
+  h2 { font-size: 18px; margin: 22px 0 10px; }
+  h3 { font-size: 16px; margin: 0 0 8px; }
+  .sport-sub { color: var(--sport-mute); font-size: 14px; margin: 0 0 14px; }
+  .sport-card { background: var(--sport-card); border-radius: var(--sport-radius); padding: 14px; margin-bottom: 12px; }
+  .sport-row { display: flex; align-items: center; gap: 8px; }
+  .sport-between { justify-content: space-between; }
+  .sport-wrap { flex-wrap: wrap; }
+  .sport-chip { display: inline-block; padding: 4px 10px; border-radius: 999px; background: var(--sport-card2);
+    color: var(--sport-mute); font-size: 12px; font-weight: 600; margin: 0 6px 6px 0; }
+  .sport-chip.on { background: var(--sport-accent-dim); color: var(--sport-accent); }
+  .sport-chip.red { background: var(--sport-red-dim); color: var(--sport-red); }
+  .sport-badge { font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 8px; background: var(--sport-card2); color: var(--sport-mute); }
+  .up { color: var(--sport-accent); } .down { color: var(--sport-red); } .flat { color: var(--sport-mute); }
+  .sport-btn { display: block; width: 100%; padding: 15px; border-radius: 14px; font-weight: 700; font-size: 16px;
+    background: var(--sport-card2); text-align: center; }
+  .sport-btn.primary { background: var(--sport-accent); color: #04140a; }
+  .sport-btn.danger { background: var(--sport-red-dim); color: var(--sport-red); }
+  .sport-btn.small { padding: 10px; font-size: 14px; }
+  .sport-big { font-size: 28px; font-weight: 800; letter-spacing: -.5px; }
+  .sport-mute { color: var(--sport-mute); font-size: 13px; }
+  label.sport-lbl { display: block; color: var(--sport-mute); font-size: 13px; margin: 12px 0 6px; }
+
+  /* ---------- Accueil ---------- */
+  .sport-chart { width: 100%; height: auto; display: block; }
+  .sport-seance { display: block; width: 100%; text-align: left; }
+  .sport-seance .t { font-weight: 700; font-size: 17px; }
+  .sport-note { min-width: 44px; text-align: center; font-weight: 800; font-size: 15px; padding: 6px 8px; border-radius: 10px; }
+  .n-good { background: var(--sport-accent-dim); color: var(--sport-accent); }
+  .n-mid { background: rgba(245, 184, 61, .15); color: var(--sport-amber); }
+  .n-bad { background: var(--sport-red-dim); color: var(--sport-red); }
+  .sport-empty { text-align: center; color: var(--sport-mute); padding: 30px 10px; }
+
+  /* Ma semaine (agenda) */
+  .sport-wkhead { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .sport-wkhead button.arrow { width: 38px; height: 38px; border-radius: 10px; background: var(--sport-card2); font-size: 20px; font-weight: 700; color: var(--sport-accent); }
+  .sport-week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .sport-day { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 0 7px; border-radius: 12px; background: var(--sport-card2); border: 2px solid transparent; }
+  .sport-day .dn { font-size: 11px; color: var(--sport-mute); text-transform: capitalize; }
+  .sport-day .dd { font-size: 17px; font-weight: 800; }
+  .sport-day .lab { font-size: 9.5px; font-weight: 700; letter-spacing: -.2px; }
+  .sport-day.today { border-color: var(--sport-text); }
+  .sport-day.sel { background: #2a303b; }
+  .sport-day.t-seance { background: var(--sport-accent-dim); } .sport-day.t-seance .lab { color: var(--sport-accent); }
+  .sport-day.t-sport { background: var(--sport-blue-dim); } .sport-day.t-sport .lab { color: var(--sport-blue); }
+  .sport-day.t-repos .lab { color: var(--sport-mute); }
+  .sport-day.sel.t-seance { background: rgba(47, 215, 122, .3); } .sport-day.sel.t-sport { background: rgba(77, 163, 255, .3); }
+  .sport-daydetail { margin-top: 10px; font-size: 14px; }
+  .sport-ev { display: flex; gap: 10px; align-items: baseline; padding: 6px 0; border-top: 1px solid var(--sport-line); }
+  .sport-ev .h { color: var(--sport-mute); font-size: 12px; min-width: 78px; font-variant-numeric: tabular-nums; }
+  .sport-ev.seance b { color: var(--sport-accent); } .sport-ev.sport b { color: var(--sport-blue); }
+
+  /* ---------- Overlays ---------- */
+  .sport-overlay { position: fixed; inset: 0; background: var(--sport-bg); z-index: 40; overflow-y: auto;
+    padding: 16px 16px 40px; animation: sportIn .22s ease-out; }
+  @keyframes sportIn { from { transform: translateY(16px); opacity: 0; } to { transform: none; opacity: 1; } }
+  .sport-back { font-size: 15px; color: var(--sport-accent); font-weight: 600; padding: 6px 0; }
+
+  /* Tableau UA */
+  table.sport-ua { width: 100%; border-collapse: collapse; font-size: 15px; }
+  table.sport-ua th { color: var(--sport-mute); font-weight: 600; font-size: 12px; text-align: center; padding: 6px 2px; }
+  table.sport-ua td { text-align: center; padding: 6px 2px; border-top: 1px solid var(--sport-line); }
+  table.sport-ua tr.total td { font-weight: 800; border-top: 2px solid var(--sport-line); }
+  table.sport-ua tr.cur td { background: var(--sport-accent-dim); }
+  table.sport-ua tr.cur td:first-child { color: var(--sport-accent); font-weight: 800; }
+  table.sport-ua tr.past td:first-child { color: var(--sport-accent); }
+  .sport-step { display: inline-flex; align-items: center; background: var(--sport-card2); border-radius: 10px; }
+  .sport-step button { width: 34px; height: 40px; font-size: 20px; font-weight: 700; color: var(--sport-accent); }
+  .sport-step input { width: 52px; padding: 8px 0; text-align: center; border: 0; background: transparent; font-weight: 700; font-size: 16px; }
+  .sport-step input:focus { outline: none; }
+
+  /* ---------- Démarrer ---------- */
+  .sport-go-wrap { display: flex; flex-direction: column; align-items: center; padding-top: 6vh; }
+  .sport-go { width: 62vw; height: 62vw; max-width: 260px; max-height: 260px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #5cf09c, var(--sport-accent) 60%, #17a659);
+    color: #04140a; font-size: 64px; font-weight: 900; letter-spacing: 2px;
+    box-shadow: 0 0 0 10px var(--sport-accent-dim), 0 18px 50px rgba(47, 215, 122, .35); }
+  .sport-go:active { transform: scale(.96); }
+  .sport-today { text-align: center; margin: 26px 0 18px; }
+  .sport-choose { padding: 12px 22px; border-radius: 999px; background: var(--sport-card2); font-weight: 600; font-size: 15px; }
+
+  /* ---------- Séance en cours ---------- */
+  #sport-run { padding-top: 64px; z-index: 50; }
+  #sport-clock { position: fixed; left: 50%; top: 14px; transform: translateX(-50%); z-index: 60;
+    font-size: 26px; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: 1px;
+    transition: top .8s cubic-bezier(.2, .8, .2, 1), font-size .8s cubic-bezier(.2, .8, .2, 1); pointer-events: none; }
+  #sport-clock.intro { top: 34%; font-size: 26vw; }
+  #sport-clock.paused { color: var(--sport-amber); }
+  .sport-runbar { position: fixed; top: 0; left: 0; right: 0; height: 58px; display: flex; align-items: center;
+    justify-content: space-between; padding: 0 14px; background: var(--sport-bg); z-index: 55; border-bottom: 1px solid var(--sport-line); }
+  .sport-pausebtn { width: 40px; height: 40px; border-radius: 50%; background: var(--sport-red); color: #fff; font-size: 14px; font-weight: 900; }
+  .sport-runbody { transition: opacity .4s; }
+  .sport-runbody.wait { opacity: 0; }
+  .sport-visual { display: flex; gap: 10px; align-items: center; justify-content: center; background: var(--sport-card); border-radius: var(--sport-radius); padding: 10px; }
+  .sport-visual img { max-width: 45%; max-height: 150px; border-radius: 10px; object-fit: contain; background: #fff; }
+  .sport-bodymap { flex: 1 1 auto; width: 100%; max-width: 300px; min-width: 200px; height: auto; }
+  .sport-gauge { height: 10px; border-radius: 6px; background: var(--sport-card2); overflow: hidden; margin-top: 8px; }
+  .sport-gauge div { height: 100%; background: var(--sport-accent); transition: width .3s; }
+  .sport-rest { text-align: center; padding: 10px 0 4px; }
+  .sport-rest .cd { font-size: 22vw; font-weight: 900; font-variant-numeric: tabular-nums; line-height: 1; }
+  .sport-rest .cd.over { color: var(--sport-red); }
+  .sport-fixedcta { position: sticky; bottom: 0; padding: 12px 0 4px; background: linear-gradient(transparent, var(--sport-bg) 30%); }
+  .sport-finish { font-size: 22px; padding: 18px; }
+  .sport-pause-ov { position: fixed; inset: 0; background: rgba(8, 9, 12, .94); z-index: 58; display: flex;
+    flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 30px; }
+  .sport-seg { display: flex; background: var(--sport-card2); border-radius: 12px; padding: 4px; }
+  .sport-seg button { flex: 1; padding: 10px; border-radius: 9px; font-weight: 600; color: var(--sport-mute); }
+  .sport-seg button.on { background: var(--sport-accent); color: #04140a; }
+  input[type=range] { padding: 0; accent-color: var(--sport-accent); border: 0; background: transparent; }
+
+  /* Toast + chargement */
+  #sport-toast { position: fixed; left: 50%; bottom: 96px; transform: translateX(-50%) translateY(20px); opacity: 0;
+    background: #2a2f3a; padding: 10px 16px; border-radius: 12px; font-size: 14px; z-index: 99; transition: all .25s; pointer-events: none; max-width: 90vw; }
+  #sport-toast.show { opacity: 1; transform: translateX(-50%); }
+  #sport-toast.err { background: var(--sport-red); }
+  #sport-loading { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 98; background: var(--sport-bg); color: var(--sport-mute); }
+  .sport-spinner { width: 36px; height: 36px; border: 3px solid var(--sport-line); border-top-color: var(--sport-accent); border-radius: 50%; animation: sportSpin .8s linear infinite; }
+  @keyframes sportSpin { to { transform: rotate(360deg); } }
+  .sport-exrow { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; }
+  .sport-mini { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 8px; }
+  .sport-mini label { font-size: 11px; color: var(--sport-mute); display: block; margin-bottom: 3px; }
+  .sport-mini input { padding: 8px; text-align: center; }
+  .sport-icons button { width: 34px; height: 34px; border-radius: 8px; background: var(--sport-card2); font-size: 14px; }
+
+  /* =================== THÈME PREMIUM (verre, néon, profondeur) =================== */
+  h1 { font-weight: 800; letter-spacing: -.8px; }
+  h2 { font-weight: 800; letter-spacing: -.3px; color: #e9ece9; }
+  .sport-card { background: rgba(22, 25, 30, .8); border: 1px solid rgba(255,255,255,.06);
+    box-shadow: 0 10px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.05); border-radius: 20px; }
+  input, select, textarea { background: rgba(0,0,0,.35); border-color: rgba(255,255,255,.08); }
+  .sport-chip.on { box-shadow: inset 0 0 0 1px rgba(57,255,142,.35); }
+  .sport-btn.primary { background: linear-gradient(180deg, #5cffa6, #2fe07c); color: #03150a;
+    box-shadow: 0 0 0 1px rgba(57,255,142,.5), 0 8px 26px rgba(57,255,142,.35), inset 0 1px 0 rgba(255,255,255,.5); }
+  .sport-gauge div { box-shadow: var(--sport-glow); }
+  .up { text-shadow: 0 0 10px rgba(57,255,142,.45); }
+
+  /* Effet "bouton qui s'enfonce" sur tout ce qui se touche */
+  button, .sport-seance, .sport-day, .sport-step button { transition: transform .14s cubic-bezier(.3, .7, .4, 1), box-shadow .14s, filter .14s, background .2s; }
+  button:active:not(:disabled) { transform: scale(.955) translateY(1px); filter: brightness(.92); }
+  button.sport-card:active { transform: scale(.975) translateY(2px);
+    box-shadow: 0 3px 10px rgba(0,0,0,.5), inset 0 2px 8px rgba(0,0,0,.45); }
+  .sport-go:active { transform: scale(.94) !important; box-shadow: 0 0 0 6px var(--sport-accent-dim), 0 6px 20px rgba(57,255,142,.3), inset 0 6px 16px rgba(0,0,0,.25) !important; }
+  #sport-tabs button:active { transform: scale(.88); }
+
+  /* Cartes de séance avec visuel réel */
+  .sport-seance { display: grid !important; grid-template-columns: 1fr auto; gap: 12px; align-items: center; }
+  .sport-thumb { width: 74px; height: 74px; border-radius: 16px; background: #fff center/cover no-repeat;
+    box-shadow: 0 6px 16px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.08); overflow: hidden; }
+  .sport-thumb.ph { background: radial-gradient(circle at 30% 30%, rgba(57,255,142,.35), rgba(57,255,142,.05) 70%); display: flex; align-items: center; justify-content: center; }
+  .sport-thumb.ph svg { width: 60%; height: 60%; }
+  .sport-seance .t { font-size: 18px; font-weight: 800; letter-spacing: -.3px; }
+  .sport-strip { display: flex; gap: 6px; margin-top: 10px; }
+  .sport-strip span { width: 44px; height: 44px; border-radius: 11px; background: #fff center/cover no-repeat; box-shadow: 0 0 0 1px rgba(255,255,255,.08); }
+
+  /* Panneaux qui glissent depuis le bord droit, plus sombres, par-dessus l'accueil */
+  .sport-overlay { background: rgba(9, 10, 12, .9); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    box-shadow: -30px 0 60px rgba(0,0,0,.8), -1px 0 0 rgba(57,255,142,.2); animation: sportSlide .42s cubic-bezier(.2, .85, .2, 1); padding-bottom: 60px; }
+  .sport-overlay.closing { animation: sportSlideOut .3s cubic-bezier(.4, 0, .8, .4) forwards; }
+  @keyframes sportSlide { from { transform: translateX(100%); } to { transform: none; } }
+  @keyframes sportSlideOut { to { transform: translateX(100%); } }
+  #sport-run { background: rgba(6, 7, 8, .93); }
+
+  /* Page Séance : GO néon devant le logo */
+  .sport-go { position: relative; background: radial-gradient(circle at 35% 28%, #8dffbf, #39ff8e 45%, #12b85a 100%);
+    color: #021208; font-weight: 900; letter-spacing: 4px;
+    box-shadow: 0 0 0 10px rgba(57,255,142,.10), 0 0 0 1px rgba(57,255,142,.6), 0 0 60px rgba(57,255,142,.55), inset 0 -10px 24px rgba(0,0,0,.25), inset 0 6px 14px rgba(255,255,255,.45);
+    animation: sportPulse 2.6s ease-in-out infinite; }
+  @keyframes sportPulse { 50% { box-shadow: 0 0 0 16px rgba(57,255,142,.05), 0 0 0 1px rgba(57,255,142,.6), 0 0 90px rgba(57,255,142,.7), inset 0 -10px 24px rgba(0,0,0,.25), inset 0 6px 14px rgba(255,255,255,.45); } }
+  .sport-choose { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.08); backdrop-filter: blur(12px); }
+
+  /* Animation du logo au lancement d'une séance */
+  #sport-launch { position: fixed; inset: 0; z-index: 70; display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(circle at 50% 45%, #0f2a1b, #050607 58%); animation: sportFade .3s ease-out; }
+  #sport-launch svg { width: 74vw; max-width: 340px; animation: sportLogoIn 1.5s cubic-bezier(.2, .9, .2, 1) forwards; }
+  #sport-launch .plate { stroke-dasharray: 700; stroke-dashoffset: 700; animation: sportDraw .9s .15s ease-out forwards; }
+  #sport-launch .bar { stroke-dasharray: 900; stroke-dashoffset: 900; animation: sportDraw .7s .45s ease-out forwards; }
+  #sport-launch .go { opacity: 0; animation: sportFadeIn .4s .85s forwards; }
+  #sport-launch.out { animation: sportFadeOut .35s ease-in forwards; }
+  @keyframes sportLogoIn { 0% { transform: scale(.55) rotate(-30deg); filter: drop-shadow(0 0 0 rgba(57,255,142,0)); }
+    55% { transform: scale(1.08) rotate(-16deg); filter: drop-shadow(0 0 40px rgba(57,255,142,.9)); }
+    100% { transform: scale(1) rotate(-18deg); filter: drop-shadow(0 0 24px rgba(57,255,142,.6)); } }
+  @keyframes sportDraw { to { stroke-dashoffset: 0; } }
+  @keyframes sportFade { from { opacity: 0; } }
+  @keyframes sportFadeIn { to { opacity: 1; } }
+  @keyframes sportFadeOut { to { opacity: 0; transform: scale(1.15); } }
+  #sport-clock { text-shadow: 0 0 18px rgba(57,255,142,.55); }
+  .sport-runbar { background: rgba(6,7,8,.8); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+  .sport-pausebtn { box-shadow: 0 0 18px rgba(255,77,79,.6); }
+  .sport-rest .cd { text-shadow: 0 0 30px rgba(57,255,142,.4); }
+
+  /* Bibliothèque par groupe musculaire */
+  .sport-group { margin: 18px 0 8px; display: flex; align-items: center; justify-content: space-between; }
+  .sport-group h3 { margin: 0; font-size: 15px; letter-spacing: .3px; text-transform: uppercase; color: var(--sport-accent); text-shadow: 0 0 12px rgba(57,255,142,.35); }
+  .sport-group .n { color: var(--sport-mute); font-weight: 600; font-size: 12px; margin-left: 6px; text-transform: none; text-shadow: none; }
+  .sport-libadd { width: 34px; height: 34px; border-radius: 11px; background: var(--sport-accent-dim); color: var(--sport-accent); font-size: 20px; font-weight: 700; box-shadow: inset 0 0 0 1px rgba(57,255,142,.3); }
+  .sport-exitem { display: grid; grid-template-columns: 52px 1fr auto; gap: 12px; align-items: center; width: 100%; text-align: left; padding: 8px; border-radius: 16px; }
+  .sport-exitem + .sport-exitem { margin-top: 6px; }
+  .sport-exitem .sport-thumb { width: 52px; height: 52px; border-radius: 13px; }
+  .sport-exitem b { display: block; font-size: 15px; }
+  .sport-exitem:active { background: rgba(255,255,255,.05); }
+  .sport-imgbox { margin-top: 6px; display: grid; grid-template-columns: 110px 1fr; gap: 12px; align-items: center; }
+  .sport-imgbox .prev { width: 110px; height: 110px; border-radius: 18px; background: #fff center/contain no-repeat; box-shadow: 0 0 0 1px rgba(255,255,255,.1); }
+  .sport-imgbox .prev.empty { background: rgba(255,255,255,.05); display: flex; align-items: center; justify-content: center; color: var(--sport-mute); font-size: 12px; text-align: center; padding: 8px; }
+  .sport-imgbox .sport-btn { margin-bottom: 8px; }
+</style>
+
+</head>
+<body>
+  <div id="sport-app">
+    <!-- Fond : salle de sport floutée + logo en transparence -->
+    <div id="sport-bg">
+      <div id="sport-bgphoto"></div>
+      <div id="sport-bgshade"></div>
+      <div id="sport-bglogo"></div>
+    </div>
+
+    <div id="sport-loading"><div class="sport-spinner"></div><p>Chargement…</p></div>
+
+    <main id="sport-pager">
+      <section class="sport-page" id="sport-pg-start"></section>
+      <section class="sport-page" id="sport-pg-home"></section>
+      <section class="sport-page" id="sport-pg-prog"></section>
+    </main>
+
+    <nav id="sport-tabs">
+      <button data-page="0" aria-label="Séance">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.2"/><path d="M10 8.4v7.2l6-3.6z" class="fill"/></svg>
+      </button>
+      <button data-page="1" class="on" aria-label="Accueil">
+        <svg viewBox="0 0 24 24"><path d="M3 12h3.6l2.2-5 3.6 10 2.4-6.2 1.6 1.2H21"/></svg>
+      </button>
+      <button data-page="2" aria-label="Programme">
+        <svg viewBox="0 0 24 24"><path d="M3.5 9.5v5M6.5 7v10M17.5 7v10M20.5 9.5v5M6.5 12h11"/></svg>
+      </button>
+      <span id="sport-tabglow"></span>
+    </nav>
+
+    <div id="sport-sheet" class="sport-overlay hidden"></div>
+    <div id="sport-run" class="sport-overlay hidden"></div>
+    <div id="sport-launch" class="hidden"></div>
+    <div id="sport-clock" class="hidden">00:00</div>
+    <div id="sport-toast"></div>
+  </div>
+<script>
+/* =====================================================================
+   PONT LOCAL
+   L'app « Suivi muscu » de raph4L-hypen appelle google.script.run pour
+   lire et écrire un Google Sheet. Ici, ce pont répond à sa place avec
+   les mêmes fonctions, mais les données restent sur l'appareil
+   (localStorage). Le code de l'app, plus bas, est inchangé.
+   ===================================================================== */
+(function () {
+  'use strict';
+  var CFG = (function () { try { return window.parent && window.parent.APP; } catch (e) { return null; } })() || {};
+  var MAIN = CFG.key || '';
+  var KEY = (MAIN || 'local') + '.muscu';
+  var clone = function (x) { return JSON.parse(JSON.stringify(x)); };
+
+  function seed() {
+    var ex = [
+      ['Développé incliné haltères', 'pectoraux,epaules,triceps', 'charge', 'Banc à 30°, omoplates serrées, descends contrôlé jusqu\'au haut des pecs.'],
+      ['Développé couché', 'pectoraux,epaules,triceps', 'charge', 'Pieds ancrés, barre au niveau des tétons, coudes à 45°.'],
+      ['Dips lestés', 'pectoraux,triceps,epaules', 'poids_du_corps', 'Buste légèrement penché vers l\'avant, descends jusqu\'à 90° aux coudes.'],
+      ['Pec deck', 'pectoraux', 'charge', 'Coudes légèrement fléchis, serre les pecs 1 s en fin de mouvement.'],
+      ['Extension triceps au-dessus de la tête', 'triceps', 'charge', 'Coudes fixes et serrés, étire bien le triceps en bas.'],
+      ['Triceps poulie', 'triceps', 'charge', 'Coudes collés au corps, verrouille en bas.'],
+      ['Développé militaire', 'epaules,triceps,trapezes', 'charge', 'Gainage abdos/fessiers, pousse la barre au-dessus de la tête.'],
+      ['Oiseau (arrière d\'épaule)', 'deltoides_post,trapezes', 'charge', 'Buste penché, ouvre les bras sans hausser les épaules.'],
+      ['Tractions', 'dorsaux,biceps,avant_bras', 'poids_du_corps', 'Tire les coudes vers les hanches, menton au-dessus de la barre.'],
+      ['T-bar row', 'dorsaux,trapezes,biceps,lombaires', 'charge', 'Dos plat, tire vers le nombril, serre les omoplates.'],
+      ['Rowing haltère', 'dorsaux,trapezes,biceps', 'charge', 'Un genou sur le banc, tire le coude vers la hanche.'],
+      ['Tirage vertical', 'dorsaux,biceps', 'charge', 'Poitrine sortie, barre vers le haut des pecs.'],
+      ['Curl biceps', 'biceps,avant_bras', 'charge', 'Coudes fixes, pas d\'élan, descente lente.'],
+      ['Presse à cuisses', 'quadriceps,fessiers,ischios', 'charge', 'Genoux dans l\'axe des pieds, ne verrouille pas en haut.'],
+      ['Leg extension', 'quadriceps', 'charge', 'Montée contrôlée, 1 s de contraction en haut, amplitude sans douleur au genou.'],
+      ['Leg curl', 'ischios', 'charge', 'Hanches plaquées, descente lente.'],
+      ['Mollets debout', 'mollets', 'charge', 'Amplitude complète, pause en haut.']
+    ];
+    var pe = [
+      ['P1', 'Développé incliné haltères', 4, 12, 20, 120], ['P1', 'Dips lestés', 4, 12, 12.5, 120],
+      ['P1', 'Pec deck', 4, 12, 40, 90], ['P1', 'Extension triceps au-dessus de la tête', 4, 12, 15, 90],
+      ['P2', 'Tractions', 4, 10, 0, 120], ['P2', 'T-bar row', 4, 12, 30, 120],
+      ['P2', 'Rowing haltère', 3, 12, 20, 90], ['P2', 'Tirage vertical', 3, 12, 45, 90],
+      ['P3', 'Presse à cuisses', 4, 12, 100, 120], ['P3', 'Leg extension', 4, 12, 20, 90],
+      ['P3', 'Leg curl', 3, 12, 25, 90], ['P3', 'Mollets debout', 3, 15, 40, 60]
+    ];
+    var ordre = {};
+    return {
+      Exercices: ex.map(function (e) { return { nom: e[0], muscles: e[1], type_charge: e[2], consigne: e[3], image_url: '' }; }),
+      Programmes: [
+        { id: 'P1', nom: 'Pecs + Triceps', thematique: 'Pecs + Triceps', type: 'rapide', ordre: 1 },
+        { id: 'P2', nom: 'Dos + Biceps', thematique: 'Dos + Biceps', type: 'rapide', ordre: 2 },
+        { id: 'P3', nom: 'Jambes', thematique: 'Jambes', type: 'rapide', ordre: 3 }
+      ],
+      ProgrammeExercices: pe.map(function (p) {
+        ordre[p[0]] = (ordre[p[0]] || 0) + 1;
+        return { programme_id: p[0], ordre: ordre[p[0]], exercice: p[1], series: p[2], reps: p[3], poids: p[4], repos_s: p[5] };
+      }),
+      Seances: [], Series: [],
+      Reglages: { poids_de_corps: '', repos_defaut: 90,
+        mots_seance: 'musculation,muscu,salle de sport,basic fit,fitness park',
+        mots_sport: 'sport,soccer,foot,football,course,running,footing,velo,natation,piscine,tennis,padel,basket,boxe,rando,yoga,escalade,crossfit',
+        agenda_id: '' }
+    };
+  }
+  function load() {
+    try { var d = JSON.parse(localStorage.getItem(KEY)); if (d && d.Exercices && d.Reglages) return d; } catch (e) { }
+    var fresh = seed(); save(fresh); return fresh;
+  }
+  function save(d) { localStorage.setItem(KEY, JSON.stringify(d)); }
+
+  var api = {
+    getData: function () {
+      var d = load();
+      return { exercices: d.Exercices, programmes: d.Programmes, programmeExercices: d.ProgrammeExercices,
+        seances: d.Seances, series: d.Series, reglages: d.Reglages,
+        info: { compte: 'Cet appareil', sheet: 'stockage sur cet appareil' } };
+    },
+    saveSeance: function (p) {
+      var d = load();
+      var id = 'S' + Date.now() + Math.floor(Math.random() * 1000);
+      var date = new Date().toISOString();
+      var total = 0;
+      (p.exos || []).forEach(function (ex) {
+        (ex.series || []).forEach(function (s, i) {
+          var ua = Number(s.ua) || 0; total += ua;
+          d.Series.push({ seance_id: id, date: date, exercice: ex.nom, n_serie: i + 1, reps: Number(s.reps) || 0, poids: Number(s.poids) || 0, ua: ua });
+        });
+      });
+      d.Seances.push({ id: id, date: date, programme_id: p.programme_id || '', thematique: p.thematique || '', type: p.type || '',
+        accompagne: p.accompagne ? 'oui' : 'non', duree_min: Number(p.duree_min) || 0, note: Number(p.note) || 0,
+        commentaire: p.commentaire || '', muscles: p.muscles || '', ua_totale: total });
+      save(d);
+      return id;
+    },
+    deleteSeance: function (id) {
+      var d = load();
+      d.Seances = d.Seances.filter(function (r) { return r.id !== id; });
+      d.Series = d.Series.filter(function (r) { return r.seance_id !== id; });
+      save(d); return true;
+    },
+    saveProgramme: function (prog) {
+      var d = load();
+      var id = prog.id || ('P' + Date.now());
+      var row = { id: id, nom: prog.nom, thematique: prog.thematique, type: prog.type, ordre: Number(prog.ordre) || d.Programmes.length + 1 };
+      var found = false;
+      d.Programmes = d.Programmes.map(function (p) { if (p.id === id) { found = true; return row; } return p; });
+      if (!found) d.Programmes.push(row);
+      d.ProgrammeExercices = d.ProgrammeExercices.filter(function (r) { return r.programme_id !== id; });
+      (prog.exos || []).forEach(function (e, i) {
+        d.ProgrammeExercices.push({ programme_id: id, ordre: i + 1, exercice: e.exercice, series: Number(e.series) || 1,
+          reps: Number(e.reps) || 0, poids: Number(e.poids) || 0, repos_s: Number(e.repos_s) || 90 });
+      });
+      save(d); return id;
+    },
+    deleteProgramme: function (id) {
+      var d = load();
+      d.Programmes = d.Programmes.filter(function (r) { return r.id !== id; });
+      d.ProgrammeExercices = d.ProgrammeExercices.filter(function (r) { return r.programme_id !== id; });
+      save(d); return true;
+    },
+    saveExercice: function (ex) {
+      var d = load();
+      var key = ex.ancien_nom || ex.nom;
+      var row = { nom: ex.nom, muscles: ex.muscles, type_charge: ex.type_charge, consigne: ex.consigne || '', image_url: ex.image_url || '' };
+      var found = false;
+      d.Exercices = d.Exercices.map(function (e) { if (e.nom === key) { found = true; return row; } return e; });
+      if (!found) d.Exercices.push(row);
+      save(d); return true;
+    },
+    deleteExercice: function (nom) {
+      var d = load();
+      d.Exercices = d.Exercices.filter(function (e) { return e.nom !== nom; });
+      save(d); return true;
+    },
+    saveReglages: function (obj) {
+      var d = load();
+      Object.keys(obj).forEach(function (k) { d.Reglages[k] = obj[k]; });
+      save(d); return true;
+    },
+    // L'agenda vient de celui déjà synchronisé par l'app principale (s'il est relié).
+    getAgenda: function (startMs, endMs) {
+      var evs = [];
+      try { evs = (JSON.parse(localStorage.getItem(MAIN)) || {}).cal.events || []; } catch (e) { }
+      var ms = function (v) { if (/^\d{4}-\d{2}-\d{2}$/.test(v)) { var p = v.split('-'); return new Date(+p[0], p[1] - 1, +p[2]).getTime(); } return new Date(v).getTime(); };
+      return evs.map(function (e) { return { titre: e.title, debut: ms(e.start), fin: ms(e.end), journee: !!e.allDay }; })
+        .filter(function (e) { return e.debut >= startMs && e.debut < endMs; });
+    }
+  };
+
+  function runner(ok, ko) {
+    return new Proxy({}, {
+      get: function (_, name) {
+        if (name === 'withSuccessHandler') return function (f) { return runner(f, ko); };
+        if (name === 'withFailureHandler') return function (f) { return runner(ok, f); };
+        return function () {
+          var args = clone(Array.prototype.slice.call(arguments));
+          setTimeout(function () {
+            try {
+              if (!api[name]) throw new Error('Fonction inconnue : ' + name);
+              var r = api[name].apply(null, args);
+              if (ok) ok(r === undefined ? null : clone(r));
+            } catch (e) { if (ko) ko(e); }
+          }, 0);
+        };
+      }
+    });
+  }
+  window.google = { script: { run: runner(null, null) } };
+})();
+</script>
+  <script>
+/* =====================================================================
+   SUIVI MUSCU — logique de l'appli (côté téléphone)
+   ===================================================================== */
+(function () {
+  'use strict';
+
+  /* ---------- Outils ---------- */
+  const $ = (s, el = document) => el.querySelector(s);
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const num = v => { const n = parseFloat(String(v).replace(',', '.')); return isNaN(n) ? 0 : n; };
+  const fmt = n => Math.round(n).toLocaleString('fr-FR');
+  const fmtKg = n => (Math.round(n * 10) / 10).toLocaleString('fr-FR');
+  const mmss = ms => { const s = Math.max(0, Math.floor(ms / 1000)); const h = Math.floor(s / 3600); const m = Math.floor(s % 3600 / 60); const r = s % 60;
+    return (h ? h + ':' + String(m).padStart(2, '0') : String(m).padStart(2, '0')) + ':' + String(r).padStart(2, '0'); };
+  const dateFr = iso => new Date(iso).toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' });
+  const dateCourt = iso => new Date(iso).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' });
+  const pct = (a, b) => b ? Math.round((a - b) / b * 100) : 0;
+  const store = {
+    get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { } },
+    del(k) { try { localStorage.removeItem(k); } catch (e) { } }
+  };
+  function toast(msg, err) {
+    const t = $('#sport-toast'); t.textContent = msg; t.className = 'show' + (err ? ' err' : '');
+    clearTimeout(toast._t); toast._t = setTimeout(() => t.className = '', err ? 4000 : 2200);
+  }
+  function api(fn, ...args) {
+    return new Promise((res, rej) => {
+      google.script.run.withSuccessHandler(res).withFailureHandler(e => { toast('Erreur : ' + (e && e.message || e), true); rej(e); })[fn](...args);
+    });
+  }
+
+  const MUSCLES = {
+    pectoraux: 'Pectoraux', epaules: 'Épaules', deltoides_post: "Arrière d'épaule", biceps: 'Biceps', triceps: 'Triceps',
+    avant_bras: 'Avant-bras', abdos: 'Abdos', obliques: 'Obliques', dorsaux: 'Dorsaux', trapezes: 'Trapèzes',
+    lombaires: 'Lombaires', fessiers: 'Fessiers', quadriceps: 'Quadriceps', ischios: 'Ischios', adducteurs: 'Adducteurs', mollets: 'Mollets'
+  };
+  const splitM = s => String(s || '').split(',').map(x => x.trim()).filter(Boolean);
+  const GROUPS = [['Pectoraux', ['pectoraux']], ['Dos', ['dorsaux', 'trapezes', 'lombaires']], ['Épaules', ['epaules', 'deltoides_post']],
+    ['Bras', ['biceps', 'triceps', 'avant_bras']], ['Jambes', ['quadriceps', 'ischios', 'fessiers', 'adducteurs', 'mollets']], ['Abdos', ['abdos', 'obliques']]];
+  const groupOf = e => { const m = splitM(e.muscles)[0]; const g = GROUPS.find(x => x[1].includes(m)); return g ? g[0] : 'Autres'; };
+
+  /* ---------- Logo (haltère néon) ---------- */
+  const LOGO = `<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(-18 512 512)" fill="none" stroke-linejoin="round">
+    <rect class="bar" x="300" y="494" width="424" height="36" rx="18" stroke="#fff" stroke-width="14"/>
+    <g class="plate" stroke="#39ff8e"><rect x="238" y="372" width="74" height="280" rx="30" stroke-width="22"/><rect x="168" y="420" width="62" height="184" rx="26" stroke-width="20"/>
+    <rect x="712" y="372" width="74" height="280" rx="30" stroke-width="22"/><rect x="794" y="420" width="62" height="184" rx="26" stroke-width="20"/></g>
+    <g class="go" fill="#fff" stroke="none"><rect x="134" y="492" width="28" height="40" rx="10"/><rect x="862" y="492" width="28" height="40" rx="10"/></g></g></svg>`;
+  const LOGO_FLAT = LOGO.replace('rotate(-18 512 512)', 'rotate(0 512 512)');
+  const exImg = nom => ((X && X.exByName[nom]) || {}).image_url || '';
+  function thumb(noms) {
+    const u = noms.map(exImg).find(Boolean);
+    return u ? `<span class="sport-thumb" style="background-image:url('${esc(u)}')"></span>` : `<span class="sport-thumb ph">${LOGO_FLAT}</span>`;
+  }
+  const strip = noms => `<div class="sport-strip">${noms.map(exImg).filter(Boolean).slice(0, 5).map(u => `<span style="background-image:url('${esc(u)}')"></span>`).join('')}</div>`;
+  const DEF_FOND = 'https://images.unsplash.com/photo-1590487988256-9ed24133863e?auto=format&fit=crop&w=1200&q=60';
+  function setBackground() {
+    const url = (D && D.reglages.fond_url) || DEF_FOND;
+    const ph = $('#sport-bgphoto');
+    const img = new Image();
+    img.onload = () => { ph.style.backgroundImage = `url('${url}')`; ph.classList.add('ok'); };
+    img.src = url;
+  }
+
+  /* ---------- Données ---------- */
+  let D = null;           // données brutes du Sheet
+  let X = null;           // données indexées
+  let homeFilter = null;  // filtre de thématique du graphique
+
+  function indexData() {
+    const exByName = {};
+    D.exercices.forEach(e => exByName[e.nom] = e);
+    const progs = D.programmes.slice().sort((a, b) => num(a.ordre) - num(b.ordre)).map(p => ({
+      ...p,
+      exos: D.programmeExercices.filter(r => r.programme_id === p.id).sort((a, b) => num(a.ordre) - num(b.ordre))
+    }));
+    const seriesBy = {};
+    D.series.forEach(s => (seriesBy[s.seance_id] = seriesBy[s.seance_id] || []).push(s));
+    const seances = D.seances.map(s => {
+      const exos = [];
+      (seriesBy[s.id] || []).forEach(r => {
+        let ex = exos.find(e => e.nom === r.exercice);
+        if (!ex) { ex = { nom: r.exercice, series: [], ua: 0 }; exos.push(ex); }
+        ex.series.push({ reps: num(r.reps), poids: num(r.poids), ua: num(r.ua) });
+        ex.ua += num(r.ua);
+      });
+      return { ...s, ua_totale: num(s.ua_totale), note: num(s.note), duree_min: num(s.duree_min), exos };
+    }).sort((a, b) => new Date(b.date) - new Date(a.date));
+    X = { exByName, progs, seances };
+  }
+
+  /** Historique d'un exercice (du plus ancien au plus récent) */
+  function exoHistory(nom) {
+    const out = [];
+    X.seances.slice().reverse().forEach(s => {
+      const e = s.exos.find(x => x.nom === nom);
+      if (e) out.push({ seance: s, ua: e.ua, series: e.series });
+    });
+    return out;
+  }
+  function lastPerf(nom, beforeId) {
+    const h = exoHistory(nom);
+    if (beforeId) { const i = h.findIndex(x => x.seance.id === beforeId); return i > 0 ? h[i - 1] : null; }
+    return h.length ? h[h.length - 1] : null;
+  }
+  function bodyweight() { return num(D.reglages.poids_de_corps); }
+  function uaOf(nom, reps, poids) {
+    const ex = X.exByName[nom];
+    let w = num(poids);
+    if (ex && ex.type_charge === 'poids_du_corps') w += bodyweight();
+    if (w <= 0) w = 1;
+    return num(reps) * w;
+  }
+  function trendClass(a, b) { return b == null ? 'flat' : (a >= b ? 'up' : 'down'); }
+  function seriesSummary(series) {
+    if (!series || !series.length) return '';
+    const same = series.every(s => s.reps === series[0].reps && s.poids === series[0].poids);
+    return same ? `${series.length}×${series[0].reps} @ ${fmtKg(series[0].poids)} kg` : series.map(s => `${s.reps}×${fmtKg(s.poids)}`).join(' · ');
+  }
+  function nextProgramme() {
+    if (!X.progs.length) return null;
+    const last = X.seances[0];
+    if (!last) return X.progs[0];
+    const i = X.progs.findIndex(p => p.id === last.programme_id);
+    return X.progs[(i + 1) % X.progs.length];
+  }
+
+  /* ---------- Schéma musculaire (face + dos) ---------- */
+  // [forme, muscle, dx, cy, rx, ry]  — dx relatif au centre, dessiné des 2 côtés
+  const FRONT = [
+    ['e', 'trapezes', -7, 31, 4, 3], ['e', 'epaules', -17, 38, 8, 7], ['e', 'pectoraux', -7, 43, 8, 7],
+    ['e', 'biceps', -22, 53, 4.5, 9], ['e', 'avant_bras', -25, 72, 4, 10], ['e', 'obliques', -13, 63, 4, 10],
+    ['e', 'adducteurs', -4, 92, 3, 9], ['e', 'quadriceps', -9, 99, 6.5, 16], ['e', 'mollets', -9, 136, 4.5, 13]
+  ];
+  const BACK = [
+    ['e', 'deltoides_post', -17, 38, 8, 7], ['e', 'triceps', -22, 53, 4.5, 9], ['e', 'avant_bras', -25, 72, 4, 10],
+    ['e', 'fessiers', -7, 87, 7.5, 7.5], ['e', 'ischios', -9, 105, 6.5, 13], ['e', 'mollets', -9, 134, 5.5, 12]
+  ];
+  function bodyFigure(cx, defs, extra, on) {
+    const base = '#262a33', off = '#3a404c', red = '#ff4d4f';
+    let s = `<circle cx="${cx}" cy="15" r="10" fill="${base}"/><rect x="${cx - 5}" y="23" width="10" height="8" fill="${base}"/>`
+      + `<path d="M${cx - 18} 31 Q${cx} 27 ${cx + 18} 31 L${cx + 15} 80 Q${cx} 84 ${cx - 15} 80 Z" fill="${base}"/>`
+      + `<path d="M${cx - 15} 78 L${cx + 15} 78 L${cx + 16} 150 L${cx + 3} 150 L${cx} 92 L${cx - 3} 150 L${cx - 16} 150 Z" fill="${base}"/>`
+      + `<circle cx="${cx - 26}" cy="86" r="3.2" fill="${base}"/><circle cx="${cx + 26}" cy="86" r="3.2" fill="${base}"/>`
+      + `<ellipse cx="${cx - 9}" cy="153" rx="6" ry="3" fill="${base}"/><ellipse cx="${cx + 9}" cy="153" rx="6" ry="3" fill="${base}"/>`;
+    defs.forEach(d => {
+      const f = on.includes(d[1]) ? red : off;
+      [d[2], -d[2]].forEach(dx => { s += `<ellipse cx="${cx + dx}" cy="${d[3]}" rx="${d[4]}" ry="${d[5]}" fill="${f}"/>`; });
+    });
+    return s + extra(cx, red, off);
+  }
+  function bodyMap(muscles) {
+    const on = Array.isArray(muscles) ? muscles : splitM(muscles);
+    const c = k => on.includes(k) ? '#ff4d4f' : '#3a404c';
+    const front = bodyFigure(50, FRONT, cx => `<rect x="${cx - 6}" y="51" width="12" height="27" rx="4" fill="${c('abdos')}"/>`
+      + `<line x1="${cx - 6}" y1="60" x2="${cx + 6}" y2="60" stroke="#262a33"/><line x1="${cx - 6}" y1="69" x2="${cx + 6}" y2="69" stroke="#262a33"/><line x1="${cx}" y1="51" x2="${cx}" y2="78" stroke="#262a33"/>`, on);
+    const back = bodyFigure(150, BACK, cx => `<path d="M${cx} 26 L${cx - 15} 35 L${cx} 58 L${cx + 15} 35 Z" fill="${c('trapezes')}"/>`
+      + `<path d="M${cx - 9} 42 L${cx - 16} 46 L${cx - 12} 68 L${cx - 2} 72 L${cx - 2} 52 Z" fill="${c('dorsaux')}"/>`
+      + `<path d="M${cx + 9} 42 L${cx + 16} 46 L${cx + 12} 68 L${cx + 2} 72 L${cx + 2} 52 Z" fill="${c('dorsaux')}"/>`
+      + `<rect x="${cx - 6}" y="66" width="12" height="12" rx="3" fill="${c('lombaires')}"/>`, on);
+    return `<svg class="sport-bodymap" viewBox="0 0 200 170" xmlns="http://www.w3.org/2000/svg">${front}${back}`
+      + `<text x="50" y="168" fill="#8b93a3" font-size="9" text-anchor="middle">Face</text><text x="150" y="168" fill="#8b93a3" font-size="9" text-anchor="middle">Dos</text></svg>`;
+  }
+
+  /* ---------- Graphiques SVG ---------- */
+  function lineChart(points, opts = {}) {
+    const W = opts.w || 340, H = opts.h || 160, P = opts.small ? 4 : 26;
+    if (!points.length) return `<div class="sport-empty">Pas encore de données</div>`;
+    const ys = points.map(p => p.y), min = Math.min(...ys), max = Math.max(...ys);
+    const lo = opts.small ? min * .95 : min - (max - min) * .15, hi = max + (max - min || max || 1) * .12;
+    const x = i => points.length === 1 ? W / 2 : P + i * (W - 2 * P) / (points.length - 1);
+    const y = v => H - P - (v - lo) / ((hi - lo) || 1) * (H - 2 * P);
+    const path = points.map((p, i) => (i ? 'L' : 'M') + x(i).toFixed(1) + ' ' + y(p.y).toFixed(1)).join(' ');
+    const area = path + ` L${x(points.length - 1)} ${H - P} L${x(0)} ${H - P} Z`;
+    let s = `<svg class="sport-chart" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`
+      + `<defs><linearGradient id="g${opts.id || 0}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2fd77a" stop-opacity=".35"/><stop offset="1" stop-color="#2fd77a" stop-opacity="0"/></linearGradient></defs>`
+      + `<path d="${area}" fill="url(#g${opts.id || 0})"/><path d="${path}" fill="none" stroke="#2fd77a" stroke-width="${opts.small ? 2 : 2.5}" stroke-linejoin="round" stroke-linecap="round"/>`;
+    points.forEach((p, i) => {
+      const hl = i === opts.highlight;
+      if (!opts.small || hl) s += `<circle cx="${x(i)}" cy="${y(p.y)}" r="${hl ? 5 : 3.5}" fill="${hl ? '#fff' : '#2fd77a'}" stroke="#0e1014" stroke-width="2"/>`;
+    });
+    if (!opts.small) {
+      s += `<text x="${P}" y="14" fill="#8b93a3" font-size="9">max ${fmt(max)} UA</text>`;
+      const step = Math.ceil(points.length / 6);
+      points.forEach((p, i) => { if (i % step === 0 || i === points.length - 1) s += `<text x="${x(i)}" y="${H - 6}" fill="#8b93a3" font-size="9" text-anchor="middle">${esc(p.label)}</text>`; });
+    }
+    return s + '</svg>';
+  }
+
+  /* =====================================================================
+     MA SEMAINE (agenda Google)
+     ===================================================================== */
+  let weekOffset = 0, selDay = null;
+  const agendaCache = {};
+  const DEF_SEANCE = 'musculation,muscu,salle de sport,basic fit,fitness park';
+  const DEF_SPORT = 'sport,soccer,foot,football,course,running,footing,velo,natation,piscine,tennis,padel,basket,boxe,rando,yoga,escalade,crossfit';
+  const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  const words = s => norm(s).split(',').map(x => x.trim()).filter(Boolean);
+  const dayKey = d => { const x = new Date(d); return x.getFullYear() + '-' + String(x.getMonth() + 1).padStart(2, '0') + '-' + String(x.getDate()).padStart(2, '0'); };
+  const hhmm = ms => new Date(ms).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  function mondayOf(offset) { const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - (d.getDay() + 6) % 7 + offset * 7); return d; }
+  function classify(title) {
+    const t = norm(title);
+    if (words(D.reglages.mots_seance || DEF_SEANCE).some(w => t.includes(w))) return 'seance';
+    if (words(D.reglages.mots_sport || DEF_SPORT).some(w => t.includes(w))) return 'sport';
+    return null;
+  }
+  function loadWeek(offset) {
+    if (agendaCache[offset]) return Promise.resolve(agendaCache[offset]);
+    const s = mondayOf(offset), e = new Date(s); e.setDate(e.getDate() + 7);
+    return new Promise((res, rej) => google.script.run.withSuccessHandler(ev => { agendaCache[offset] = ev; res(ev); })
+      .withFailureHandler(rej).getAgenda(s.getTime(), e.getTime()));
+  }
+  function buildDays(events) {
+    const start = mondayOf(weekOffset);
+    return Array.from({ length: 7 }, (_, i) => {
+      const d = new Date(start); d.setDate(d.getDate() + i);
+      const k = dayKey(d);
+      const evs = events.filter(e => dayKey(e.debut) === k).map(e => ({ ...e, type: classify(e.titre) })).filter(e => e.type);
+      const app = X.seances.filter(s => dayKey(s.date) === k);
+      const type = app.length || evs.some(e => e.type === 'seance') ? 'seance' : evs.some(e => e.type === 'sport') ? 'sport' : 'repos';
+      return { d, k, evs, app, type, also: type === 'seance' && evs.some(e => e.type === 'sport') };
+    });
+  }
+  function renderWeek() {
+    const box = $('#sport-weekbox'); if (!box) return;
+    const s = mondayOf(weekOffset), e = new Date(s); e.setDate(e.getDate() + 6);
+    const range = s.getMonth() === e.getMonth() ? `${s.getDate()} – ${e.getDate()} ${e.toLocaleDateString('fr-FR', { month: 'long' })}`
+      : `${s.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })} – ${e.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}`;
+    const title = weekOffset === 0 ? 'Cette semaine' : weekOffset === -1 ? 'Semaine dernière' : weekOffset === 1 ? 'Semaine prochaine' : (weekOffset < 0 ? `Il y a ${-weekOffset} semaines` : `Dans ${weekOffset} semaines`);
+    let h = `<div class="sport-wkhead"><button class="arrow" data-wk="-1" aria-label="Semaine précédente">‹</button>
+      <div style="text-align:center"><b>${title}</b><div class="sport-mute">${range}</div></div>
+      <button class="arrow" data-wk="1" aria-label="Semaine suivante">›</button></div>`;
+    const ev = agendaCache[weekOffset];
+    if (!ev) {
+      box.innerHTML = h + `<div class="sport-mute" style="text-align:center;padding:14px">Chargement de l'agenda…</div>`;
+      const off = weekOffset;
+      loadWeek(off).then(() => { if (off === weekOffset) renderWeek(); }).catch(err => {
+        if (off !== weekOffset) return;
+        box.innerHTML = h + `<div class="sport-mute" style="padding:10px 4px">Impossible de lire l'agenda. Dans Apps Script, lance une fois la fonction <b>autoriserAgenda</b>, puis redéploie.<br><small>${esc(err && err.message || err)}</small></div>`;
+      });
+      return;
+    }
+    const days = buildDays(ev);
+    const today = dayKey(new Date());
+    if (!selDay || !days.some(d => d.k === selDay)) selDay = (days.find(d => d.k === today) || days[0]).k;
+    const nS = days.filter(d => d.type === 'seance').length, nP = days.filter(d => d.type === 'sport' || d.also).length;
+    h += `<div class="sport-week">${days.map(d => `<button class="sport-day t-${d.type} ${d.k === today ? 'today' : ''} ${d.k === selDay ? 'sel' : ''}" data-day="${d.k}">
+        <span class="dn">${d.d.toLocaleDateString('fr-FR', { weekday: 'short' }).replace('.', '')}</span><span class="dd">${d.d.getDate()}</span>
+        <span class="lab">${d.type === 'seance' ? 'Séance' : d.type === 'sport' ? 'Sport' : 'Repos'}</span></button>`).join('')}</div>
+      <div class="sport-row sport-between" style="margin-top:8px"><span class="sport-mute"><span class="up">${nS} séance${nS > 1 ? 's' : ''}</span> · <span style="color:var(--sport-blue)">${nP} sport</span></span>
+      ${weekOffset !== 0 ? `<button class="sport-chip" data-wk="0" style="margin:0">Aujourd'hui</button>` : ''}</div>`;
+    const sd = days.find(d => d.k === selDay);
+    h += `<div class="sport-daydetail"><div style="font-weight:700;margin-bottom:4px;text-transform:capitalize">${sd.d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}</div>`;
+    if (!sd.evs.length && !sd.app.length) h += `<div class="sport-mute">😴 Jour de repos</div>`;
+    sd.app.forEach(s => { h += `<button class="sport-ev seance" data-seance="${esc(s.id)}" style="width:100%;text-align:left"><span class="h">✓ enregistrée</span><span><b>${esc(s.thematique || 'Séance')}</b> · ${fmt(s.ua_totale)} UA ›</span></button>`; });
+    sd.evs.forEach(e => { h += `<div class="sport-ev ${e.type}"><span class="h">${e.journee ? 'Journée' : hhmm(e.debut) + '–' + hhmm(e.fin)}</span><span><b>${esc(e.titre)}</b></span></div>`; });
+    box.innerHTML = h + '</div>';
+  }
+
+  /* =====================================================================
+     ACCUEIL
+     ===================================================================== */
+  function renderHome() {
+    const el = $('#sport-pg-home');
+    const themes = [...new Set(X.seances.map(s => s.thematique).filter(Boolean))];
+    if (homeFilter === null) homeFilter = X.seances[0] ? X.seances[0].thematique : 'Toutes';
+    const pts = X.seances.filter(s => homeFilter === 'Toutes' || s.thematique === homeFilter).slice(0, 20).reverse()
+      .map(s => ({ y: s.ua_totale, label: dateCourt(s.date) }));
+
+    let h = `<h1>Suivi muscu</h1><p class="sport-sub">${new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}</p>`;
+    h += `<div class="sport-card" id="sport-weekbox"></div>`;
+    h += `<div class="sport-card"><div class="sport-row sport-between"><h3>Progression (UA par séance)</h3></div>`
+      + `<div class="sport-row sport-wrap" style="margin-bottom:6px">${['Toutes', ...themes].map(t => `<button class="sport-chip ${t === homeFilter ? 'on' : ''}" data-filter="${esc(t)}">${esc(t)}</button>`).join('')}</div>`
+      + lineChart(pts, { id: 'home' }) + `</div>`;
+
+    h += `<h2>Dernières séances</h2>`;
+    if (!X.seances.length) h += `<div class="sport-card sport-empty">Aucune séance pour l'instant.<br>Glisse vers la gauche et appuie sur <b>GO</b> 💪</div>`;
+    X.seances.slice(0, 15).forEach(s => {
+      const prev = X.seances.find(p => p.thematique === s.thematique && new Date(p.date) < new Date(s.date));
+      const d = prev ? pct(s.ua_totale, prev.ua_totale) : null;
+      const nc = s.note >= 7 ? 'n-good' : s.note >= 5 ? 'n-mid' : 'n-bad';
+      h += `<button class="sport-card sport-seance" data-seance="${esc(s.id)}"><div>
+        <div class="sport-row sport-between"><span class="sport-mute">${dateFr(s.date)} · ${s.duree_min} min</span><span class="sport-note ${nc}">${s.note}/10</span></div>
+        <div class="t">${esc(s.thematique || 'Séance')}</div>
+        <div class="sport-row" style="margin:6px 0"><span class="sport-big" style="font-size:20px">${fmt(s.ua_totale)} UA</span>
+          ${d === null ? '' : `<span class="${d >= 0 ? 'up' : 'down'}" style="font-weight:700">${d >= 0 ? '▲' : '▼'} ${Math.abs(d)} %</span>`}</div>
+        <div class="sport-mute">${s.exos.map(e => esc(e.nom)).join(', ')}</div></div>${thumb(s.exos.map(e => e.nom))}</button>`;
+    });
+    el.innerHTML = h;
+    renderWeek();
+  }
+
+  /* ---------- Détail d'une séance ---------- */
+  function conseils(s) {
+    const out = [];
+    const prog = X.progs.find(p => p.id === s.programme_id);
+    let ups = 0;
+    s.exos.forEach(e => {
+      const h = exoHistory(e.nom);
+      const i = h.findIndex(x => x.seance.id === s.id);
+      const prev = i > 0 ? h[i - 1] : null, prev2 = i > 1 ? h[i - 2] : null;
+      if (!prev) return;
+      if (e.ua >= prev.ua) ups++;
+      if (e.ua < prev.ua && prev2 && prev.ua < prev2.ua) out.push(`📉 <b>${esc(e.nom)}</b> baisse 2 séances de suite : vérifie ton sommeil et ta récup, ou fais une séance un peu plus légère.`);
+      else if (e.ua < prev.ua) out.push(`↘️ <b>${esc(e.nom)}</b> : ${pct(e.ua, prev.ua)} % vs la dernière fois. Vise au moins ${fmt(prev.ua)} UA la prochaine fois.`);
+      const pe = prog && prog.exos.find(x => x.exercice === e.nom);
+      if (pe && e.ua >= prev.ua && e.series.every(x => x.reps >= num(pe.reps))) out.push(`⬆️ <b>${esc(e.nom)}</b> : toutes les séries à ${pe.reps} reps ou plus, ajoute 2,5 kg la prochaine fois.`);
+    });
+    if (s.exos.length && ups === s.exos.length) out.unshift('🔥 Toutes tes UA sont égales ou en hausse. Objectif rempli !');
+    if (s.type === 'rapide' && s.duree_min > 55) out.push(`⏱️ Séance rapide de ${s.duree_min} min : raccourcis un peu les pauses pour rester autour de 45 min.`);
+    if (s.note && s.note < 5) out.push('🎯 Note basse : fixe-toi un seul objectif précis pour la prochaine séance (une charge ou un nombre de reps).');
+    if (!out.length) out.push('Séance de référence : la prochaine fois, essaie de faire au moins autant d\'UA sur chaque exercice.');
+    return out;
+  }
+
+  function openSeance(id) {
+    const s = X.seances.find(x => x.id === id);
+    if (!s) return;
+    const muscles = splitM(s.muscles);
+    let h = `<button class="sport-back" data-close>‹ Retour</button>
+      <h1>${esc(s.thematique || 'Séance')}</h1><p class="sport-sub">${dateFr(s.date)}</p>
+      <div class="sport-row sport-wrap">
+        <span class="sport-chip on">⏱ ${s.duree_min} min</span>
+        <span class="sport-chip ${s.note >= 7 ? 'on' : s.note >= 5 ? '' : 'red'}">🎯 ${s.note}/10</span>
+        <span class="sport-chip">${s.accompagne === 'oui' ? '👥 Accompagné' : '🧍 Seul'}</span>
+        <span class="sport-chip">${s.type === 'longue' ? 'Longue (1h15–1h35)' : 'Rapide (≈45 min)'}</span>
+      </div>
+      <div class="sport-row sport-wrap">${muscles.map(m => `<span class="sport-chip red">${esc(MUSCLES[m] || m)}</span>`).join('')}</div>
+      <div class="sport-card" style="text-align:center"><span class="sport-mute">UA totale</span><div class="sport-big">${fmt(s.ua_totale)}</div></div>`;
+
+    s.exos.forEach((e, k) => {
+      const prev = lastPerf(e.nom, s.id);
+      const hist = exoHistory(e.nom);
+      const idx = hist.findIndex(x => x.seance.id === s.id);
+      const cls = trendClass(e.ua, prev && prev.ua);
+      h += `<div class="sport-card"><h3>${esc(e.nom)}</h3>
+        <table class="sport-ua"><tr><th>Série</th><th>Reps</th><th>Poids (kg)</th><th>UA</th></tr>
+        ${e.series.map((r, i) => `<tr><td>${i + 1}</td><td>${r.reps}</td><td>${fmtKg(r.poids)}</td><td>${fmt(r.ua)}</td></tr>`).join('')}
+        <tr class="total"><td colspan="3" style="text-align:left">Total</td><td class="${cls}">${fmt(e.ua)}</td></tr></table>
+        <div class="sport-row sport-between" style="margin-top:8px"><span class="sport-mute">${prev ? `Dernière fois : ${fmt(prev.ua)} UA` : 'Première fois'}</span>
+          ${prev ? `<b class="${cls}">${e.ua >= prev.ua ? '▲' : '▼'} ${Math.abs(pct(e.ua, prev.ua))} %</b>` : ''}</div>
+        <div style="margin-top:8px">${lineChart(hist.map(x => ({ y: x.ua })), { small: true, h: 46, highlight: idx, id: 'ex' + k })}</div></div>`;
+    });
+
+    h += `<h2>Commentaires et conseils</h2><div class="sport-card">
+      ${s.commentaire ? `<p style="margin:0 0 12px;white-space:pre-wrap">💬 ${esc(s.commentaire)}</p>` : '<p class="sport-mute" style="margin-top:0">Pas de commentaire.</p>'}
+      ${conseils(s).map(c => `<p style="margin:8px 0">${c}</p>`).join('')}</div>
+      <button class="sport-btn danger small" data-del="${esc(s.id)}" style="margin-top:20px">Supprimer cette séance</button>`;
+    openSheet(h);
+  }
+
+  function openSheet(html) {
+    const sh = $('#sport-sheet'); const was = !sh.classList.contains('hidden');
+    sh.innerHTML = html; sh.classList.remove('hidden', 'closing'); sh.scrollTop = 0;
+    if (!was) { sh.style.animation = 'none'; void sh.offsetWidth; sh.style.animation = ''; }
+    document.body.classList.add('sheet-open');
+  }
+  function closeSheet() {
+    const sh = $('#sport-sheet'); if (sh.classList.contains('hidden')) return;
+    document.body.classList.remove('sheet-open');
+    sh.classList.add('closing');
+    setTimeout(() => { sh.classList.add('hidden'); sh.classList.remove('closing'); }, 290);
+  }
+
+  /* =====================================================================
+     DÉMARRER LA SÉANCE
+     ===================================================================== */
+  function renderStart() {
+    const el = $('#sport-pg-start');
+    const run = store.get('sportRun');
+    const p = nextProgramme();
+    let h = `<h1>Séance du jour</h1>`;
+    if (run) {
+      h += `<div class="sport-go-wrap"><button class="sport-go" id="sport-resume" style="font-size:30px">REPRENDRE</button>
+        <div class="sport-today"><div class="sport-big">${esc(run.thematique)}</div><div class="sport-mute">Séance en cours · exercice ${run.exIdx + 1}/${run.exos.length}</div></div>
+        <button class="sport-choose" id="sport-abandon-start">Abandonner cette séance</button></div>`;
+    } else if (!p) {
+      h += `<div class="sport-card sport-empty">Crée d'abord une séance dans l'onglet Programme.</div>`;
+    } else {
+      h += `<div class="sport-go-wrap"><button class="sport-go" id="sport-go">GO</button>
+        <div class="sport-today"><div class="sport-big">${esc(p.nom)}</div>
+        <div class="sport-mute">${p.type === 'longue' ? 'Longue · 1h15–1h35' : 'Rapide · ≈45 min'} · ${p.exos.length} exercices</div></div>
+        <button class="sport-choose" id="sport-pick">Choisir ma séance</button></div>`;
+    }
+    el.innerHTML = h;
+  }
+
+  function openPicker() {
+    let h = `<button class="sport-back" data-close>‹ Retour</button><h1>Choisir ma séance</h1><p class="sport-sub">Reps et poids pré-remplis avec ta dernière fois.</p>`;
+    X.progs.forEach(p => {
+      h += `<button class="sport-card sport-seance" data-start="${esc(p.id)}" style="display:block!important">
+        <div class="sport-row sport-between"><span class="t">${esc(p.nom)}</span><span class="sport-badge">${p.type === 'longue' ? 'Longue' : 'Rapide'}</span></div>
+        ${p.exos.map(e => { const l = lastPerf(e.exercice); return `<div class="sport-row sport-between" style="margin-top:6px"><span>${esc(e.exercice)}</span><span class="sport-mute">${l ? seriesSummary(l.series) : `${e.series}×${e.reps} @ ${fmtKg(num(e.poids))} kg`}</span></div>`; }).join('')}
+        ${strip(p.exos.map(e => e.exercice))}</button>`;
+    });
+    openSheet(h);
+  }
+
+  /* ---------- Moteur de séance ---------- */
+  let run = null, tick = null, wakeLock = null;
+  const save = () => store.set('sportRun', run);
+  const now = () => Date.now();
+  const elapsed = () => run ? now() - run.startedAt - run.pausedTotal - (run.pauseStart ? now() - run.pauseStart : 0) : 0;
+
+  function startRun(progId) {
+    const p = X.progs.find(x => x.id === progId);
+    if (!p || !p.exos.length) { toast('Cette séance ne contient aucun exercice.', true); return; }
+    const muscles = new Set();
+    run = {
+      programme_id: p.id, thematique: p.thematique || p.nom, type: p.type,
+      startedAt: now(), pausedTotal: 0, pauseStart: null, exIdx: 0, setIdx: 0, phase: 'work', restEnd: null, restDur: 0,
+      exos: p.exos.map(pe => {
+        const ex = X.exByName[pe.exercice] || {};
+        splitM(ex.muscles).forEach(m => muscles.add(m));
+        const last = lastPerf(pe.exercice);
+        const series = last ? last.series.map(s => ({ reps: s.reps, poids: s.poids }))
+          : Array.from({ length: Math.max(1, num(pe.series)) }, () => ({ reps: num(pe.reps), poids: num(pe.poids) }));
+        return { nom: pe.exercice, repos: num(pe.repos_s) || num(D.reglages.repos_defaut) || 90, target: last ? last.ua : null, lastTxt: last ? seriesSummary(last.series) : null, series };
+      })
+    };
+    run.muscles = [...muscles].join(',');
+    save();
+    closeSheet();
+    playLaunch().then(() => openRun(true));
+  }
+
+  function playLaunch() {
+    return new Promise(res => {
+      const l = $('#sport-launch');
+      l.innerHTML = LOGO; l.classList.remove('hidden', 'out');
+      try { navigator.vibrate && navigator.vibrate([20, 60, 40]); } catch (e) { }
+      setTimeout(() => { l.classList.add('out'); res(); }, 1500);
+      setTimeout(() => { l.classList.add('hidden'); l.innerHTML = ''; }, 1900);
+    });
+  }
+
+  async function keepAwake() { try { if ('wakeLock' in navigator) wakeLock = await navigator.wakeLock.request('screen'); } catch (e) { } }
+
+  function openRun(intro) {
+    $('#sport-run').classList.remove('hidden');
+    const clock = $('#sport-clock');
+    clock.classList.remove('hidden');
+    if (intro) {
+      clock.classList.add('intro');
+      renderRun(true);
+      setTimeout(() => { clock.classList.remove('intro'); const b = $('.sport-runbody'); if (b) b.classList.remove('wait'); }, 1400);
+    } else renderRun(false);
+    keepAwake();
+    clearInterval(tick);
+    tick = setInterval(onTick, 250);
+    onTick();
+  }
+
+  function closeRun() {
+    clearInterval(tick);
+    $('#sport-run').classList.add('hidden');
+    $('#sport-clock').classList.add('hidden');
+    try { wakeLock && wakeLock.release(); } catch (e) { }
+  }
+
+  function exUA(ex) { return ex.series.reduce((a, s) => a + uaOf(ex.nom, s.reps, s.poids), 0); }
+
+  /** Série en cours de l'exercice affiché (0 = première). */
+  const curSet = ex => Math.min(run.setIdx || 0, ex.series.length - 1);
+  function uaTable(ex, k, cur) {
+    return `<table class="sport-ua" data-table="${k}"><tr><th>Série</th><th>Reps</th><th>Poids (kg)</th><th>UA</th></tr>
+      ${ex.series.map((s, i) => `<tr class="${cur == null ? '' : i === cur ? 'cur' : i < cur ? 'past' : ''}"><td>${cur != null && i < cur ? '✓' : i + 1}</td>
+        <td><span class="sport-step"><button data-step="${k},${i},reps,-1">−</button><input inputmode="numeric" data-in="${k},${i},reps" value="${s.reps}"><button data-step="${k},${i},reps,1">+</button></span></td>
+        <td><span class="sport-step"><button data-step="${k},${i},poids,-2.5">−</button><input inputmode="decimal" data-in="${k},${i},poids" value="${fmtKg(s.poids)}"><button data-step="${k},${i},poids,2.5">+</button></span></td>
+        <td data-ua="${k},${i}">${fmt(uaOf(ex.nom, s.reps, s.poids))}</td></tr>`).join('')}
+      <tr class="total"><td colspan="3" style="text-align:left">Total</td><td data-uatot="${k}">${fmt(exUA(ex))}</td></tr></table>
+      <div class="sport-row" style="margin-top:8px"><button class="sport-btn small" data-addset="${k}" style="flex:1">+ Série</button><button class="sport-btn small" data-rmset="${k}" style="flex:1">− Série</button></div>`;
+  }
+
+  function targetBlock(ex, k) {
+    const ua = exUA(ex);
+    if (ex.target == null) return `<div class="sport-card" data-target="${k}"><div class="sport-row sport-between"><span class="sport-mute">Première fois sur cet exercice</span><b>${fmt(ua)} UA</b></div></div>`;
+    const p = Math.min(100, Math.round(ua / ex.target * 100));
+    return `<div class="sport-card" data-target="${k}"><div class="sport-row sport-between"><span class="sport-mute">Objectif : ≥ ${fmt(ex.target)} UA</span><b class="${ua >= ex.target ? 'up' : 'down'}">${fmt(ua)} UA</b></div>
+      <div class="sport-gauge"><div style="width:${p}%;background:${ua >= ex.target ? 'var(--sport-accent)' : 'var(--sport-amber)'}"></div></div>
+      <div class="sport-mute" style="margin-top:6px">Dernière fois : ${esc(ex.lastTxt)}</div></div>`;
+  }
+
+  function renderRun(wait) {
+    const el = $('#sport-run');
+    const n = run.exos.length;
+    let h = `<div class="sport-runbar"><span class="sport-mute" style="font-weight:600">${run.phase === 'end' ? 'Fin' : `Exo ${run.exIdx + 1}/${n} · Série ${curSet(run.exos[run.exIdx]) + 1}/${run.exos[run.exIdx].series.length}`}</span><span></span>
+      <button class="sport-pausebtn" id="sport-pause" aria-label="Pause">❚❚</button></div><div class="sport-runbody ${wait ? 'wait' : ''}">`;
+
+    if (run.phase === 'work') {
+      const k = run.exIdx, ex = run.exos[k], info = X.exByName[ex.nom] || {};
+      const isLast = k === n - 1;
+      const si = curSet(ex), lastSet = si >= ex.series.length - 1;
+      h += `<div class="sport-visual">${info.image_url ? `<img src="${esc(info.image_url)}" alt="">` : ''}${bodyMap(info.muscles)}</div>
+        <h1 style="margin-top:14px">${esc(ex.nom)}</h1>
+        <div class="sport-row sport-wrap">${splitM(info.muscles).map(m => `<span class="sport-chip red">${esc(MUSCLES[m] || m)}</span>`).join('')}</div>
+        ${info.consigne ? `<p class="sport-mute" style="font-size:14px;margin-top:4px">${esc(info.consigne)}</p>` : ''}
+        ${targetBlock(ex, k)}
+        <div class="sport-card">${uaTable(ex, k, si)}</div>
+        <div class="sport-fixedcta"><button class="sport-btn primary sport-finish" id="${!lastSet ? 'sport-setdone' : isLast ? 'sport-endbtn' : 'sport-done'}">${!lastSet ? `Série ${si + 1}/${ex.series.length} faite` : isLast ? 'FIN DE SÉANCE' : 'Finis !'}</button></div>`;
+    } else if (run.phase === 'rest') {
+      const k = run.exIdx, ex = run.exos[k], next = run.exos[k + 1];
+      const between = run.restKind === 'set', si = curSet(ex), ns = ex.series[si + 1];
+      h += `<div class="sport-rest"><div class="sport-mute" style="font-weight:600;letter-spacing:1px">TEMPS DE PAUSE</div>
+          <div class="cd" id="sport-cd">${mmss(run.restDur * 1000)}</div>
+          <div class="sport-row" style="justify-content:center;margin:6px 0 14px"><button class="sport-chip" data-rest="-15">−15 s</button><button class="sport-chip" data-rest="15">+15 s</button></div></div>
+        <div class="sport-card"><h3>${esc(ex.nom)} — ce que tu as vraiment fait</h3>${uaTable(ex, k, between ? si + 1 : ex.series.length)}</div>
+        ${targetBlock(ex, k)}
+        ${between && ns ? `<div class="sport-card"><span class="sport-mute">À suivre</span><div style="font-weight:700;font-size:17px">Série ${si + 2}/${ex.series.length}</div><div class="sport-mute">${ns.reps} × ${fmtKg(ns.poids)} kg</div></div>` : ''}
+        ${!between && next ? `<div class="sport-card"><span class="sport-mute">À suivre</span><div style="font-weight:700;font-size:17px">${esc(next.nom)}</div><div class="sport-mute">${next.lastTxt ? 'Dernière fois : ' + esc(next.lastTxt) : seriesSummary(next.series)}</div></div>` : ''}
+        <div class="sport-fixedcta"><button class="sport-btn primary sport-finish" id="${between ? 'sport-nextset' : 'sport-next'}">${between ? 'Série suivante' : 'Reprendre'}</button></div>`;
+    } else if (run.phase === 'end') {
+      const total = run.exos.reduce((a, e) => a + exUA(e), 0);
+      h += `<h1>Séance terminée 💪</h1><p class="sport-sub">${esc(run.thematique)} · ${Math.round(elapsed() / 60000)} min</p>
+        <div class="sport-card" style="text-align:center"><span class="sport-mute">UA totale</span><div class="sport-big">${fmt(total)}</div></div>
+        <div class="sport-card">${run.exos.map(e => { const u = exUA(e); return `<div class="sport-row sport-between" style="margin:6px 0"><span>${esc(e.nom)}</span><b class="${trendClass(u, e.target)}">${fmt(u)}${e.target != null ? ` <span class="sport-mute">/ ${fmt(e.target)}</span>` : ''}</b></div>`; }).join('')}</div>
+        <label class="sport-lbl">Seul ou accompagné ?</label>
+        <div class="sport-seg" id="sport-acc"><button data-acc="0" class="${run.accompagne ? '' : 'on'}">🧍 Seul</button><button data-acc="1" class="${run.accompagne ? 'on' : ''}">👥 Accompagné</button></div>
+        <label class="sport-lbl">Atteinte de mes objectifs : <b id="sport-notev">${run.note == null ? 7 : run.note}</b>/10</label>
+        <input type="range" min="0" max="10" step="1" id="sport-note" value="${run.note == null ? 7 : run.note}">
+        <label class="sport-lbl">Commentaire</label>
+        <textarea id="sport-com" rows="4" placeholder="Sensations, douleurs, ce que tu veux changer…">${esc(run.commentaire || '')}</textarea>
+        <div class="sport-fixedcta"><button class="sport-btn primary sport-finish" id="sport-save">Enregistrer la séance</button>
+        <button class="sport-btn small" id="sport-backlast" style="margin-top:8px">‹ Revenir au dernier exercice</button></div>`;
+    }
+    h += `</div>`;
+    if (run.pauseStart) h += `<div class="sport-pause-ov"><div class="sport-big">Séance en pause</div><div class="sport-mute">Le chrono et le minuteur sont arrêtés.</div>
+      <button class="sport-btn primary sport-finish" id="sport-unpause" style="max-width:320px">Reprendre</button>
+      <button class="sport-btn danger small" id="sport-abandon" style="max-width:320px">Abandonner la séance</button></div>`;
+    el.innerHTML = h;
+    el.scrollTop = 0;
+    $('#sport-clock').classList.toggle('paused', !!run.pauseStart);
+  }
+
+  let beeped = false;
+  function onTick() {
+    if (!run) return;
+    $('#sport-clock').textContent = mmss(elapsed());
+    if (run.phase === 'rest' && !run.pauseStart) {
+      const left = run.restEnd - now();
+      const cd = $('#sport-cd');
+      if (cd) { cd.textContent = left >= 0 ? mmss(left + 999) : '+' + mmss(-left); cd.classList.toggle('over', left < 0); }
+      if (left <= 0 && !beeped) { beeped = true; alertEnd(); }
+    }
+  }
+  function alertEnd() {
+    try { navigator.vibrate && navigator.vibrate([300, 120, 300]); } catch (e) { }
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      [0, .25].forEach(t => { const o = ctx.createOscillator(), g = ctx.createGain(); o.frequency.value = 880; o.connect(g); g.connect(ctx.destination);
+        g.gain.setValueAtTime(.2, ctx.currentTime + t); g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + t + .2); o.start(ctx.currentTime + t); o.stop(ctx.currentTime + t + .22); });
+    } catch (e) { }
+  }
+
+  function refreshUA(k) {
+    const ex = run.exos[k];
+    ex.series.forEach((s, i) => document.querySelectorAll(`[data-ua="${k},${i}"]`).forEach(td => td.textContent = fmt(uaOf(ex.nom, s.reps, s.poids))));
+    document.querySelectorAll(`[data-uatot="${k}"]`).forEach(td => td.textContent = fmt(exUA(ex)));
+    const tb = document.querySelector(`[data-target="${k}"]`);
+    if (tb) tb.outerHTML = targetBlock(ex, k);
+    save();
+  }
+
+  function runClick(e) {
+    const t = e.target.closest('button');
+    if (!t || !run) return;
+    if (t.id === 'sport-pause') { run.pauseStart = now(); save(); renderRun(); return; }
+    if (t.id === 'sport-unpause') {
+      const d = now() - run.pauseStart;
+      run.pausedTotal += d; if (run.restEnd) run.restEnd += d; run.pauseStart = null; save(); renderRun(); onTick(); return;
+    }
+    if (t.id === 'sport-abandon') {
+      if (t.dataset.sure) { store.del('sportRun'); run = null; closeRun(); renderStart(); toast('Séance abandonnée'); return; }
+      t.dataset.sure = 1; t.textContent = 'Appuie encore pour confirmer'; return;
+    }
+    if (t.dataset.step) {
+      const [k, i, f, d] = t.dataset.step.split(',');
+      const s = run.exos[k].series[i];
+      s[f] = Math.max(0, Math.round((num(s[f]) + num(d)) * 10) / 10);
+      const inp = document.querySelector(`[data-in="${k},${i},${f}"]`); if (inp) inp.value = f === 'poids' ? fmtKg(s[f]) : s[f];
+      refreshUA(+k); return;
+    }
+    if (t.dataset.addset) { const ex = run.exos[t.dataset.addset]; const l = ex.series[ex.series.length - 1] || { reps: 10, poids: 0 }; ex.series.push({ ...l }); save(); renderRun(); return; }
+    if (t.dataset.rmset) { const ex = run.exos[t.dataset.rmset]; if (ex.series.length > 1) ex.series.pop(); save(); renderRun(); return; }
+    if (t.id === 'sport-done' || t.id === 'sport-setdone') {
+      const ex = run.exos[run.exIdx];
+      run.phase = 'rest'; run.restKind = t.id === 'sport-setdone' ? 'set' : 'exo'; run.restDur = ex.repos; run.restEnd = now() + ex.repos * 1000; beeped = false; save(); renderRun(); onTick(); return;
+    }
+    if (t.dataset.rest) { run.restEnd += num(t.dataset.rest) * 1000; run.restDur = Math.max(0, run.restDur + num(t.dataset.rest)); if (run.restEnd > now()) beeped = false; save(); onTick(); return; }
+    if (t.id === 'sport-nextset') { run.setIdx = curSet(run.exos[run.exIdx]) + 1; run.phase = 'work'; run.restEnd = null; save(); renderRun(); return; }
+    if (t.id === 'sport-next') { run.exIdx++; run.setIdx = 0; run.phase = 'work'; run.restEnd = null; save(); renderRun(); return; }
+    if (t.id === 'sport-endbtn') { run.phase = 'end'; save(); renderRun(); return; }
+    if (t.id === 'sport-backlast') { run.phase = 'work'; save(); renderRun(); return; }
+    if (t.dataset.acc) { run.accompagne = t.dataset.acc === '1'; save(); document.querySelectorAll('[data-acc]').forEach(b => b.classList.toggle('on', b === t)); return; }
+    if (t.id === 'sport-save') return finishRun(t);
+  }
+
+  async function finishRun(btn) {
+    btn.disabled = true; btn.textContent = 'Enregistrement…';
+    const payload = {
+      programme_id: run.programme_id, thematique: run.thematique, type: run.type, accompagne: !!run.accompagne,
+      duree_min: Math.round(elapsed() / 60000), note: run.note == null ? 7 : run.note, commentaire: run.commentaire || '', muscles: run.muscles,
+      exos: run.exos.map(e => ({ nom: e.nom, series: e.series.map(s => ({ reps: num(s.reps), poids: num(s.poids), ua: uaOf(e.nom, s.reps, s.poids) })) }))
+    };
+    try {
+      const id = await api('saveSeance', payload);
+      store.del('sportRun'); run = null; closeRun();
+      await reload();
+      goPage(1, false);
+      toast('Séance enregistrée ✅');
+      openSeance(id);
+    } catch (e) { btn.disabled = false; btn.textContent = 'Réessayer l\'enregistrement'; }
+  }
+
+  function runInput(e) {
+    const t = e.target;
+    if (!run) return;
+    if (t.dataset.in) { const [k, i, f] = t.dataset.in.split(','); run.exos[k].series[i][f] = num(t.value); refreshUA(+k); }
+    if (t.id === 'sport-note') { run.note = +t.value; $('#sport-notev').textContent = t.value; save(); }
+    if (t.id === 'sport-com') { run.commentaire = t.value; save(); }
+  }
+
+  /* =====================================================================
+     PROGRAMME
+     ===================================================================== */
+  function renderProg() {
+    const el = $('#sport-pg-prog');
+    let h = `<h1>Programme</h1><p class="sport-sub">L'ordre définit la rotation du bouton GO.</p><h2>Mes séances</h2>`;
+    X.progs.forEach(p => {
+      const muscles = new Set(); p.exos.forEach(e => splitM((X.exByName[e.exercice] || {}).muscles).forEach(m => muscles.add(m)));
+      h += `<button class="sport-card sport-seance" data-editprog="${esc(p.id)}" style="display:block!important">
+        <div class="sport-row sport-between"><span class="t">${num(p.ordre)}. ${esc(p.nom)}</span><span class="sport-badge">${p.type === 'longue' ? 'Longue 1h15–1h35' : 'Rapide 45 min'}</span></div>
+        <div class="sport-mute" style="margin:4px 0 8px">${p.exos.map(e => `${esc(e.exercice)} (${e.series}×${e.reps})`).join(' · ')}</div>
+        <div class="sport-row sport-wrap">${[...muscles].map(m => `<span class="sport-chip">${esc(MUSCLES[m] || m)}</span>`).join('')}</div>${strip(p.exos.map(e => e.exercice))}</button>`;
+    });
+    h += `<button class="sport-btn primary" data-editprog="">+ Nouvelle séance</button>
+      <h2 style="margin-top:30px">Bibliothèque d'exercices</h2><p class="sport-sub">Rangés par groupe musculaire. Touche un exercice pour le modifier ou ajouter une photo.</p>`;
+    const byGroup = {};
+    D.exercices.forEach(e => { const g = groupOf(e); (byGroup[g] = byGroup[g] || []).push(e); });
+    [...GROUPS.map(g => g[0]), 'Autres'].forEach(g => {
+      const list = (byGroup[g] || []).sort((a, b) => a.nom.localeCompare(b.nom));
+      if (g === 'Autres' && !list.length) return;
+      const firstMuscle = (GROUPS.find(x => x[0] === g) || [0, ['']])[1][0];
+      h += `<div class="sport-group"><h3>${g}<span class="n">${list.length} exercice${list.length > 1 ? 's' : ''}</span></h3>
+        <button class="sport-libadd" data-newex="${firstMuscle}" aria-label="Ajouter un exercice ${g}">+</button></div><div class="sport-card" style="padding:6px">`;
+      if (!list.length) h += `<div class="sport-mute" style="padding:10px">Aucun exercice pour l'instant.</div>`;
+      list.forEach(e => {
+        h += `<button class="sport-exitem" data-editex="${esc(e.nom)}">${thumb([e.nom])}<span><b>${esc(e.nom)}</b><span class="sport-mute">${splitM(e.muscles).map(m => MUSCLES[m] || m).join(', ')}</span></span><span class="sport-mute">›</span></button>`;
+      });
+      h += `</div>`;
+    });
+    h += `<button class="sport-btn small" data-editex="" style="margin-top:14px">+ Nouvel exercice</button>
+      <h2>Réglages</h2><div class="sport-card">
+      <label class="sport-lbl" style="margin-top:0">Poids de corps (kg) — ajouté au lest pour les exercices au poids du corps</label>
+      <input id="sport-bw" inputmode="decimal" value="${esc(D.reglages.poids_de_corps)}" placeholder="ex. 72">
+      <label class="sport-lbl">Repos par défaut (secondes)</label>
+      <input id="sport-rd" inputmode="numeric" value="${esc(D.reglages.repos_defaut || 90)}">
+      <label class="sport-lbl">Agenda : mots-clés des séances de salle (séparés par des virgules)</label>
+      <textarea id="sport-ms" rows="2">${esc(D.reglages.mots_seance || DEF_SEANCE)}</textarea>
+      <label class="sport-lbl">Agenda : mots-clés des autres sports</label>
+      <textarea id="sport-mp" rows="3">${esc(D.reglages.mots_sport || DEF_SPORT)}</textarea>
+      <label class="sport-lbl">Agenda à lire (adresse Gmail, vide = agenda principal du compte)</label>
+      <input id="sport-ag" value="${esc(D.reglages.agenda_id || '')}" placeholder="toi@gmail.com">
+      <label class="sport-lbl">Photo de fond (lien d'image, laisse vide pour la photo par défaut)</label>
+      <input id="sport-fd" value="${esc(D.reglages.fond_url || '')}" placeholder="https://…">
+      <button class="sport-btn small primary" id="sport-savereg" style="margin-top:12px">Enregistrer les réglages</button>
+      <div class="sport-mute" style="margin-top:14px;font-size:12px;line-height:1.6">Compte : <b>${esc((D.info || {}).compte || '?')}</b><br>
+      Google Sheet : <b>${esc((D.info || {}).sheet || '?')}</b><br>Agenda : <b>${esc(D.reglages.agenda_id || 'agenda principal du compte')}</b></div></div>`;
+    el.innerHTML = h;
+  }
+
+  let editP = null;
+  function openProgEditor(id) {
+    const p = X.progs.find(x => x.id === id);
+    editP = p ? { id: p.id, nom: p.nom, thematique: p.thematique, type: p.type || 'rapide', ordre: p.ordre, exos: p.exos.map(e => ({ ...e })) }
+      : { id: '', nom: '', thematique: '', type: 'rapide', ordre: X.progs.length + 1, exos: [] };
+    renderProgEditor();
+  }
+  function renderProgEditor() {
+    const opts = sel => D.exercices.slice().sort((a, b) => a.nom.localeCompare(b.nom)).map(e => `<option ${e.nom === sel ? 'selected' : ''}>${esc(e.nom)}</option>`).join('');
+    let h = `<button class="sport-back" data-close>‹ Retour</button><h1>${editP.id ? 'Modifier la séance' : 'Nouvelle séance'}</h1>
+      <label class="sport-lbl">Nom</label><input data-pf="nom" value="${esc(editP.nom)}" placeholder="ex. Pecs + Triceps">
+      <label class="sport-lbl">Thématique (groupes musculaires)</label><input data-pf="thematique" value="${esc(editP.thematique)}" placeholder="ex. Pecs + Triceps">
+      <label class="sport-lbl">Type</label>
+      <div class="sport-seg"><button data-ptype="rapide" class="${editP.type !== 'longue' ? 'on' : ''}">Rapide (45 min)</button><button data-ptype="longue" class="${editP.type === 'longue' ? 'on' : ''}">Longue (1h15–1h35)</button></div>
+      <label class="sport-lbl">Position dans la rotation GO</label><input data-pf="ordre" inputmode="numeric" value="${esc(editP.ordre)}">
+      <h2>Exercices</h2>`;
+    editP.exos.forEach((e, i) => {
+      h += `<div class="sport-card"><div class="sport-exrow"><select data-pe="${i},exercice">${opts(e.exercice)}</select>
+        <span class="sport-row sport-icons"><button data-pmove="${i},-1">↑</button><button data-pmove="${i},1">↓</button><button data-prm="${i}">✕</button></span></div>
+        <div class="sport-mini"><div><label>Séries</label><input inputmode="numeric" data-pe="${i},series" value="${esc(e.series)}"></div>
+        <div><label>Reps</label><input inputmode="numeric" data-pe="${i},reps" value="${esc(e.reps)}"></div>
+        <div><label>Poids kg</label><input inputmode="decimal" data-pe="${i},poids" value="${esc(e.poids)}"></div>
+        <div><label>Repos s</label><input inputmode="numeric" data-pe="${i},repos_s" value="${esc(e.repos_s)}"></div></div></div>`;
+    });
+    h += `<button class="sport-btn small" id="sport-padd">+ Ajouter un exercice</button>
+      <button class="sport-btn primary" id="sport-psave" style="margin-top:18px">Enregistrer</button>
+      ${editP.id ? `<button class="sport-btn danger small" id="sport-pdel" style="margin-top:10px">Supprimer cette séance</button>` : ''}`;
+    openSheet(h);
+  }
+
+  let editE = null;
+  const imgPrev = () => editE.image_url ? `<div class="prev" style="background-image:url('${esc(editE.image_url)}')"></div>` : `<div class="prev empty">Pas encore d'image</div>`;
+  /** Réduit une photo pour qu'elle tienne dans une cellule du Sheet (≈ 45 000 caractères max). */
+  function fileToDataUrl(file) {
+    return new Promise((res, rej) => {
+      if (file.type === 'image/gif' && file.size < 33000) { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(file); return; }
+      const url = URL.createObjectURL(file), im = new Image();
+      im.onload = () => {
+        let size = 480, q = 0.74, out = '';
+        for (let k = 0; k < 10; k++) {
+          const sc = Math.min(1, size / Math.max(im.width, im.height));
+          const c = document.createElement('canvas'); c.width = Math.round(im.width * sc); c.height = Math.round(im.height * sc);
+          const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height); g.drawImage(im, 0, 0, c.width, c.height);
+          out = c.toDataURL('image/jpeg', q);
+          if (out.length < 45000) break;
+          size *= 0.82; q = Math.max(0.45, q - 0.06);
+        }
+        URL.revokeObjectURL(url); res(out);
+      };
+      im.onerror = () => rej(new Error('Image illisible'));
+      im.src = url;
+    });
+  }
+  function openExEditor(nom, muscle) {
+    const e = D.exercices.find(x => x.nom === nom);
+    editE = e ? { ...e, ancien_nom: e.nom, muscles: splitM(e.muscles) } : { nom: '', muscles: muscle ? [muscle] : [], type_charge: 'charge', consigne: '', image_url: '' };
+    renderExEditor();
+  }
+  function renderExEditor() {
+    const h = `<button class="sport-back" data-close>‹ Retour</button><h1>${editE.ancien_nom ? 'Modifier l\'exercice' : 'Nouvel exercice'}</h1>
+      <label class="sport-lbl">Nom</label><input data-ef="nom" value="${esc(editE.nom)}">
+      <label class="sport-lbl">Muscles ciblés</label>
+      <div class="sport-visual" id="sport-exmap">${bodyMap(editE.muscles)}</div>
+      <div class="sport-row sport-wrap" style="margin-top:10px">${Object.keys(MUSCLES).map(m => `<button class="sport-chip ${editE.muscles.includes(m) ? 'red' : ''}" data-emus="${m}">${MUSCLES[m]}</button>`).join('')}</div>
+      <label class="sport-lbl">Type de charge</label>
+      <div class="sport-seg"><button data-etype="charge" class="${editE.type_charge !== 'poids_du_corps' ? 'on' : ''}">Charge</button><button data-etype="poids_du_corps" class="${editE.type_charge === 'poids_du_corps' ? 'on' : ''}">Poids du corps (+ lest)</button></div>
+      <label class="sport-lbl">Consigne (affichée pendant la séance)</label><textarea data-ef="consigne" rows="3">${esc(editE.consigne)}</textarea>
+      <label class="sport-lbl">Image de l'exercice</label>
+      <div class="sport-imgbox"><div id="sport-imgprev">${imgPrev()}</div>
+        <div><button class="sport-btn small primary" id="sport-imgpick">📷 Ajouter une photo</button>
+        <button class="sport-btn small" id="sport-imgclear">Retirer l'image</button></div></div>
+      <input type="file" id="sport-imgfile" accept="image/*" class="hidden">
+      <label class="sport-lbl">…ou colle le lien d'une image ou d'un GIF</label><input data-ef="image_url" id="sport-imgurl" value="${editE.image_url && editE.image_url.startsWith('data:') ? '' : esc(editE.image_url)}" placeholder="https://…">
+      <button class="sport-btn primary" id="sport-esave" style="margin-top:18px">Enregistrer</button>
+      ${editE.ancien_nom ? `<button class="sport-btn danger small" id="sport-edel" style="margin-top:10px">Supprimer cet exercice</button>` : ''}`;
+    openSheet(h);
+  }
+
+  /* ---------- Clics dans les panneaux ---------- */
+  async function sheetClick(e) {
+    const t = e.target.closest('button');
+    if (!t) return;
+    if (t.hasAttribute('data-close')) return closeSheet();
+    if (t.dataset.start) return startRun(t.dataset.start);
+    if (t.dataset.del) {
+      if (!t.dataset.sure) { t.dataset.sure = 1; t.textContent = 'Appuie encore pour confirmer'; return; }
+      await api('deleteSeance', t.dataset.del); closeSheet(); await reload(); toast('Séance supprimée'); return;
+    }
+    // éditeur de programme
+    if (t.dataset.ptype) { editP.type = t.dataset.ptype; return renderProgEditor(); }
+    if (t.dataset.pmove) { const [i, d] = t.dataset.pmove.split(',').map(Number); const j = i + d; if (j < 0 || j >= editP.exos.length) return; [editP.exos[i], editP.exos[j]] = [editP.exos[j], editP.exos[i]]; return renderProgEditor(); }
+    if (t.dataset.prm) { editP.exos.splice(+t.dataset.prm, 1); return renderProgEditor(); }
+    if (t.id === 'sport-padd') { editP.exos.push({ exercice: (D.exercices[0] || {}).nom || '', series: 4, reps: 12, poids: 0, repos_s: num(D.reglages.repos_defaut) || 90 }); return renderProgEditor(); }
+    if (t.id === 'sport-psave') {
+      if (!editP.nom) return toast('Donne un nom à la séance', true);
+      t.disabled = true; await api('saveProgramme', { ...editP, thematique: editP.thematique || editP.nom }); closeSheet(); await reload(); toast('Séance enregistrée'); return;
+    }
+    if (t.id === 'sport-pdel') {
+      if (!t.dataset.sure) { t.dataset.sure = 1; t.textContent = 'Appuie encore pour confirmer'; return; }
+      await api('deleteProgramme', editP.id); closeSheet(); await reload(); toast('Séance supprimée'); return;
+    }
+    // éditeur d'exercice
+    if (t.dataset.emus) {
+      const m = t.dataset.emus, i = editE.muscles.indexOf(m);
+      i >= 0 ? editE.muscles.splice(i, 1) : editE.muscles.push(m);
+      t.classList.toggle('red'); $('#sport-exmap').innerHTML = bodyMap(editE.muscles); return;
+    }
+    if (t.dataset.etype) { editE.type_charge = t.dataset.etype; document.querySelectorAll('[data-etype]').forEach(b => b.classList.toggle('on', b === t)); return; }
+    if (t.id === 'sport-imgpick') { $('#sport-imgfile').click(); return; }
+    if (t.id === 'sport-imgclear') { editE.image_url = ''; $('#sport-imgprev').innerHTML = imgPrev(); $('#sport-imgurl').value = ''; return; }
+    if (t.id === 'sport-edel') {
+      if (!t.dataset.sure) { t.dataset.sure = 1; t.textContent = 'Appuie encore pour confirmer'; return; }
+      await api('deleteExercice', editE.ancien_nom); closeSheet(); await reload(); toast('Exercice supprimé'); return;
+    }
+    if (t.id === 'sport-esave') {
+      if (!editE.nom) return toast('Donne un nom à l\'exercice', true);
+      t.disabled = true; await api('saveExercice', { ...editE, muscles: editE.muscles.join(',') }); closeSheet(); await reload(); toast('Exercice enregistré'); return;
+    }
+    if (t.dataset.seance) return openSeance(t.dataset.seance);
+  }
+  function sheetInput(e) {
+    const t = e.target;
+    if (t.dataset.pf) editP[t.dataset.pf] = t.value;
+    if (t.dataset.pe) { const [i, f] = t.dataset.pe.split(','); editP.exos[i][f] = f === 'exercice' ? t.value : num(t.value); }
+    if (t.dataset.ef) { editE[t.dataset.ef] = t.value; if (t.id === 'sport-imgurl') $('#sport-imgprev').innerHTML = imgPrev(); }
+    if (t.id === 'sport-imgfile' && e.type === 'change' && t.files && t.files[0]) {
+      $('#sport-imgprev').innerHTML = '<div class="prev empty">Préparation…</div>';
+      fileToDataUrl(t.files[0]).then(u => { editE.image_url = u; $('#sport-imgprev').innerHTML = imgPrev(); $('#sport-imgurl').value = ''; })
+        .catch(() => { toast('Impossible de lire cette image', true); $('#sport-imgprev').innerHTML = imgPrev(); });
+    }
+  }
+
+  /* ---------- Navigation entre les 3 écrans (pile de pages) ----------
+     Séance (0) est en dessous, Accueil (1) au milieu, Programme (2) au-dessus.
+     Un glissement ne peut amener qu'à la page voisine. */
+  let pos = 1, cur = 1, animId = null, drag = null;
+  const pages = () => document.querySelectorAll('.sport-page');
+  function layout() {
+    pages().forEach((pg, i) => {
+      const d = i - pos;
+      if (d >= 0) {
+        pg.style.transform = d ? `translate3d(${(d * 100).toFixed(3)}%,0,0)` : 'translate3d(0,0,0)';
+        pg.style.filter = '';
+        pg.style.visibility = d >= 1 ? 'hidden' : 'visible';
+        pg.classList.toggle('incoming', d > 0.001 && d < 1);
+      } else {
+        const e = Math.max(d, -1);
+        pg.style.transform = `translate3d(${(e * 26).toFixed(3)}%,0,0) scale(${(1 + 0.07 * e).toFixed(4)})`;
+        pg.style.filter = `brightness(${(1 + 0.62 * e).toFixed(3)})`;
+        pg.style.visibility = d <= -1 ? 'hidden' : 'visible';
+        pg.classList.remove('incoming');
+      }
+      pg.style.zIndex = i + 1;
+    });
+    const i = Math.round(pos);
+    document.querySelectorAll('#sport-tabs button').forEach(b => b.classList.toggle('on', +b.dataset.page === i));
+    $('#sport-tabglow').style.transform = `translateX(${(pos * 100).toFixed(1)}%)`;
+    $('#sport-bglogo').style.opacity = (0.08 + 0.24 * Math.max(0, 1 - pos)).toFixed(3);
+  }
+  const ease = t => 1 - Math.pow(1 - t, 3);
+  function animateTo(target, smooth = true) {
+    cancelAnimationFrame(animId);
+    cur = target;
+    if (!smooth) { pos = target; layout(); return; }
+    const from = pos, dist = Math.abs(target - from);
+    if (dist < 0.001) { pos = target; layout(); return; }
+    const dur = 230 + 170 * Math.min(dist, 2), t0 = performance.now();
+    const step = now => {
+      const t = Math.min(1, (now - t0) / dur);
+      pos = from + (target - from) * ease(t); layout();
+      if (t < 1) animId = requestAnimationFrame(step);
+    };
+    animId = requestAnimationFrame(step);
+  }
+  function goPage(i, smooth = true) { animateTo(Math.max(0, Math.min(2, i)), smooth); }
+
+  function dStart(x, y) { cancelAnimationFrame(animId); drag = { x0: x, y0: y, p0: pos, lock: null, pts: [[performance.now(), x]] }; }
+  function dMove(x, y, ev) {
+    if (!drag) return;
+    const dx = x - drag.x0, dy = y - drag.y0;
+    if (!drag.lock) {
+      if (Math.abs(dx) < 7 && Math.abs(dy) < 7) return;
+      drag.lock = Math.abs(dx) > Math.abs(dy) * 1.15 ? 'x' : 'y';
+      if (drag.lock === 'y') { animateTo(cur); return; }
+    }
+    if (drag.lock !== 'x') return;
+    if (ev && ev.cancelable) ev.preventDefault();
+    const W = window.innerWidth || 1;
+    let p = drag.p0 - dx / W;
+    const lo = Math.max(0, cur - 1), hi = Math.min(2, cur + 1);
+    if (p < lo) p = lo - Math.min(0.05, (lo - p) * 0.25);
+    if (p > hi) p = hi + Math.min(0.05, (p - hi) * 0.25);
+    pos = p; layout();
+    drag.pts.push([performance.now(), x]); if (drag.pts.length > 6) drag.pts.shift();
+  }
+  function dEnd() {
+    if (!drag) return;
+    const d = drag; drag = null;
+    if (d.lock !== 'x') return;
+    const a = d.pts[0], b = d.pts[d.pts.length - 1];
+    const v = (b[1] - a[1]) / Math.max(1, b[0] - a[0]); // px/ms, >0 = doigt vers la droite
+    let target = cur;
+    if (pos - cur > 0.2 || v < -0.35) target = cur + 1;
+    else if (cur - pos > 0.2 || v > 0.35) target = cur - 1;
+    target = Math.max(0, Math.min(2, Math.max(cur - 1, Math.min(cur + 1, target))));
+    animateTo(target);
+  }
+  function bindPager() {
+    const el = $('#sport-pager');
+    el.addEventListener('touchstart', e => { if (e.touches.length === 1) dStart(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
+    el.addEventListener('touchmove', e => { if (e.touches.length === 1) dMove(e.touches[0].clientX, e.touches[0].clientY, e); }, { passive: false });
+    el.addEventListener('touchend', dEnd); el.addEventListener('touchcancel', dEnd);
+    el.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse') dStart(e.clientX, e.clientY); });
+    window.addEventListener('pointermove', e => { if (e.pointerType === 'mouse' && drag) dMove(e.clientX, e.clientY, e); });
+    window.addEventListener('pointerup', e => { if (e.pointerType === 'mouse') dEnd(); });
+    window.addEventListener('resize', layout);
+  }
+
+  function renderAll() { renderHome(); renderStart(); renderProg(); }
+  async function reload() { D = await api('getData'); indexData(); renderAll(); }
+
+  /* ---------- Démarrage ---------- */
+  document.addEventListener('DOMContentLoaded', init);
+  if (document.readyState !== 'loading') init();
+  let started = false;
+  async function init() {
+    if (started) return; started = true;
+    $('#sport-bglogo').innerHTML = LOGO;
+    document.addEventListener('pointerdown', e => { if (e.target.closest('button')) try { navigator.vibrate && navigator.vibrate(6); } catch (x) { } }, { passive: true });
+    $('#sport-tabs').addEventListener('click', e => { const b = e.target.closest('button'); if (b) goPage(+b.dataset.page); });
+    bindPager(); layout();
+    $('#sport-pg-home').addEventListener('click', e => {
+      const b = e.target.closest('button'); if (!b) return;
+      if (b.dataset.filter) { homeFilter = b.dataset.filter; renderHome(); }
+      if (b.dataset.wk !== undefined) { const v = +b.dataset.wk; weekOffset = v === 0 ? 0 : weekOffset + v; selDay = null; renderWeek(); }
+      if (b.dataset.day) { selDay = b.dataset.day; renderWeek(); }
+      if (b.dataset.seance) openSeance(b.dataset.seance);
+    });
+    $('#sport-pg-start').addEventListener('click', e => {
+      const b = e.target.closest('button'); if (!b) return;
+      if (b.id === 'sport-go') { const p = nextProgramme(); if (p) startRun(p.id); }
+      if (b.id === 'sport-pick') openPicker();
+      if (b.id === 'sport-resume') { run = store.get('sportRun'); openRun(false); }
+      if (b.id === 'sport-abandon-start') {
+        if (!b.dataset.sure) { b.dataset.sure = 1; b.textContent = 'Appuie encore pour confirmer'; return; }
+        store.del('sportRun'); renderStart(); toast('Séance abandonnée');
+      }
+    });
+    $('#sport-pg-prog').addEventListener('click', async e => {
+      const b = e.target.closest('button'); if (!b) return;
+      if (b.dataset.editprog !== undefined) openProgEditor(b.dataset.editprog);
+      if (b.dataset.editex !== undefined) openExEditor(b.dataset.editex);
+      if (b.dataset.newex !== undefined) openExEditor('', b.dataset.newex);
+      if (b.id === 'sport-savereg') {
+        b.disabled = true;
+        await api('saveReglages', { poids_de_corps: num($('#sport-bw').value) || '', repos_defaut: num($('#sport-rd').value) || 90,
+          mots_seance: $('#sport-ms').value, mots_sport: $('#sport-mp').value, fond_url: $('#sport-fd').value.trim(), agenda_id: $('#sport-ag').value.trim() });
+        for (const k in agendaCache) delete agendaCache[k];
+        setBackground();
+        await reload(); toast('Réglages enregistrés');
+      }
+    });
+    $('#sport-sheet').addEventListener('click', sheetClick);
+    $('#sport-sheet').addEventListener('input', sheetInput);
+    $('#sport-sheet').addEventListener('change', sheetInput);
+    $('#sport-run').addEventListener('click', runClick);
+    $('#sport-run').addEventListener('input', runInput);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden && run) { keepAwake(); onTick(); } });
+
+    try { await reload(); } catch (e) { $('#sport-loading').innerHTML = '<p>Impossible de charger les données.<br>Recharge la page.</p>'; return; }
+    $('#sport-loading').classList.add('hidden');
+    setBackground();
+    goPage(1, false);
+    const saved = store.get('sportRun');
+    if (saved) { run = saved; openRun(false); }
+  }
+})();
+</script>
+
+</body>
+</html>

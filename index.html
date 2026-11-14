@@ -34,32 +34,9 @@
 
 <main id="view"></main>
 
-<nav class="tabs" id="tabs">
-  <button data-tab="home" class="on">
-    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></svg>
-    <span>Accueil</span>
-  </button>
-  <button data-tab="work">
-    <svg viewBox="0 0 24 24"><path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-1.8.7-3 1.7-4 .3 1.5 1 2.3 1.8 2.500C10 9 10.5 6 12 3z"/></svg>
-    <span>Travail</span>
-  </button>
-  <button data-tab="habits">
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.800L16 9.8"/></svg>
-    <span>Habitudes</span>
-  </button>
-  <button data-tab="apps">
-    <svg viewBox="0 0 24 24"><path d="M21 3L10 14"/><path d="M21 3l-7 18-4-7-7-4z"/></svg>
-    <span>Candid.</span>
-  </button>
-  <button data-tab="li">
-    <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.200a5 5 0 0 1 4.5 5"/></svg>
-    <span>Réseau</span>
-  </button>
-  <button data-tab="fin">
-    <svg viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="3"/><path d="M2.5 10h19"/><path d="M6.5 14.500h3"/></svg>
-    <span>Finances</span>
-  </button>
-</nav>
+<nav class="tabs" id="tabs"></nav>
+
+<iframe id="seancesFrame" title="Séances de sport" hidden></iframe>
 
 <div id="sheet" class="sheet" hidden>
   <div class="sheet-bg" data-a="closeSheet"></div>
@@ -68,8 +45,11 @@
 
 <div id="toast" class="toast" hidden></div>
 
+<script src="config.js"></script>
+<script src="quotes.js"></script>
 <script src="targets.js"></script>
 <script src="extra.js"></script>
+<script src="shell.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

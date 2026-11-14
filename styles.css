@@ -428,3 +428,90 @@ body.flash-break::after { background: var(--accent); animation: flash 1.6s ease-
 .recap-list li:last-child { border-bottom: 0; padding-bottom: 0; }
 .recap-list span { min-width: 0; overflow-wrap: anywhere; }
 .recap-list b { font-weight: 650; white-space: nowrap; }
+
+/* ============================================================
+   Version 3 : barre d'onglets défilante, swipe, écran de lancement,
+   actualités, séances, modules, réglages
+   ============================================================ */
+
+/* Barre d'onglets */
+.tabs { display: flex; grid-template-columns: none; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-left: 4px; padding-right: 4px; }
+.tabs::-webkit-scrollbar { display: none; }
+.tabs button { flex: 1 0 0; min-width: 0; font-size: 10.5px; }
+.tabs.scroll button { flex: 0 0 74px; }
+.tabs svg { width: 24px; height: 24px; }
+
+/* Transition au changement d'onglet */
+#view.slide-l { animation: slideL .24s ease-out; }
+#view.slide-r { animation: slideR .24s ease-out; }
+@keyframes slideL { from { transform: translateX(38px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes slideR { from { transform: translateX(-38px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* Écran de lancement */
+.splash { cursor: pointer; flex-direction: column; }
+.splash-in { margin: auto 0; }
+.splash-foot { position: absolute; left: 0; right: 0; bottom: calc(var(--safe-b) + 26px); display: flex; flex-direction: column; align-items: center; gap: 12px; font-size: 13px; color: rgba(255, 255, 255, .55); letter-spacing: .02em; }
+.splash-dots { display: flex; gap: 7px; }
+.splash-dots i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255, 255, 255, .25); }
+.splash-dots i.on { background: #fff; }
+.splash.quote { background: #050506; padding-left: 30px; padding-right: 30px; }
+.quote-bg { position: absolute; inset: 0; background: url("quote-bg.jpg") center bottom / cover no-repeat; }
+/* Voiles sombres : ils rendent la citation lisible et masquent le texte déjà présent dans l'image. */
+.quote-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, #050506 0%, #050506 40%, rgba(5, 5, 6, .55) 56%, rgba(5, 5, 6, .12) 72%, rgba(5, 5, 6, .9) 90%, #050506 100%); }
+.splash.quote .splash-in { position: relative; margin: calc(var(--safe-t) + 9vh) 0 auto; animation: fadeUp .7s ease both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.quote-tag { font-size: 11.5px; font-weight: 700; letter-spacing: .28em; text-transform: uppercase; color: rgba(255, 255, 255, .5); }
+.splash.quote blockquote { margin: 22px 0 0; font-weight: 300; letter-spacing: .01em; line-height: 1.28; color: #fff; text-wrap: balance; }
+.splash.quote blockquote.xl { font-size: 31px; letter-spacing: .12em; text-transform: uppercase; line-height: 1.4; }
+.splash.quote blockquote.lg { font-size: 26px; }
+.splash.quote blockquote.md { font-size: 22px; }
+.splash.quote blockquote.sm { font-size: 19px; }
+.splash.quote cite { display: block; margin-top: 18px; font-style: normal; font-size: 12.5px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255, 255, 255, .6); }
+.splash.quote .splash-foot { z-index: 1; }
+
+/* Actualités */
+.chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin: 0 -16px; padding: 0 16px; }
+.chips::-webkit-scrollbar { display: none; }
+.chips button { flex: none; height: 36px; padding: 0 16px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); font-size: 14px; font-weight: 650; color: var(--muted); }
+.chips button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.news { display: flex; flex-direction: column; gap: 10px; }
+.news a { display: block; background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; color: var(--text); text-decoration: none; }
+.news a:active { transform: scale(.985); }
+.news b { display: block; font-size: 16px; font-weight: 700; line-height: 1.3; letter-spacing: -.01em; }
+.news p { margin-top: 6px; font-size: 14px; color: #b4b4c2; line-height: 1.4; }
+.news small { display: block; margin-top: 8px; font-size: 12px; }
+.news .src { color: var(--accent); font-weight: 700; }
+
+/* Séances de sport (app intégrée dans un cadre) */
+#seancesFrame { position: fixed; left: 0; right: 0; width: 100%; border: 0; z-index: 10; background: #08090b; }
+body.framed { overflow: hidden; }
+body.framed main { display: none; }
+
+/* Réseau : secteur */
+.sector { font-size: 12px; }
+.sector select { margin-top: 6px; }
+
+/* Habitudes : bouton modifier */
+.habits .edit { color: var(--text); background: var(--card2); margin: 0; }
+.habits.edit li { gap: 10px; }
+
+/* Interrupteurs de modules */
+.group { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 16px 0 6px; }
+.toggles { background: var(--card2); border-radius: 16px; padding: 0 14px; }
+.toggles li { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-top: 1px solid var(--line); }
+.toggles li:first-child { border-top: 0; }
+.toggles div { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.toggles b { font-size: 15.5px; font-weight: 600; color: var(--text); }
+.toggles small { font-size: 12.5px; font-weight: 400; }
+.switch { width: 51px; height: 31px; flex: none; border-radius: 16px; background: #3a3a46; position: relative; transition: background .2s; }
+.switch i { position: absolute; top: 2px; left: 2px; width: 27px; height: 27px; border-radius: 50%; background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, .3); transition: transform .2s; }
+.switch.on { background: var(--green); }
+.switch.on i { transform: translateX(20px); }
+
+/* Guide agenda */
+.guide { background: var(--card2); border-radius: 14px; padding: 12px 14px; }
+.guide summary { font-size: 14px; font-weight: 650; color: var(--accent); cursor: pointer; list-style: none; }
+.guide summary::-webkit-details-marker { display: none; }
+.guide ol { margin: 12px 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; line-height: 1.4; }
+.guide .btn { background: var(--card); }
+.sheet.locked .sheet-body { max-height: 94vh; }

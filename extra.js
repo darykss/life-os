@@ -335,19 +335,19 @@ function openRecap(mon) {
     <p class="over">Récap de la semaine</p>
     ${navBar('recapWeek', weekLabel(mon), weekRange(mon), mon < curMon)}
     <div class="tiles">
-      ${tile('✅', 'Habitudes', pct == null ? '—' : pct + ' %', pct == null ? 'Aucune habitude suivie cette semaine.' : `de réussite · ${r.perfectDays} journée${r.perfectDays > 1 ? 's' : ''} parfaite${r.perfectDays > 1 ? 's' : ''}`,
+      ${!modOn('habits') ? '' : tile('✅', 'Habitudes', pct == null ? '—' : pct + ' %', pct == null ? 'Aucune habitude suivie cette semaine.' : `de réussite · ${r.perfectDays} journée${r.perfectDays > 1 ? 's' : ''} parfaite${r.perfectDays > 1 ? 's' : ''}`,
         list(r.habits.map((h) => `<li><span>${h.icon} ${esc(h.title)}</span><b>${h.n}/${h.total}</b></li>`)), pct != null && pct >= 80 ? 'good' : '')}
-      ${tile('💪', 'Sport', r.workouts.length, `séance${r.workouts.length > 1 ? 's' : ''} effectuée${r.workouts.length > 1 ? 's' : ''}`,
+      ${!blockOn('sport') ? '' : tile('💪', 'Sport', r.workouts.length, `séance${r.workouts.length > 1 ? 's' : ''} effectuée${r.workouts.length > 1 ? 's' : ''}`,
         list(r.workouts.map((w) => `<li><span>${esc(cap(fmtDate(w.date, { weekday: 'long' })))}</span><b>${esc(w.title)}</b></li>`)), r.workouts.length ? 'good' : '')}
-      ${tile('🔥', 'Travail', r.pomos, `session${r.pomos > 1 ? 's' : ''} Pomodoro · ${hmin(r.pomos * 25)}`,
+      ${!modOn('work') ? '' : tile('🔥', 'Travail', r.pomos, `session${r.pomos > 1 ? 's' : ''} Pomodoro · ${hmin(r.pomos * 25)}`,
         list([`<li><span>Jours travaillés</span><b>${r.workDays}/7</b></li>`, `<li><span>Série en cours</span><b>🔥 ${r.streak}</b></li>`]), r.workDays >= 5 ? 'good' : '')}
-      ${tile('📝', 'Tâches', r.tasksDone.length, `tâche${r.tasksDone.length > 1 ? 's' : ''} terminée${r.tasksDone.length > 1 ? 's' : ''}`,
+      ${!blockOn('todo') ? '' : tile('📝', 'Tâches', r.tasksDone.length, `tâche${r.tasksDone.length > 1 ? 's' : ''} terminée${r.tasksDone.length > 1 ? 's' : ''}`,
         list(r.tasksDone.slice(0, 6).map((x) => `<li><span>✓ ${esc(x.title)}</span></li>`)))}
-      ${tile('🎯', 'Candidatures', r.appsNew.length + r.appsMoves.length, `avancée${r.appsNew.length + r.appsMoves.length > 1 ? 's' : ''} cette semaine`,
+      ${!modOn('apps') ? '' : tile('🎯', 'Candidatures', r.appsNew.length + r.appsMoves.length, `avancée${r.appsNew.length + r.appsMoves.length > 1 ? 's' : ''} cette semaine`,
         list(r.appsNew.map((a) => `<li><span>${esc(a.title)}</span><b>ajoutée</b></li>`).concat(r.appsMoves.map((m) => `<li><span>${esc(m.title)}</span><b>${esc(appLabel(m.status))}</b></li>`))))}
-      ${tile('💶', 'Finances', (bal > 0 ? '+' : '') + eur(bal), 'solde de la semaine',
+      ${!modOn('fin') ? '' : tile('💶', 'Finances', (bal > 0 ? '+' : '') + eur(bal), 'solde de la semaine',
         list([`<li><span>Gagné</span><b class="amt in">+${eur(r.fin.in)}</b></li>`, `<li><span>Dépensé</span><b class="amt out">−${eur(r.fin.out)}</b></li>`]), bal < 0 ? 'bad' : bal > 0 ? 'good' : '')}
-      ${tile('🤝', 'LinkedIn', r.li ? 'Fait ✓' : 'Pas fait', r.li ? esc(r.li.who || r.li.role) + (r.li.who ? ' · ' + esc(r.li.role) : '') : 'Aucun contact validé cette semaine.', '', r.li ? 'good' : '')}
+      ${!modOn('li') ? '' : tile('🤝', 'LinkedIn', r.li ? 'Fait ✓' : 'Pas fait', r.li ? esc(r.li.who || r.li.role) + (r.li.who ? ' · ' + esc(r.li.role) : '') : 'Aucun contact validé cette semaine.', '', r.li ? 'good' : '')}
     </div>
     <button class="btn wide" data-a="closeSheet">Fermer</button>`;
   $('#sheet').hidden = false;
@@ -360,8 +360,9 @@ function maybeSundayRecap() {
   if (parseYmd(t).getDay() !== 0) return;
   const mon = mondayOf(t);
   if (S.recapSeen === mon) return;
+  if (!$('#splash').hidden || !$('#sheet').hidden) return;   // après l'écran de lancement
   S.recapSeen = mon; save();
-  setTimeout(() => openRecap(mon), $('#splash').hidden ? 400 : 2500);
+  setTimeout(() => openRecap(mon), 300);
 }
 
 /* ============================================================

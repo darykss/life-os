@@ -6,7 +6,7 @@
    vient de l'extérieur, via le script Google Apps Script.
    ============================================================ */
 
-const KEY = 'lifeos.v1';
+const KEY = APP.key;   // voir config.js
 const DAY_START_HOUR = 5; // la « journée » des habitudes change à 05h00
 
 const DEFAULTS = {
@@ -14,7 +14,8 @@ const DEFAULTS = {
     gcalUrl: '',
     sportKw: 'sport, muscu, musculation, running, run, footing, course à pied, entraînement, entrainement, training, foot, football, natation, vélo, tennis, padel, boxe, crossfit, salle, gym, basket, rugby, yoga, fractionné, sortie longue',
     name: '',
-    pitch: 'étudiant, je prépare les concours des écoles de commerce',
+    pitch: APP.pitch,
+    sector: APP.sector,
   },
   cal: { events: [], at: 0, error: '' },
   pins: {},
@@ -28,25 +29,19 @@ const DEFAULTS = {
   pomo: { phase: 'work', running: false, endAt: 0, left: 25 * 60e3 },
   apps: [],                            // candidatures
   recapSeen: '',
+  modules: {},                         // { onglet ou b_bloc: false } = masqué
+  news: { data: null, at: 0 },
+  quoteSeen: '',
+  onboarded: false,
   lastRefresh: 0,
 };
-
-// Habitudes proposées au premier lancement (ensuite modifiables dans l'app).
-const HABITS = [
-  { id: 'sleep', icon: '😴', title: 'Sommeil', desc: '7h à 8h de sommeil' },
-  { id: 'sport', icon: '💪', title: 'Sport', desc: 'Séance de sport faite' },
-  { id: 'study', icon: '📚', title: 'Travail académique', desc: 'Cours ou TAGE MAGE travaillé' },
-  { id: 'screen', icon: '📱', title: "Temps d'écran", desc: 'Moins de 3h dans la journée' },
-  { id: 'tiktok', icon: '🎬', title: 'Business TikTok', desc: 'TikToks du jour postés' },
-  { id: 'tidy', icon: '🧹', title: 'Rangement', desc: '5 minutes de rangement de la chambre' },
-];
 
 const GCAL_COLORS = { 1: '#7986cb', 2: '#33b679', 3: '#8e24aa', 4: '#e67c73', 5: '#f6bf26', 6: '#f4511e', 7: '#039be5', 8: '#9e9e9e', 9: '#3f51b5', 10: '#0b8043', 11: '#d50000' };
 
 /* ---------- État ---------- */
 
 let S = loadState();
-const UI = { tab: 'home', habitDay: null, habitWeek: 0, habitEdit: false, chartMode: 'w', agendaDay: null, finMonth: null, appsClosed: false, recapWeek: null, finType: 'out', liMsg: 'note', refreshing: false, pendingRender: false, showDone: false, allDeadlines: false };
+const UI = { queue: [], qi: 0, newsSec: null, habitEditId: null, tab: 'home', habitDay: null, habitWeek: 0, habitEdit: false, chartMode: 'w', agendaDay: null, finMonth: null, appsClosed: false, recapWeek: null, finType: 'out', liMsg: 'note', refreshing: false, pendingRender: false, showDone: false, allDeadlines: false };
 
 function loadState() {
   let raw = {};
@@ -58,7 +53,8 @@ function loadState() {
     out[k] = plain ? Object.assign(out[k], raw[k]) : raw[k];
   }
   // Migrations depuis la première version
-  if (!raw.habitList) out.habitList = HABITS.map((h) => ({ ...h }));
+  if (!raw.habitList) out.habitList = APP.habits.map((h) => ({ ...h }));
+  if (raw.settings || !APP.onboarding) out.onboarded = true;   // déjà installé : pas d'écran de bienvenue
   for (const sub of out.fin.subs) {
     if (!sub.from) { const ts = parseInt(String(sub.id).slice(0, -5), 36); const d = new Date(ts > 1e12 ? ts : Date.now()); sub.from = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`; }
   }
@@ -116,6 +112,7 @@ async function copyText(text) {
 
 const ICON = {
   pin: '<svg viewBox="0 0 24 24"><path d="M12 17v5"/><path d="M8 3h8l-1 6 3 3v2H6v-2l3-3z"/></svg>',
+  edit: '<svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>',
   trash: '<svg viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M9 7V4h6v3"/><path d="M6 7l1 13h10l1-13"/></svg>',
   check: '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
   plus: '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',
@@ -190,7 +187,7 @@ async function refresh(manual) {
   if (UI.refreshing) return;
   UI.refreshing = true;
   $('#refreshBtn').classList.add('spin');
-  await fetchCalendar();
+  await Promise.all([fetchCalendar(), fetchNews()]);
   S.lastRefresh = Date.now();
   cleanup();
   save();
@@ -214,7 +211,7 @@ function scheduleDailyRefresh() {
 }
 
 /* ============================================================
-   Épinglage + écran d'ouverture (2 secondes)
+   Éléments épinglés (l'écran de lancement est dans shell.js)
    ============================================================ */
 
 function pinnedItems() {
@@ -222,36 +219,8 @@ function pinnedItems() {
   const out = [];
   for (const p of Object.values(S.pins)) if (!p.date || p.date >= t) out.push({ title: p.title, date: p.date });
   for (const x of S.tasks) if (x.pinned && !x.done) out.push({ title: x.title, date: x.due || '' });
-  for (const a of S.apps) if (a.pinned && (appOpen(a) || appWaiting(a))) out.push({ title: a.title, date: a.due || '' });
+  if (modOn('apps')) for (const a of S.apps) if (a.pinned && (appOpen(a) || appWaiting(a))) out.push({ title: a.title, date: a.due || '' });
   return out.sort((a, b) => (a.date || '9999').localeCompare(b.date || '9999'));
-}
-
-function showSplash() {
-  const items = pinnedItems();
-  const el = $('#splash');
-  if (!items.length) { el.hidden = true; return; }
-  const [first, ...rest] = items;
-  const len = first.title.length;
-  const size = len <= 14 ? 'xl' : len <= 30 ? 'lg' : len <= 60 ? 'md' : 'sm';
-  el.innerHTML = `
-    <div class="splash-in">
-      <div class="splash-tag">${ICON.pin} Échéance épinglée</div>
-      ${first.date ? `<div class="splash-count">${esc(countdown(first.date))}</div>` : ''}
-      <div class="splash-title ${size}">${esc(first.title)}</div>
-      ${first.date ? `<div class="splash-date">${esc(cap(fmtDate(first.date, { weekday: 'long', day: 'numeric', month: 'long' })))}</div>` : ''}
-      ${rest.length ? `<div class="splash-rest">${rest.slice(0, 3).map((r) => `<div><b>${r.date ? esc(countdown(r.date)) : '📌'}</b> ${esc(r.title)}</div>`).join('')}${rest.length > 3 ? `<div class="more">+ ${rest.length - 3} autre${rest.length > 4 ? 's' : ''}</div>` : ''}</div>` : ''}
-    </div>`;
-  el.hidden = false;
-  el.classList.remove('out');
-  clearTimeout(showSplash.t1); clearTimeout(showSplash.t2);
-  showSplash.t1 = setTimeout(hideSplash, 2000);
-}
-function hideSplash() {
-  const el = $('#splash');
-  if (el.hidden) return;
-  el.classList.add('out');
-  clearTimeout(showSplash.t1);
-  showSplash.t2 = setTimeout(() => { el.hidden = true; }, 380);
 }
 
 /* ============================================================
@@ -264,11 +233,12 @@ function render(fromRefresh) {
   if (fromRefresh && a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) { UI.pendingRender = true; return; }
   UI.pendingRender = false;
 
-  const titles = { home: cap(new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'short' })), li: 'Réseau LinkedIn', habits: 'Habitudes', fin: 'Finances', work: 'Travail', apps: 'Candidatures' };
-  $('#title').textContent = titles[UI.tab];
+  if (!enabledTabs().includes(UI.tab)) UI.tab = 'home';
+  $('#title').textContent = UI.tab === 'home' ? cap(new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'short' })) : TAB_DEFS[UI.tab].title;
   $('#subtitle').textContent = S.lastRefresh ? 'Actualisé à ' + new Date(S.lastRefresh).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) : '';
-  document.querySelectorAll('#tabs button').forEach((b) => b.classList.toggle('on', b.dataset.tab === UI.tab));
-  $('#view').innerHTML = { home: viewHome, li: viewLinkedIn, habits: viewHabits, fin: viewFinance, work: viewWork, apps: viewApps }[UI.tab]();
+  renderTabs();
+  $('#view').innerHTML = { home: viewHome, li: viewLinkedIn, habits: viewHabits, fin: viewFinance, work: viewWork, apps: viewApps, news: viewNews, seances: () => '' }[UI.tab]();
+  syncFrame();
 }
 
 const card = (title, body, extra) => `<section class="card"><div class="card-h"><h2>${title}</h2>${extra || ''}</div>${body}</section>`;
@@ -281,10 +251,11 @@ function viewHome() {
   const evs = S.cal.events;
   let html = '';
 
-  if (!S.settings.gcalUrl) {
+  const wantCal = blockOn('agenda') || blockOn('deadlines');
+  if (!wantCal) { /* agenda masqué */ } else if (!S.settings.gcalUrl) {
     html += `<section class="card connect">
       <h2>Connecte ton Google Agenda</h2>
-      <p>Pour afficher ton emploi du temps et tes échéances en rouge, relie ton agenda (3 minutes, une seule fois).</p>
+      <p>Pour afficher ton emploi du temps et tes échéances en rouge, relie ton agenda (3 minutes, une seule fois). Le guide est dans les réglages.</p>
       <button class="btn primary" data-a="settings">Connecter</button>
     </section>`;
   } else if (S.cal.error) {
@@ -299,6 +270,7 @@ function viewHome() {
     </section>`;
   }
 
+  if (blockOn('agenda')) {
   /* Emploi du temps : navigation par jour et par semaine */
   const day = UI.agendaDay || t;
   const wmon = mondayOf(day);
@@ -321,6 +293,8 @@ function viewHome() {
   }).join('')}</ul>` : empty(!S.settings.gcalUrl ? 'Ton programme apparaîtra ici.' : day === t ? 'Rien de prévu aujourd’hui.' : 'Rien de prévu ce jour-là.')),
   day === t ? `<span class="count">${dayEvs.length || ''}</span>` : '<button class="chipbtn" data-a="agendaToday">Aujourd’hui</button>');
 
+  }
+  if (blockOn('deadlines')) {
   /* Échéances (événements rouges) */
   const reds = evs.filter((e) => isRed(e) && (evDay(e) >= t || evOnDay(e, t))).sort((a, b) => evDay(a).localeCompare(evDay(b)));
   const shown = UI.allDeadlines ? reds : reds.slice(0, 5);
@@ -337,8 +311,9 @@ function viewHome() {
     : empty(S.settings.gcalUrl ? 'Aucun événement rouge à venir dans ton agenda.' : 'Les événements en rouge de ton agenda apparaîtront ici.'),
   '<span class="dot red"></span>');
 
-  html += viewWorkouts(t, evs);
-  html += viewTasks(t);
+  }
+  if (blockOn('sport')) html += viewWorkouts(t, evs);
+  if (blockOn('todo')) html += viewTasks(t);
   if (parseYmd(t).getDay() !== 0) html += '<button class="link" data-a="recap" data-id="last">Voir le récap de la semaine dernière</button>';
   return html;
 }
@@ -412,11 +387,16 @@ function viewTasks(t) {
 /* ---------- Onglet 2 : LinkedIn ---------- */
 
 const weekIndex = (mon) => Math.round((parseYmd(mon) - new Date(2024, 0, 1)) / (7 * 864e5));
+// Cible de la semaine parmi les profils du secteur choisi (tous les profils défilent avant de revenir).
 function weekTarget() {
   const mon = mondayOf(today());
-  const n = LI_TARGETS.length;
-  const i = (((weekIndex(mon) + S.li.offset) * 13) % n + n) % n; // 13 est premier avec 48 : tous les profils défilent, en alternant les domaines
-  return { mon, target: LI_TARGETS[i] };
+  const pool = LI_TARGETS.filter((x) => S.settings.sector === 'all' || x.cat === S.settings.sector);
+  const list = pool.length ? pool : LI_TARGETS;
+  const n = list.length;
+  const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+  const step = [13, 11, 7, 5, 1].find((k) => gcd(k, n) === 1);
+  const i = (((weekIndex(mon) + S.li.offset) * step) % n + n) % n;
+  return { mon, target: list[i] };
 }
 function isoWeek(s) {
   const d = parseYmd(s); d.setDate(d.getDate() + 3 - ((d.getDay() + 6) % 7));
@@ -428,7 +408,7 @@ function liMessages(tg) {
   const me = S.settings.name.trim() || '[Ton prénom]';
   const pitch = S.settings.pitch.trim();
   const role = tg.role;
-  const note = `Bonjour [Prénom], je suis étudiant et votre parcours en tant que ${role} m'inspire. Auriez-vous 15 min pour échanger sur votre métier ? Merci d'avance ! ${me}`;
+  const note = `Bonjour [Prénom], votre parcours en tant que ${role} m'inspire beaucoup. Auriez-vous 15 min pour échanger sur votre métier ? Merci d'avance ! ${me}`;
   const long = `Bonjour [Prénom],
 
 Je m'appelle ${me}${pitch ? ', ' + pitch : ''}. Je m'intéresse de près à ${LI_CATS[tg.cat].topic}, et votre parcours en tant que ${role} a retenu mon attention.
@@ -460,7 +440,12 @@ function viewLinkedIn() {
   const text = UI.liMsg === 'note' ? msgs.note : msgs.long;
   const streak = liStreak();
 
-  let html = `<section class="card hero ${doneEntry ? 'ok' : ''}">
+  let html = `<section class="card slim"><label class="sector">Secteur ciblé
+      <select data-c="liSector">
+        <option value="all" ${S.settings.sector === 'all' ? 'selected' : ''}>Tous les secteurs</option>
+        ${Object.keys(LI_CATS).map((k) => `<option value="${k}" ${S.settings.sector === k ? 'selected' : ''}>${esc(LI_CATS[k].label)}</option>`).join('')}
+      </select></label></section>`;
+  html += `<section class="card hero ${doneEntry ? 'ok' : ''}">
       <div class="hero-top"><span class="chip">Semaine ${isoWeek(mon)}</span><span class="chip soft">${esc(LI_CATS[shownTg.cat].label)}</span>${doneEntry ? '<span class="chip green">Contact fait ✓</span>' : ''}</div>
       <p class="over">Ta cible de la semaine</p>
       <h2 class="big">${esc(shownTg.role)}</h2>
@@ -560,18 +545,19 @@ function viewHabits() {
   html += list.length ? `<ul class="habits ${UI.habitEdit ? 'edit' : ''}">${list.map((h) => `<li class="${state[h.id] ? 'on' : ''}" data-a="toggleHabit" data-id="${h.id}">
       <span class="emoji">${esc(h.icon)}</span>
       <div><b>${esc(h.title)}</b>${h.desc ? `<small>${esc(h.desc)}</small>` : ''}</div>
-      ${UI.habitEdit ? `<button class="ghost del" data-a="delHabit" data-id="${h.id}" aria-label="Retirer">${ICON.trash}</button>` : `<span class="tick">${ICON.check}</span>`}
+      ${UI.habitEdit ? `<button class="ghost edit" data-a="habitModify" data-id="${h.id}" aria-label="Modifier">${ICON.edit}</button><button class="ghost del" data-a="delHabit" data-id="${h.id}" aria-label="Retirer">${ICON.trash}</button>` : `<span class="tick">${ICON.check}</span>`}
     </li>`).join('')}</ul>` : `<section class="card">${empty('Aucune habitude pour ce jour. Ajoute-en une ci-dessous.')}</section>`;
 
+  const eh = UI.habitEditId ? S.habitList.find((h) => h.id === UI.habitEditId) : null;
   html += UI.habitEdit
-    ? card('Ajouter une habitude', `<form class="stack" data-f="addHabit">
-        <div class="emoji-row"><input name="icon" placeholder="🙂" maxlength="4" autocomplete="off" aria-label="Emoji"><input name="title" placeholder="Nom (ex. Lecture)" autocomplete="off"></div>
-        <input name="desc" placeholder="Objectif (ex. 20 pages) — optionnel" autocomplete="off" enterkeyhint="done">
-        <button class="btn primary wide">Ajouter</button>
+    ? card(eh ? 'Modifier l’habitude' : 'Ajouter une habitude', `<form class="stack" data-f="addHabit">
+        <div class="emoji-row"><input name="icon" placeholder="🙂" maxlength="4" autocomplete="off" aria-label="Emoji" value="${eh ? esc(eh.icon) : ''}"><input name="title" placeholder="Nom (ex. Lecture)" autocomplete="off" value="${eh ? esc(eh.title) : ''}"></div>
+        <input name="desc" placeholder="Objectif (ex. 20 pages) — optionnel" autocomplete="off" enterkeyhint="done" value="${eh ? esc(eh.desc || '') : ''}">
+        <button class="btn primary wide">${eh ? 'Enregistrer' : 'Ajouter'}</button>
       </form>
-      <p class="hint">Une habitude retirée disparaît à partir d’aujourd’hui, mais reste dans ton historique.</p>
+      <p class="hint">✎ modifie une habitude, la corbeille la retire à partir d’aujourd’hui (elle reste dans ton historique).</p>
       <button class="link" data-a="habitEdit">Terminer</button>`)
-    : '<button class="link" data-a="habitEdit">Ajouter ou retirer des habitudes</button>';
+    : '<button class="link" data-a="habitEdit">Ajouter, modifier ou retirer des habitudes</button>';
 
   /* La semaine en un coup d'œil */
   const days = DOW.map((_, i) => addDays(mon, i));
@@ -700,36 +686,6 @@ function viewFinance() {
   return html;
 }
 
-/* ---------- Réglages ---------- */
-
-function openSettings() {
-  $('#sheetBody').innerHTML = `
-    <div class="grab"></div>
-    <h2>Réglages</h2>
-    <form class="stack" data-f="saveSettings">
-      <label>Lien du script Google Agenda
-        <input name="gcalUrl" type="url" inputmode="url" placeholder="https://script.google.com/macros/s/…/exec" value="${esc(S.settings.gcalUrl)}" autocomplete="off" autocapitalize="off" spellcheck="false">
-      </label>
-      <p class="hint">Ce lien donne accès à ton agenda en lecture : garde-le pour toi. La marche à suivre est dans le fichier README du projet (étape « Google Agenda »).</p>
-      <label>Ton prénom (signature des messages LinkedIn)
-        <input name="name" value="${esc(S.settings.name)}" autocomplete="given-name">
-      </label>
-      <label>Ta présentation en une phrase
-        <input name="pitch" value="${esc(S.settings.pitch)}" autocomplete="off">
-      </label>
-      <label>Mots-clés qui identifient une séance de sport dans l’agenda
-        <textarea name="sportKw" rows="3" autocapitalize="off">${esc(S.settings.sportKw)}</textarea>
-      </label>
-      <button class="btn primary wide">Enregistrer</button>
-    </form>
-    <h3>Sauvegarde</h3>
-    <p class="hint">Tes données sont stockées sur cet iPhone uniquement. Exporte-les de temps en temps pour ne rien perdre.</p>
-    <div class="two"><button class="btn" data-a="export">Exporter</button><label class="btn filebtn">Importer<input type="file" accept="application/json,.json" id="importFile"></label></div>
-    <button class="link" data-a="closeSheet">Fermer</button>`;
-  $('#sheet').hidden = false;
-}
-function closeSheet() { $('#sheet').hidden = true; }
-
 /* ============================================================
    Actions
    ============================================================ */
@@ -783,7 +739,8 @@ const ACTIONS = {
 
   habitDay(d) { UI.habitDay = d === habitDefaultDay() ? null : d; },
   habitWeek(delta) { UI.habitWeek = Math.min(0, UI.habitWeek + Number(delta)); UI.habitDay = null; },
-  habitEdit() { UI.habitEdit = !UI.habitEdit; },
+  habitEdit() { UI.habitEdit = !UI.habitEdit; UI.habitEditId = null; },
+  habitModify(id) { UI.habitEditId = UI.habitEditId === id ? null : id; },
   chartMode(id) { UI.chartMode = id; },
   toggleHabit(id) {
     const d = habitSelDay();
@@ -815,15 +772,17 @@ const ACTIONS = {
   },
 
   export() {
-    const blob = new Blob([JSON.stringify(S, null, 2)], { type: 'application/json' });
+    let muscu = null;
+    try { muscu = JSON.parse(localStorage.getItem(KEY + '.muscu')); } catch (e) { /* rien */ }
+    const blob = new Blob([JSON.stringify({ ...S, _muscu: muscu }, null, 2)], { type: 'application/json' });
     const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob); a.download = `life-os-${today()}.json`;
+    a.href = URL.createObjectURL(blob); a.download = `${APP.name.toLowerCase().replace(/\s+/g, '-')}-${today()}.json`;
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 5000);
   },
 };
 Object.assign(ACTIONS, EXTRA_ACTIONS);
-const NO_RENDER = new Set(['refresh', 'settings', 'closeSheet', 'liCopy', 'export', 'recap', 'recapWeek']);
+const NO_RENDER = new Set(['refresh', 'settings', 'closeSheet', 'liCopy', 'export', 'recap', 'recapWeek', 'copyScript']);
 
 const FORMS = {
   addTask(f) {
@@ -854,6 +813,8 @@ const FORMS = {
   addHabit(f) {
     const title = f.title.trim();
     if (!title) { toast('Donne un nom à l’habitude'); return false; }
+    const eh = UI.habitEditId && S.habitList.find((h) => h.id === UI.habitEditId);
+    if (eh) { Object.assign(eh, { icon: f.icon.trim() || eh.icon, title, desc: f.desc.trim() }); UI.habitEditId = null; toast('Habitude modifiée'); return; }
     S.habitList.push({ id: uid(), icon: f.icon.trim() || '✅', title, desc: f.desc.trim(), from: logicalDay() });
     toast('Habitude ajoutée');
   },
@@ -870,8 +831,8 @@ Object.assign(FORMS, EXTRA_FORMS);
 
 document.addEventListener('click', (ev) => {
   const tab = ev.target.closest('#tabs button');
-  if (tab) { UI.tab = tab.dataset.tab; UI.habitDay = null; UI.habitWeek = 0; UI.habitEdit = false; render(); window.scrollTo(0, 0); return; }
-  if (ev.target.closest('#splash')) { hideSplash(); return; }
+  if (tab) { goTab(tab.dataset.tab, 0); return; }
+  if (ev.target.closest('#splash')) { nextSplash(); return; }
   const el = ev.target.closest('[data-a]');
   if (!el) return;
   const a = el.dataset.a;
@@ -909,6 +870,8 @@ document.addEventListener('change', (ev) => {
       const data = JSON.parse(reader.result);
       if (!data || typeof data !== 'object' || !data.settings) throw new Error('format');
       if (!confirm('Remplacer toutes les données de l’app par cette sauvegarde ?')) return;
+      if (data._muscu) localStorage.setItem(KEY + '.muscu', JSON.stringify(data._muscu));
+      delete data._muscu;
       localStorage.setItem(KEY, JSON.stringify(data));
       S = loadState(); closeSheet(); render(); toast('Sauvegarde importée');
     } catch (e) { toast('Fichier de sauvegarde invalide'); }
@@ -928,19 +891,22 @@ document.addEventListener('visibilitychange', () => {
   const away = Date.now() - hiddenAt;
   if (pomoSync()) { save(); render(true); }  // le minuteur a pu se terminer pendant l'absence
   if (S.pomo.running) keepAwake(true);
-  if (away > 20000) showSplash();   // l'app est rouverte : on réaffiche l'échéance épinglée
+  if (away > 20000 && S.onboarded && $('#sheet').hidden) showSplash();   // l'app est rouverte : on réaffiche l'échéance épinglée
   if (away > 5000) refresh();       // et on actualise
   maybeSundayRecap();
 });
 
 cleanup();
 if (pomoSync()) save();
+document.title = APP.name;
 render();
-showSplash();
+if (S.onboarded) showSplash(); else openOnboarding();
 refresh();
 scheduleDailyRefresh();
 maybeSundayRecap();
 setInterval(pomoTick, 500);
+bindSwipe();
+window.addEventListener('resize', syncFrame);
 
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
   navigator.serviceWorker.register('sw.js').catch(() => {});

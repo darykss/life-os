@@ -32,7 +32,7 @@ Le dépôt est public, mais il ne contient que le code : aucune de tes données 
 ### 3. Google Agenda
 
 1. Sur ordinateur, va sur [script.google.com](https://script.google.com) › **Nouveau projet**.
-2. Remplace tout le code par le contenu de [`google-apps-script/Code.gs`](google-apps-script/Code.gs).
+2. Remplace tout le code par le contenu de [`agenda-script.txt`](agenda-script.txt) (ou utilise le bouton « Copier le script » des réglages de l'app).
 3. Choisis la fonction `autoriser` dans la barre du haut, clique sur **Exécuter** et accepte l'accès à ton agenda. Google affiche un avertissement « application non validée » : c'est normal, c'est ton propre script (*Paramètres avancés* › *Accéder au projet*).
 4. **Déployer › Nouveau déploiement** › type **Application Web** › *Exécuter en tant que* : **Moi** › *Qui a accès* : **Tout le monde** › **Déployer**.
 5. Copie l'**URL de l'application Web** (elle se termine par `/exec`).
@@ -66,6 +66,20 @@ Cette URL permet de lire ton agenda : ne la partage pas. Le script ne fait que l
 
 **Sauvegarde.** Les données vivent uniquement sur l'iPhone. ⚙︎ **Réglages › Exporter** crée un fichier de sauvegarde, **Importer** le restaure. Supprimer l'app de l'écran d'accueil efface ses données.
 
+**Écran de lancement.** À la première ouverture du jour, une citation s'affiche sur l'image `quote-bg.jpg`, puis les échéances épinglées, de la plus proche à la plus lointaine. Un toucher passe à la suivante.
+
+**Navigation.** Glisser le doigt à gauche ou à droite change d'onglet ; la barre du bas défile. Dans l'onglet Séances, le glissement appartient à l'app intégrée : on en sort par la barre du bas.
+
+**Modules.** ⚙︎ Réglages › Modules : chaque onglet et chaque bloc de l'accueil s'active ou se masque, sans rien effacer.
+
+**Séances.** L'onglet reprend l'app [Suivi muscu](https://github.com/raph4L-hypen/suivi-muscu) de raph4L-hypen, avec son accord ; ses données sont stockées sur le téléphone.
+
+**Actualités.** `fetch-news.py` fabrique `news.json` à partir des flux du Monde et de franceinfo. La tâche planifiée `.github/workflows/news.yml` le relance chaque matin.
+
+## Deux versions, un seul code
+
+Ce dossier est la version personnelle. La version amis (`../darykss/`) en est une copie générée par `python3 tools/build.py public` : seuls `config.js`, le nom affiché et le README changent. Toute modification se fait ici, puis on régénère.
+
 ## Mettre l'app à jour
 
 Renvoie tous les fichiers du dossier sur GitHub (page **Add file › Upload files** du dépôt), puis **Commit changes**. L'app installée récupère la nouvelle version à l'ouverture suivante, sans perdre tes données.
@@ -74,9 +88,13 @@ Pour une mise à jour du script Google : colle le nouveau `Code.gs`, puis **Dép
 
 ## Fichiers
 
-- `index.html`, `styles.css`, `app.js`, `extra.js` : l'app
+- `index.html`, `styles.css`, `app.js`, `extra.js`, `shell.js` : l'app
+- `config.js` : ce qui distingue cette version (nom, onglets, habitudes de départ)
+- `quotes.js`, `quote-bg.jpg` : citations et image de l'écran de lancement
+- `seances.html` : l'app de séances de sport intégrée
+- `fetch-news.py`, `news.json` : actualités
+- `agenda-script.txt` : le script à coller dans Google Apps Script
 - `targets.js` : la liste des cibles LinkedIn (modifiable)
 - `sw.js`, `manifest.webmanifest`, `icon-180.png`, `icon-512.png` : installation et mode hors ligne
-- `google-apps-script/Code.gs` : le script à coller dans Google Apps Script
 
 Pour tester sur ordinateur : `python3 -m http.server 8765` dans ce dossier, puis `http://localhost:8765`.
