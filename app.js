@@ -6,6 +6,16 @@
    vient de l'extérieur, via le script Google Apps Script.
    ============================================================ */
 
+// Garde-fou de mise à jour : si la page en cache est plus ancienne que ce fichier
+// (config.js absent), on recharge une fois la page depuis le réseau au lieu de rester bloqué.
+if (typeof APP === 'undefined') {
+  if (!sessionStorage.getItem('reloadedOnce')) {
+    sessionStorage.setItem('reloadedOnce', '1');
+    fetch('index.html', { cache: 'reload' }).finally(() => location.reload());
+  }
+  throw new Error('Page en cache périmée : rechargement.');
+}
+
 const KEY = APP.key;   // voir config.js
 const DAY_START_HOUR = 5; // la « journée » des habitudes change à 05h00
 

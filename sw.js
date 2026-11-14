@@ -1,7 +1,7 @@
 // Service worker : rend l'app utilisable hors ligne.
 // Stratégie « réseau d'abord » : on prend toujours la dernière version en ligne,
 // et on retombe sur le cache quand il n'y a pas de connexion.
-const VERSION = 'v4';
+const VERSION = 'v5';
 // Un cache par app : plusieurs versions peuvent cohabiter sur le même domaine sans se gêner.
 const SCOPE = new URL('./', self.location.href).pathname;
 const CACHE = 'shell-' + VERSION + '-' + SCOPE;
@@ -32,6 +32,6 @@ self.addEventListener('fetch', (e) => {
         }
         return res;
       })
-      .catch(() => caches.match(e.request).then((r) => r || caches.match('index.html')))
+      .catch(() => caches.match(e.request, { ignoreSearch: true }).then((r) => r || caches.match('index.html')))
   );
 });
