@@ -1,7 +1,7 @@
 'use strict';
 
 /* ============================================================
-   Coquille de l'app : onglets et modules activables, swipe,
+   Coquille de l'app : onglets et modules activables, glissement,
    écran de lancement (citation + épingles), Actualités,
    Séances de sport, premier lancement et réglages.
    Chargé après extra.js et avant app.js.
@@ -41,43 +41,223 @@ function renderTabs() {
     nav.classList.toggle('scroll', list.length > 5);
   }
   nav.querySelectorAll('button').forEach((b) => b.classList.toggle('on', b.dataset.tab === UI.tab));
+  const fin = nav.querySelector('button[data-tab="fin"]');
+  if (fin) fin.classList.toggle('badge', payOn() && S.fin.pending.length > 0);
   const on = nav.querySelector('button.on');
   if (on && nav.scrollWidth > nav.clientWidth) nav.scrollTo({ left: on.offsetLeft - (nav.clientWidth - on.offsetWidth) / 2, behavior: 'smooth' });
 }
 
-// Change d'onglet. dir : 1 = vers la droite, -1 = vers la gauche, 0 = sans animation.
-function goTab(id, dir) {
+// Change d'onglet sans animation.
+function goTab(id) {
+  if (pg) pgFinish(0);
   if (!enabledTabs().includes(id)) id = 'home';
   UI.tab = id; UI.habitDay = null; UI.habitWeek = 0; UI.habitEdit = false; UI.habitEditId = null;
   render();
   window.scrollTo(0, 0);
-  const v = $('#view');
-  v.classList.remove('slide-l', 'slide-r');
-  if (dir) { void v.offsetWidth; v.classList.add(dir > 0 ? 'slide-l' : 'slide-r'); }
-}
-function swipeTab(delta) {
-  const list = enabledTabs();
-  const i = list.indexOf(UI.tab) + delta;
-  if (i >= 0 && i < list.length) goTab(list[i], delta);
 }
 
-/* ---------- Swipe entre les onglets ---------- */
+/* ---------- Glissement entre les onglets ----------
+   Même mécanique que l'app Séances : la page suit le doigt, celle de droite
+   arrive par-dessus pendant que celle de gauche recule et s'assombrit.
+   Pendant le mouvement, trois « couches » au plus sont affichées :
+   -1 (onglet de gauche), 0 (onglet courant) et 1 (onglet de droite). */
+
+let pg = null;      // glissement en cours : { tabs, layers, pos, anim, end }
+let pgDrag = null;  // doigt posé : { x0, y0, lock, pts }
+
+const frameTop = () => $('.top').offsetHeight;
+function sizeFrame() {
+  const f = $('#seancesFrame');
+  const top = frameTop();
+  f.style.top = top + 'px';
+  f.style.height = Math.max(200, window.innerHeight - top - $('#tabs').offsetHeight) + 'px';
+}
+
+function pgLayer(tab, isCur) {
+  if (tab === 'seances') {
+    const f = $('#seancesFrame');
+    if (!f.getAttribute('src')) f.setAttribute('src', 'seances.html');
+    f.hidden = false; sizeFrame();
+    return f;
+  }
+  const top = frameTop();
+  const el = document.createElement('div');
+  el.className = 'pg-layer';
+  el.style.top = top + 'px';
+  const m = document.createElement('main');
+  if (isCur) {
+    // Copie de l'écran affiché, à la même hauteur de défilement.
+    const v = $('#view');
+    for (const n of v.childNodes) m.appendChild(n.cloneNode(true));
+    m.style.transform = `translateY(${Math.round(v.getBoundingClientRect().top - top)}px)`;
+  } else {
+    m.innerHTML = viewHtml(tab);
+  }
+  el.appendChild(m);
+  document.body.appendChild(el);
+  return el;
+}
+
+function pgBegin(left, right) {
+  pg = { tabs: { '-1': left, 0: UI.tab, 1: right }, layers: {}, pos: 0, anim: 0, end: 0 };
+  pg.layers[0] = pgLayer(UI.tab, true);
+  $('#view').style.visibility = 'hidden';
+}
+
+function pgChrome(tab) {
+  if (pg.shown === tab) return;
+  pg.shown = tab;
+  $('#title').textContent = tabTitle(tab);
+  $('#tabs').querySelectorAll('button').forEach((b) => b.classList.toggle('on', b.dataset.tab === tab));
+}
+
+function pgLayout() {
+  const p = pg.pos;
+  for (const k of [-1, 0, 1]) {
+    if (!pg.layers[k]) {
+      if (!pg.tabs[k] || (k === 1 ? p <= 0 : p >= 0)) continue;
+      pg.layers[k] = pgLayer(pg.tabs[k], false);
+    }
+    const st = pg.layers[k].style;
+    const d = k - p;
+    if (d >= 0) {
+      st.transform = d ? `translate3d(${(d * 100).toFixed(3)}%,0,0)` : 'translate3d(0,0,0)';
+      st.filter = '';
+      st.visibility = d >= 1 ? 'hidden' : 'visible';
+      pg.layers[k].classList.toggle('incoming', d > 0.001 && d < 1);
+    } else {
+      const e = Math.max(d, -1);
+      st.transform = `translate3d(${(e * 26).toFixed(3)}%,0,0) scale(${(1 + 0.07 * e).toFixed(4)})`;
+      st.filter = `brightness(${(1 + 0.62 * e).toFixed(3)})`;
+      st.visibility = d <= -1 ? 'hidden' : 'visible';
+      pg.layers[k].classList.remove('incoming');
+    }
+    st.zIndex = 12 + k;
+  }
+  const shown = Math.round(p);
+  if (pg.tabs[shown]) pgChrome(pg.tabs[shown]);
+}
+
+// Fin du mouvement : on affiche pour de bon l'onglet d'arrivée et on retire les couches.
+function pgFinish(slot) {
+  if (!pg) return;
+  cancelAnimationFrame(pg.anim);
+  const layers = Object.values(pg.layers);
+  const tab = pg.tabs[slot];
+  pg = null; pgDrag = null;
+  if (slot && tab) {
+    UI.tab = tab; UI.habitDay = null; UI.habitWeek = 0; UI.habitEdit = false; UI.habitEditId = null;
+    render();
+    window.scrollTo(0, 0);
+  } else syncFrame();   // geste annulé : l'écran d'origine est resté tel quel
+  $('#view').style.visibility = '';
+  for (const el of layers) {
+    if (el.id !== 'seancesFrame') { el.remove(); continue; }
+    el.classList.remove('incoming');
+    el.style.transform = el.style.filter = el.style.visibility = el.style.zIndex = '';
+  }
+}
+
+function pgAnimate(target) {
+  cancelAnimationFrame(pg.anim);
+  pg.end = target;
+  const from = pg.pos, dist = Math.abs(target - from);
+  if (dist < 0.001) { pgFinish(target); return; }
+  const dur = 230 + 170 * Math.min(dist, 2), t0 = performance.now();
+  const step = (now) => {
+    if (!pg) return;
+    const t = Math.min(1, (now - t0) / dur);
+    pg.pos = from + (target - from) * (1 - Math.pow(1 - t, 3));
+    pgLayout();
+    if (t < 1) pg.anim = requestAnimationFrame(step); else pgFinish(target);
+  };
+  pg.anim = requestAnimationFrame(step);
+}
+
+// Toucher un bouton de la barre : même mouvement, vers la gauche ou la droite selon la position de l'onglet.
+function slideTo(id) {
+  if (pg) pgFinish(pg.end);
+  const list = enabledTabs();
+  if (id === UI.tab || !list.includes(id) || !$('#splash').hidden || !$('#sheet').hidden) { goTab(id); return; }
+  const after = list.indexOf(id) > list.indexOf(UI.tab);
+  pgBegin(after ? null : id, after ? id : null);
+  pgAnimate(after ? 1 : -1);
+}
+
+// Un élément qui défile lui-même à l'horizontale garde son geste.
+function scrollsX(el) {
+  for (; el && el.nodeType === 1; el = el.parentElement) {
+    if (el.scrollWidth > el.clientWidth + 4) {
+      const o = el.ownerDocument.defaultView.getComputedStyle(el).overflowX;
+      if (o === 'auto' || o === 'scroll') return true;
+    }
+  }
+  return false;
+}
+function canSwipe(el, inFrame) {
+  if (!el || !el.closest || !$('#splash').hidden || !$('#sheet').hidden) return false;
+  if (el.closest('input, textarea, select, .no-swipe') || scrollsX(el)) return false;
+  // Dans Séances : seulement sur ses écrans, pas pendant une séance en cours ni sur une fiche ouverte.
+  if (inFrame) return !!el.closest('#sport-pager') && !el.ownerDocument.body.classList.contains('sheet-open');
+  return !el.closest('#tabs, .top');
+}
+
+function bindSwipeOn(doc, inFrame) {
+  // Dans le cadre Séances, les coordonnées sont celles du cadre, qui bouge avec le doigt : on les ramène à l'écran.
+  const pt = (t) => {
+    if (!inFrame) return [t.clientX, t.clientY];
+    const f = $('#seancesFrame'), r = f.getBoundingClientRect(), k = r.width / (f.clientWidth || 1);
+    return [r.left + t.clientX * k, r.top + t.clientY * k];
+  };
+  doc.addEventListener('touchstart', (e) => {
+    pgDrag = null;
+    if (e.touches.length !== 1) return;
+    if (pg) pgFinish(pg.end);               // un mouvement encore en cours se termine tout de suite
+    if (!canSwipe(e.target, inFrame)) return;
+    const [x, y] = pt(e.touches[0]);
+    pgDrag = { x0: x, y0: y, lock: null, pts: [[performance.now(), x]] };
+  }, { passive: true });
+  doc.addEventListener('touchmove', (e) => {
+    const d = pgDrag;
+    if (!d || e.touches.length !== 1) return;
+    const [x, y] = pt(e.touches[0]);
+    const dx = x - d.x0, dy = y - d.y0;
+    if (!d.lock) {
+      if (Math.abs(dx) < 7 && Math.abs(dy) < 7) return;
+      d.lock = Math.abs(dx) > Math.abs(dy) * 1.15 ? 'x' : 'y';
+      if (d.lock === 'x') {
+        const list = enabledTabs(), i = list.indexOf(UI.tab);
+        pgBegin(list[i - 1] || null, list[i + 1] || null);
+      }
+    }
+    if (d.lock !== 'x' || !pg) return;
+    if (e.cancelable) e.preventDefault();
+    let p = -dx / (window.innerWidth || 1);
+    const lo = pg.tabs[-1] ? -1 : 0, hi = pg.tabs[1] ? 1 : 0;
+    if (p < lo) p = lo - Math.min(0.05, (lo - p) * 0.25);
+    if (p > hi) p = hi + Math.min(0.05, (p - hi) * 0.25);
+    pg.pos = p; pgLayout();
+    d.pts.push([performance.now(), x]); if (d.pts.length > 6) d.pts.shift();
+  }, { passive: false });
+  const end = () => {
+    const d = pgDrag; pgDrag = null;
+    if (!d || d.lock !== 'x' || !pg) return;
+    const a = d.pts[0], b = d.pts[d.pts.length - 1];
+    const v = (b[1] - a[1]) / Math.max(1, b[0] - a[0]); // px/ms, > 0 = doigt vers la droite
+    let target = 0;
+    if (pg.pos > 0.2 || v < -0.35) target = 1;
+    else if (pg.pos < -0.2 || v > 0.35) target = -1;
+    if (!pg.tabs[target]) target = 0;
+    pgAnimate(target);
+  };
+  doc.addEventListener('touchend', end);
+  doc.addEventListener('touchcancel', end);
+}
 
 function bindSwipe() {
-  let sx = 0, sy = 0, st = 0, ok = false;
-  document.addEventListener('touchstart', (e) => {
-    const el = e.target;
-    ok = e.touches.length === 1 && $('#splash').hidden && $('#sheet').hidden
-      && !(el.closest && el.closest('input, textarea, select, #tabs, .no-swipe'));
-    if (ok) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; st = Date.now(); }
-  }, { passive: true });
-  document.addEventListener('touchend', (e) => {
-    if (!ok) return;
-    ok = false;
-    const t = e.changedTouches[0];
-    const dx = t.clientX - sx, dy = t.clientY - sy;
-    if (Math.abs(dx) > 64 && Math.abs(dx) > 2.2 * Math.abs(dy) && Date.now() - st < 700) swipeTab(dx < 0 ? 1 : -1);
-  }, { passive: true });
+  bindSwipeOn(document, false);
+  const f = $('#seancesFrame');
+  f.addEventListener('load', () => { try { bindSwipeOn(f.contentDocument, true); } catch (e) { /* cadre inaccessible */ } });
 }
 
 /* ============================================================
@@ -180,15 +360,14 @@ function viewNews() {
    ============================================================ */
 
 function syncFrame() {
+  if (pg) return;   // pendant un glissement, les couches gèrent le cadre
   const f = $('#seancesFrame');
   const show = UI.tab === 'seances';
   f.hidden = !show;
   document.body.classList.toggle('framed', show);
   if (!show) return;
   if (!f.getAttribute('src')) f.setAttribute('src', 'seances.html');
-  const top = $('.top').offsetHeight;
-  f.style.top = top + 'px';
-  f.style.height = Math.max(200, window.innerHeight - top - $('#tabs').offsetHeight) + 'px';
+  sizeFrame();
 }
 
 /* ============================================================
@@ -199,7 +378,8 @@ const switchBtn = (id, on) => `<button type="button" class="switch ${on ? 'on' :
 function moduleRows() {
   const tabs = APP.tabs.filter((t) => t !== 'home').map((t) => `<li><div><b>${TAB_DEFS[t].title}</b><small>${TAB_DEFS[t].desc}</small></div>${switchBtn(t, modOn(t))}</li>`).join('');
   const blocks = Object.keys(BLOCK_DEFS).map((b) => `<li><div><b>${BLOCK_DEFS[b].title}</b><small>${BLOCK_DEFS[b].desc}</small></div>${switchBtn('b_' + b, blockOn(b))}</li>`).join('');
-  return `<p class="group">Onglets</p><ul class="toggles">${tabs}</ul><p class="group">Blocs de l’accueil</p><ul class="toggles">${blocks}</ul>`;
+  const extras = APP.applePay ? `<p class="group">Fonctions</p><ul class="toggles"><li><div><b>Apple Pay dans Finances</b><small>Récupère tes paiements Apple Pay pour les valider</small></div>${switchBtn('applePay', payOn())}</li></ul>` : '';
+  return `<p class="group">Onglets</p><ul class="toggles">${tabs}</ul><p class="group">Blocs de l’accueil</p><ul class="toggles">${blocks}</ul>${extras}`;
 }
 
 function openOnboarding() {
@@ -246,6 +426,34 @@ function openSettings() {
         <button type="button" class="btn wide" data-a="copyScript">${ICON.copy} Copier le script</button>
         <p class="hint">Le script ne fait que lire ton agenda. L’adresse /exec permet de le consulter : garde-la pour toi. Les événements en rouge (couleur « Tomate ») deviennent tes échéances.</p>
       </details>
+      <details class="guide">
+        <summary>Comment recevoir une notification de rappel de mes échéances ?</summary>
+        <p class="hint">Une app web ne peut pas envoyer de notification quand elle est fermée. C’est l’app Raccourcis de l’iPhone qui s’en charge : chaque matin, elle demande à ton script Google les échéances rouges des prochains jours et les affiche en notification.</p>
+        <ol>
+          <li>Mets d’abord ton <b>script Google à jour</b> (bouton « Copier le script » plus haut, puis <b>Déployer › Gérer les déploiements › Modifier › Nouvelle version</b>).</li>
+          <li>Sur l’iPhone : <b>Raccourcis</b> › <b>Automatisation</b> › <b>+</b> › <b>Heure de la journée</b>. Choisis l’heure (ex. 08:00), <b>Tous les jours</b>, <b>Exécuter immédiatement</b>, puis <b>Nouvelle automatisation vierge</b>.</li>
+          <li>Ajoute l’action <b>Obtenir le contenu de l’URL</b> et colle l’adresse copiée avec le bouton ci-dessous.</li>
+          <li>Ajoute l’action <b>Si</b> : « Contenu de l’URL » <b>contient une valeur</b>. À l’intérieur, ajoute <b>Afficher la notification</b> avec la variable « Contenu de l’URL » comme texte. Termine.</li>
+        </ol>
+        <button type="button" class="btn wide" data-a="copyRappel">${ICON.copy} Copier l’adresse des rappels</button>
+        <p class="hint">Le chiffre à la fin de l’adresse est le nombre de jours regardés (3 par défaut). Les jours sans échéance, rien ne s’affiche.</p>
+      </details>
+      ${APP.applePay ? `<details class="guide">
+        <summary>Comment envoyer mes paiements Apple Pay dans Finances ?</summary>
+        <p class="hint">À faire une fois. Chaque paiement fait avec l’iPhone ou l’Apple Watch arrive ensuite dans Finances, où tu le valides ou l’ignores.</p>
+        <ol>
+          <li><b>Mettre à jour le script Google</b> (sur ordinateur) : copie le script avec le bouton ci-dessous, ouvre ton projet sur <b>script.google.com</b>, remplace tout le code et enregistre.</li>
+          <li>Choisis la fonction <b>autoriser</b>, clique sur <b>Exécuter</b> et accepte le nouvel accès à Google Sheets : le script crée la feuille « Life OS – Paiements » dans ton Drive.</li>
+          <li><b>Déployer › Gérer les déploiements › Modifier (crayon) › Version : Nouvelle version › Déployer</b>. L’adresse /exec ne change pas.</li>
+          <li>Sur l’iPhone : app <b>Raccourcis</b> › <b>Automatisation</b> › <b>+</b> › <b>Transaction</b>. Coche ta ou tes cartes, laisse toutes les catégories, choisis <b>Exécuter immédiatement</b>, puis <b>Suivant</b> › <b>Nouvelle automatisation vierge</b>.</li>
+          <li>Ajoute l’action <b>Obtenir le contenu de l’URL</b>. Colle ton adresse /exec, touche la flèche pour déplier : <b>Méthode : POST</b>, <b>Corps de la requête : JSON</b>.</li>
+          <li>Ajoute trois champs de type <b>Texte</b> : <b>commercant</b>, <b>montant</b> et <b>carte</b>. Pour chacun, choisis la variable <b>Entrée du raccourci</b>, puis touche-la pour sélectionner <b>Commerçant</b>, <b>Montant</b> et <b>Carte ou pass</b>. Termine.</li>
+          <li>Pour tester sans payer : dans le script Google, exécute la fonction <b>testPaiement</b>, puis touche Actualiser dans l’app : un paiement de 1,23 € doit apparaître dans Finances.</li>
+        </ol>
+        <button type="button" class="btn wide" data-a="copyScript">${ICON.copy} Copier le script</button>
+        <button type="button" class="btn wide" data-a="copyExec">${ICON.copy} Copier mon adresse /exec</button>
+        <p class="hint">Seuls les paiements faits avec l’iPhone ou l’Apple Watch sont captés, pas ceux faits avec la carte physique ni les prélèvements.</p>
+      </details>` : ''}
       <label>Mots-clés qui identifient une séance de sport dans l’agenda
         <textarea name="sportKw" rows="3" autocapitalize="off">${esc(S.settings.sportKw)}</textarea>
       </label>
@@ -275,6 +483,13 @@ Object.assign(EXTRA_ACTIONS, {
   },
   copyScript() {
     if (agendaScript) copyText(agendaScript); else toast('Script indisponible hors ligne, réessaie dans un instant');
+  },
+  copyRappel() {
+    const u = S.settings.gcalUrl;
+    if (u) copyText(u + (u.includes('?') ? '&' : '?') + 'rappel=3'); else toast('Relie d’abord ton Google Agenda (champ ci-dessus)');
+  },
+  copyExec() {
+    if (S.settings.gcalUrl) copyText(S.settings.gcalUrl); else toast('Relie d’abord ton Google Agenda (champ ci-dessus)');
   },
   newsSec(id) { UI.newsSec = id; },
   liSector() { /* géré par le menu déroulant */ },

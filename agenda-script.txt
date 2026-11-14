@@ -4,6 +4,7 @@
  * Ce script tourne sur ton compte Google, gratuitement. Il renvoie à l'app
  * la liste de tes événements (titre, horaires, couleur) au format JSON.
  * Il ne modifie jamais ton agenda.
+ * Il reçoit aussi les paiements Apple Pay envoyés par l'app Raccourcis (voir plus bas). // [PAIEMENTS]
  *
  * Installation : voir le README du projet, étape « Google Agenda ».
  */
@@ -11,10 +12,17 @@
 var JOURS_PASSES = 60;   // historique consultable dans l'app
 var JOURS_A_VENIR = 180; // horizon des échéances
 
-function doGet() {
+function doGet(e) {
+  // …/exec?rappel=3 : texte des échéances rouges des 3 prochains jours, pour une notification (app Raccourcis).
+  if (e && e.parameter && e.parameter.rappel) {
+    var texte;
+    try { texte = lireRappels(parseInt(e.parameter.rappel, 10)); } catch (err) { texte = 'Rappels indisponibles : ' + err; }
+    return ContentService.createTextOutput(texte).setMimeType(ContentService.MimeType.TEXT);
+  }
   var out;
   try {
     out = { generatedAt: new Date().toISOString(), events: lireEvenements() };
+    try { out.payments = lirePaiements(); } catch (err) { out.paymentsError = String(err); } // [PAIEMENTS]
   } catch (err) {
     out = { error: String(err) };
   }
@@ -45,14 +53,149 @@ function lireEvenements() {
         color: ev.getColor() || '',   // « 11 » = rouge (Tomate)
         calColor: calColor,
         calendar: calName,
-        location: ev.getLocation() || ''
+        location: ev.getLocation() || '',
+        description: (ev.getDescription() || '').slice(0, 3000)
       });
     });
   });
   return events;
 }
 
+/** Rouge = couleur d'événement « Tomate » (11), ou événement sans couleur propre dans un agenda rouge. */
+function estRouge(ev, calColor) {
+  var c = ev.getColor();
+  if (c) return String(c) === '11';
+  var m = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(calColor || '');
+  return !!m && parseInt(m[1], 16) >= 195 && parseInt(m[2], 16) < 95 && parseInt(m[3], 16) < 95;
+}
+
+/** Échéances rouges d'aujourd'hui et des `jours` jours suivants, une par ligne. Chaîne vide s'il n'y en a pas. */
+function lireRappels(jours) {
+  jours = Math.max(0, Math.min(30, isNaN(jours) ? 3 : jours));
+  var tz = Session.getScriptTimeZone();
+  var now = new Date();
+  var debut = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  var fin = new Date(now.getFullYear(), now.getMonth(), now.getDate() + jours + 1);
+  var jour0 = Utilities.formatDate(debut, tz, 'yyyy-MM-dd');
+  var liste = [];
+  CalendarApp.getAllCalendars().forEach(function (cal) {
+    if (cal.isHidden() || !cal.isSelected()) return;
+    var calColor = cal.getColor();
+    cal.getEvents(debut, fin).forEach(function (ev) {
+      if (!estRouge(ev, calColor)) return;
+      var allDay = ev.isAllDayEvent();
+      var d = allDay ? ev.getAllDayStartDate() : ev.getStartTime();
+      var jour = Utilities.formatDate(d, allDay ? cal.getTimeZone() : tz, 'yyyy-MM-dd');
+      if (jour < jour0) jour = jour0; // événement sur plusieurs jours déjà commencé
+      liste.push({ jour: jour, heure: allDay ? '' : Utilities.formatDate(d, tz, 'HH:mm'), titre: ev.getTitle() || '(Sans titre)' });
+    });
+  });
+  liste.sort(function (a, b) { return (a.jour + a.heure).localeCompare(b.jour + b.heure); });
+  return liste.map(function (x) {
+    var n = Math.round((new Date(x.jour) - new Date(jour0)) / 864e5);
+    var quand = n === 0 ? "Aujourd'hui" : n === 1 ? 'Demain' : 'J-' + n;
+    return '🔴 ' + quand + (x.heure ? ' ' + x.heure : '') + ' · ' + x.titre;
+  }).join('\n');
+}
+
 /** À lancer une fois depuis l'éditeur (bouton ▶ Exécuter) pour accorder l'accès à l'agenda. */
 function autoriser() {
   Logger.log(lireEvenements().length + ' événements lus. Tout fonctionne.');
+  Logger.log('Feuille des paiements : ' + feuille().getParent().getUrl()); // [PAIEMENTS]
 }
+
+// [PAIEMENTS:DEBUT]
+/* ============================================================
+ * Apple Pay → Finances
+ *
+ * Une automatisation « Transaction » de l'app Raccourcis envoie chaque paiement
+ * à ce script (doPost). Il l'ajoute à la feuille Google « Life OS – Paiements »,
+ * créée toute seule dans ton Drive. L'app lit ensuite les 60 derniers jours et
+ * te propose chaque paiement à valider dans l'onglet Finances.
+ * ============================================================ */
+
+var NOM_FEUILLE = 'Life OS – Paiements';
+var JOURS_PAIEMENTS = 60;
+
+function feuille() {
+  var props = PropertiesService.getScriptProperties();
+  var id = props.getProperty('FEUILLE_ID');
+  var classeur = null;
+  if (id) { try { classeur = SpreadsheetApp.openById(id); } catch (err) { classeur = null; } }
+  if (!classeur) {
+    classeur = SpreadsheetApp.create(NOM_FEUILLE);
+    props.setProperty('FEUILLE_ID', classeur.getId());
+    var f = classeur.getSheets()[0];
+    f.appendRow(['id', 'date', 'commerçant', 'montant', 'carte', 'reçu tel quel']);
+    f.setFrozenRows(1);
+  }
+  return classeur.getSheets()[0];
+}
+
+/** « 12,50 € », « €1 234.50 » ou 12.5 → 12.5 */
+function lireMontant(v) {
+  if (typeof v === 'number') return Math.round(Math.abs(v) * 100) / 100;
+  var s = String(v == null ? '' : v).replace(/[^0-9.,]/g, '');
+  if (!s) return 0;
+  var i = Math.max(s.lastIndexOf(','), s.lastIndexOf('.'));
+  // Le dernier séparateur marque les centimes s'il est suivi de 1 ou 2 chiffres ; sinon c'est un séparateur de milliers.
+  if (i >= 0 && s.length - i - 1 <= 2) s = s.slice(0, i).replace(/[.,]/g, '') + '.' + s.slice(i + 1);
+  else s = s.replace(/[.,]/g, '');
+  var n = parseFloat(s);
+  return isFinite(n) ? Math.round(n * 100) / 100 : 0;
+}
+
+function ajouterPaiement(d, brut) {
+  var montant = lireMontant(d.montant != null ? d.montant : d.amount);
+  if (!montant) throw new Error('Montant manquant ou illisible');
+  var verrou = LockService.getScriptLock();
+  verrou.waitLock(10000);
+  try {
+    feuille().appendRow([
+      Utilities.getUuid(),
+      new Date().toISOString(),
+      String(d.commercant || d.merchant || '').slice(0, 80),
+      montant,
+      String(d.carte || d.card || '').slice(0, 60),
+      String(brut || '').slice(0, 300)
+    ]);
+  } finally {
+    verrou.releaseLock();
+  }
+  return montant;
+}
+
+/** Reçoit un paiement envoyé par le raccourci (JSON : commercant, montant, carte). */
+function doPost(e) {
+  var out;
+  try {
+    var brut = e && e.postData ? e.postData.contents : '';
+    var d;
+    try { d = JSON.parse(brut); } catch (err) { d = (e && e.parameter) || {}; }
+    out = { ok: true, montant: ajouterPaiement(d || {}, brut) };
+  } catch (err) {
+    out = { ok: false, error: String(err) };
+  }
+  return ContentService.createTextOutput(JSON.stringify(out)).setMimeType(ContentService.MimeType.JSON);
+}
+
+function lirePaiements() {
+  var lignes = feuille().getDataRange().getValues();
+  var limite = Date.now() - JOURS_PAIEMENTS * 864e5;
+  var out = [];
+  for (var i = 1; i < lignes.length; i++) {
+    var l = lignes[i];
+    var quand = l[1] instanceof Date ? l[1] : new Date(String(l[1]));
+    var montant = lireMontant(l[3]);
+    if (!l[0] || isNaN(quand) || quand.getTime() < limite || !montant) continue;
+    out.push({ id: String(l[0]), at: quand.toISOString(), merchant: String(l[2] || ''), amount: montant, card: String(l[4] || '') });
+  }
+  return out;
+}
+
+/** À lancer depuis l'éditeur pour vérifier la chaîne sans payer : ajoute un faux paiement de 1,23 €. */
+function testPaiement() {
+  ajouterPaiement({ commercant: 'Test Life OS', montant: '1,23 €', carte: 'Test' }, 'test');
+  Logger.log('Faux paiement ajouté. Actualise l’app : il doit apparaître dans Finances, à valider.');
+}
+// [PAIEMENTS:FIN]

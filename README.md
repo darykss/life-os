@@ -84,6 +84,8 @@ Ce dossier est la version personnelle. La version amis (`../darykss/`) en est un
 
 Renvoie tous les fichiers du dossier sur GitHub (page **Add file › Upload files** du dépôt), puis **Commit changes**. L'app installée récupère la nouvelle version à l'ouverture suivante, sans perdre tes données.
 
+**Apple Pay → Finances.** Le script Google reçoit aussi les paiements Apple Pay envoyés par une automatisation « Transaction » de l'app Raccourcis et les range dans la feuille « Life OS – Paiements ». L'app les propose ensuite à valider dans Finances. Le guide complet est dans ⚙︎ Réglages.
+
 Pour une mise à jour du script Google : colle le nouveau `Code.gs`, puis **Déployer › Gérer les déploiements › Modifier › Version : Nouvelle version › Déployer**. L'URL ne change pas.
 
 ## Fichiers

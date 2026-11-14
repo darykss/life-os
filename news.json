@@ -1,162 +1,65 @@
 {
- "generatedAt": "2026-11-14T10:28:48.911322+00:00",
+ "generatedAt": "2026-11-14T00:14:26.387668+00:00",
  "sections": [
   {
    "id": "une",
    "title": "À la une",
    "items": [
     {
-     "title": "Présidentielle 2027 : Raphaël Glucksmann dit vouloir \"augmenter les salaires\" et \"rendre du pouvoir d'achat aux Français\"",
-     "desc": "Le candidat de gauche s'est rendu au salon du Made in France à Paris samedi.",
-     "link": "https://www.franceinfo.fr/elections/presidentielle-2027-raphael-glucksmann-et-teddy-riner-attendus-au-salon-du-made-in-france_8282213.html#xtor=RSS-3-[lestitres]",
+     "title": "Aux Etats-Unis, l'administration fédérale de l'aviation ordonne l'arrêt de tous les vols à cause d'un \"problème de communication\"",
+     "desc": "Le ministre américain des Transports, Sean Duffy, a expliqué vendredi que des techniciens \"enquêtent\" actuellement \"sur le problème\".",
+     "link": "https://www.franceinfo.fr/monde/usa/aux-etats-unis-l-administration-federale-de-l-aviation-ordonne-l-arret-de-tous-les-vols-a-cause-d-un-probleme-de-communication_8281691.html#xtor=RSS-3-[lestitres]",
      "source": "franceinfo",
-     "date": "2026-11-14T10:25:45+00:00"
+     "date": "2026-11-13T23:00:03+00:00"
     },
     {
-     "title": "Un adolescent tué lors d'une course de voitures sauvage près de Clermont-Ferrand",
-     "desc": "Une enquête est ouverte pour homicide routier aggravé. Le conducteur en fuite.",
-     "link": "https://www.franceinfo.fr/faits-divers/un-adolescent-tue-lors-d-une-course-de-voitures-sauvage-pres-de-clermont-ferrand_8282270.html#xtor=RSS-3-[lestitres]",
-     "source": "franceinfo",
-     "date": "2026-11-14T09:31:26+00:00"
-    },
-    {
-     "title": "Le Gard et les Bouches-du-Rhône placés en vigilance orange \"pluie-inondation\" dès 20 heures samedi",
-     "desc": "De fortes précipitations sont attendues dès samedi après-midi dans les deux départements du littoral méditerranéen, alerte Météo-France.",
-     "link": "https://www.franceinfo.fr/environnement/evenements-meteorologiques-extremes/inondations-et-crues/le-gard-et-les-bouches-du-rhone-places-en-vigilance-orange-pluie-inondation-des-20-heures-samedi_8282258.html#xtor=RSS-3-[lestitres]",
-     "source": "franceinfo",
-     "date": "2026-11-14T09:18:50+00:00"
-    },
-    {
-     "title": "« Le prof a fait une vidéo “full” générée IA pour illustrer son cours. Retirez Internet aux darons »",
-     "desc": "Dans sa chronique, Guillemette Faure met en lumière les transformations invisibles de notre époque. Cette semaine, les élèves scandalisés lorsque leurs professeurs utilisent l’intelligence artificielle.",
-     "link": "https://www.lemonde.fr/m-le-mag/article/2026/11/14/ma-prof-d-art-genere-des-affiches-avec-chatgpt-j-ai-perdu-foi-en-l-humanite_6809886_4500055.html",
+     "title": "France - Afrique du Sud : le résumé de la victoire sur le fil des Bleus face aux Springboks",
+     "desc": "Le XV de France a remporté, vendredi au Stade de France, le choc de ce Championnat des nations face à l’Afrique du Sud (21-19). Les Bleus prennent une option pour la finale de cette nouvelle compétition de rugby.",
+     "link": "https://www.lemonde.fr/sport/article/2026/11/13/france-afrique-du-sud-le-resume-de-la-victoire-sur-le-fil-des-bleus-face-aux-springboks_6809393_3242.html",
      "source": "Le Monde",
-     "date": "2026-11-14T09:00:07+00:00"
+     "date": "2026-11-13T22:52:51+00:00"
     },
     {
-     "title": "EN DIRECT, guerre en Ukraine : Volodymyr Zelensky affirme que les Etats-Unis ont évoqué des concessions territoriales en échange d’une adhésion à l’OTAN",
-     "desc": "« C’est la première fois que cette question a été soulevée », a déclaré le président ukrainien, quelques jours après le dernier cycle de pourparlers de paix à Abou ⁠Dhabi. Il a répété que l’Ukraine n’était pas disposée…",
-     "link": "https://www.lemonde.fr/international/live/2026/11/14/en-direct-guerre-en-ukraine-les-dernieres-informations-au-14-novembre-2026_6808609_3210.html",
+     "title": "Héroïque, le XV de France s’offre l'Afrique du Sud double championne du monde en titre pour la première fois depuis 2022",
+     "desc": "Face à leur bête noire ces dernières années, les Bleus sont allés chercher un succès de référence sur la pelouse d’un Stade de France bouillant, vendredi soir.",
+     "link": "https://www.franceinfo.fr/sports/rugby/coupe-d-automne-des-nations/heroique-le-xv-de-france-s-offre-l-afrique-du-sud-double-championne-du-monde-en-titre-pour-la-premiere-fois-depuis-2022_8281637.html#xtor=RSS-3-[lestitres]",
+     "source": "franceinfo",
+     "date": "2026-11-13T22:48:49+00:00"
+    },
+    {
+     "title": "Un porte-conteneurs et un bateau de croisière sont entrés en collision dans le port de La Nouvelle-Orléans",
+     "desc": "\"Le nombre de blessés et la cause de la collision n'ont pas encore été confirmés\", ont rapporté vendredi les responsables de ce port américain, dans un communiqué cité par des médias.",
+     "link": "https://www.franceinfo.fr/monde/usa/un-porte-conteneurs-et-un-bateau-de-croisiere-sont-entres-en-collision-dans-le-port-de-la-nouvelle-orleans_8281676.html#xtor=RSS-3-[lestitres]",
+     "source": "franceinfo",
+     "date": "2026-11-13T22:28:22+00:00"
+    },
+    {
+     "title": "Aux Etats-Unis, l’agence de l’aviation civile ordonne l’arrêt de tous les vols en raison d’un problème de communication",
+     "desc": "L’autorité américaine de régulation de l’aviation précise que cette suspension a été imposée « en raison de circonstances exceptionnelles et pour des raisons de sécurité ».",
+     "link": "https://www.lemonde.fr/international/article/2026/11/13/aux-etats-unis-l-agence-de-l-aviation-civile-ordonne-l-arret-de-tous-les-vols-en-raison-d-un-probleme-de-communication_6809389_3210.html",
      "source": "Le Monde",
-     "date": "2026-11-14T08:56:15+00:00"
+     "date": "2026-11-13T21:52:38+00:00"
     },
     {
-     "title": "Le pape Léon XIV accueilli triomphalement dans son ancien diocèse de Chiclayo, au Pérou : « Nous avons l’impression qu’il rentre à la maison »",
-     "desc": "Près de 1 million de personnes sont venues saluer, vendredi 13 novembre, le souverain pontife dans la ville péruvienne dont il fut l’évêque pendant près de dix ans avant de rejoindre Rome.",
-     "link": "https://www.lemonde.fr/international/article/2026/11/14/le-pape-leon-xiv-accueilli-triomphalement-dans-son-ancien-diocese-de-chiclayo-au-perou-nous-avons-l-impression-qu-il-rentre-a-la-maison_6809853_3210.html",
+     "title": "Mouvement lycéen : le cri d’alarme des proviseurs, « à bout » face aux violences",
+     "desc": "Dans une trentaine de villes de France, des membres du personnel de direction se sont rassemblés vendredi. Une manifestation inédite depuis vingt ans, alors que plusieurs dizaines ont été blessés depuis la mi-septembre.…",
+     "link": "https://www.lemonde.fr/campus/article/2026/11/13/mouvement-lyceen-le-cri-d-alarme-des-proviseurs-a-bout-face-aux-violences_6809386_4401467.html",
      "source": "Le Monde",
-     "date": "2026-11-14T08:30:03+00:00"
+     "date": "2026-11-13T20:55:26+00:00"
     },
     {
-     "title": "\"Pour l'instant, j'ai très peu d'informations\" : à l'aéroport d'Atlanta, la galère des passagers après la fermeture de l'espace aérien américain",
-     "desc": "Au moins 6 000 vols ont été annulés en raison de problèmes de communication causés par du \"vieux matériel\", selon le gouvernement. Un événement rarissime qui a paralysé le trafic aérien dans tout le pays.",
-     "link": "https://www.franceinfo.fr/monde/usa/reportage-pour-l-instant-j-ai-tres-peu-d-informations-a-l-aeroport-d-atlanta-la-galere-des-passagers-apres-la-fermeture-de-l-espace-aerien-americain_8282159.html#xtor=RSS-3-[lestitres]",
+     "title": "\"C'est chômage technique\" : enseignants, soignants et formateurs racontent comment la panne mondiale de Microsoft affecte leur quotidien",
+     "desc": "Plusieurs millions d'utilisateurs ne peuvent pas accéder pleinement à leur messagerie Outlook et à certains services de Microsoft depuis jeudi soir.",
+     "link": "https://www.franceinfo.fr/internet/panne-informatique-mondiale/temoignages-c-est-chomage-technique-enseignants-soignants-et-formateurs-racontent-comment-la-panne-mondiale-de-microsoft-affecte-leur-quotidien_8281034.html#xtor=RSS-3-[lestitres]",
      "source": "franceinfo",
-     "date": "2026-11-14T08:05:42+00:00"
+     "date": "2026-11-13T18:06:18+00:00"
     },
     {
-     "title": "Appel à témoins, reconstitution ADN… Trente ans après la disparition de Marion Wagon, l'enquête relancée",
-     "desc": "Cette petite fille s'est volatilisée à l'âge de 10 ans, le 14 novembre 1996, à Agen. L'identification de son profil génétique ainsi qu'un appel à témoins ravivent l'espoir d'élucider ce mystère, qui figure parmi les…",
-     "link": "https://www.franceinfo.fr/faits-divers/appel-a-temoins-reconstitution-adn-trente-ans-apres-la-disparition-de-marion-wagon-l-enquete-relancee_8280797.html#xtor=RSS-3-[lestitres]",
-     "source": "franceinfo",
-     "date": "2026-11-14T07:55:33+00:00"
-    },
-    {
-     "title": "Manifestations du 14 novembre : une mobilisation aux revendications diverses, contre la « vie chère » ou les violences faites aux enfants",
-     "desc": "Le gouvernement va mobiliser autant de forces de l’ordre que lors des trois derniers samedis, soit quelque 70 000 policiers et gendarmes dans tout le pays.",
-     "link": "https://www.lemonde.fr/politique/article/2026/11/14/mobilisations-sociales-une-cinquantaine-de-corteges-attendus-partout-en-france-pour-cet-acte-v-sur-fond-de-revendications-diverses_6809818_823448.html",
+     "title": "La lente dérive terroriste de Kevin Tessier, l’auteur de l’attentat de Trappes, vue par ses proches : « Il s’énervait devant la télé, avec des insultes racistes »",
+     "desc": "Les auditions de ses parents et d’un ami, dont « Le Monde » a pris connaissance, racontent la radicalisation du tueur, entre enfance perturbée, fragilités psychologiques, obsessions racistes liées à l’actualité et…",
+     "link": "https://www.lemonde.fr/societe/article/2026/11/13/la-lente-derive-terroriste-de-kevin-tessier-l-auteur-de-l-attentat-de-trappes-vue-par-ses-proches-il-s-enervait-devant-la-tele-avec-des-insultes-racistes_6809375_3224.html",
      "source": "Le Monde",
-     "date": "2026-11-14T06:49:22+00:00"
-    },
-    {
-     "title": "\"J'ai l'impression de travailler à perte\" : salariés au smic, ils racontent un quotidien de privations, de galères et de déclassement",
-     "desc": "Le gouvernement a fait le choix de revaloriser le salaire minimum de 1,6% en décembre, soit une hausse d'environ 24 euros. Pour les personnes au smic, cela représente bien peu face à la hausse des prix.",
-     "link": "https://www.franceinfo.fr/economie/pouvoir-achat/temoignages-j-ai-l-impression-de-travailler-a-perte-salaries-au-smic-ils-racontent-un-quotidien-de-privations-de-galeres-et-de-declassement_8276399.html#xtor=RSS-3-[lestitres]",
-     "source": "franceinfo",
-     "date": "2026-11-14T06:08:33+00:00"
-    },
-    {
-     "title": "L’affaire Nvidia tourne à la crise politique pour Donald Trump",
-     "desc": "Selon le « New York Times », le président américain aurait été mis au courant, dès le mois de mai, des risques liés à la relation entre Jensen Huang, patron du géant des semi-conducteurs, et une entrepreneuse chinoise…",
-     "link": "https://www.lemonde.fr/international/article/2026/11/14/aux-etats-unis-l-affaire-nvidia-tourne-a-la-crise-politique-pour-donald-trump_6809696_3210.html",
-     "source": "Le Monde",
-     "date": "2026-11-14T05:00:42+00:00"
-    },
-    {
-     "title": "Comment l’extrême droite fait passer pour du féminisme un discours défavorable aux femmes",
-     "desc": "Plutôt que de remettre en question des violences structurelles, les milieux réactionnaires vantent une pseudo-inégalité naturelle entre les hommes et les femmes sur la question du corps. Une hiérarchie qui leur permet…",
-     "link": "https://www.lemonde.fr/idees/article/2026/11/14/comment-l-extreme-droite-fait-passer-pour-du-feminisme-un-discours-defavorable-aux-femmes_6809686_3232.html",
-     "source": "Le Monde",
-     "date": "2026-11-14T05:00:11+00:00"
-    }
-   ]
-  },
-  {
-   "id": "eco",
-   "title": "Économie",
-   "items": [
-    {
-     "title": "REPORTAGE. \"Pour l'instant, j'ai très peu d'informations\" : à l'aéroport d'Atlanta, la galère des passagers après la fermeture de l'espace aérien américain",
-     "desc": "Au moins 6 000 vols ont été annulés en raison de problèmes de communication causés par du \"vieux matériel\", selon le gouvernement. Un événement rarissime qui a paralysé le trafic aérien dans tout le pays.",
-     "link": "https://www.franceinfo.fr/monde/usa/reportage-pour-l-instant-j-ai-tres-peu-d-informations-a-l-aeroport-d-atlanta-la-galere-des-passagers-apres-la-fermeture-de-l-espace-aerien-americain_8282159.html#xtor=RSS-3-%5Beconomie%5D",
-     "source": "franceinfo",
-     "date": "2026-11-14T08:05:42+00:00"
-    },
-    {
-     "title": "Made in France : quand la présidentielle s'invite au salon",
-     "desc": "La campagne présidentielle se poursuit avec des candidats qui se bousculent au salon du Made in France. Comment réindustrialiser la France ? Marine Le Pen, Jean-Luc Mélenchon ou encore Gabriel Attal ont fait part de…",
-     "link": "https://www.franceinfo.fr/economie/industrie/made-in-france-quand-la-presidentielle-s-invite-au-salon_8282180.html#xtor=RSS-3-%5Beconomie%5D",
-     "source": "franceinfo",
-     "date": "2026-11-14T07:32:15+00:00"
-    },
-    {
-     "title": "Black Friday et autres promos sont déjà là : on fait la chasse aux bonnes affaires",
-     "desc": "En ce mois de novembre, on voit déjà apparaître en rayons les promotions de fin d'année. Le Black Friday à la fin du mois (vendredi 27 novembre), mais pas seulement.",
-     "link": "https://www.franceinfo.fr/replay-radio/c-est-mon-budget/black-friday-et-autres-promos-sont-deja-la-on-fait-la-chasse-aux-bonnes-affaires_8261282.html#xtor=RSS-3-%5Beconomie%5D",
-     "source": "franceinfo",
-     "date": "2026-11-14T07:31:51+00:00"
-    },
-    {
-     "title": "Un métier junior sur cinq exige désormais des compétences en intelligence artificielle",
-     "desc": "Pour trouver un emploi, les jeunes doivent de plus en plus maîtriser des compétences liées à l'intelligence artificielle. C'est ce que montre une étude du site internet Jobteaser, spécialisé dans le recrutement des…",
-     "link": "https://www.franceinfo.fr/replay-radio/c-est-mon-boulot/un-metier-junior-sur-cinq-exige-desormais-des-competences-en-intelligence-artificielle_8261264.html#xtor=RSS-3-%5Beconomie%5D",
-     "source": "franceinfo",
-     "date": "2026-11-14T07:30:43+00:00"
-    },
-    {
-     "title": "INFO RADIO FRANCE. Sept Français sur dix ont changé leurs habitudes alimentaires avec la baisse de leur pouvoir d'achat, selon un baromètre",
-     "desc": "Selon ce baromètre révélé par France Inter, samedi, la viande et le poisson sont les deux premiers produits touchés à cause de leur prix.",
-     "link": "https://www.franceinfo.fr/economie/pouvoir-achat/info-radio-france-sept-francais-sur-dix-ont-change-leurs-habitudes-alimentaires-avec-la-baisse-de-leur-pouvoir-d-achat-selon-un-barometre_8282183.html#xtor=RSS-3-%5Beconomie%5D",
-     "source": "franceinfo",
-     "date": "2026-11-14T07:22:35+00:00"
-    },
-    {
-     "title": "Les syndicats des forces de l'ordre restent insatisfaits de la hausse de la prime de risque proposée par Laurent Nuñez",
-     "desc": "Les policiers réclament une hausse de l'ISSP à 35 %, contre 28,5 % actuellement. Face à cette demande, le ministère propose une revalorisation de seulement 1 % en avril prochain. Ce décalage budgétaire pousse les…",
-     "link": "https://www.franceinfo.fr/faits-divers/police/les-syndicats-des-forces-de-l-ordre-restent-insatisfaits-de-la-hausse-de-la-prime-de-risque-proposee-par-laurent-nunez_8282171.html#xtor=RSS-3-%5Beconomie%5D",
-     "source": "franceinfo",
-     "date": "2026-11-14T07:08:04+00:00"
-    },
-    {
-     "title": "La plus-value immobilière est-elle exonérée en cas de départ volontaire de l’entreprise ?",
-     "desc": "Lorsqu’un contribuable fait l’objet d’une rupture de son contrat de travail, il peut bénéficier, sous certaines conditions, d’une exonération de la plus-value réalisée lors de la vente d’un logement, explique Audrey…",
-     "link": "https://www.lemonde.fr/argent/article/2026/11/14/la-plus-value-immobiliere-est-elle-exoneree-en-cas-de-depart-volontaire-de-l-entreprise_6809690_1657007.html",
-     "source": "Le Monde",
-     "date": "2026-11-14T05:00:30+00:00"
-    },
-    {
-     "title": "Suspension des vols aux Etats-Unis : une panne géante que l’administration Trump cherche déjà à politiser",
-     "desc": "Un dysfonctionnement affectant les centres régionaux de contrôle aérien a conduit les autorités à clouer les avions au sol dans tout le pays, vendredi. Le secrétaire aux transports, Sean Duffy, a mis en cause du « vieux…",
-     "link": "https://www.lemonde.fr/economie/article/2026/11/14/aux-etats-unis-apres-la-suspension-des-vols-l-administration-trump-politise-cette-panne-geante-et-reclame-50-milliards-de-dollars_6809689_3234.html",
-     "source": "Le Monde",
-     "date": "2026-11-14T05:00:20+00:00"
-    },
-    {
-     "title": "Tout comprendre au smic, le salaire minimum que le gouvernement va revaloriser",
-     "desc": "L’exécutif a annoncé, lundi 9 novembre, une augmentation du smic à partir du 1ᵉʳ décembre. Près de 12 % des salariés du privé sont concernés, et les variations de leur rémunération ne sont pas sans effet sur la…",
-     "link": "https://www.lemonde.fr/les-decodeurs/article/2026/11/13/tout-comprendre-au-smic-le-salaire-minimum-que-le-gouvernement-va-revaloriser_6809379_4355770.html",
-     "source": "Le Monde",
-     "date": "2026-11-13T18:30:05+00:00"
+     "date": "2026-11-13T18:00:13+00:00"
     },
     {
      "title": "La panne de Microsoft alerte entreprises et salariés sur leur dépendance aux outils numériques : « On a tous été un peu dans le même bateau que nos clients »",
@@ -166,11 +69,108 @@
      "date": "2026-11-13T17:48:12+00:00"
     },
     {
+     "title": "Sollicitée par Donald Trump, la Russie jubile à l’idée de peser sur l’architecture de sécurité européenne",
+     "desc": "Pour reprendre langue avec les Etats européens, le Kremlin leur propose, entre autres, de signer des accords bilatéraux d’assistance mutuelle, à l’image de ceux qu’il a conclus avec la Biélorussie et la Corée du Nord.",
+     "link": "https://www.lemonde.fr/international/article/2026/11/13/sollicitee-par-donald-trump-la-russie-jubile-a-l-idee-de-peser-sur-l-architecture-de-securite-europeenne_6809368_3210.html",
+     "source": "Le Monde",
+     "date": "2026-11-13T17:30:06+00:00"
+    },
+    {
+     "title": "\"Je n'ai pas protégé mes enfants, surtout ma petite\" : à son procès, le père d'Inass Touloub, \"la petite martyre de l'A10\", raconte sa propre \"lâcheté\"",
+     "desc": "Ahmed Touloub, 74 ans, est jugé depuis le 2 novembre devant la cour d'assises du Loir-et-Cher pour complicité des actes de torture et de barbarie reprochés à son ex-femme, Halima El Bakhti.",
+     "link": "https://www.franceinfo.fr/faits-divers/martyre-de-l-a10/je-n-ai-pas-protege-mes-enfants-surtout-ma-petite-a-son-proces-le-pere-d-inass-touloub-la-petite-martyre-de-l-a10-raconte-sa-propre-lachete_8281061.html#xtor=RSS-3-[lestitres]",
+     "source": "franceinfo",
+     "date": "2026-11-13T17:12:36+00:00"
+    },
+    {
+     "title": "Convergence de différents mots d'ordre, important dispositif policier… A quoi s'attendre pour la journée de mobilisation du samedi 14 novembre ?",
+     "desc": "La coordination des gilets jaunes et des organisations de jeunesse appellent à défiler samedi \"contre la vie chère\". D'autres manifestations – pour le climat, contre les violences policières ou les violences faites aux…",
+     "link": "https://www.franceinfo.fr/societe/manifestations/convergence-de-differents-mots-d-ordre-important-dispositif-policier-a-quoi-s-attendre-pour-la-journee-de-mobilisation-du-samedi-14-novembre_8280806.html#xtor=RSS-3-[lestitres]",
+     "source": "franceinfo",
+     "date": "2026-11-13T17:00:34+00:00"
+    }
+   ]
+  },
+  {
+   "id": "eco",
+   "title": "Économie",
+   "items": [
+    {
+     "title": "\"C'est ma façon de me nourrir\" : ces Français tentés de voler en supermarché",
+     "desc": "Face à la hausse des prix alimentaires, certains Français reconnaissent voler régulièrement dans les supermarchés pour pouvoir se nourrir. Un phénomène qui se traduit par une augmentation des plaintes pour vol à…",
+     "link": "https://www.franceinfo.fr/societe/c-est-ma-facon-de-me-nourrir-ces-francais-tentes-de-voler-en-supermarche_8281640.html#xtor=RSS-3-%5Beconomie%5D",
+     "source": "franceinfo",
+     "date": "2026-11-13T22:27:26+00:00"
+    },
+    {
+     "title": "La Poste, Air France… Les secrets de la vitalité du breton Armor-Lux, qui habille les entreprises françaises",
+     "desc": "Si 90 % de nos services sur le territoire sont produits en France, ce chiffre tombe à 41 % pour les produits manufacturés. Une entreprise bretonne, elle, résiste à la concurrence internationale. Dans les ateliers…",
+     "link": "https://www.franceinfo.fr/economie/entreprises/la-poste-air-france-les-secrets-de-la-vitalite-du-breton-armor-lux-qui-habille-les-entreprises-francaises_8281685.html#xtor=RSS-3-%5Beconomie%5D",
+     "source": "franceinfo",
+     "date": "2026-11-13T21:59:33+00:00"
+    },
+    {
+     "title": "Laurent Nuñez promet aux policiers une revalorisation de leur prime de risque, les syndicats insatisfaits",
+     "desc": "Cette proposition faite par le ministre de l'Intérieur lors d'une réunion vendredi place Beauvau est jugée \"insuffisante\", voire \"inadmissible\", par les syndicats.",
+     "link": "https://www.franceinfo.fr/faits-divers/police/laurent-nunez-promet-aux-policiers-une-revalorisation-de-leur-prime-de-risque-les-syndicats-mecontents_8281625.html#xtor=RSS-3-%5Beconomie%5D",
+     "source": "franceinfo",
+     "date": "2026-11-13T20:18:21+00:00"
+    },
+    {
+     "title": "Commerce en ligne : l’Europe en guerre contre les “dark patterns“",
+     "desc": "🇪🇺Encadrement des influenceurs, interdiction des \"interfaces trompeuses\", création d'un droit à désactiver les fonctionnalités \"addictives\" : l'Union européenne a proposé mercredi de nouvelles règles pour mieux protéger…",
+     "link": "https://www.franceinfo.fr/economie/commerce/commerce-en-ligne-l-europe-en-guerre-contre-les-dark-patterns_8281340.html#xtor=RSS-3-%5Beconomie%5D",
+     "source": "franceinfo",
+     "date": "2026-11-13T19:00:01+00:00"
+    },
+    {
+     "title": "La chroniqueuse pro-Kremlin Xenia Fedorova juge l'interdiction de territoire infligée par la Russie à deux députés et deux journalistes français \"plus mesurée\" que son expulsion par la France",
+     "desc": "Moscou a présenté les sanctions prises contre ces quatre Français comme une réponse à celles qui ont frappé Xenia Fedorova, habituée des médias du groupe Bolloré et accusée par Paris d'être \"un relais des campagnes de…",
+     "link": "https://www.franceinfo.fr/monde/russie/la-chroniqueuse-pro-kremlin-xenia-fedorova-juge-la-diplomatie-russe-plus-mesuree-que-l-etat-francais_8281559.html#xtor=RSS-3-%5Beconomie%5D",
+     "source": "franceinfo",
+     "date": "2026-11-13T18:59:12+00:00"
+    },
+    {
+     "title": "Tout comprendre au smic, le salaire minimum que le gouvernement va revaloriser",
+     "desc": "L’exécutif a annoncé, lundi 9 novembre, une augmentation du smic à partir du 1ᵉʳ décembre. Près de 12 % des salariés du privé sont concernés, et les variations de leur rémunération ne sont pas sans effet sur la…",
+     "link": "https://www.lemonde.fr/les-decodeurs/article/2026/11/13/tout-comprendre-au-smic-le-salaire-minimum-que-le-gouvernement-va-revaloriser_6809379_4355770.html",
+     "source": "Le Monde",
+     "date": "2026-11-13T18:30:05+00:00"
+    },
+    {
+     "title": "L'Agence internationale de l'énergie prévoit que l'offre mondiale de pétrole va dépasser la demande en fin d'année",
+     "desc": "C'est une première depuis le début de la guerre en Iran. Dans son rapport mensuel, l'Agence internationale de l'énergie note jeudi que le marché du pétrole montre des signes de rééquilibrage.",
+     "link": "https://www.franceinfo.fr/environnement/energie/energies-fossiles/l-agence-internationale-de-l-energie-prevoit-que-l-offre-mondiale-de-petrole-va-depasser-la-demande-en-fin-d-annee_8281379.html#xtor=RSS-3-%5Beconomie%5D",
+     "source": "franceinfo",
+     "date": "2026-11-13T18:27:01+00:00"
+    },
+    {
      "title": "Les effets de la hausse du smic sur le marché du travail suscitent des interrogations",
      "desc": "La hausse du salaire minimum mensuel net à temps plein à 1 502 euros détruira mécaniquement des emplois. Mais l’impact est jugé limité par le gouvernement et par plusieurs économistes.",
      "link": "https://www.lemonde.fr/politique/article/2026/11/13/les-effets-de-la-hausse-du-smic-sur-le-marche-du-travail-suscitent-des-interrogations_6809363_823448.html",
      "source": "Le Monde",
      "date": "2026-11-13T17:04:31+00:00"
+    },
+    {
+     "title": "Le Maroc se positionne en potentiel fournisseur d’uranium de la France",
+     "desc": "Le groupe industriel marocain OCP étudie avec les sociétés françaises EDF et Orano les conditions d’un accord sur la production et la fourniture de concentré d’uranium. Le royaume possède de conséquentes réserves de…",
+     "link": "https://www.lemonde.fr/afrique/article/2026/11/13/le-maroc-se-positionne-en-potentiel-fournisseur-d-uranium-de-la-france_6809357_3212.html",
+     "source": "Le Monde",
+     "date": "2026-11-13T16:30:04+00:00"
+    },
+    {
+     "title": "« En matière de voiture électrique, des normes perçues comme contraignantes se sont révélées précieuses »",
+     "desc": "Un collectif de chercheurs engagés en faveur de la transition écologique observe, dans une tribune au « Monde », que le choc pétrolier de 2026 a agi comme un puissant accélérateur pour le marché des véhicules…",
+     "link": "https://www.lemonde.fr/idees/article/2026/11/13/en-matiere-de-voiture-electrique-des-normes-percues-comme-contraignantes-se-sont-revelees-precieuses_6809351_3232.html",
+     "source": "Le Monde",
+     "date": "2026-11-13T16:15:07+00:00"
+    },
+    {
+     "title": "Salaires des fonctionnaires : les mesures d’urgence du gouvernement jugées « insuffisantes » par les syndicats",
+     "desc": "A l’issue d’une réunion à Matignon, vendredi 13 novembre, les syndicats ont dénoncé des annonces « en complet décalage avec l’urgence salariale et la colère sociale ». Dans leur viseur, notamment : le refus du…",
+     "link": "https://www.lemonde.fr/politique/article/2026/11/13/salaires-des-fonctionnaires-les-mesures-d-urgence-du-gouvernement-jugees-insuffisantes-par-les-syndicats_6809348_823448.html",
+     "source": "Le Monde",
+     "date": "2026-11-13T16:07:02+00:00"
     }
    ]
   },
@@ -179,60 +179,32 @@
    "title": "Monde",
    "items": [
     {
-     "title": "Collision spectaculaire entre un porte-conteneurs et un bateau de croisière à La Nouvelle-Orléans",
-     "desc": "Un porte-conteneurs et un bateau de croisière sont entrés en collision dans le port de La Nouvelle-Orléans, aux États-Unis, vendredi 13 novembre. Le bateau de croisière a fini par chavirer, alors qu’il était en cours…",
-     "link": "https://www.franceinfo.fr/monde/usa/collision-spectaculaire-entre-un-porte-conteneurs-et-un-bateau-de-croisiere-a-la-nouvelle-orleans_8282324.html#xtor=RSS-3-%5Bmonde%5D",
+     "title": "Aux Etats-Unis, l'administration fédérale de l'aviation ordonne l'arrêt de tous les vols à cause d'un \"problème de communication\"",
+     "desc": "Le ministre américain des Transports, Sean Duffy, a expliqué vendredi que des techniciens \"enquêtent\" actuellement \"sur le problème\".",
+     "link": "https://www.franceinfo.fr/monde/usa/aux-etats-unis-l-administration-federale-de-l-aviation-ordonne-l-arret-de-tous-les-vols-a-cause-d-un-probleme-de-communication_8281691.html#xtor=RSS-3-%5Bmonde%5D",
      "source": "franceinfo",
-     "date": "2026-11-14T10:12:13+00:00"
+     "date": "2026-11-13T23:00:03+00:00"
     },
     {
-     "title": "Donald Trump, Xi Jinping et Vladimir Poutine se réuniront jeudi en Chine, annonce la Maison Blanche",
-     "desc": "Ni Pékin ni Moscou n'ont pour l'instant confirmé cette rencontre, qui se tiendra selon les Etats-Unis en marge de la réunion de la Coopération économique Asie-Pacifique (Apec) à Shenzhen.",
-     "link": "https://www.franceinfo.fr/monde/usa/donald-trump-xi-jinping-et-vladimir-poutine-se-reuniront-jeudi-en-chine-annonce-la-maison-blanche_8282168.html#xtor=RSS-3-%5Bmonde%5D",
-     "source": "franceinfo",
-     "date": "2026-11-14T10:05:47+00:00"
-    },
-    {
-     "title": "L’administration Trump percutée par l’onde de choc Nvidia",
-     "desc": "La démission de Jensen Huang, qui a quitté la direction du géant des puces électroniques après des révélations sur des relations extraconjugales, fragilise le moteur de la révolution de l’intelligence artificielle.…",
-     "link": "https://www.lemonde.fr/idees/article/2026/11/14/l-administration-trump-percutee-par-l-onde-de-choc-nvidia_6809983_3232.html",
+     "title": "L’armée américaine intervient pour une « suspicion d’activité de drone non autorisée » au-dessus d’une base militaire britannique",
+     "desc": "« Aucun membre du personnel, aucun avion ni aucune infrastructure n’ont été touchés », a fait savoir un porte-parole de l’armée de l’air américaine, une fois l’incident résolu. La base concernée se situe à Lakenheath,…",
+     "link": "https://www.lemonde.fr/international/article/2026/11/13/l-armee-americaine-intervient-pour-une-suspicion-d-activite-de-drone-non-autorisee-au-dessus-d-une-base-militaire-britannique_6809392_3210.html",
      "source": "Le Monde",
-     "date": "2026-11-14T10:01:14+00:00"
+     "date": "2026-11-13T22:51:25+00:00"
     },
     {
-     "title": "L'espace aérien des Etats-Unis a rouvert après une annulation de 6 000 vols liée à une panne de communication",
-     "desc": "L'administration Trump avait décidé vendredi de suspendre tous les décollages sur le sol américain car les communications et les radars fonctionnaient seulement de manière \"intermittente\" dans plusieurs centres de…",
-     "link": "https://www.franceinfo.fr/monde/usa/l-espace-aerien-des-etats-unis-a-rouvert-apres-l-annulation-de-6-000-vols_8282150.html#xtor=RSS-3-%5Bmonde%5D",
+     "title": "Un porte-conteneurs et un bateau de croisière sont entrés en collision dans le port de La Nouvelle-Orléans",
+     "desc": "\"Le nombre de blessés et la cause de la collision n'ont pas encore été confirmés\", ont rapporté vendredi les responsables de ce port américain, dans un communiqué cité par des médias.",
+     "link": "https://www.franceinfo.fr/monde/usa/un-porte-conteneurs-et-un-bateau-de-croisiere-sont-entres-en-collision-dans-le-port-de-la-nouvelle-orleans_8281676.html#xtor=RSS-3-%5Bmonde%5D",
      "source": "franceinfo",
-     "date": "2026-11-14T09:55:55+00:00"
+     "date": "2026-11-13T22:28:22+00:00"
     },
     {
-     "title": "Le visa d’une journaliste norvégienne jugée trop impertinente annulé par l’Inde",
-     "desc": "Invitée à s’exprimer à une conférence de l’opposition indienne, Helle Lyng Svendsen s’est vu retirer son visa à la dernière minute. Un nouvel épisode du durcissement du gouvernement de Narendra Modi.",
-     "link": "https://www.lemonde.fr/international/article/2026/11/14/le-visa-d-une-journaliste-norvegienne-jugee-trop-impertinente-annule-par-l-inde_6809917_3210.html",
-     "source": "Le Monde",
-     "date": "2026-11-14T09:15:06+00:00"
-    },
-    {
-     "title": "L'espace aérien des Etats-Unis a rouvert après l'annulation de 6 000 vols",
-     "desc": "L'espace aérien a rouvert aux États-Unis, vendredi 13 novembre au soir, après plusieurs heures de suspension de tous les décollages et l'annulation de 6 000 vols. Les autorités avaient interdit à tous les avions de…",
-     "link": "https://www.franceinfo.fr/monde/usa/l-espace-aerien-des-etats-unis-a-rouvert-apres-l-annulation-de-6-000-vols_8282255.html#xtor=RSS-3-%5Bmonde%5D",
+     "title": "Après l'effondrement mortel d'un immeuble à New York, les questions se multiplient",
+     "desc": "L’effondrement d’un immeuble de trois étages à New York (États-Unis), mercredi 11 novembre, a fait huit morts, dont deux enfants, et 19 blessés. Alors que les secours ont retrouvé plusieurs survivants sous les…",
+     "link": "https://www.franceinfo.fr/monde/usa/apres-l-effondrement-mortel-d-un-immeuble-a-new-york-les-questions-se-multiplient_8281634.html#xtor=RSS-3-%5Bmonde%5D",
      "source": "franceinfo",
-     "date": "2026-11-14T09:07:44+00:00"
-    },
-    {
-     "title": "REPORTAGE. \"Pour l'instant, j'ai très peu d'informations\" : à l'aéroport d'Atlanta, la galère des passagers après la fermeture de l'espace aérien américain",
-     "desc": "Au moins 6 000 vols ont été annulés en raison de problèmes de communication causés par du \"vieux matériel\", selon le gouvernement. Un événement rarissime qui a paralysé le trafic aérien dans tout le pays.",
-     "link": "https://www.franceinfo.fr/monde/usa/reportage-pour-l-instant-j-ai-tres-peu-d-informations-a-l-aeroport-d-atlanta-la-galere-des-passagers-apres-la-fermeture-de-l-espace-aerien-americain_8282159.html#xtor=RSS-3-%5Bmonde%5D",
-     "source": "franceinfo",
-     "date": "2026-11-14T08:05:42+00:00"
-    },
-    {
-     "title": "Face à Israël et aux Etats-Unis, l’Iran resserre ses liens avec la Russie",
-     "desc": "Les rencontres diplomatiques se multiplient entre Téhéran et Moscou, tandis que la mer Caspienne devient un axe stratégique pour leurs échanges commerciaux et militaires. Un rapprochement réel, mais qui se heurte aux…",
-     "link": "https://www.lemonde.fr/international/article/2026/11/14/face-a-israel-et-aux-etats-unis-l-iran-resserre-ses-liens-avec-la-russie_6809692_3210.html",
-     "source": "Le Monde",
-     "date": "2026-11-14T05:00:31+00:00"
+     "date": "2026-11-13T22:24:31+00:00"
     },
     {
      "title": "L'armée américaine rapporte qu'elle a répondu à une activité de drone détectée au-dessus d'une base britannique",
@@ -240,6 +212,48 @@
      "link": "https://www.franceinfo.fr/internet/drones/l-armee-americaine-rapporte-qu-elle-a-repondu-a-une-activite-de-drone-detectee-au-dessus-d-une-base-britannique_8281700.html#xtor=RSS-3-%5Bmonde%5D",
      "source": "franceinfo",
      "date": "2026-11-13T22:12:52+00:00"
+    },
+    {
+     "title": "Bijouterie de luxe braquée à Paris : que vont devenir les diamants ?",
+     "desc": "Les braqueurs munis de fusils d'assaut de la bijouterie De Beers, à Paris, sont toujours recherchés ce vendredi 13 novembre. Plus de 24 heures après les faits, le montant du préjudice est estimé à plus d'un million…",
+     "link": "https://www.franceinfo.fr/faits-divers/braquage/bijouterie-de-luxe-braquee-a-paris-que-vont-devenir-les-diamants_8281619.html#xtor=RSS-3-%5Bmonde%5D",
+     "source": "franceinfo",
+     "date": "2026-11-13T22:00:55+00:00"
+    },
+    {
+     "title": "Le Burkina Faso annonce lancer des mandats d’arrêt contre des journalistes et des activistes en exil pour des faits de « terrorisme »",
+     "desc": "Les autorités de la junte d’Afrique de l’Ouest ciblent une vingtaine de personnes, et demandent leur extradition. Un chroniqueur burkinabé de RFI et des anciens ministres de l’ex-président Blaise Compaoré sont notamment…",
+     "link": "https://www.lemonde.fr/international/article/2026/11/13/le-burkina-faso-annonce-lancer-des-mandats-d-arret-contre-des-journalistes-et-des-activistes-en-exil-pour-des-faits-de-terrorisme_6809388_3210.html",
+     "source": "Le Monde",
+     "date": "2026-11-13T21:51:13+00:00"
+    },
+    {
+     "title": "IA : Les Européens au défi de s’entendre pour rester dans la course et mieux la réguler",
+     "desc": "Réunis à Dublin, les Vingt-Sept se sont penchés sur les défis de l’intelligence artificielle, entre ambitions de souveraineté, régulation, et exigences budgétaires.",
+     "link": "https://www.lemonde.fr/international/article/2026/11/13/ia-les-europeens-au-defi-de-s-entendre-pour-rester-dans-la-course-et-mieux-la-reguler_6809387_3210.html",
+     "source": "Le Monde",
+     "date": "2026-11-13T20:58:04+00:00"
+    },
+    {
+     "title": "Menace nucléaire, catastrophes naturelles, intrusions... Quand les Américains se bunkerisent",
+     "desc": "Aux États-Unis, les abris anti-bombes et les maisons ultra-sécurisées séduisent une clientèle fortunée. Des bunkers équipés de tout le confort moderne aux villas protégées par des technologies de pointe, le marché de la…",
+     "link": "https://www.franceinfo.fr/monde/usa/menace-nucleaire-catastrophes-naturelles-intrusions-quand-les-americains-se-bunkerisent_8281655.html#xtor=RSS-3-%5Bmonde%5D",
+     "source": "franceinfo",
+     "date": "2026-11-13T20:42:12+00:00"
+    },
+    {
+     "title": "EN DIRECT, guerre en Ukraine : la France, l’Allemagne, le Royaume-Uni, l’Italie et la Pologne représenteront les Européens lors des prochains pourparlers sur l’Ukraine",
+     "desc": "« L’Europe doit parler d’une voix claire et unie dans toutes les discussions qui façonnent l’avenir de l’Ukraine et la sécurité de notre continent », a déclaré Antonio Costa, le président du Conseil européen.",
+     "link": "https://www.lemonde.fr/international/live/2026/11/13/en-direct-guerre-en-ukraine-la-france-l-allemagne-le-royaume-uni-l-italie-et-la-pologne-representeront-les-europeens-lors-des-prochains-pourparlers-sur-l-ukraine_6808609_3210.html",
+     "source": "Le Monde",
+     "date": "2026-11-13T19:35:30+00:00"
+    },
+    {
+     "title": "Au Pérou, le pape Léon XIV, de retour dans son ancien diocèse, acclamé par une foule gigantesque de fidèles",
+     "desc": "Le Vatican a estimé qu’un million de personnes s’étaient massées le long du parcours emprunté par le cortège du pape pour se rendre à l’office auquel 500 000 fidèles auraient assisté.",
+     "link": "https://www.lemonde.fr/international/article/2026/11/13/au-perou-le-pape-leon-xiv-de-retour-dans-son-ancien-diocese-acclame-par-une-foule-gigantesque-de-fideles_6809380_3210.html",
+     "source": "Le Monde",
+     "date": "2026-11-13T19:00:10+00:00"
     }
    ]
   },
@@ -248,39 +262,11 @@
    "title": "Sport",
    "items": [
     {
-     "title": "L'ex-ministre de la Santé François Braun se \"met en retrait\" de la campagne présidentielle de Teddy Riner",
-     "desc": "Le médecin, ancien membre du gouvernement d'Elisabeth Borne, avait affiché son soutien au judoka.",
-     "link": "https://www.franceinfo.fr/elections/presidentielle-2027-a-peine-entre-en-campagne-teddy-riner-perd-le-soutien-de-l-ex-ministre-de-la-sante-francois-braun-qui-se-met-en-retrait_8282237.html#xtor=RSS-3-%5Bsports%5D",
-     "source": "franceinfo",
-     "date": "2026-11-14T09:45:47+00:00"
-    },
-    {
-     "title": "Le Tour de France, un \"objectif à très long terme\" assure Paul Seixas",
-     "desc": "Le leader de la formation Decathlon CMA CGM, quatrième de la Grande Boucle cette saison, a assuré samedi avoir encore de grandes ambitions pour l'avenir, tout en se montrant patient au sujet du Tour de France.",
-     "link": "https://www.franceinfo.fr/sports/cyclisme/le-tour-de-france-un-objectif-a-tres-long-terme-assure-paul-seixas_8282210.html#xtor=RSS-3-%5Bsports%5D",
-     "source": "franceinfo",
-     "date": "2026-11-14T09:00:19+00:00"
-    },
-    {
-     "title": "État d'esprit, résistance en défense, Antoine Dupont de gala... Comment le XV de France a construit son succès de référence face aux Springboks",
-     "desc": "Les Bleus ont signé une victoire de prestige face à l'Afrique du Sud dans le Championnat des nations, vendredi soir.",
-     "link": "https://www.franceinfo.fr/sports/rugby/coupe-d-automne-des-nations/etat-d-esprit-resistance-en-defense-antoine-dupont-de-gala-comment-le-xv-de-france-a-construit-son-succes-de-reference-face-aux-springboks_8281781.html#xtor=RSS-3-%5Bsports%5D",
-     "source": "franceinfo",
-     "date": "2026-11-14T08:22:27+00:00"
-    },
-    {
-     "title": "Teddy Riner : se présenter à l'Élysée pour gagner ?",
-     "desc": "Il avait affiché son intérêt pour la plus haute fonction de l’État, mais personne ne l’avait vu venir. Teddy Riner est candidat à l’élection présidentielle. Plus grand judoka de l’histoire (5 fois Champion olympique et…",
-     "link": "https://www.franceinfo.fr/replay-radio/portraits-d-actu/teddy-riner-se-presenter-a-l-elysee-pour-gagner_8261255.html#xtor=RSS-3-%5Bsports%5D",
-     "source": "franceinfo",
-     "date": "2026-11-14T07:29:25+00:00"
-    },
-    {
      "title": "La numéro 2 mondiale Aryna Sabalenka prend la porte dès la phase de groupes du Masters WTA après sa défaite face à Elina Svitolina",
      "desc": "L'ancienne patronne du circuit WTA a été battue en trois manches, vendredi soir à Indian Wells, par l'Ukrainienne Elina Svitolina, 6e mondiale.",
      "link": "https://www.franceinfo.fr/sports/tennis/masters/la-numero-2-mondiale-aryna-sabalenka-prend-la-porte-des-la-phase-de-groupes-du-masters-wta-apres-sa-defaite-face-a-elina-svitolina_8281739.html#xtor=RSS-3-%5Bsports%5D",
      "source": "franceinfo",
-     "date": "2026-11-14T00:20:23+00:00"
+     "date": "2026-11-14T00:01:08+00:00"
     },
     {
      "title": "Héroïque, le XV de France s’offre l'Afrique du Sud double championne du monde en titre pour la première fois depuis 2022",
@@ -288,6 +274,34 @@
      "link": "https://www.franceinfo.fr/sports/rugby/coupe-d-automne-des-nations/heroique-le-xv-de-france-s-offre-l-afrique-du-sud-double-championne-du-monde-en-titre-pour-la-premiere-fois-depuis-2022_8281637.html#xtor=RSS-3-%5Bsports%5D",
      "source": "franceinfo",
      "date": "2026-11-13T22:48:49+00:00"
+    },
+    {
+     "title": "Teddy Riner en déplacement à Saint-Denis : qui accompagnait le nouveau candidat à la présidentielle pour sa première sortie ?",
+     "desc": "Teddy Riner est entré ce vendredi 13 novembre en campagne. Le nouveau candidat à l’élection présidentielle a choisi les urgences pédiatriques de l’hôpital de Saint-Denis (Seine-Saint-Denis) pour ce premier déplacement.…",
+     "link": "https://www.franceinfo.fr/sports/judo/teddy-riner/teddy-riner-en-deplacement-a-saint-denis-qui-accompagnait-le-nouveau-candidat-a-la-presidentielle-pour-sa-premiere-sortie_8281670.html#xtor=RSS-3-%5Bsports%5D",
+     "source": "franceinfo",
+     "date": "2026-11-13T21:59:58+00:00"
+    },
+    {
+     "title": "Didier Digard, le choix surprise du RC Lens pour succéder à Yannick Cahuzac au poste d'entraîneur",
+     "desc": "Le club artésien a finalement nommé, vendredi soir et à la surprise générale, l'ancien coach du Havre.",
+     "link": "https://www.franceinfo.fr/sports/foot/rc-lens/didier-digard-le-choix-surprise-du-rc-lens-pour-succeder-a-yannick-cahuzac-au-poste-d-entraineur_8281688.html#xtor=RSS-3-%5Bsports%5D",
+     "source": "franceinfo",
+     "date": "2026-11-13T21:53:07+00:00"
+    },
+    {
+     "title": "\"Je n'ai pas vu le temps passer\" : premier déplacement de campagne de Teddy Riner",
+     "desc": "Teddy Riner a effectué sa première visite depuis l’annonce de sa candidature à l’élection présidentielle, à l’hôpital Delafontaine de Saint-Denis, ce vendredi. À la sortie, il a fait le bilan de ces quelques heures…",
+     "link": "https://www.franceinfo.fr/sports/judo/teddy-riner/je-n-ai-pas-vu-le-temps-passer-premier-deplacement-de-campagne-de-teddy-riner_8281607.html#xtor=RSS-3-%5Bsports%5D",
+     "source": "franceinfo",
+     "date": "2026-11-13T19:22:02+00:00"
+    },
+    {
+     "title": "Présidentielle 2027 : un premier déplacement comme candidat pour Teddy Riner",
+     "desc": "Pour son premier déplacement de campagne, Teddy Riner a choisi un hôpital de Seine-Saint-Denis. Le candidat à l'élection présidentielle 2027 a rencontré des patients et le personnel soignant.",
+     "link": "https://www.franceinfo.fr/replay-jt/france-2/13-heures/presidentielle-2027-un-premier-deplacement-comme-candidat-pour-teddy-riner_8281067.html#xtor=RSS-3-%5Bsports%5D",
+     "source": "franceinfo",
+     "date": "2026-11-13T15:58:42+00:00"
     }
    ]
   }

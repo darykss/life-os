@@ -33,7 +33,7 @@ const DEFAULTS = {
   wk: { done: {}, manual: [] },
   li: { history: [], offset: 0 },
   habits: {},
-  fin: { entries: [], subs: [] },
+  fin: { entries: [], subs: [], pending: [], paySeen: {}, catMemo: {} },   // pending : paiements Apple Pay à valider ; paySeen : déjà traités ; catMemo : catégorie retenue par libellé
   habitList: [],                       // habitudes modifiables (remplies au premier lancement)
   work: { days: {} },                  // { 'AAAA-MM-JJ': { pomos, manual } }
   pomo: { phase: 'work', running: false, endAt: 0, left: 25 * 60e3 },
@@ -127,6 +127,7 @@ const ICON = {
   check: '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
   plus: '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',
   ext: '<svg viewBox="0 0 24 24"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>',
+  close: '<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>',
   copy: '<svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 0 1 1-1h10"/></svg>',
 };
 
@@ -170,9 +171,32 @@ async function fetchCalendar() {
     if (!Array.isArray(data.events)) throw new Error('Réponse inattendue du script');
     S.cal = { events: data.events, at: Date.now(), error: '' };
     syncPins();
+    if (payOn() && Array.isArray(data.payments)) syncPayments(data.payments);
   } catch (e) {
     S.cal.error = navigator.onLine === false ? 'Hors ligne' : (e.message || 'Erreur');
   }
+}
+
+// Apple Pay : présent dans cette version (config.js) et activé dans les réglages.
+const payOn = () => !!APP.applePay && S.modules.applePay !== false;
+
+// Paiements Apple Pay reçus par le script Google : les nouveaux attendent une validation dans Finances.
+function syncPayments(list) {
+  const F = S.fin;
+  let added = 0;
+  for (const p of list) {
+    const amount = Number(p.amount);
+    if (!p.id || !(amount > 0) || F.paySeen[p.id] || F.pending.some((x) => x.id === p.id)) continue;
+    const d = new Date(p.at);
+    const label = String(p.merchant || '').trim();
+    F.pending.push({ id: String(p.id), amount: Math.round(amount * 100) / 100, label, card: String(p.card || '').trim(), date: isNaN(d) ? today() : ymd(d), cat: catGuess(label), by: '' });
+    added++;
+  }
+  F.pending.sort((a, b) => b.date.localeCompare(a.date));
+  // Le script ne renvoie que 60 jours : au-delà, inutile de se souvenir d'un paiement déjà traité.
+  const limit = addDays(today(), -90);
+  for (const [id, day] of Object.entries(F.paySeen)) if (day < limit) delete F.paySeen[id];
+  if (added) UI.payNew = added;
 }
 
 // Si une échéance épinglée a été déplacée dans l'agenda, l'épingle la suit.
@@ -204,7 +228,9 @@ async function refresh(manual) {
   UI.refreshing = false;
   $('#refreshBtn').classList.remove('spin');
   render(true);
-  if (manual) toast(S.cal.error && S.settings.gcalUrl ? 'Agenda : ' + S.cal.error : 'À jour ✓');
+  const n = UI.payNew; UI.payNew = 0;
+  if (n) toast(n > 1 ? `${n} paiements Apple Pay à valider 💳` : '1 paiement Apple Pay à valider 💳');
+  else if (manual) toast(S.cal.error && S.settings.gcalUrl ? 'Agenda : ' + S.cal.error : 'À jour ✓');
 }
 
 function cleanup() {
@@ -244,12 +270,14 @@ function render(fromRefresh) {
   UI.pendingRender = false;
 
   if (!enabledTabs().includes(UI.tab)) UI.tab = 'home';
-  $('#title').textContent = UI.tab === 'home' ? cap(new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'short' })) : TAB_DEFS[UI.tab].title;
+  $('#title').textContent = tabTitle(UI.tab);
   $('#subtitle').textContent = S.lastRefresh ? 'Actualisé à ' + new Date(S.lastRefresh).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) : '';
   renderTabs();
-  $('#view').innerHTML = { home: viewHome, li: viewLinkedIn, habits: viewHabits, fin: viewFinance, work: viewWork, apps: viewApps, news: viewNews, seances: () => '' }[UI.tab]();
+  $('#view').innerHTML = viewHtml(UI.tab);
   syncFrame();
 }
+const tabTitle = (tab) => (tab === 'home' ? cap(new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'short' })) : TAB_DEFS[tab].title);
+const viewHtml = (tab) => ({ home: viewHome, li: viewLinkedIn, habits: viewHabits, fin: viewFinance, work: viewWork, apps: viewApps, news: viewNews, seances: () => '' }[tab]());
 
 const card = (title, body, extra) => `<section class="card"><div class="card-h"><h2>${title}</h2>${extra || ''}</div>${body}</section>`;
 const empty = (txt) => `<p class="empty">${txt}</p>`;
@@ -295,10 +323,11 @@ function viewHome() {
   html += card(day === t ? "Aujourd'hui" : esc(cap(fmtDate(day, { weekday: 'long', day: 'numeric', month: 'long' }))), strip + (dayEvs.length ? `<ul class="agenda">${dayEvs.map((e) => {
     const past = day < t || (day === t && !e.allDay && new Date(e.end) < now);
     const live = day === t && !e.allDay && new Date(e.start) <= now && new Date(e.end) >= now;
-    return `<li class="${past ? 'past' : ''} ${live ? 'live' : ''}">
+    return `<li class="tap ${past ? 'past' : ''} ${live ? 'live' : ''}" data-a="event" data-id="${esc(evKey(e))}">
       <div class="when">${e.allDay ? '<span>Journée</span>' : `<span>${fmtTime(e.start)}</span><small>${fmtTime(e.end)}</small>`}</div>
       <i style="background:${esc(evColor(e))}"></i>
       <div class="what"><b>${esc(e.title)}</b>${e.location ? `<small>${esc(e.location)}</small>` : ''}${live ? '<em>En cours</em>' : ''}</div>
+      ${e.description ? '<span class="more" aria-hidden="true">›</span>' : ''}
     </li>`;
   }).join('')}</ul>` : empty(!S.settings.gcalUrl ? 'Ton programme apparaîtra ici.' : day === t ? 'Rien de prévu aujourd’hui.' : 'Rien de prévu ce jour-là.')),
   day === t ? `<span class="count">${dayEvs.length || ''}</span>` : '<button class="chipbtn" data-a="agendaToday">Aujourd’hui</button>');
@@ -314,7 +343,7 @@ function viewHome() {
     const n = dayDiff(d, t);
     return `<li>
       <div class="datebox ${n <= 3 ? 'hot' : ''}"><b>${parseYmd(d).getDate()}</b><small>${parseYmd(d).toLocaleDateString('fr-FR', { month: 'short' }).replace('.', '')}</small></div>
-      <div class="what"><b>${esc(e.title)}</b><small>${esc(countdown(d))}${e.allDay ? '' : ' · ' + fmtTime(e.start)}</small></div>
+      <div class="what tap" data-a="event" data-id="${esc(k)}"><b>${esc(e.title)}</b><small>${esc(countdown(d))}${e.allDay ? '' : ' · ' + fmtTime(e.start)}</small></div>
       <button class="pin ${S.pins[k] ? 'on' : ''}" data-a="pinEvent" data-id="${esc(k)}" aria-label="Épingler">${ICON.pin}</button>
     </li>`;
   }).join('')}</ul>${reds.length > 5 ? `<button class="link" data-a="toggleDeadlines">${UI.allDeadlines ? 'Voir moins' : `Voir les ${reds.length} échéances`}</button>` : ''}`
@@ -328,10 +357,44 @@ function viewHome() {
   return html;
 }
 
+// Description d'un événement Google : parfois du HTML. On n'en garde que le texte, avec ses retours à la ligne et ses liens.
+function descHtml(raw) {
+  const txt = String(raw || '').replace(/<br\s*\/?>/gi, '\n').replace(/<\/(p|div|li|h\d)>/gi, '\n').replace(/<li[^>]*>/gi, '• ').replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+    .replace(/\n{3,}/g, '\n\n').trim();
+  return esc(txt).replace(/https?:\/\/[^\s<]+[^\s<.,;:!?)]/g, (u) => `<a href="${u}" target="_blank" rel="noopener">${u}</a>`);
+}
+function openEvent(k) {
+  const e = S.cal.events.find((x) => evKey(x) === k);
+  if (!e) return;
+  let when;
+  if (e.allDay) {
+    const last = e.end && e.end > e.start ? addDays(e.end, -1) : e.start;
+    const long = { weekday: 'long', day: 'numeric', month: 'long' };
+    when = last > e.start ? `Du ${fmtDate(e.start, long)} au ${fmtDate(last, long)}` : cap(fmtDate(e.start, long)) + ' · toute la journée';
+  } else {
+    when = cap(fmtDate(evDay(e), { weekday: 'long', day: 'numeric', month: 'long' })) + ` · ${fmtTime(e.start)} – ${fmtTime(e.end)}`;
+  }
+  const desc = e.description ? `<div class="ev-desc">${descHtml(e.description)}</div>`
+    : `<p class="hint">${e.description === undefined ? 'Pour voir les descriptions, mets à jour le script Google (⚙︎ Réglages › Copier le script, puis nouvelle version du déploiement).' : 'Pas de description pour cet événement.'}</p>`;
+  $('#sheetBody').innerHTML = `
+    <div class="grab"></div>
+    <p class="over"><i class="ev-dot" style="background:${esc(evColor(e))}"></i>${esc(e.calendar || 'Agenda')}</p>
+    <h2>${esc(e.title)}</h2>
+    <ul class="ev-meta">
+      <li>🗓️ <span>${esc(when)}</span></li>
+      ${e.location ? `<li>📍 <a href="https://maps.apple.com/?q=${encodeURIComponent(e.location)}" target="_blank" rel="noopener">${esc(e.location)}</a></li>` : ''}
+    </ul>
+    ${desc}
+    <button class="link" data-a="closeSheet">Fermer</button>`;
+  $('#sheet').hidden = false;
+  $('#sheetBody').scrollTop = 0;
+}
+
 function workoutList(evs) {
   const re = sportRegex();
   const list = [];
-  if (re) for (const e of evs) if (re.test(e.title)) list.push({ key: evKey(e), title: e.title, date: evDay(e), time: e.allDay ? '' : fmtTime(e.start), manual: false });
+  if (re) for (const e of evs) if (re.test(e.title)) list.push({ key: evKey(e), title: e.title, date: evDay(e), time: e.allDay ? '' : fmtTime(e.start), manual: false, desc: !!e.description });
   for (const m of S.wk.manual) list.push({ key: 'm:' + m.id, title: m.title, date: m.date, time: '', manual: true });
   return list;
 }
@@ -345,7 +408,7 @@ function viewWorkouts(t, evs) {
 
   let body = todays.length ? `<ul class="rows">${todays.map((w) => `<li>
       <button class="check ${S.wk.done[w.key] ? 'on' : ''}" data-a="toggleWorkout" data-id="${esc(w.key)}" aria-label="Fait">${ICON.check}</button>
-      <div class="what ${S.wk.done[w.key] ? 'struck' : ''}"><b>${esc(w.title)}</b><small>${w.time ? 'Prévu à ' + w.time : 'Séance du jour'}</small></div>
+      <div class="what ${S.wk.done[w.key] ? 'struck' : ''} ${w.manual ? '' : 'tap'}" ${w.manual ? '' : `data-a="event" data-id="${esc(w.key)}"`}><b>${esc(w.title)}</b><small>${w.time ? 'Prévu à ' + w.time : 'Séance du jour'}${w.desc ? ' · voir le détail ›' : ''}</small></div>
       ${w.manual ? `<button class="ghost" data-a="delWorkout" data-id="${esc(w.key)}" aria-label="Supprimer">${ICON.trash}</button>` : ''}
     </li>`).join('')}</ul>` : empty('Pas de séance prévue aujourd’hui.');
 
@@ -620,16 +683,46 @@ const addMonths = (ym, n) => { const [y, m] = ym.split('-').map(Number); const d
 const subActive = (s, ym) => (!s.from || s.from <= ym) && (!s.end || ym < s.end);
 const subDate = (s, ym) => ym + '-' + pad(Math.min(s.day, monthLast(ym)));
 
+// Catégories de dépenses.
+const FIN_CATS = [
+  { id: 'food', icon: '🛒', label: 'Courses', kw: 'carrefour|monoprix|franprix|lidl|auchan|leclerc|intermarch|casino|picard|aldi|super u|naturalia|biocoop|boulang' },
+  { id: 'resto', icon: '🍔', label: 'Restos & sorties', kw: 'restaurant|resto|mcdo|mcdonald|burger|kfc|pizza|sushi|kebab|uber eats|ubereats|deliveroo|starbucks|café|cafe|bar |brasserie|bistro|tacos' },
+  { id: 'transport', icon: '🚆', label: 'Transport', kw: 'sncf|ratp|navigo|uber|bolt|blablacar|flixbus|ouigo|tgv|total|essence|station|parking|péage|peage|lime|velib|taxi|train' },
+  { id: 'home', icon: '🏠', label: 'Logement', kw: 'loyer|edf|engie|ikea|leroy|castorama|assurance hab' },
+  { id: 'study', icon: '📚', label: 'Études', kw: 'fnac|librairie|cultura|gibert|concours|tage|inscription|papeterie' },
+  { id: 'sport', icon: '💪', label: 'Sport', kw: 'decathlon|basic fit|basic-fit|fitness|salle de sport|go sport|intersport' },
+  { id: 'shop', icon: '🛍️', label: 'Shopping', kw: 'zara|h&m|uniqlo|nike|adidas|amazon|zalando|vinted|shein|apple store|sephora|action' },
+  { id: 'health', icon: '💊', label: 'Santé', kw: 'pharmac|médecin|medecin|doctolib|dentiste|opticien' },
+  { id: 'fun', icon: '🎮', label: 'Loisirs', kw: 'cinéma|cinema|ugc|pathé|pathe|gaumont|concert|steam|playstation|netflix|spotify|billet' },
+  { id: 'other', icon: '🏷️', label: 'Autre', kw: '' },
+];
+const catOf = (id) => FIN_CATS.find((c) => c.id === id) || null;
+const catKey = (label) => String(label || '').trim().toLowerCase();
+// Catégorie proposée pour un libellé : celle que tu as déjà choisie pour ce libellé, sinon un mot-clé connu.
+function catGuess(label) {
+  const k = catKey(label);
+  if (!k) return '';
+  if (S.fin.catMemo[k]) return S.fin.catMemo[k];
+  const hit = FIN_CATS.find((c) => c.kw && new RegExp(c.kw, 'i').test(k));
+  return hit ? hit.id : '';
+}
+const catSelect = (attrs, cur, emptyLabel) => `<label class="pill ${cur ? 'set' : ''}"><select ${attrs} aria-label="Catégorie"><option value="">${emptyLabel}</option>${FIN_CATS.map((c) => `<option value="${c.id}" ${c.id === cur ? 'selected' : ''}>${c.icon} ${c.label}</option>`).join('')}</select></label>`;
+// Une dépense avancée pour les parents n'est pas comptée dans mes dépenses : elle est suivie à part.
+const isAdv = (e) => e.type === 'out' && e.by === 'parents';
+
 // Totaux entre deux dates incluses (au plus deux mois à cheval), abonnements compris.
 function finRange(a, b) {
-  const r = { in: 0, out: 0, subs: 0 };
-  for (const e of S.fin.entries) if (e.date >= a && e.date <= b) r[e.type] += e.amount;
+  const r = { in: 0, out: 0, subs: 0, adv: 0 };
+  for (const e of S.fin.entries) if (e.date >= a && e.date <= b) { if (isAdv(e)) r.adv += e.amount; else r[e.type] += e.amount; }
   for (const ym of new Set([a.slice(0, 7), b.slice(0, 7)])) for (const s of S.fin.subs) {
     const d = subDate(s, ym);
     if (subActive(s, ym) && d >= a && d <= b) { r.out += s.amount; r.subs += s.amount; }
   }
   return r;
 }
+
+// Interrupteur « payé par moi / à rembourser par les parents » d'une dépense.
+const byChip = (action, id, by) => `<button type="button" class="bychip ${by === 'parents' ? 'on' : ''}" data-a="${action}" data-id="${esc(id)}" role="switch" aria-checked="${by === 'parents'}"><i></i>${by === 'parents' ? 'Parents remboursent' : 'Payé par moi'}</button>`;
 
 function viewFinance() {
   const t = today();
@@ -653,29 +746,50 @@ function viewFinance() {
   const prev = finRange(addMonths(ym, -1) + '-01', addMonths(ym, -1) + '-' + pad(monthLast(addMonths(ym, -1))));
   const hasPrev = prev.in || prev.out;
 
-  let html = `<section class="card slim">${navBar('finMonth', monthName, isCur ? 'Mois en cours' : 'Historique', !isCur)}</section>`;
+  let html = '';
+  const pend = payOn() ? S.fin.pending : [];
+  if (pend.length) {
+    html += `<section class="card pay">
+      <div class="card-h"><h2>Apple Pay à valider</h2><span class="count">${eur(pend.reduce((x, p) => x + p.amount, 0))}</span></div>
+      <ul class="rows">${pend.map((p) => `<li class="wrap">
+        <div class="what"><b>${esc(p.label || 'Paiement Apple Pay')}</b><small>${esc(fmtDate(p.date))}${p.card ? ' · ' + esc(p.card) : ''}</small></div>
+        <b class="amt out">−${eur(p.amount)}</b>
+        <button class="round no" data-a="payNo" data-id="${esc(p.id)}" aria-label="Ignorer">${ICON.close}</button>
+        <button class="round yes" data-a="payOk" data-id="${esc(p.id)}" aria-label="Valider">${ICON.check}</button>
+        <div class="tags">${catSelect(`data-c="payCat" data-id="${esc(p.id)}"`, p.cat, 'Catégorie')}${byChip('payBy', p.id, p.by)}</div>
+      </li>`).join('')}</ul>
+      ${pend.length > 1 ? '<button class="btn wide" data-a="payAll">Tout valider</button>' : ''}
+      <p class="hint">Un paiement validé devient une dépense, payée par toi ou à te faire rembourser par tes parents. Un paiement ignoré n’est pas compté et ne reviendra pas.</p>
+    </section>`;
+  }
+  html += `<section class="card slim">${navBar('finMonth', monthName, isCur ? 'Mois en cours' : 'Historique', !isCur)}</section>`;
   if (isCur) {
     const mon = mondayOf(t);
     html += block('Cette semaine', weekRange(mon), finRange(mon, addDays(mon, 6)));
   }
   html += block(isCur ? 'Ce mois-ci' : 'Bilan du mois', M.subs ? `dont ${eur(M.subs)} d’abonnements` : '', M);
+  if (M.adv) html += `<p class="hint center">${eur(M.adv)} avancés pour tes parents ce mois-ci, non comptés dans tes dépenses.</p>`;
   if (hasPrev) html += `<p class="hint center">Mois précédent : ${eur(prev.in)} gagnés, ${eur(prev.out)} dépensés.</p>`;
 
   html += card('Ajouter', `<form class="stack" data-f="addEntry">
       <div class="seg"><button type="button" class="${UI.finType === 'out' ? 'on red' : ''}" data-a="finType" data-id="out">Dépense</button><button type="button" class="${UI.finType === 'in' ? 'on green' : ''}" data-a="finType" data-id="in">Revenu</button></div>
       <div class="two"><input name="amount" inputmode="decimal" placeholder="Montant €" autocomplete="off"><input type="date" name="date" value="${isCur ? t : m1}"></div>
       <input name="label" placeholder="${UI.finType === 'out' ? 'Libellé (ex. Courses)' : 'Libellé (ex. Vente, salaire)'}" autocomplete="off" enterkeyhint="done">
+      ${UI.finType === 'out' ? `<select name="cat" aria-label="Catégorie"><option value="">Catégorie : automatique</option>${FIN_CATS.map((c) => `<option value="${c.id}">${c.icon} ${c.label}</option>`).join('')}</select>
+      <label class="swrow"><span><b>Remboursement demandé aux parents</b><small>Sinon : payé par moi</small></span><input type="checkbox" name="parents"></label>` : ''}
       <button class="btn primary wide">Enregistrer ${UI.finType === 'out' ? 'la dépense' : 'le revenu'}</button>
     </form>`);
 
   const moves = S.fin.entries.filter((e) => e.date >= m0 && e.date <= m1).map((e) => ({ ...e }))
     .concat(S.fin.subs.filter((s) => subActive(s, ym)).map((s) => ({ id: '', type: 'out', amount: s.amount, label: s.label, date: subDate(s, ym), sub: true })))
     .sort((a, b) => b.date.localeCompare(a.date));
-  html += card('Mouvements du mois', moves.length ? `<ul class="rows">${moves.map((e) => `<li>
+  html += finCats(ym, m0, m1) + finParents(ym, m0, m1);
+  html += card('Mouvements du mois', moves.length ? `<ul class="rows">${moves.map((e) => `<li class="${e.sub || e.type === 'in' ? '' : 'wrap'}">
       <div class="sign ${e.type}">${e.type === 'in' ? '+' : '−'}</div>
-      <div class="what"><b>${esc(e.label || (e.type === 'in' ? 'Revenu' : 'Dépense'))}</b><small>${esc(fmtDate(e.date))}${e.sub ? ' · abonnement' : ''}</small></div>
-      <b class="amt ${e.type}">${e.type === 'in' ? '+' : '−'}${eur(e.amount)}</b>
+      <div class="what"><b>${esc(e.label || (e.type === 'in' ? 'Revenu' : 'Dépense'))}</b><small>${esc(fmtDate(e.date))}${e.sub ? ' · abonnement' : ''}${e.src === 'applepay' ? ' · Apple Pay' : ''}</small></div>
+      <b class="amt ${e.by === 'parents' ? 'adv' : e.type}">${e.type === 'in' ? '+' : '−'}${eur(e.amount)}</b>
       ${e.sub ? '' : `<button class="ghost" data-a="delEntry" data-id="${e.id}" aria-label="Supprimer">${ICON.trash}</button>`}
+      ${e.sub || e.type === 'in' ? '' : `<div class="tags">${catSelect(`data-c="finCat" data-id="${e.id}"`, e.cat, 'Catégorie')}${byChip('finBy', e.id, e.by)}</div>`}
     </li>`).join('')}</ul>` : empty(isCur ? 'Aucun mouvement ce mois-ci.' : 'Aucun mouvement enregistré ce mois-là.'), `<span class="count">${moves.length || ''}</span>`);
 
   if (isCur) {
@@ -696,15 +810,68 @@ function viewFinance() {
   return html;
 }
 
+// Répartition de mes dépenses du mois par catégorie (hors avances pour les parents).
+function finCats(ym, m0, m1) {
+  const sums = {};
+  for (const e of S.fin.entries) if (e.type === 'out' && !isAdv(e) && e.date >= m0 && e.date <= m1) sums[e.cat || ''] = (sums[e.cat || ''] || 0) + e.amount;
+  const subs = S.fin.subs.filter((s) => subActive(s, ym)).reduce((x, s) => x + s.amount, 0);
+  const rows = FIN_CATS.filter((c) => sums[c.id]).map((c) => ({ label: `${c.icon} ${c.label}`, v: sums[c.id] }));
+  if (subs) rows.push({ label: '🔁 Abonnements', v: subs });
+  if (sums['']) rows.push({ label: '❔ Non classé', v: sums[''], none: true });
+  if (!rows.length) return '';
+  rows.sort((a, b) => b.v - a.v);
+  const total = rows.reduce((x, r) => x + r.v, 0);
+  return card('Par catégorie', `<div class="bars cats">${rows.map((r) => `<div><span>${r.label}</span><i><u class="${r.none ? 'n' : 'a'}" style="width:${(r.v / rows[0].v) * 100}%"></u></i><b>${eur(r.v)}</b><em>${Math.round((r.v / total) * 100)} %</em></div>`).join('')}</div>
+    ${sums[''] ? '<p class="hint">Classe une dépense avec le menu « Catégorie » sous son nom, dans les mouvements du mois. L’app retient ton choix pour les prochaines dépenses du même nom.</p>' : ''}`, `<span class="count">${eur(total)}</span>`);
+}
+
+// Suivi des dépenses avancées pour les parents : à recevoir, puis reçues.
+function finParents(ym, m0, m1) {
+  const adv = S.fin.entries.filter(isAdv);
+  if (!adv.length) return '';
+  const due = adv.filter((e) => !e.paid).sort((a, b) => a.date.localeCompare(b.date));
+  const got = adv.filter((e) => e.paid);
+  const gotMonth = got.filter((e) => e.paid >= m0 && e.paid <= m1).sort((a, b) => b.paid.localeCompare(a.paid));
+  const sum = (l) => l.reduce((x, e) => x + e.amount, 0);
+  const row = (e) => `<li>
+      <button class="check ${e.paid ? 'on' : ''}" data-a="finPaid" data-id="${e.id}" aria-label="${e.paid ? 'Annuler le remboursement' : 'Marquer comme remboursé'}">${ICON.check}</button>
+      <div class="what ${e.paid ? 'struck' : ''}"><b>${esc(e.label || 'Dépense')}</b><small>${esc(fmtDate(e.date))}${e.cat && catOf(e.cat) ? ' · ' + catOf(e.cat).label : ''}${e.paid ? ' · remboursé le ' + esc(fmtDate(e.paid, { day: 'numeric', month: 'short' })) : ''}</small></div>
+      <b class="amt ${e.paid ? 'in' : 'adv'}">${eur(e.amount)}</b>
+    </li>`;
+  return card('Remboursements parents', `
+      <div class="stats3">
+        <div class="${due.length ? 'due' : ''}"><b>${eur(sum(due))}</b><small>à me faire rembourser</small></div>
+        <div><b>${eur(sum(gotMonth))}</b><small>reçu ce mois</small></div>
+        <div><b>${eur(sum(got))}</b><small>reçu au total</small></div>
+      </div>
+      ${due.length ? `<p class="group">À me faire rembourser</p><ul class="rows">${due.map(row).join('')}</ul>${due.length > 1 ? '<button class="btn wide" data-a="finPaidAll">Tout marquer comme remboursé</button>' : ''}` : '<p class="hint">Tout est remboursé 👌</p>'}
+      ${gotMonth.length ? `<p class="group">Reçu ce mois</p><ul class="rows">${gotMonth.map(row).join('')}</ul>` : ''}
+      <p class="hint">Coche une ligne quand tes parents t’ont remboursé. Ces dépenses ne comptent pas dans tes totaux.</p>`, `<span class="count">${due.length ? due.length + ' en attente' : ''}</span>`);
+}
+
 /* ============================================================
    Actions
    ============================================================ */
 
 const num = (v) => { const n = parseFloat(String(v).replace(/\s/g, '').replace(',', '.')); return isFinite(n) && n > 0 ? Math.round(n * 100) / 100 : 0; };
 
+// Valide un paiement Apple Pay en attente : il devient une dépense.
+function payAccept(id) {
+  const p = S.fin.pending.find((x) => x.id === id);
+  if (!p) return false;
+  S.fin.pending = S.fin.pending.filter((x) => x.id !== id);
+  S.fin.paySeen[id] = p.date;
+  const e = { id: uid(), type: 'out', amount: p.amount, label: p.label || 'Apple Pay', date: p.date, src: 'applepay' };
+  if (p.cat) e.cat = p.cat;
+  if (p.by === 'parents') e.by = 'parents';
+  S.fin.entries.push(e);
+  return true;
+}
+
 const ACTIONS = {
   refresh: () => refresh(true),
   settings: openSettings,
+  event: openEvent,
   closeSheet,
   toggleDeadlines: () => { UI.allDeadlines = !UI.allDeadlines; },
   toggleDone: () => { UI.showDone = !UI.showDone; },
@@ -773,6 +940,31 @@ const ACTIONS = {
   finMonth(delta) { const m = addMonths(UI.finMonth || curMonth(), Number(delta)); UI.finMonth = m >= curMonth() ? null : m; },
 
   finType(id) { UI.finType = id; },
+  payBy(id) { const p = S.fin.pending.find((x) => x.id === id); if (p) p.by = p.by === 'parents' ? '' : 'parents'; },
+  finBy(id) {
+    const e = S.fin.entries.find((x) => x.id === id); if (!e) return;
+    if (e.by === 'parents') { delete e.by; delete e.paid; } else e.by = 'parents';
+  },
+  finPaid(id) {
+    const e = S.fin.entries.find((x) => x.id === id); if (!e) return;
+    if (e.paid) delete e.paid; else { e.paid = today(); toast('Remboursement reçu ✓'); }
+  },
+  finPaidAll() {
+    const due = S.fin.entries.filter((e) => isAdv(e) && !e.paid);
+    if (!due.length || !confirm(`Marquer ${due.length} dépenses comme remboursées ?`)) return;
+    for (const e of due) e.paid = today();
+  },
+  payOk(id) { if (payAccept(id)) toast('Dépense ajoutée'); },
+  payNo(id) {
+    const p = S.fin.pending.find((x) => x.id === id); if (!p) return;
+    S.fin.pending = S.fin.pending.filter((x) => x.id !== id);
+    S.fin.paySeen[id] = p.date;
+  },
+  payAll() {
+    const n = S.fin.pending.length;
+    for (const p of [...S.fin.pending]) payAccept(p.id);
+    toast(`${n} dépenses ajoutées`);
+  },
   delEntry(id) { S.fin.entries = S.fin.entries.filter((e) => e.id !== id); },
   delSub(id) {
     const s = S.fin.subs.find((e) => e.id === id);
@@ -792,7 +984,7 @@ const ACTIONS = {
   },
 };
 Object.assign(ACTIONS, EXTRA_ACTIONS);
-const NO_RENDER = new Set(['refresh', 'settings', 'closeSheet', 'liCopy', 'export', 'recap', 'recapWeek', 'copyScript']);
+const NO_RENDER = new Set(['refresh', 'settings', 'closeSheet', 'liCopy', 'export', 'recap', 'recapWeek', 'copyScript', 'copyExec', 'copyRappel', 'event']);
 
 const FORMS = {
   addTask(f) {
@@ -811,7 +1003,14 @@ const FORMS = {
   addEntry(f) {
     const amount = num(f.amount);
     if (!amount) { toast('Indique un montant'); return false; }
-    S.fin.entries.push({ id: uid(), type: UI.finType, amount, label: f.label.trim(), date: f.date || today() });
+    const e = { id: uid(), type: UI.finType, amount, label: f.label.trim(), date: f.date || today() };
+    if (e.type === 'out') {
+      const cat = f.cat || catGuess(e.label);
+      if (cat) e.cat = cat;
+      if (f.cat && e.label) S.fin.catMemo[catKey(e.label)] = f.cat;
+      if (f.parents) e.by = 'parents';
+    }
+    S.fin.entries.push(e);
     toast(UI.finType === 'out' ? 'Dépense ajoutée' : 'Revenu ajouté');
   },
   addSub(f) {
@@ -839,9 +1038,18 @@ const FORMS = {
 
 Object.assign(FORMS, EXTRA_FORMS);
 
+// Menus déroulants de catégorie. Choisir une catégorie la retient pour les prochaines dépenses du même nom.
+Object.assign(EXTRA_CHANGES, {
+  finCat(id, value) {
+    const e = S.fin.entries.find((x) => x.id === id); if (!e) return;
+    if (value) { e.cat = value; if (e.label) S.fin.catMemo[catKey(e.label)] = value; } else delete e.cat;
+  },
+  payCat(id, value) { const p = S.fin.pending.find((x) => x.id === id); if (p) p.cat = value; },
+});
+
 document.addEventListener('click', (ev) => {
   const tab = ev.target.closest('#tabs button');
-  if (tab) { goTab(tab.dataset.tab, 0); return; }
+  if (tab) { slideTo(tab.dataset.tab); return; }
   if (ev.target.closest('#splash')) { nextSplash(); return; }
   const el = ev.target.closest('[data-a]');
   if (!el) return;
@@ -856,7 +1064,7 @@ document.addEventListener('click', (ev) => {
   save(); render();
   if (typed) {
     const again = $(`form[data-f="${form.dataset.f}"]`);
-    if (again) for (const [k, v] of Object.entries(typed)) if (again.elements[k]) again.elements[k].value = v;
+    if (again) for (const [k, v] of Object.entries(typed)) { const f = again.elements[k]; if (!f) continue; if (f.type === 'checkbox') f.checked = true; else f.value = v; }
   }
 });
 

@@ -1370,12 +1370,7 @@
   }
   function bindPager() {
     const el = $('#sport-pager');
-    el.addEventListener('touchstart', e => { if (e.touches.length === 1) dStart(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
-    el.addEventListener('touchmove', e => { if (e.touches.length === 1) dMove(e.touches[0].clientX, e.touches[0].clientY, e); }, { passive: false });
-    el.addEventListener('touchend', dEnd); el.addEventListener('touchcancel', dEnd);
-    el.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse') dStart(e.clientX, e.clientY); });
-    window.addEventListener('pointermove', e => { if (e.pointerType === 'mouse' && drag) dMove(e.clientX, e.clientY, e); });
-    window.addEventListener('pointerup', e => { if (e.pointerType === 'mouse') dEnd(); });
+    // Life OS : pas de glissement entre ces 3 écrans (il sert à changer d'onglet dans l'app) ; on passe par les boutons.
     window.addEventListener('resize', layout);
   }
 

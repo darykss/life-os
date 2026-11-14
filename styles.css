@@ -441,11 +441,11 @@ body.flash-break::after { background: var(--accent); animation: flash 1.6s ease-
 .tabs.scroll button { flex: 0 0 74px; }
 .tabs svg { width: 24px; height: 24px; }
 
-/* Transition au changement d'onglet */
-#view.slide-l { animation: slideL .24s ease-out; }
-#view.slide-r { animation: slideR .24s ease-out; }
-@keyframes slideL { from { transform: translateX(38px); opacity: 0; } to { transform: none; opacity: 1; } }
-@keyframes slideR { from { transform: translateX(-38px); opacity: 0; } to { transform: none; opacity: 1; } }
+/* Glissement entre les onglets : couches affichées pendant le mouvement (voir shell.js) */
+#view { touch-action: pan-y; }
+.pg-layer { position: fixed; left: 0; right: 0; bottom: 0; overflow: hidden; background: var(--bg); pointer-events: none; will-change: transform; transform-origin: 50% 50%; backface-visibility: hidden; }
+.pg-layer.incoming, #seancesFrame.incoming { box-shadow: -26px 0 44px rgba(0, 0, 0, .8), -1px 0 0 rgba(124, 92, 255, .22); }
+#seancesFrame { will-change: transform; transform-origin: 50% 50%; }
 
 /* Écran de lancement */
 .splash { cursor: pointer; flex-direction: column; }
@@ -485,7 +485,7 @@ body.flash-break::after { background: var(--accent); animation: flash 1.6s ease-
 /* Séances de sport (app intégrée dans un cadre) */
 #seancesFrame { position: fixed; left: 0; right: 0; width: 100%; border: 0; z-index: 10; background: #08090b; }
 body.framed { overflow: hidden; }
-body.framed main { display: none; }
+body.framed #view { display: none; }
 
 /* Réseau : secteur */
 .sector { font-size: 12px; }
@@ -515,3 +515,57 @@ body.framed main { display: none; }
 .guide ol { margin: 12px 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; line-height: 1.4; }
 .guide .btn { background: var(--card); }
 .sheet.locked .sheet-body { max-height: 94vh; }
+
+/* Finances : paiements Apple Pay à valider */
+.card.pay { border-color: rgba(124, 92, 255, .45); background: linear-gradient(160deg, rgba(124, 92, 255, .14), var(--card) 60%); }
+.card.pay .rows + .btn { margin-top: 12px; }
+.round { width: 38px; height: 38px; flex: none; border-radius: 50%; display: grid; place-items: center; }
+.round svg { width: 19px; height: 19px; stroke-width: 2.4; }
+.round.yes { background: var(--green-soft); color: var(--green); }
+.round.no { background: var(--card2); color: var(--muted); margin-right: -4px; }
+.round:active { transform: scale(.92); }
+.tabs button { position: relative; }
+.tabs button.badge::after { content: ""; position: absolute; top: 2px; left: calc(50% + 8px); width: 9px; height: 9px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 2px #0f0f15; }
+.guide .btn + .btn { margin-top: 8px; }
+.guide .hint { margin-top: 10px; }
+
+/* Agenda : événement à toucher pour voir le détail */
+.tap { cursor: pointer; }
+.agenda li.tap:active, .what.tap:active { opacity: .6; }
+.agenda .more { align-self: center; color: var(--muted); font-size: 22px; line-height: 1; padding-left: 4px; }
+.ev-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 7px; }
+.ev-meta { display: flex; flex-direction: column; gap: 8px; margin: -4px 0 14px; font-size: 15px; }
+.ev-meta li { display: flex; gap: 8px; }
+.ev-meta a, .ev-desc a { color: #b9a8ff; overflow-wrap: anywhere; }
+.ev-desc { background: var(--card2); border-radius: 14px; padding: 14px; font-size: 15px; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+/* Finances : catégories et remboursements parents */
+.rows li.wrap { flex-wrap: wrap; row-gap: 8px; }
+.tags { flex: 0 0 100%; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; padding-left: 46px; }
+.card.pay .tags { padding-left: 0; }
+.pill select { height: 30px; width: auto; max-width: 190px; padding: 0 28px 0 11px; border-radius: 15px; font-size: 13px; font-weight: 650; margin: 0; color: var(--muted); background-color: var(--card2); background-size: 13px; background-position: right 9px center; border: 1px dashed #4a4a5a; }
+.pill.set select { color: var(--text); border: 1px solid transparent; }
+.bychip { height: 30px; padding: 0 11px 0 4px; border-radius: 15px; background: var(--card2); color: var(--muted); font-size: 13px; font-weight: 650; display: inline-flex; align-items: center; gap: 7px; }
+.bychip i { width: 34px; height: 22px; border-radius: 11px; background: #3a3a46; position: relative; transition: background .2s; }
+.bychip i::after { content: ""; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: #fff; transition: transform .2s; }
+.bychip.on { background: rgba(255, 159, 10, .15); color: var(--orange); }
+.bychip.on i { background: var(--orange); }
+.bychip.on i::after { transform: translateX(12px); }
+.amt.adv { color: var(--orange); }
+.stats3 .due b { color: var(--orange); }
+.stats3 + .group { margin-top: 18px; }
+.rows + .btn { margin-top: 12px; }
+.swrow { display: flex; align-items: center; gap: 12px; background: var(--card2); border-radius: 14px; padding: 9px 12px 9px 14px; }
+.swrow span { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.swrow b { font-size: 14.5px; font-weight: 600; }
+.swrow small { font-size: 12.5px; }
+.swrow input { -webkit-appearance: none; appearance: none; width: 51px; height: 31px; flex: none; border-radius: 16px; background: #3a3a46; position: relative; transition: background .2s; margin: 0; padding: 0; border: 0; cursor: pointer; }
+.swrow input::after { content: ""; position: absolute; top: 2px; left: 2px; width: 27px; height: 27px; border-radius: 50%; background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, .3); transition: transform .2s; }
+.swrow input:checked { background: var(--orange); }
+.swrow input:checked::after { transform: translateX(20px); }
+.bars.cats div { grid-template-columns: 128px 1fr auto 36px; }
+.bars.cats span { color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bars.cats em { font-style: normal; font-size: 12px; color: var(--muted); text-align: right; }
+.bars u.a { background: var(--accent); }
+.bars u.n { background: #5d5d6c; }
+.guide + .guide { margin-top: 0; }
