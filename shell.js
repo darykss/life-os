@@ -28,7 +28,14 @@ const BLOCK_DEFS = {
 
 const modOn = (id) => APP.tabs.includes(id) && S.modules[id] !== false;
 const blockOn = (id) => S.modules['b_' + id] !== false;
-const enabledTabs = () => APP.tabs.filter((t) => t === 'home' || modOn(t));
+// Onglets dans l'ordre choisi dans les réglages (S.tabOrder), sinon celui de config.js.
+function orderedTabs() {
+  const o = S.tabOrder || [];
+  const rank = (t) => (o.includes(t) ? o.indexOf(t) : 100 + APP.tabs.indexOf(t));
+  return [...APP.tabs].sort((a, b) => rank(a) - rank(b));
+}
+const enabledTabs = () => orderedTabs().filter((t) => t === 'home' || modOn(t));
+const parentsOn = () => (S.modules.parents == null ? !!APP.refunds : S.modules.parents !== false);
 
 let tabsSig = '';
 function renderTabs() {
@@ -54,6 +61,7 @@ function goTab(id) {
   UI.tab = id; UI.habitDay = null; UI.habitWeek = 0; UI.habitEdit = false; UI.habitEditId = null;
   render();
   window.scrollTo(0, 0);
+  syncSoon();
 }
 
 /* ---------- Glissement entre les onglets ----------
@@ -149,6 +157,7 @@ function pgFinish(slot) {
     UI.tab = tab; UI.habitDay = null; UI.habitWeek = 0; UI.habitEdit = false; UI.habitEditId = null;
     render();
     window.scrollTo(0, 0);
+    syncSoon();
   } else syncFrame();   // geste annulé : l'écran d'origine est resté tel quel
   $('#view').style.visibility = '';
   for (const el of layers) {
@@ -375,11 +384,19 @@ function syncFrame() {
    ============================================================ */
 
 const switchBtn = (id, on) => `<button type="button" class="switch ${on ? 'on' : ''}" data-a="toggleModule" data-id="${id}" role="switch" aria-checked="${on}"><i></i></button>`;
-function moduleRows() {
-  const tabs = APP.tabs.filter((t) => t !== 'home').map((t) => `<li><div><b>${TAB_DEFS[t].title}</b><small>${TAB_DEFS[t].desc}</small></div>${switchBtn(t, modOn(t))}</li>`).join('');
+const moduleRows = () => `<div id="modRows">${moduleRowsInner()}</div>`;
+function moduleRowsInner() {
+  const list = orderedTabs();
+  const arrow = (t, d, i) => `<button type="button" class="mv" data-a="tabMove" data-id="${t}:${d}" ${i + d < 0 || i + d >= list.length ? 'disabled' : ''} aria-label="${d < 0 ? 'Monter' : 'Descendre'}"><svg viewBox="0 0 24 24"><path d="${d < 0 ? 'M6 15l6-6 6 6' : 'M6 9l6 6 6-6'}"/></svg></button>`;
+  const tabs = list.map((t, i) => `<li><span class="mvs">${arrow(t, -1, i)}${arrow(t, 1, i)}</span><div><b>${TAB_DEFS[t].title || TAB_DEFS[t].label}</b><small>${t === 'home' ? 'Agenda, échéances, sport, to-do' : TAB_DEFS[t].desc}</small></div>${t === 'home' ? '' : switchBtn(t, modOn(t))}</li>`).join('');
   const blocks = Object.keys(BLOCK_DEFS).map((b) => `<li><div><b>${BLOCK_DEFS[b].title}</b><small>${BLOCK_DEFS[b].desc}</small></div>${switchBtn('b_' + b, blockOn(b))}</li>`).join('');
-  const extras = APP.applePay ? `<p class="group">Fonctions</p><ul class="toggles"><li><div><b>Apple Pay dans Finances</b><small>Récupère tes paiements Apple Pay pour les valider</small></div>${switchBtn('applePay', payOn())}</li></ul>` : '';
-  return `<p class="group">Onglets</p><ul class="toggles">${tabs}</ul><p class="group">Blocs de l’accueil</p><ul class="toggles">${blocks}</ul>${extras}`;
+  const sy = S.sync;
+  const extras = `<p class="group">Fonctions</p><ul class="toggles">
+      <li><div><b>Remboursements parents</b><small>Dans Finances : dépenses à te faire rembourser et suivi de ce que tu as reçu</small></div>${switchBtn('parents', parentsOn())}</li>
+      ${APP.applePay ? `<li><div><b>Apple Pay dans Finances</b><small>Récupère tes paiements Apple Pay pour les valider</small></div>${switchBtn('applePay', payOn())}</li>` : ''}
+      ${APP.sync ? `<li><div><b>Synchronisation entre appareils</b><small>${sy.on ? (sy.error ? 'Erreur : ' + esc(sy.error) : sy.at ? 'Dernière synchro à ' + new Date(sy.at).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) : 'Activée') : 'Mêmes données sur le téléphone et l’ordinateur'}</small></div><button type="button" class="switch ${sy.on ? 'on' : ''}" data-a="syncToggle" role="switch" aria-checked="${sy.on}"><i></i></button></li>` : ''}
+    </ul>`;
+  return `<p class="group">Onglets (flèches : ordre dans la barre du bas)</p><ul class="toggles">${tabs}</ul><p class="group">Blocs de l’accueil</p><ul class="toggles">${blocks}</ul>${extras}`;
 }
 
 function openOnboarding() {
@@ -397,6 +414,61 @@ function openOnboarding() {
     </form>`;
   $('#sheet').hidden = false;
   $('#sheet').classList.add('locked');
+}
+
+/* ---------- Images choisies par l'utilisateur ----------
+   Deux images indépendantes : celle de l'écran de citation (« quote ») et le fond de l'app (« app »).
+   Sans choix : l'image d'origine pour la citation, un fond noir pour l'app.
+   Chaque photo est réduite puis rangée sur l'appareil, à part des autres données. */
+
+const BG_KINDS = {
+  quote: { title: 'Image de la citation', desc: 'À l’ouverture de l’app', def: 'Image d’origine' },
+  app: { title: 'Fond de l’app', desc: 'Derrière les cartes, légèrement assombri', def: 'Fond noir' },
+};
+const bgKey = (kind) => KEY + '.bg.' + kind;
+function bgData(kind) { try { return localStorage.getItem(bgKey(kind)) || ''; } catch (e) { return ''; } }
+
+function applyBg() {
+  try { localStorage.removeItem(KEY + '.bg'); } catch (e) { /* ancienne clé d'une version d'essai */ }
+  const root = document.documentElement;
+  for (const kind of Object.keys(BG_KINDS)) {
+    const data = bgData(kind);
+    if (data) root.style.setProperty(`--${kind}-bg`, `url("${data}")`); else root.style.removeProperty(`--${kind}-bg`);
+    root.classList.toggle('bg-' + kind, !!data);
+  }
+}
+
+function bgBox() {
+  return Object.entries(BG_KINDS).map(([kind, d]) => {
+    const data = bgData(kind);
+    return `<div class="bg-row">
+      <div class="bg-prev ${kind} ${data ? '' : 'def'}" ${data ? `style="background-image:url('${data}')"` : ''}></div>
+      <div class="bg-info"><b>${d.title}</b><small>${d.desc} · ${data ? 'ta photo' : d.def}</small>
+        <div class="bg-btns"><label class="btn filebtn">${data ? 'Changer' : 'Choisir une photo'}<input type="file" accept="image/*" data-bg="${kind}"></label>${data ? `<button type="button" class="btn" data-a="bgClear" data-id="${kind}">${d.def}</button>` : ''}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+const bgRepaint = () => { applyBg(); const box = $('#bgBox'); if (box) box.innerHTML = bgBox(); };
+
+// Réduit la photo (1 400 px au plus) pour qu'elle tienne dans le stockage de l'appareil.
+function setBg(kind, file) {
+  if (!BG_KINDS[kind]) return;
+  const url = URL.createObjectURL(file);
+  const img = new Image();
+  img.onload = () => {
+    URL.revokeObjectURL(url);
+    const k = Math.min(1, 1400 / Math.max(img.naturalWidth, img.naturalHeight));
+    const c = document.createElement('canvas');
+    c.width = Math.round(img.naturalWidth * k); c.height = Math.round(img.naturalHeight * k);
+    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+    for (const q of [0.82, 0.65, 0.5]) {
+      try { localStorage.setItem(bgKey(kind), c.toDataURL('image/jpeg', q)); bgRepaint(); toast(kind === 'quote' ? 'Image de la citation mise à jour' : 'Fond de l’app mis à jour'); return; } catch (e) { /* trop lourd : on réessaie plus compressé */ }
+    }
+    toast('Photo trop lourde pour le stockage de l’appareil');
+  };
+  img.onerror = () => { URL.revokeObjectURL(url); toast('Impossible de lire cette image'); };
+  img.src = url;
 }
 
 let agendaScript = '';
@@ -438,6 +510,17 @@ function openSettings() {
         <button type="button" class="btn wide" data-a="copyRappel">${ICON.copy} Copier l’adresse des rappels</button>
         <p class="hint">Le chiffre à la fin de l’adresse est le nombre de jours regardés (3 par défaut). Les jours sans échéance, rien ne s’affiche.</p>
       </details>
+      ${APP.sync ? `<details class="guide">
+        <summary>Comment avoir les mêmes données sur mon ordinateur ?</summary>
+        <p class="hint">Tes données sont enregistrées dans la feuille Google « Life OS – Paiements » (onglet « Données ») de ton Drive, via ton script. Chaque appareil y envoie ses changements et y récupère ceux des autres.</p>
+        <ol>
+          <li>Mets ton <b>script Google à jour</b> (bouton « Copier le script » plus haut, relance <b>autoriser</b>, puis <b>Déployer › Gérer les déploiements › Modifier › Nouvelle version</b>).</li>
+          <li><b>Sur ce téléphone d’abord</b> : active « Synchronisation entre appareils » plus bas, dans Fonctions. Ses données sont envoyées en ligne.</li>
+          <li><b>Sur l’ordinateur</b> : ouvre l’adresse de l’app dans ton navigateur, va dans ⚙︎ Réglages, colle la même adresse /exec dans « Lien du script Google Agenda », enregistre, puis active la synchronisation et accepte de charger les données en ligne.</li>
+        </ol>
+        <button type="button" class="btn wide" data-a="copyExec">${ICON.copy} Copier mon adresse /exec</button>
+        <p class="hint">La synchro se fait à l’ouverture, à chaque actualisation et quelques secondes après un changement. Si tu modifies la même partie (par ex. Finances) sur deux appareils sans connexion, la modification la plus récente l’emporte pour cette partie.</p>
+      </details>` : ''}
       ${APP.applePay ? `<details class="guide">
         <summary>Comment envoyer mes paiements Apple Pay dans Finances ?</summary>
         <p class="hint">À faire une fois. Chaque paiement fait avec l’iPhone ou l’Apple Watch arrive ensuite dans Finances, où tu le valides ou l’ignores.</p>
@@ -462,6 +545,9 @@ function openSettings() {
     <h3>Modules</h3>
     <p class="hint">Active ou masque chaque partie de l’app. Rien n’est effacé : un module masqué retrouve ses données quand tu le réactives.</p>
     ${moduleRows()}
+    <h3>Images</h3>
+    <p class="hint">Deux images à choisir séparément parmi tes photos. Elles restent sur cet appareil et ne sont ni envoyées ni synchronisées.</p>
+    <div id="bgBox">${bgBox()}</div>
     <h3>Sauvegarde</h3>
     <p class="hint">Tes données sont stockées sur ce téléphone uniquement. Exporte-les de temps en temps pour ne rien perdre.</p>
     <div class="two"><button class="btn" data-a="export">Exporter</button><label class="btn filebtn">Importer<input type="file" accept="application/json,.json" id="importFile"></label></div>
@@ -476,7 +562,8 @@ function closeSheet() {
 
 Object.assign(EXTRA_ACTIONS, {
   toggleModule(id) {
-    const on = S.modules[id] === false;      // état après le clic
+    const cur = id === 'parents' ? parentsOn() : S.modules[id] !== false;
+    const on = !cur;                          // état après le clic
     S.modules[id] = on;
     document.querySelectorAll(`.switch[data-id="${id}"]`).forEach((b) => { b.classList.toggle('on', on); b.setAttribute('aria-checked', on); });
     if (!enabledTabs().includes(UI.tab)) UI.tab = 'home';
@@ -484,6 +571,17 @@ Object.assign(EXTRA_ACTIONS, {
   copyScript() {
     if (agendaScript) copyText(agendaScript); else toast('Script indisponible hors ligne, réessaie dans un instant');
   },
+  tabMove(arg) {
+    const [id, d] = arg.split(':');
+    const list = orderedTabs();
+    const i = list.indexOf(id), j = i + Number(d);
+    if (i < 0 || j < 0 || j >= list.length) return;
+    [list[i], list[j]] = [list[j], list[i]];
+    S.tabOrder = list;
+    const box = $('#modRows'); if (box) box.innerHTML = moduleRowsInner();
+  },
+  syncToggle() { syncToggle(); },
+  bgClear(kind) { try { localStorage.removeItem(bgKey(kind)); } catch (e) { /* rien */ } bgRepaint(); toast(BG_KINDS[kind].def + ' rétabli' + (kind === 'quote' ? 'e' : '')); },
   copyRappel() {
     const u = S.settings.gcalUrl;
     if (u) copyText(u + (u.includes('?') ? '&' : '?') + 'rappel=3'); else toast('Relie d’abord ton Google Agenda (champ ci-dessus)');

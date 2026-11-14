@@ -4,7 +4,7 @@
  * Ce script tourne sur ton compte Google, gratuitement. Il renvoie à l'app
  * la liste de tes événements (titre, horaires, couleur) au format JSON.
  * Il ne modifie jamais ton agenda.
- * Il reçoit aussi les paiements Apple Pay envoyés par l'app Raccourcis (voir plus bas). // [PAIEMENTS]
+ * Il reçoit aussi les paiements Apple Pay et synchronise les données entre appareils (voir plus bas). // [PAIEMENTS]
  *
  * Installation : voir le README du projet, étape « Google Agenda ».
  */
@@ -101,7 +101,7 @@ function lireRappels(jours) {
 /** À lancer une fois depuis l'éditeur (bouton ▶ Exécuter) pour accorder l'accès à l'agenda. */
 function autoriser() {
   Logger.log(lireEvenements().length + ' événements lus. Tout fonctionne.');
-  Logger.log('Feuille des paiements : ' + feuille().getParent().getUrl()); // [PAIEMENTS]
+  feuilleDonnees(); Logger.log('Feuille des paiements et des données : ' + feuille().getParent().getUrl()); // [PAIEMENTS]
 }
 
 // [PAIEMENTS:DEBUT]
@@ -172,6 +172,8 @@ function doPost(e) {
     var brut = e && e.postData ? e.postData.contents : '';
     var d;
     try { d = JSON.parse(brut); } catch (err) { d = (e && e.parameter) || {}; }
+    // Synchronisation entre appareils : la réponse est déjà du JSON.
+    if (d && d.action === 'sync') return ContentService.createTextOutput(synchroniser(d)).setMimeType(ContentService.MimeType.JSON);
     out = { ok: true, montant: ajouterPaiement(d || {}, brut) };
   } catch (err) {
     out = { ok: false, error: String(err) };
@@ -191,6 +193,92 @@ function lirePaiements() {
     out.push({ id: String(l[0]), at: quand.toISOString(), merchant: String(l[2] || ''), amount: montant, card: String(l[4] || '') });
   }
   return out;
+}
+
+/* ============================================================
+ * Synchronisation entre appareils
+ *
+ * L'app envoie les parties de ses données qui ont changé (clé, heure de
+ * modification, valeur) et reçoit celles que les autres appareils ont changées.
+ * Tout est rangé dans l'onglet « Données » de la même feuille Google :
+ * une ligne par partie (clé | modifié | seq | valeur découpée en morceaux).
+ * Quand deux appareils ont changé la même partie, la plus récente gagne.
+ * ============================================================ */
+
+var MORCEAU = 40000;   // une cellule Google Sheets contient au plus 50 000 caractères
+
+function feuilleDonnees() {
+  var classeur = feuille().getParent();
+  var f = classeur.getSheetByName('Données');
+  if (!f) {
+    f = classeur.insertSheet('Données');
+    f.appendRow(['clé', 'modifié', 'seq', 'valeur (ne pas modifier à la main)']);
+    f.setFrozenRows(1);
+  }
+  return f;
+}
+
+function synchroniser(d) {
+  var verrou = LockService.getScriptLock();
+  verrou.waitLock(25000);
+  try {
+    var f = feuilleDonnees();
+    var n = f.getLastRow();
+    var index = n > 1 ? f.getRange(2, 1, n - 1, 3).getValues() : [];
+    var lignes = {};
+    var seq = 0;
+    index.forEach(function (l, i) {
+      if (!l[0]) return;
+      lignes[String(l[0])] = { row: i + 2, t: Number(l[1]) || 0, seq: Number(l[2]) || 0 };
+      seq = Math.max(seq, Number(l[2]) || 0);
+    });
+    var depuis = Number(d.since) || 0;
+    var recus = d.keys || {};
+    var ecrits = {};
+    var refuses = {};
+    var prochaine = n + 1;
+
+    Object.keys(recus).forEach(function (k) {
+      var t = Number(recus[k].t) || 0;
+      var a = lignes[k];
+      if (a && a.t > t) { refuses[k] = true; return; }   // une version plus récente existe déjà
+      var texte = JSON.stringify(recus[k].v === undefined ? null : recus[k].v);
+      var morceaux = [];
+      for (var i = 0; i < texte.length; i += MORCEAU) morceaux.push('J:' + texte.slice(i, i + MORCEAU));
+      var row = a ? a.row : prochaine++;
+      var besoin = 3 + morceaux.length;
+      if (f.getMaxColumns() < besoin) f.insertColumnsAfter(f.getMaxColumns(), besoin - f.getMaxColumns());
+      if (f.getMaxRows() < row) f.insertRowsAfter(f.getMaxRows(), row - f.getMaxRows());
+      if (a) f.getRange(row, 4, 1, f.getMaxColumns() - 3).clearContent();
+      f.getRange(row, 4, 1, morceaux.length).setNumberFormat('@');   // texte brut : rien n'est interprété comme nombre ou formule
+      seq++;
+      f.getRange(row, 1, 1, besoin).setValues([[k, t, seq].concat(morceaux)]);
+      lignes[k] = { row: row, t: t, seq: seq };
+      ecrits[k] = true;
+    });
+
+    // À renvoyer : ce que les autres appareils ont changé depuis la dernière synchro de celui-ci.
+    var parts = [];
+    var largeur = f.getMaxColumns() - 3;
+    Object.keys(lignes).forEach(function (k) {
+      var a = lignes[k];
+      if (ecrits[k] || !(a.seq > depuis || refuses[k])) return;
+      var cellules = f.getRange(a.row, 4, 1, largeur).getValues()[0];
+      var texte = '';
+      for (var i = 0; i < cellules.length; i++) {
+        var c = String(cellules[i]);
+        if (c.slice(0, 2) !== 'J:') break;
+        texte += c.slice(2);
+      }
+      if (!texte) return;
+      parts.push(JSON.stringify(k) + ':{"t":' + a.t + ',"v":' + texte + '}');
+    });
+    return '{"ok":true,"seq":' + seq + ',"keys":{' + parts.join(',') + '}}';
+  } catch (err) {
+    return JSON.stringify({ ok: false, error: String(err) });
+  } finally {
+    verrou.releaseLock();
+  }
 }
 
 /** À lancer depuis l'éditeur pour vérifier la chaîne sans payer : ajoute un faux paiement de 1,23 €. */

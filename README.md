@@ -95,6 +95,7 @@ Pour une mise à jour du script Google : colle le nouveau `Code.gs`, puis **Dép
 - `quotes.js`, `quote-bg.jpg` : citations et image de l'écran de lancement
 - `seances.html` : l'app de séances de sport intégrée
 - `fetch-news.py`, `news.json` : actualités
+- `sync.js` : synchronisation des données entre appareils, via le script Google
 - `agenda-script.txt` : le script à coller dans Google Apps Script
 - `targets.js` : la liste des cibles LinkedIn (modifiable)
 - `sw.js`, `manifest.webmanifest`, `icon-180.png`, `icon-512.png` : installation et mode hors ligne

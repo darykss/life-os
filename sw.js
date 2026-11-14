@@ -1,11 +1,11 @@
 // Service worker : rend l'app utilisable hors ligne.
 // Stratégie « réseau d'abord » : on prend toujours la dernière version en ligne,
 // et on retombe sur le cache quand il n'y a pas de connexion.
-const VERSION = 'v8';
+const VERSION = 'v11';
 // Un cache par app : plusieurs versions peuvent cohabiter sur le même domaine sans se gêner.
 const SCOPE = new URL('./', self.location.href).pathname;
 const CACHE = 'shell-' + VERSION + '-' + SCOPE;
-const SHELL = ['./', 'index.html', 'styles.css', 'config.js', 'quotes.js', 'targets.js', 'extra.js', 'shell.js', 'app.js', 'seances.html', 'quote-bg.jpg', 'agenda-script.txt', 'manifest.webmanifest', 'icon-180.png', 'icon-512.png'];
+const SHELL = ['./', 'index.html', 'styles.css', 'config.js', 'quotes.js', 'targets.js', 'extra.js', 'sync.js', 'shell.js', 'app.js', 'seances.html', 'quote-bg.jpg', 'agenda-script.txt', 'manifest.webmanifest', 'icon-180.png', 'icon-512.png'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));

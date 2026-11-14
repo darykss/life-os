@@ -569,3 +569,44 @@ body.framed #view { display: none; }
 .bars u.a { background: var(--accent); }
 .bars u.n { background: #5d5d6c; }
 .guide + .guide { margin-top: 0; }
+
+/* Réglages : flèches pour ordonner les onglets */
+.mvs { display: flex; flex-direction: column; gap: 2px; margin-left: -6px; }
+.mv { width: 30px; height: 22px; border-radius: 7px; background: var(--card); color: var(--text); display: grid; place-items: center; }
+.mv svg { width: 16px; height: 16px; stroke-width: 2.6; }
+.mv:disabled { opacity: .25; }
+.mv:active { transform: scale(.9); }
+
+/* Finances : tableau des remboursements parents */
+.stats3 .got b { color: var(--green); }
+.refunds { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 14.5px; }
+.refunds th { text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); padding: 0 6px 8px 0; }
+.refunds th:last-child, .refunds td.amt { text-align: right; padding-right: 0; }
+.refunds td { padding: 9px 6px 9px 0; border-top: 1px solid var(--line); vertical-align: middle; }
+.refunds td:first-child { width: 34px; }
+.refunds td b { display: block; font-weight: 600; overflow-wrap: anywhere; }
+.refunds td small { display: block; font-size: 12px; }
+.refunds .st { color: var(--orange); font-weight: 650; font-size: 13px; white-space: nowrap; }
+.refunds tr.ok .st { color: var(--green); }
+.refunds tr.ok td b { color: var(--muted); }
+.refunds td.amt { color: var(--text); }
+.refunds + .btn, .refunds + .link + .btn { margin-top: 12px; }
+
+/* Images choisies par l'utilisateur : citation et fond de l'app (voir shell.js) */
+.bg-row { display: flex; gap: 12px; align-items: center; background: var(--card2); border-radius: 16px; padding: 10px; margin-top: 10px; }
+.bg-prev { width: 64px; height: 104px; flex: none; border-radius: 11px; background: #000 center / cover no-repeat; border: 1px solid var(--line); }
+.bg-prev.quote.def { background-image: url("quote-bg.jpg"); background-position: center bottom; }
+.bg-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.bg-info b { font-size: 15.5px; font-weight: 600; }
+.bg-info small { font-size: 12.5px; }
+.bg-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.bg-btns .btn { min-height: 38px; padding: 0 13px; font-size: 14px; background: var(--card); }
+.bg-quote .quote-bg { background: var(--quote-bg) center / cover no-repeat; }
+.bg-quote .quote-bg::after { background: linear-gradient(180deg, rgba(5, 5, 6, .8) 0%, rgba(5, 5, 6, .5) 45%, rgba(5, 5, 6, .55) 70%, rgba(5, 5, 6, .9) 100%); }
+.bg-app body { background: transparent; }
+.bg-app body::before, .bg-app .pg-layer::before { content: ""; z-index: -1; background: linear-gradient(rgba(11, 11, 16, .5), rgba(11, 11, 16, .5)), var(--app-bg) center / cover no-repeat; }
+.bg-app body::before { position: fixed; inset: 0; }
+/* Pendant un glissement, chaque couche montre la même photo, calée sur l'écran entier. */
+.bg-app .pg-layer::before { position: absolute; left: 0; right: 0; bottom: 0; height: 100vh; }
+/* Les cartes laissent deviner la photo derrière elles. */
+.bg-app main .card { background-color: rgba(21, 21, 28, .8); }

@@ -40,6 +40,8 @@ const DEFAULTS = {
   apps: [],                            // candidatures
   recapSeen: '',
   modules: {},                         // { onglet ou b_bloc: false } = masqué
+  tabOrder: [],                        // ordre des onglets choisi dans les réglages
+  sync: { on: false, seq: 0, t: {}, dirty: {}, mh: '', at: 0, error: '' },   // synchronisation entre appareils (sync.js)
   news: { data: null, at: 0 },
   quoteSeen: '',
   onboarded: false,
@@ -71,6 +73,7 @@ function loadState() {
   return out;
 }
 function save() {
+  syncTrack();
   try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { toast('Sauvegarde impossible (stockage plein ?)'); }
 }
 
@@ -221,6 +224,7 @@ async function refresh(manual) {
   if (UI.refreshing) return;
   UI.refreshing = true;
   $('#refreshBtn').classList.add('spin');
+  await syncNow();                 // d'abord les changements faits sur les autres appareils
   await Promise.all([fetchCalendar(), fetchNews()]);
   S.lastRefresh = Date.now();
   cleanup();
@@ -707,13 +711,13 @@ function catGuess(label) {
   return hit ? hit.id : '';
 }
 const catSelect = (attrs, cur, emptyLabel) => `<label class="pill ${cur ? 'set' : ''}"><select ${attrs} aria-label="Catégorie"><option value="">${emptyLabel}</option>${FIN_CATS.map((c) => `<option value="${c.id}" ${c.id === cur ? 'selected' : ''}>${c.icon} ${c.label}</option>`).join('')}</select></label>`;
-// Une dépense avancée pour les parents n'est pas comptée dans mes dépenses : elle est suivie à part.
+// Dépense avancée pour les parents : comptée dans mes dépenses comme les autres, et suivie en plus dans le tableau des remboursements.
 const isAdv = (e) => e.type === 'out' && e.by === 'parents';
 
 // Totaux entre deux dates incluses (au plus deux mois à cheval), abonnements compris.
 function finRange(a, b) {
   const r = { in: 0, out: 0, subs: 0, adv: 0 };
-  for (const e of S.fin.entries) if (e.date >= a && e.date <= b) { if (isAdv(e)) r.adv += e.amount; else r[e.type] += e.amount; }
+  for (const e of S.fin.entries) if (e.date >= a && e.date <= b) { r[e.type] += e.amount; if (isAdv(e)) r.adv += e.amount; }
   for (const ym of new Set([a.slice(0, 7), b.slice(0, 7)])) for (const s of S.fin.subs) {
     const d = subDate(s, ym);
     if (subActive(s, ym) && d >= a && d <= b) { r.out += s.amount; r.subs += s.amount; }
@@ -722,7 +726,7 @@ function finRange(a, b) {
 }
 
 // Interrupteur « payé par moi / à rembourser par les parents » d'une dépense.
-const byChip = (action, id, by) => `<button type="button" class="bychip ${by === 'parents' ? 'on' : ''}" data-a="${action}" data-id="${esc(id)}" role="switch" aria-checked="${by === 'parents'}"><i></i>${by === 'parents' ? 'Parents remboursent' : 'Payé par moi'}</button>`;
+const byChip = (action, id, by) => (!parentsOn() ? '' : `<button type="button" class="bychip ${by === 'parents' ? 'on' : ''}" data-a="${action}" data-id="${esc(id)}" role="switch" aria-checked="${by === 'parents'}"><i></i>${by === 'parents' ? 'Parents remboursent' : 'Payé par moi'}</button>`);
 
 function viewFinance() {
   const t = today();
@@ -759,7 +763,7 @@ function viewFinance() {
         <div class="tags">${catSelect(`data-c="payCat" data-id="${esc(p.id)}"`, p.cat, 'Catégorie')}${byChip('payBy', p.id, p.by)}</div>
       </li>`).join('')}</ul>
       ${pend.length > 1 ? '<button class="btn wide" data-a="payAll">Tout valider</button>' : ''}
-      <p class="hint">Un paiement validé devient une dépense, payée par toi ou à te faire rembourser par tes parents. Un paiement ignoré n’est pas compté et ne reviendra pas.</p>
+      <p class="hint">Un paiement validé devient une dépense. Un paiement ignoré n’est pas compté et ne reviendra pas.</p>
     </section>`;
   }
   html += `<section class="card slim">${navBar('finMonth', monthName, isCur ? 'Mois en cours' : 'Historique', !isCur)}</section>`;
@@ -768,7 +772,7 @@ function viewFinance() {
     html += block('Cette semaine', weekRange(mon), finRange(mon, addDays(mon, 6)));
   }
   html += block(isCur ? 'Ce mois-ci' : 'Bilan du mois', M.subs ? `dont ${eur(M.subs)} d’abonnements` : '', M);
-  if (M.adv) html += `<p class="hint center">${eur(M.adv)} avancés pour tes parents ce mois-ci, non comptés dans tes dépenses.</p>`;
+  if (M.adv && parentsOn()) html += `<p class="hint center">Dont ${eur(M.adv)} avancés pour tes parents ce mois-ci.</p>`;
   if (hasPrev) html += `<p class="hint center">Mois précédent : ${eur(prev.in)} gagnés, ${eur(prev.out)} dépensés.</p>`;
 
   html += card('Ajouter', `<form class="stack" data-f="addEntry">
@@ -776,18 +780,18 @@ function viewFinance() {
       <div class="two"><input name="amount" inputmode="decimal" placeholder="Montant €" autocomplete="off"><input type="date" name="date" value="${isCur ? t : m1}"></div>
       <input name="label" placeholder="${UI.finType === 'out' ? 'Libellé (ex. Courses)' : 'Libellé (ex. Vente, salaire)'}" autocomplete="off" enterkeyhint="done">
       ${UI.finType === 'out' ? `<select name="cat" aria-label="Catégorie"><option value="">Catégorie : automatique</option>${FIN_CATS.map((c) => `<option value="${c.id}">${c.icon} ${c.label}</option>`).join('')}</select>
-      <label class="swrow"><span><b>Remboursement demandé aux parents</b><small>Sinon : payé par moi</small></span><input type="checkbox" name="parents"></label>` : ''}
+      ${parentsOn() ? '<label class="swrow"><span><b>Remboursement demandé aux parents</b><small>Sinon : payé par moi</small></span><input type="checkbox" name="parents"></label>' : ''}` : ''}
       <button class="btn primary wide">Enregistrer ${UI.finType === 'out' ? 'la dépense' : 'le revenu'}</button>
     </form>`);
 
   const moves = S.fin.entries.filter((e) => e.date >= m0 && e.date <= m1).map((e) => ({ ...e }))
     .concat(S.fin.subs.filter((s) => subActive(s, ym)).map((s) => ({ id: '', type: 'out', amount: s.amount, label: s.label, date: subDate(s, ym), sub: true })))
     .sort((a, b) => b.date.localeCompare(a.date));
-  html += finCats(ym, m0, m1) + finParents(ym, m0, m1);
+  html += finCats(ym, m0, m1);
   html += card('Mouvements du mois', moves.length ? `<ul class="rows">${moves.map((e) => `<li class="${e.sub || e.type === 'in' ? '' : 'wrap'}">
       <div class="sign ${e.type}">${e.type === 'in' ? '+' : '−'}</div>
       <div class="what"><b>${esc(e.label || (e.type === 'in' ? 'Revenu' : 'Dépense'))}</b><small>${esc(fmtDate(e.date))}${e.sub ? ' · abonnement' : ''}${e.src === 'applepay' ? ' · Apple Pay' : ''}</small></div>
-      <b class="amt ${e.by === 'parents' ? 'adv' : e.type}">${e.type === 'in' ? '+' : '−'}${eur(e.amount)}</b>
+      <b class="amt ${e.by === 'parents' && parentsOn() ? 'adv' : e.type}">${e.type === 'in' ? '+' : '−'}${eur(e.amount)}</b>
       ${e.sub ? '' : `<button class="ghost" data-a="delEntry" data-id="${e.id}" aria-label="Supprimer">${ICON.trash}</button>`}
       ${e.sub || e.type === 'in' ? '' : `<div class="tags">${catSelect(`data-c="finCat" data-id="${e.id}"`, e.cat, 'Catégorie')}${byChip('finBy', e.id, e.by)}</div>`}
     </li>`).join('')}</ul>` : empty(isCur ? 'Aucun mouvement ce mois-ci.' : 'Aucun mouvement enregistré ce mois-là.'), `<span class="count">${moves.length || ''}</span>`);
@@ -807,13 +811,14 @@ function viewFinance() {
         <button class="btn wide">Ajouter l’abonnement</button>
       </form>`, `<span class="count">${subsTotal ? eur(subsTotal) + ' / mois' : ''}</span>`);
   }
+  html += finParents();
   return html;
 }
 
-// Répartition de mes dépenses du mois par catégorie (hors avances pour les parents).
+// Répartition des dépenses du mois par catégorie.
 function finCats(ym, m0, m1) {
   const sums = {};
-  for (const e of S.fin.entries) if (e.type === 'out' && !isAdv(e) && e.date >= m0 && e.date <= m1) sums[e.cat || ''] = (sums[e.cat || ''] || 0) + e.amount;
+  for (const e of S.fin.entries) if (e.type === 'out' && e.date >= m0 && e.date <= m1) sums[e.cat || ''] = (sums[e.cat || ''] || 0) + e.amount;
   const subs = S.fin.subs.filter((s) => subActive(s, ym)).reduce((x, s) => x + s.amount, 0);
   const rows = FIN_CATS.filter((c) => sums[c.id]).map((c) => ({ label: `${c.icon} ${c.label}`, v: sums[c.id] }));
   if (subs) rows.push({ label: '🔁 Abonnements', v: subs });
@@ -825,28 +830,33 @@ function finCats(ym, m0, m1) {
     ${sums[''] ? '<p class="hint">Classe une dépense avec le menu « Catégorie » sous son nom, dans les mouvements du mois. L’app retient ton choix pour les prochaines dépenses du même nom.</p>' : ''}`, `<span class="count">${eur(total)}</span>`);
 }
 
-// Suivi des dépenses avancées pour les parents : à recevoir, puis reçues.
-function finParents(ym, m0, m1) {
+// Tableau des dépenses avancées pour les parents, en bas de l'onglet : le solde, puis l'état de chaque dépense.
+function finParents() {
+  if (!parentsOn()) return '';
   const adv = S.fin.entries.filter(isAdv);
-  if (!adv.length) return '';
   const due = adv.filter((e) => !e.paid).sort((a, b) => a.date.localeCompare(b.date));
-  const got = adv.filter((e) => e.paid);
-  const gotMonth = got.filter((e) => e.paid >= m0 && e.paid <= m1).sort((a, b) => b.paid.localeCompare(a.paid));
+  const got = adv.filter((e) => e.paid).sort((a, b) => b.paid.localeCompare(a.paid) || b.date.localeCompare(a.date));
+  const shown = UI.allPaid ? got : got.slice(0, 5);
   const sum = (l) => l.reduce((x, e) => x + e.amount, 0);
-  const row = (e) => `<li>
-      <button class="check ${e.paid ? 'on' : ''}" data-a="finPaid" data-id="${e.id}" aria-label="${e.paid ? 'Annuler le remboursement' : 'Marquer comme remboursé'}">${ICON.check}</button>
-      <div class="what ${e.paid ? 'struck' : ''}"><b>${esc(e.label || 'Dépense')}</b><small>${esc(fmtDate(e.date))}${e.cat && catOf(e.cat) ? ' · ' + catOf(e.cat).label : ''}${e.paid ? ' · remboursé le ' + esc(fmtDate(e.paid, { day: 'numeric', month: 'short' })) : ''}</small></div>
-      <b class="amt ${e.paid ? 'in' : 'adv'}">${eur(e.amount)}</b>
-    </li>`;
-  return card('Remboursements parents', `
+  const row = (e) => `<tr class="${e.paid ? 'ok' : ''}">
+      <td><button class="check ${e.paid ? 'on' : ''}" data-a="finPaid" data-id="${e.id}" aria-label="${e.paid ? 'Annuler le remboursement' : 'Marquer comme remboursé'}">${ICON.check}</button></td>
+      <td><b>${esc(e.label || 'Dépense')}</b><small>${esc(fmtDate(e.date, { day: 'numeric', month: 'short' }))}${e.cat && catOf(e.cat) ? ' · ' + catOf(e.cat).label : ''}</small></td>
+      <td class="st">${e.paid ? 'Remboursé<small>le ' + esc(fmtDate(e.paid, { day: 'numeric', month: 'short' })) + '</small>' : 'En attente'}</td>
+      <td class="amt">${eur(e.amount)}</td>
+    </tr>`;
+  const body = adv.length ? `
       <div class="stats3">
-        <div class="${due.length ? 'due' : ''}"><b>${eur(sum(due))}</b><small>à me faire rembourser</small></div>
-        <div><b>${eur(sum(gotMonth))}</b><small>reçu ce mois</small></div>
-        <div><b>${eur(sum(got))}</b><small>reçu au total</small></div>
+        <div class="${due.length ? 'due' : ''}"><b>${eur(sum(due))}</b><small>reste à me rembourser</small></div>
+        <div class="got"><b>${eur(sum(got))}</b><small>déjà remboursé</small></div>
+        <div><b>${eur(sum(adv))}</b><small>avancé au total</small></div>
       </div>
-      ${due.length ? `<p class="group">À me faire rembourser</p><ul class="rows">${due.map(row).join('')}</ul>${due.length > 1 ? '<button class="btn wide" data-a="finPaidAll">Tout marquer comme remboursé</button>' : ''}` : '<p class="hint">Tout est remboursé 👌</p>'}
-      ${gotMonth.length ? `<p class="group">Reçu ce mois</p><ul class="rows">${gotMonth.map(row).join('')}</ul>` : ''}
-      <p class="hint">Coche une ligne quand tes parents t’ont remboursé. Ces dépenses ne comptent pas dans tes totaux.</p>`, `<span class="count">${due.length ? due.length + ' en attente' : ''}</span>`);
+      <table class="refunds"><thead><tr><th></th><th>Dépense</th><th>État</th><th>Montant</th></tr></thead>
+        <tbody>${due.map(row).join('')}${shown.map(row).join('')}</tbody></table>
+      ${got.length > 5 ? `<button class="link" data-a="toggleAllPaid">${UI.allPaid ? 'Voir moins' : `Voir les ${got.length} dépenses remboursées`}</button>` : ''}
+      ${due.length > 1 ? '<button class="btn wide" data-a="finPaidAll">Tout marquer comme remboursé</button>' : ''}
+      <p class="hint">Coche une ligne quand tes parents t’ont remboursé. Ces dépenses comptent dans tes totaux comme les autres.</p>`
+    : empty('Active « Parents remboursent » sous une dépense pour la suivre ici.');
+  return card('Remboursements parents', body, `<span class="count">${due.length ? due.length + ' en attente' : ''}</span>`);
 }
 
 /* ============================================================
@@ -863,7 +873,7 @@ function payAccept(id) {
   S.fin.paySeen[id] = p.date;
   const e = { id: uid(), type: 'out', amount: p.amount, label: p.label || 'Apple Pay', date: p.date, src: 'applepay' };
   if (p.cat) e.cat = p.cat;
-  if (p.by === 'parents') e.by = 'parents';
+  if (p.by === 'parents' && parentsOn()) e.by = 'parents';
   S.fin.entries.push(e);
   return true;
 }
@@ -949,6 +959,7 @@ const ACTIONS = {
     const e = S.fin.entries.find((x) => x.id === id); if (!e) return;
     if (e.paid) delete e.paid; else { e.paid = today(); toast('Remboursement reçu ✓'); }
   },
+  toggleAllPaid() { UI.allPaid = !UI.allPaid; },
   finPaidAll() {
     const due = S.fin.entries.filter((e) => isAdv(e) && !e.paid);
     if (!due.length || !confirm(`Marquer ${due.length} dépenses comme remboursées ?`)) return;
@@ -984,7 +995,7 @@ const ACTIONS = {
   },
 };
 Object.assign(ACTIONS, EXTRA_ACTIONS);
-const NO_RENDER = new Set(['refresh', 'settings', 'closeSheet', 'liCopy', 'export', 'recap', 'recapWeek', 'copyScript', 'copyExec', 'copyRappel', 'event']);
+const NO_RENDER = new Set(['refresh', 'settings', 'closeSheet', 'liCopy', 'export', 'recap', 'recapWeek', 'copyScript', 'copyExec', 'copyRappel', 'event', 'bgClear']);
 
 const FORMS = {
   addTask(f) {
@@ -1008,7 +1019,7 @@ const FORMS = {
       const cat = f.cat || catGuess(e.label);
       if (cat) e.cat = cat;
       if (f.cat && e.label) S.fin.catMemo[catKey(e.label)] = f.cat;
-      if (f.parents) e.by = 'parents';
+      if (f.parents && parentsOn()) e.by = 'parents';
     }
     S.fin.entries.push(e);
     toast(UI.finType === 'out' ? 'Dépense ajoutée' : 'Revenu ajouté');
@@ -1081,6 +1092,7 @@ document.addEventListener('submit', (ev) => {
 document.addEventListener('change', (ev) => {
   const c = ev.target.dataset && ev.target.dataset.c;
   if (c && EXTRA_CHANGES[c]) { EXTRA_CHANGES[c](ev.target.dataset.id, ev.target.value); save(); render(); return; }
+  if (ev.target.dataset && ev.target.dataset.bg) { if (ev.target.files[0]) setBg(ev.target.dataset.bg, ev.target.files[0]); ev.target.value = ''; return; }
   if (ev.target.id !== 'importFile' || !ev.target.files[0]) return;
   const reader = new FileReader();
   reader.onload = () => {
@@ -1091,7 +1103,7 @@ document.addEventListener('change', (ev) => {
       if (data._muscu) localStorage.setItem(KEY + '.muscu', JSON.stringify(data._muscu));
       delete data._muscu;
       localStorage.setItem(KEY, JSON.stringify(data));
-      S = loadState(); closeSheet(); render(); toast('Sauvegarde importée');
+      S = loadState(); syncAfterImport(); closeSheet(); render(); toast('Sauvegarde importée');
     } catch (e) { toast('Fichier de sauvegarde invalide'); }
   };
   reader.readAsText(ev.target.files[0]);
@@ -1114,6 +1126,8 @@ document.addEventListener('visibilitychange', () => {
   maybeSundayRecap();
 });
 
+syncInit();
+applyBg();
 cleanup();
 if (pomoSync()) save();
 document.title = APP.name;

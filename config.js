@@ -7,6 +7,8 @@ var APP = {
   repo: 'darykss/life-os',       // dépôt GitHub qui publie news.json chaque matin
   tabs: ['home', 'work', 'habits', 'seances', 'apps', 'li', 'news', 'fin'],
   onboarding: false,             // écran de bienvenue au premier lancement
+  sync: true,                    // synchronisation entre appareils via le script Google
+  refunds: true,                 // suivi « Remboursements parents » activé par défaut (réglable dans l'app)
   applePay: true,                // paiements Apple Pay proposés dans Finances (via le script Google)
   sector: 'all',                 // secteur LinkedIn par défaut
   pitch: 'étudiant, je prépare les concours des écoles de commerce',
