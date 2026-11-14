@@ -9,9 +9,9 @@
    SYNC_KEYS). Chaque partie porte l'heure de sa dernière modification :
    quand deux appareils ont changé la même partie, la plus récente gagne.
 
-   Un seul échange fait tout : l'appareil envoie ses parties modifiées et
-   reçoit celles que les autres appareils ont changées depuis sa dernière
-   synchro (numéro `seq` tenu par le script).
+   Chaque synchro se fait en deux temps : l'appareil envoie ses parties
+   modifiées, puis lit l'heure de chaque partie en ligne et reçoit celles
+   qui sont plus récentes que les siennes.
    Chargé avant shell.js et app.js ; ne fait rien si APP.sync est absent.
    ============================================================ */
 
@@ -61,17 +61,31 @@ function syncSoon() {
   syncTimer = setTimeout(syncNow, 3000);
 }
 
-async function syncPost(body) {
-  const res = await fetch(S.settings.gcalUrl.trim(), {
+const syncUrl = () => S.settings.gcalUrl.trim();
+// « Load failed » (Safari) ou « Failed to fetch » (Chrome) : la requête n'a pas abouti.
+const syncErr = (e) => (navigator.onLine === false ? 'hors ligne' : /load failed|failed to fetch|networkerror/i.test(e && e.message) ? 'script Google injoignable (connexion, ou déploiement à refaire)' : (e && e.message) || 'erreur');
+
+// Envoi d'une partie. On n'attend pas de réponse lisible : certains navigateurs (Safari) refusent de lire
+// la réponse d'un envoi vers un script Google. La lecture qui suit confirme que l'envoi est bien arrivé.
+function syncPush(k, item) {
+  return fetch(syncUrl(), {
     method: 'POST',
-    redirect: 'follow',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },   // évite la pré-vérification du navigateur, que le script Google ne gère pas
-    body: JSON.stringify(body),
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({ action: 'sync', keys: { [k]: item } }),
   });
+}
+
+// Lecture : le script renvoie l'heure de chaque partie en ligne (index) et la valeur de celles
+// qui sont plus récentes que les nôtres. Même chemin que l'agenda, qui marche sur tous les appareils.
+async function syncPull(times) {
+  const u = syncUrl();
+  const res = await fetch(u + (u.includes('?') ? '&' : '?') + 'sync=1&t=' + encodeURIComponent(JSON.stringify(times)), { redirect: 'follow' });
   if (!res.ok) throw new Error('HTTP ' + res.status);
   let data;
   try { data = await res.json(); } catch (e) { throw new Error('Script Google à mettre à jour'); }
-  if (!data || data.ok !== true || typeof data.seq !== 'number') throw new Error(data && data.error && !/Montant/.test(data.error) ? data.error : 'Script Google à mettre à jour');
+  if (data && data.ok === false && data.error) throw new Error(data.error);
+  if (!data || data.ok !== true || !data.index) throw new Error('Script Google à mettre à jour');
   return data;
 }
 
@@ -102,34 +116,40 @@ async function syncNow() {
     const raw = muscuRaw();
     if (syncHash(raw) !== S.sync.mh) { S.sync.mh = syncHash(raw); if (raw) syncStamp(SYNC_MUSCU); }
 
+    // 1. Envoi, une partie à la fois : si l'une échoue, les autres passent quand même.
     const sent = {};
+    let pushErr = null;
     for (const k of Object.keys(S.sync.dirty)) {
       let v;
       if (k === SYNC_MUSCU) { try { v = JSON.parse(raw); } catch (e) { v = null; } } else v = S[k];
-      if (v != null) sent[k] = { t: S.sync.t[k], v };
+      if (v == null) { delete S.sync.dirty[k]; continue; }
+      sent[k] = S.sync.t[k];
+      try { await syncPush(k, { t: sent[k], v }); } catch (e) { pushErr = e; }
     }
-    const data = await syncPost({ action: 'sync', since: S.sync.seq, keys: sent });
 
-    // Ce qui a été envoyé n'est plus à envoyer, sauf si ça a encore changé entre-temps.
-    for (const k of Object.keys(sent)) if (S.sync.t[k] === sent[k].t) delete S.sync.dirty[k];
-
+    // 2. Lecture : confirme ce qui est arrivé et rapporte ce que les autres appareils ont changé.
+    const data = await syncPull(S.sync.t);
+    let failed = 0;
+    for (const k of Object.keys(sent)) {
+      if (S.sync.t[k] !== sent[k]) continue;                       // encore modifié entre-temps : repartira au prochain tour
+      if ((data.index[k] || 0) >= sent[k]) delete S.sync.dirty[k]; else failed++;
+    }
     let applied = 0;
     for (const [k, x] of Object.entries(data.keys || {})) {
       if (k !== SYNC_MUSCU && !SYNC_KEYS.includes(k)) continue;
-      if (S.sync.dirty[k] && S.sync.t[k] > x.t) continue;   // modifié ici plus récemment : c'est cette version qui sera envoyée
+      if (S.sync.dirty[k] && S.sync.t[k] >= x.t) continue;         // modifié ici plus récemment : c'est cette version qui sera envoyée
       syncApply(k, x.v);
       S.sync.t[k] = x.t;
       delete S.sync.dirty[k];
       applied++;
     }
-    S.sync.seq = data.seq;
     S.sync.at = Date.now();
-    S.sync.error = '';
-    ok = true;
+    S.sync.error = failed ? 'envoi non confirmé' + (pushErr ? ' — ' + syncErr(pushErr) : '') : '';
+    ok = !failed;
     save();
     if (applied) render(true);
   } catch (e) {
-    S.sync.error = navigator.onLine === false ? 'hors ligne' : (e.message || 'erreur');
+    S.sync.error = syncErr(e);
     save();
   }
   syncBusy = false;
@@ -150,10 +170,10 @@ async function syncToggle() {
   if (syncBusy) return;
   toast('Connexion à ton script Google…');
   let data;
-  try { data = await syncPost({ action: 'sync', since: 0, keys: {} }); }
-  catch (e) { toast('Synchro impossible : ' + (e.message || 'erreur')); return; }
+  try { data = await syncPull({}); }
+  catch (e) { toast('Synchro impossible : ' + syncErr(e)); return; }
 
-  const online = Object.keys(data.keys || {}).length > 0;
+  const online = Object.keys(data.index).length > 0;
   if (online && !confirm('Des données sont déjà synchronisées en ligne.\n\nLes charger sur cet appareil ? Elles remplacent les données de cet appareil.')) return;
 
   S.sync = { on: true, seq: 0, t: {}, dirty: {}, mh: '', at: 0, error: '' };

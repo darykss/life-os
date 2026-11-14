@@ -19,6 +19,7 @@ function doGet(e) {
     try { texte = lireRappels(parseInt(e.parameter.rappel, 10)); } catch (err) { texte = 'Rappels indisponibles : ' + err; }
     return ContentService.createTextOutput(texte).setMimeType(ContentService.MimeType.TEXT);
   }
+  if (e && e.parameter && e.parameter.sync) return ContentService.createTextOutput(lireDonnees(e.parameter.t)).setMimeType(ContentService.MimeType.JSON); // [PAIEMENTS]
   var out;
   try {
     out = { generatedAt: new Date().toISOString(), events: lireEvenements() };
@@ -232,7 +233,6 @@ function synchroniser(d) {
       lignes[String(l[0])] = { row: i + 2, t: Number(l[1]) || 0, seq: Number(l[2]) || 0 };
       seq = Math.max(seq, Number(l[2]) || 0);
     });
-    var depuis = Number(d.since) || 0;
     var recus = d.keys || {};
     var ecrits = {};
     var refuses = {};
@@ -257,27 +257,47 @@ function synchroniser(d) {
       ecrits[k] = true;
     });
 
-    // À renvoyer : ce que les autres appareils ont changé depuis la dernière synchro de celui-ci.
-    var parts = [];
-    var largeur = f.getMaxColumns() - 3;
-    Object.keys(lignes).forEach(function (k) {
-      var a = lignes[k];
-      if (ecrits[k] || !(a.seq > depuis || refuses[k])) return;
-      var cellules = f.getRange(a.row, 4, 1, largeur).getValues()[0];
-      var texte = '';
-      for (var i = 0; i < cellules.length; i++) {
-        var c = String(cellules[i]);
-        if (c.slice(0, 2) !== 'J:') break;
-        texte += c.slice(2);
-      }
-      if (!texte) return;
-      parts.push(JSON.stringify(k) + ':{"t":' + a.t + ',"v":' + texte + '}');
-    });
-    return '{"ok":true,"seq":' + seq + ',"keys":{' + parts.join(',') + '}}';
+    return JSON.stringify({ ok: true, ecrits: Object.keys(ecrits), refuses: Object.keys(refuses) });
   } catch (err) {
     return JSON.stringify({ ok: false, error: String(err) });
   } finally {
     verrou.releaseLock();
+  }
+}
+
+/** Lecture : l'heure de chaque partie en ligne, et la valeur de celles qui sont plus récentes que chez l'appareil (`tclient`). */
+function lireDonnees(tclient) {
+  var verrou = LockService.getScriptLock();
+  try {
+    verrou.waitLock(25000);
+    var connus = {};
+    try { connus = JSON.parse(tclient) || {}; } catch (err) { connus = {}; }
+    var f = feuilleDonnees();
+    var n = f.getLastRow();
+    var index = n > 1 ? f.getRange(2, 1, n - 1, 3).getValues() : [];
+    var largeur = f.getMaxColumns() - 3;
+    var heures = {};
+    var parts = [];
+    index.forEach(function (l, i) {
+      var k = String(l[0]);
+      var t = Number(l[1]) || 0;
+      if (!k) return;
+      heures[k] = t;
+      if (!(t > (Number(connus[k]) || 0))) return;
+      var cellules = f.getRange(i + 2, 4, 1, largeur).getValues()[0];
+      var texte = '';
+      for (var j = 0; j < cellules.length; j++) {
+        var c = String(cellules[j]);
+        if (c.slice(0, 2) !== 'J:') break;
+        texte += c.slice(2);
+      }
+      if (texte) parts.push(JSON.stringify(k) + ':{"t":' + t + ',"v":' + texte + '}');
+    });
+    return '{"ok":true,"index":' + JSON.stringify(heures) + ',"keys":{' + parts.join(',') + '}}';
+  } catch (err) {
+    return JSON.stringify({ ok: false, error: String(err) });
+  } finally {
+    try { verrou.releaseLock(); } catch (err2) { }
   }
 }
 
