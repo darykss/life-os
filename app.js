@@ -33,6 +33,7 @@ const DEFAULTS = {
   wk: { done: {}, manual: [], skip: {} },   // skip : séances annulées ou non faites
   dlCats: [{ id: 'work', label: 'Travail / cours' }, { id: 'pro', label: 'Stage / pro' }, { id: 'fin', label: 'Finances' }, { id: 'admin', label: 'Administratif' }, { id: 'perso', label: 'Perso' }],   // catégories d'échéances (modifiables)
   evCat: {},                           // catégorie donnée à une échéance de l'agenda : { idÉvénement: idCatégorie }
+  newsOff: {},                         // sites d'info masqués dans Actualités (réglages)
   newsSrc: '',                         // site d'info choisi dans Actualités ('' = tous)
   li: { history: [], offset: 0 },
   habits: {},
@@ -499,15 +500,7 @@ function viewDeadlines() {
   if (UI.dlCat && !dlCatOf(UI.dlCat)) UI.dlCat = '';
   let html = `<div class="chips"><button class="${UI.dlCat ? '' : 'on'}" data-a="dlCat" data-id="">Tout</button>${S.dlCats.map((c) => `<button class="${c.id === UI.dlCat ? 'on' : ''}" data-a="dlCat" data-id="${esc(c.id)}">${esc(c.label)}</button>`).join('')}<button class="edit" data-a="dlCats" aria-label="Gérer les catégories">${ICON.edit}</button></div>`;
 
-  /* Ajouter */
-  const kind = UI.dlKind === 'group' ? 'group' : 'todo';
-  html += card('Ajouter', `<form class="stack" data-f="addTask">
-      <div class="seg"><button type="button" class="${kind === 'todo' ? 'on' : ''}" data-a="dlKind" data-id="todo">To-do</button><button type="button" class="${kind === 'group' ? 'on' : ''}" data-a="dlKind" data-id="group">Travail de groupe</button></div>
-      <input name="title" placeholder="${kind === 'group' ? 'Ex. Exposé de marketing' : 'Nouvelle tâche…'}" autocomplete="off" enterkeyhint="done">
-      <div class="two"><label class="datefield"><span>Échéance (optionnelle)</span><input type="date" name="due"></label><label class="datefield"><span>Catégorie</span><select name="cat">${dlCatOptions(UI.dlCat)}</select></label></div>
-      <input name="desc" placeholder="Description (optionnelle)" autocomplete="off">
-      <button class="btn primary wide">Ajouter</button>
-    </form>`);
+  html += `<button class="btn primary wide add-dl" data-a="newTask">${ICON.plus}<span>Ajouter une échéance</span></button>`;
 
   /* 1. Échéances de l'agenda (événements rouges) */
   const reds = redEvents(t).filter((e) => dlMatch(S.evCat[e.id]));
@@ -578,6 +571,23 @@ function openTask(id) {
     </form>
     <button class="link danger" data-a="delTask" data-id="${x.id}">Supprimer</button>
     <button class="link" data-a="closeSheet">Fermer</button>`;
+  $('#sheet').hidden = false;
+  $('#sheetBody').scrollTop = 0;
+}
+
+// Bulle d'ajout d'une échéance (to-do ou travail de groupe).
+function openNewTask() {
+  $('#sheetBody').innerHTML = `
+    <div class="grab"></div>
+    <h2>Nouvelle échéance</h2>
+    <form class="stack" data-f="addTask">
+      <label>Type<select name="kind"><option value="todo">To-do</option><option value="group">Travail de groupe</option></select></label>
+      <label>Intitulé<input name="title" placeholder="Ex. Rendre le dossier de marketing" autocomplete="off"></label>
+      <div class="two"><label>Date de rendu (optionnelle)<input type="date" name="due"></label><label>Catégorie<select name="cat">${dlCatOptions(UI.dlCat)}</select></label></div>
+      <label>Description (optionnelle)<textarea name="desc" rows="3" placeholder="Consignes, lien, répartition du travail…"></textarea></label>
+      <button class="btn primary wide">Ajouter</button>
+    </form>
+    <button class="link" data-a="closeSheet">Annuler</button>`;
   $('#sheet').hidden = false;
   $('#sheetBody').scrollTop = 0;
 }
@@ -1050,6 +1060,7 @@ const ACTIONS = {
   toggleDeadlines: () => { UI.allDeadlines = !UI.allDeadlines; },
   toggleDone: (kind) => { if (kind === 'group') UI.showDoneG = !UI.showDoneG; else UI.showDone = !UI.showDone; },
   openTask,
+  newTask: openNewTask,
   dlCats: openDlCats,
   dlCat(id) { UI.dlCat = id || ''; },
   dlKind(id) { UI.dlKind = id; },
@@ -1186,16 +1197,17 @@ const ACTIONS = {
   },
 };
 Object.assign(ACTIONS, EXTRA_ACTIONS);
-const NO_RENDER = new Set(['refresh', 'settings', 'closeSheet', 'liCopy', 'export', 'recap', 'recapWeek', 'copyScript', 'copyExec', 'copyRappel', 'event', 'bgClear', 'openSeances', 'closeSeances', 'goto', 'openTask', 'dlCats']);
+const NO_RENDER = new Set(['refresh', 'settings', 'closeSheet', 'liCopy', 'export', 'recap', 'recapWeek', 'copyScript', 'copyExec', 'copyRappel', 'event', 'bgClear', 'openSeances', 'closeSeances', 'goto', 'openTask', 'newTask', 'newApp', 'dlCats']);
 
 const FORMS = {
   addTask(f) {
     const title = f.title.trim(); if (!title) return false;
     const x = { id: uid(), title, due: f.due || '', done: false, pinned: false, at: Date.now() };
-    if (UI.dlKind === 'group') x.kind = 'group';
+    if (f.kind === 'group') x.kind = 'group';
     if (f.cat) x.cat = f.cat;
     if (f.desc && f.desc.trim()) x.desc = f.desc.trim();
     S.tasks.push(x);
+    closeSheet();
     toast(x.kind === 'group' ? 'Travail de groupe ajouté' : 'Tâche ajoutée');
   },
   editTask(f) {

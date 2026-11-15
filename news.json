@@ -1,30 +1,331 @@
 {
- "generatedAt": "2026-11-15T14:45:59.511705+00:00",
+ "generatedAt": "2026-11-15T19:37:25.027142+00:00",
  "sections": [
   {
    "id": "une",
    "title": "À la une",
    "items": [
     {
-     "title": "La Chine ne veut plus seulement vendre des électriques bon marché: avec sa limousine qui s'inspire de la cour impériale chinoise, BYD dévoile sa \"Rolls-Royce\" en 40% moins cher",
-     "desc": "Dévoilée à Abou Dabi en marge du record de vitesse à 503 km/h de sa supercar U9 Xtreme, la limousine électrique Altior marque l'offensive de BYD sur le segment très fermé de l'ultra-luxe. En puisant dans l'artisanat…",
-     "link": "https://www.bfmtv.com/auto/nouveautes/la-chine-ne-veut-plus-seulement-vendre-des-electriques-bon-marche-avec-sa-limousine-qui-s-inspire-de-la-cour-imperiale-chinoise-byd-devoile-sa-rolls-royce-en-40-moins-cher_AV-202611150286.html",
+     "title": "Yémen : les Houthis à 60 km d'Aden, le gouvernement place des renforts autour de la ville",
+     "desc": "Après une avancée dans le gouvernorat de Lahj dans le sud du Yémen, les Houthis ne se trouvent plus qu'à 60 km environ de la ville d'Aden, siège du gouvernement yéménite. L'armée yéménite a annoncé déployer des…",
+     "link": "https://www.france24.com/fr/moyen-orient/20261115-y%C3%A9men-les-houthis-%C3%A0-60-km-d-aden-le-gouvernement-place-des-renforts-autour-de-la-ville",
+     "source": "France 24",
+     "date": "2026-11-15T19:35:25+00:00"
+    },
+    {
+     "title": "Un artisan de 55 ans poignardé à mort en Ardèche après un vol à l'arrachée",
+     "desc": "Ce vendredi 13 novembre, Christophe B., artisan de 55 ans, a été poignardé à mort en pleine rue dans son village de Largentière, en Ardèche, alors qu’il essayait de rattraper un malfaiteur qui venait de voler un…",
+     "link": "https://www.bfmtv.com/police-justice/un-artisan-de-55-ans-poignarde-a-mort-en-ardeche-apres-un-vol-a-l-arrachee_AN-202611150385.html",
      "source": "BFM TV",
-     "date": "2026-11-15T14:38:43+00:00"
+     "date": "2026-11-15T19:34:51+00:00"
     },
     {
-     "title": "Avions cloués au sol aux Etats-Unis : des câbles en cuivre vétustes à l’origine des perturbations",
-     "desc": "Deux jours après l’incident majeur qui a entraîné une paralysie totale du trafic aérien outre-Atlantique, les autorités évoquent le remplacement raté d’anciennes lignes de communication qui aurait eu des conséquences en…",
-     "link": "https://www.liberation.fr/international/amerique/avions-cloues-au-sol-aux-etats-unis-des-cables-en-cuivre-vetustes-a-lorigine-des-perturbations-20261115_7BLQEXRP2NHQ3G46IQIYY3KJLQ/",
-     "source": "Libération",
-     "date": "2026-11-15T14:38:18+00:00"
+     "title": "Zelensky urges US and Musk to lift Starlink restrictions and be on 'right side of history'",
+     "desc": "The Ukrainian president says restrictions are still in place and making it difficult to stop Russian attacks.",
+     "link": "https://www.bbc.co.uk/news/articles/c6m25zg88k45o?at_medium=RSS&at_campaign=rss",
+     "source": "BBC",
+     "date": "2026-11-15T19:32:39+00:00"
     },
     {
-     "title": "Primaire à droite : au tour de Gérard Larcher de demander une réunion entre candidats",
-     "desc": "Le président LR du Sénat propose aux candidats une réunion «dans les meilleurs délais» pour évoquer une «méthode de départage» qui aboutirait à une candidature unique. La pression s’accentue sur Edouard Philippe, qui…",
-     "link": "https://www.liberation.fr/politique/primaire-a-droite-au-tour-de-gerard-larcher-de-demander-une-reunion-entre-candidats-20261114_GEGE46CXONGIDOR67OIMO4SHYE/",
+     "title": "Michel Drucker sur son frère: \"Il me manque terriblement, c'est le drame de ma vie\", raconte l'animateur et producteur de télévision",
+     "desc": "Michel Drucker, animateur et producteur de télévision, était l'invité de BFMTV ce dimanche 15 novembre",
+     "link": "https://www.bfmtv.com/replay-emissions/100-mabrouk/video-michel-drucker-sur-son-frere-il-me-manque-terriblement-c-est-le-drame-de-ma-vie-raconte-l-animateur-et-producteur-de-television_VN-202611150384.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T19:30:18+00:00"
+    },
+    {
+     "title": "Un policier municipal placé en garde à vue à Paris \"pour menace de mort en raison de la race, l’ethnie, la nation la religion\"",
+     "desc": "Le suspect a été interpellé dans la capitale par la BRI dans un \"état alcoolisé\" selon le parquet de Parquet, sans précisions supplémentaires concernant les menaces ou les cibles de l'individu.",
+     "link": "https://www.franceinfo.fr/faits-divers/police/un-policier-municipal-place-en-garde-a-vue-pour-menace-de-mort-en-raison-de-la-race-l-ethnie-la-nation-la-religion-selon-le-parquet-de-paris_8283857.html#xtor=RSS-3-[lestitres]",
+     "source": "franceinfo",
+     "date": "2026-11-15T19:17:44+00:00"
+    },
+    {
+     "title": "France-Turquie : le grand retour de Mbappé, un forfait de dernière minute, des surprises au milieu… Zidane a tranché pour la compo des Bleus",
+     "desc": "L’équipe de France défie la Turquie dimanche soir à Bordeaux lors de la 6e, et dernière, journée de Ligue des nations et peut compter sur Kylian Mbappé, titulaire.",
+     "link": "https://www.lefigaro.fr/sports/football/ligue-des-nations/france-turquie-le-grand-retour-de-mbappe-des-surprises-au-milieu-et-en-defense-zidane-a-tranche-pour-la-compo-des-bleus-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T19:08:45+00:00"
+    },
+    {
+     "title": "« Les entreprises vont plus mal que leur carnet de commandes » : le climat politique inquiète l’industrie française",
+     "desc": "Les industriels mettent le pied sur le frein en matière d’investissements, redoutant de nouveaux prélèvements. La concurrence chinoise et la lenteur de Bruxelles les préoccupent aussi.",
+     "link": "https://www.lefigaro.fr/economie/les-entreprises-vont-plus-mal-que-leur-carnet-de-commandes-le-climat-politique-inquiete-l-industrie-francaise-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T19:06:38+00:00"
+    },
+    {
+     "title": "Au nom de l’UIMM, Éric Trappier demande moins d’impôts, moins de charges et une meilleure formation pour réindustrialiser la France",
+     "desc": "Éric Trappier, président de l’UIMM et PDG du groupe Dassault, a estimé qu’il fallait « rabaisser le coût du travail pour permettre plus de travail ».",
+     "link": "https://www.lefigaro.fr/economie/on-s-apercoit-que-les-francais-veulent-plus-d-industries-les-propositions-des-federations-de-la-metallurgie-pour-reindustrialiser-la-france-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T19:05:55+00:00"
+    },
+    {
+     "title": "EN DIRECT, guerre en Ukraine : l’Estonie ferme ses frontières avec la Russie, Kiev invite les gouvernements européens à faire preuve de la même fermeté",
+     "desc": "Le ministre des affaires étrangères estonien, Margus Tsahkna, a annoncé dimanche la fermeture de tous les postes-frontières avec la Russie à compter du 1er décembre. Il a déclaré détenir des « preuves manifestes »…",
+     "link": "https://www.lemonde.fr/international/live/2026/11/15/en-direct-guerre-en-ukraine-l-estonie-ferme-ses-frontieres-avec-la-russie-kiev-invite-les-gouvernements-europeens-a-faire-preuve-de-la-meme-fermete_6810982_3210.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T19:05:08+00:00"
+    },
+    {
+     "title": "Six mois d’enquête dans les tribunaux : le fléau de la prostitution des mineures",
+     "desc": "«Libération» a rencontré victimes, magistrats, avocats, associations pour documenter un phénomène longtemps sous les radars aujourd’hui en pleine explosion. L’occasion de mettre en lumière le travail colossal des…",
+     "link": "https://www.liberation.fr/idees-et-debats/editorial/six-mois-denquete-dans-les-tribunaux-le-fleau-de-la-prostitution-des-mineures-20261115_YQNLVBCRHRGJPBW3JJWCSIVOXM/",
      "source": "Libération",
-     "date": "2026-11-15T14:35:11+00:00"
+     "date": "2026-11-15T19:01:53+00:00"
+    },
+    {
+     "title": "Le Grand Oral 2027: \"Il faut que les manifestations s'arrêtent\", lance Jean-François Copé (LR)",
+     "desc": "Jean-François Copé, maire LR de Meaux et auteur de «Quand les populistes trahissent le peuple» (Ed. Plon) est l’invité du Grand Oral 2027 ce dimanche 15 novembre 2026.",
+     "link": "https://www.bfmtv.com/replay-emissions/le-grand-oral-2027/video-le-grand-oral-2027-il-faut-que-les-manifestations-s-arretent-lance-jean-francois-cope-lr_VN-202611150369.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T18:53:07+00:00"
+    },
+    {
+     "title": "Israel Kidnapped Iranian Generals in Hunt for Ron Arad",
+     "desc": "Israeli officials were convinced that Tehran was to blame for the airman’s disappearance. Alternative theories got little attention, until now.",
+     "link": "https://www.nytimes.com/2026/11/15/world/europe/ron-arad-missing-israel-iran-asgari-hunt.html",
+     "source": "The New York Times",
+     "date": "2026-11-15T18:47:49+00:00"
+    },
+    {
+     "title": "Hélicoptère embarqué, avion de patrouille maritime américain: un semi-submersible chargé de plusieurs tonnes de cocaïne intercepté dans l'Atlantique",
+     "desc": "La Marine nationale française vient de réaliser une saisie spectaculaire de cocaïne après avoir intercepté une embarcation semi-submersible dans l'océan Atlantique.",
+     "link": "https://www.bfmtv.com/police-justice/helicoptere-embarque-avion-de-patrouille-maritime-americain-un-semi-submersible-charge-de-plusieurs-tonnes-de-cocaine-intercepte-dans-l-atlantique_AD-202611150366.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T18:47:09+00:00"
+    },
+    {
+     "title": "France-Turquie : Mbappé enfin titulaire sous Zidane... Suivez le dernier match de phase de poules de Ligue des nations",
+     "desc": "Trois jours après le revers de San Siro, l'équipe de France retrouve les terrains face à la Turquie, dimanche soir à Bordeaux, avec un ticket pour les quarts de finale de la Ligue des nations dans le viseur.",
+     "link": "https://www.franceinfo.fr/sports/foot/ligue-des-nations/direct-france-turquie-les-bleus-visent-la-qualification-pour-les-quarts-de-finale-suivez-le-dernier-match-de-phase-de-poules-de-ligue-des-nations_8282633.html#xtor=RSS-3-[lestitres]",
+     "source": "franceinfo",
+     "date": "2026-11-15T18:39:48+00:00"
+    },
+    {
+     "title": "Pope Leo rides in helicopter cockpit during Peru trip",
+     "desc": "The Pope took to the skies before arriving in Cusco on the penultimate day of his Latin America tour.",
+     "link": "https://www.bbc.co.uk/news/videos/c6pw4rl00lrjo?at_medium=RSS&at_campaign=rss",
+     "source": "BBC",
+     "date": "2026-11-15T18:38:11+00:00"
+    },
+    {
+     "title": "A Prague, une mobilisation massive pour défendre les médias publics",
+     "desc": "Des centaines de milliers de personnes ont manifesté, ce dimanche, contre la réforme du financement de l’audiovisuel public, redoutant une mise sous tutelle politique de la télévision et de la radio.",
+     "link": "https://www.liberation.fr/international/europe/a-prague-une-mobilisation-massive-pour-defendre-les-medias-publics-20261115_7DMDZP3GFJCH5E2F4LGIJ6EJUA/",
+     "source": "Libération",
+     "date": "2026-11-15T18:37:18+00:00"
+    },
+    {
+     "title": "Mobilisations lycéenne et étudiante: Nicolas Sarkozy \"a sa part de responsabilité\", estime Robert Ménard, maire DVD de Béziers",
+     "desc": "Chaque jour, les sondages consolident un peu plus l'hypothèse d'un second tour entre Marine Le Pen et Jean-Luc Mélenchon. Dans les rangs de la droite et du centre, l'épineuse question de la primaire n'est toujours pas…",
+     "link": "https://www.bfmtv.com/replay-emissions/100-mabrouk/video-mobilisations-lyceenne-et-etudiante-nicolas-sarkozy-a-sa-part-de-responsabilite-estime-robert-menard-maire-dvd-de-beziers_VN-202611150360.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T18:31:43+00:00"
+    },
+    {
+     "title": "Guerre en Ukraine : Une raffinerie russe bombardée par l’Ukraine et l'Estonie ferme ses frontières avec la Russie",
+     "desc": "« 20 Minutes » fait le point pour vous tous les soirs sur le conflit. L’Ukraine a revendiqué ce dimanche des frappes sur une importante usine pétrochimique et une raffinerie, dans le centre du pays",
+     "link": "https://www.20minutes.fr/monde/ukraine/4262981-20261115-guerre-ukraine-raffinerie-russe-bombardee-ukraine-estonie-ferme-frontieres-russie?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T18:31:27+00:00"
+    },
+    {
+     "title": "Primaire de la droite et du centre: \"Aucun [candidat] n'en a vraiment envie\", observe Robert Ménard, maire DVD de Béziers",
+     "desc": "Chaque jour, les sondages consolident un peu plus l'hypothèse d'un second tour entre Marine Le Pen et Jean-Luc Mélenchon. Dans les rangs de la droite et du centre, l'épineuse question de la primaire n'est toujours pas…",
+     "link": "https://www.bfmtv.com/replay-emissions/100-mabrouk/video-primaire-de-la-droite-et-du-centre-aucun-candidat-n-en-a-vraiment-envie-observe-robert-menard-maire-dvd-de-beziers_VN-202611150359.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T18:30:05+00:00"
+    },
+    {
+     "title": "Sommet de la francophonie : à Phnom Penh, une succession sous tension",
+     "desc": "Les membres de l’Organisation internationale de la francophonie doivent désigner leur secrétaire général lundi 16 novembre. Sur fond de conflit entre le Rwanda et la RDC, les tentatives françaises de compromis peinent à…",
+     "link": "https://www.liberation.fr/international/sommet-de-la-francophonie-a-phnom-penh-une-succession-sous-tension-20261115_NRACYD5AQNDZLBE2EBXZQXC7Z4/",
+     "source": "Libération",
+     "date": "2026-11-15T18:24:44+00:00"
+    },
+    {
+     "title": "Pérou : Léon XIV arrive à Cusco, à 3 400 m d'altitude, un mois après son opération",
+     "desc": "Un mois après son opération pour un cancer du poumon, Léon XIV est arrivé dimanche à Cusco, dans les hautes Andes péruviennes, pour une étape particulièrement exigeante de sa tournée en Amérique du Sud,",
+     "link": "https://www.france24.com/fr/am%C3%A9riques/20261115-p%C3%A9rou-l%C3%A9on-xiv-arrive-%C3%A0-cusco-%C3%A0-3-400-m-d-altitude-un-mois-apr%C3%A8s-son-op%C3%A9ration",
+     "source": "France 24",
+     "date": "2026-11-15T18:21:14+00:00"
+    },
+    {
+     "title": "A Lyon, une équipe de BFM TV agressée en marge de la manifestation",
+     "desc": "Deux journalistes et deux agents de sécurité de la chaîne d’info ont été attaqués samedi 14 novembre alors qu’ils couvraient la mobilisation dans le Rhône. Une enquête a été ouverte pour «violences en réunion».",
+     "link": "https://www.liberation.fr/economie/medias/a-lyon-une-equipe-de-bfm-tv-agressee-en-marge-de-la-manifestation-20261115_NJ3DNAPMOBASXN2U2V336KF4NI/",
+     "source": "Libération",
+     "date": "2026-11-15T18:19:34+00:00"
+    },
+    {
+     "title": "Flight Delays and Cancellations Persist as System Recovers From Ground Stop",
+     "desc": "Operations are returning to normal after air traffic was shut down for more than 4 hours on Friday following a maintenance upgrade that crippled communications.",
+     "link": "https://www.nytimes.com/2026/11/15/us/faa-groundstop-flights-status-delays-canceled.html",
+     "source": "The New York Times",
+     "date": "2026-11-15T18:17:24+00:00"
+    },
+    {
+     "title": "Fermeture de l’A13 : à l’ouest de Paris, neuf mois de pagaille en vue",
+     "desc": "En raison de la vétusté du tunnel de Saint-Cloud, et du passage d’un tunnelier du Grand Paris Express, l’Etat a décidé de fermer cet axe important pour les Franciliens et les Normands à partir du dimanche 15 novembre et…",
+     "link": "https://www.liberation.fr/economie/transports/fermeture-de-la13-a-louest-de-paris-neuf-mois-de-pagaille-en-vue-20261115_QAKAQOE73NCA5KARLCQP4HG7EY/",
+     "source": "Libération",
+     "date": "2026-11-15T18:16:18+00:00"
+    },
+    {
+     "title": "Guadeloupe : des tirs font un mort et plusieurs blessés lors d’une soirée",
+     "desc": "La fusillade a eu lieu en marge d’une fête privée qui réunissait 300 personnes dans une villa, samedi 14 novembre aux Abymes, dans l’agglomération de Pointe-à-Pitre.",
+     "link": "https://www.liberation.fr/societe/police-justice/guadeloupe-des-tirs-font-un-mort-et-plusieurs-blesses-lors-dune-soiree-20261115_INCPTYTDFFHIXNUTKN3N2JYUGQ/",
+     "source": "Libération",
+     "date": "2026-11-15T18:15:49+00:00"
+    },
+    {
+     "title": "Présidentielle 2027 : Edouard Philippe veut bâtir quatre millions de logements supplémentaires en 10 ans",
+     "desc": "\"Le pire ennemi du pouvoir d'achat des Français aujourd'hui, c'est le logement\", selon le candidat à la présidentielle.",
+     "link": "https://www.franceinfo.fr/politique/edouard-philippe/presidentielle-2027-edouard-philippe-veut-batir-quatre-millions-de-logements-supplementaires-en-10-ans_8283821.html#xtor=RSS-3-[lestitres]",
+     "source": "franceinfo",
+     "date": "2026-11-15T18:08:54+00:00"
+    },
+    {
+     "title": "Sean Duffy Offers New Details on How One Fix Spiraled Into Nationwide Ground Stop",
+     "desc": "When asked, the transportation secretary could not guarantee on Sunday that a similar air traffic meltdown would not occur again.",
+     "link": "https://www.nytimes.com/2026/11/15/us/sean-duffy-ground-stop-trump-faa.html",
+     "source": "The New York Times",
+     "date": "2026-11-15T18:06:20+00:00"
+    },
+    {
+     "title": "Iran launches drone attacks against US military base in Bahrain",
+     "desc": "Strikes cast further doubt on peace talks between Tehran and Washington with increasing risk of escalation Iran has launched drone attacks against a US military base in Bahrain, casting further doubt on peace talks…",
+     "link": "https://www.theguardian.com/world/2026/nov/15/iran-launches-drone-attacks-against-us-military-base-in-bahrain",
+     "source": "The Guardian",
+     "date": "2026-11-15T18:03:56+00:00"
+    },
+    {
+     "title": "Des militants d'extrême droite ont été agressés dans un bar à Marseille",
+     "desc": "Le maire RN du secteur a dénoncé les agissements d'une \"milice d'extrême gauche\".",
+     "link": "https://www.franceinfo.fr/marseille/des-militants-d-extreme-droite-ont-ete-agresses-dans-un-bar-a-marseille_8283776.html#xtor=RSS-3-[lestitres]",
+     "source": "franceinfo",
+     "date": "2026-11-15T18:02:53+00:00"
+    },
+    {
+     "title": "EN DIRECT France - Turquie : Avec le retour de Mbappé, les Bleus en quête de confiance à Bordeaux…",
+     "desc": "Après leur défaite en Italien, les Bleus de Zidane sont en tournée du côté de Bordeaux pour y affronter la Turquie, ce dimanche soir à 20h45, en Ligue des nations",
+     "link": "https://www.20minutes.fr/sport/football/ligue-nations/4262474-20261115-direct-france-turquie-retour-mbappe-bleus-quete-confiance-bordeaux?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T18:02:36+00:00"
+    },
+    {
+     "title": "Éliminatoires de la CAN 2027 : qui peut se qualifier, qui est en danger ? Le point sur la 4e journée",
+     "desc": "La quatrième journée des éliminatoires de la CAN 2027 se disputera les 16 et 17 novembre et pourrait déjà sceller les premières qualifications pour la compétition. Découvrez groupe par groupe les enjeux de cette…",
+     "link": "https://www.france24.com/fr/sports/20261115-%C3%A9liminatoires-de-la-can-2027-qui-peut-se-qualifier-qui-est-en-danger-le-point-par-groupe",
+     "source": "France 24",
+     "date": "2026-11-15T18:00:30+00:00"
+    },
+    {
+     "title": "« L’organisme, en état d’alerte, se prépare à s’opposer » : ce que la colère produit dans le corps",
+     "desc": "« Nos émotions : la colère ». Réponse de notre système nerveux face à une menace, une injustice, une frustration, la colère est une émotion complexe, car profondément subjective. Variant de la simple irritation à la…",
+     "link": "https://www.lemonde.fr/intimites/article/2026/11/15/l-organisme-en-etat-d-alerte-se-prepare-a-s-opposer-ce-que-la-colere-produit-dans-le-corps_6811044_6190330.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T18:00:06+00:00"
+    },
+    {
+     "title": "Megaspeed Says Alice Huang Left Company in August 2025",
+     "desc": "The Singaporean company’s disclosure added to the timeline involving Ms. Huang, a former executive who had a relationship with Jensen Huang of Nvidia. U.S. officials say she was spying for China.",
+     "link": "https://www.nytimes.com/2026/11/15/business/megaspeed-alice-huang-nvidia-china.html",
+     "source": "The New York Times",
+     "date": "2026-11-15T17:58:26+00:00"
+    },
+    {
+     "title": "L'Estonie va fermer sa frontière avec la Russie à partir du 1er décembre, après une nouvelle tentative de sabotage",
+     "desc": "L'Estonie dit avoir déjoué de justesse une nouvelle tentative d'incendie d'une usine de drones orchestrée, selon elle, par le renseignement militaire russe.",
+     "link": "https://www.franceinfo.fr/monde/russie/l-estonie-va-fermer-sa-frontiere-avec-la-russie-a-partir-du-1er-decembre-apres-une-nouvelle-tentative-de-sabotage_8283728.html#xtor=RSS-3-[lestitres]",
+     "source": "franceinfo",
+     "date": "2026-11-15T17:56:35+00:00"
+    },
+    {
+     "title": "« On se tire une balle dans le pied » : quand le gouvernement favorise les verriers européens au détriment des industriels français",
+     "desc": "DÉCRYPTAGE - La France a poussé Bruxelles à prendre des mesures financières pour aider le secteur. Mais, pour des raisons budgétaires, le gouvernement ne les met pas en œuvre, à l’inverse de nos voisins européens.",
+     "link": "https://www.lefigaro.fr/societes/on-se-tire-une-balle-dans-le-pied-quand-le-gouvernement-favorise-les-verriers-europeens-au-detriment-des-industriels-francais-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T17:45:00+00:00"
+    },
+    {
+     "title": "« Rien ne vaut la vie »… Lio se confie sur les circonstances du suicide de son fils Diego",
+     "desc": "Un an et demi après le suicide de son fils Diego, Lio a confié que ce dernier était devenu psychotique après la prise de champignons hallucinogènes",
+     "link": "https://www.20minutes.fr/arts-stars/culture/4262976-20261115-rien-vaut-vie-lio-confie-circonstances-suicide-fils-diego?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T17:39:51+00:00"
+    },
+    {
+     "title": "En Israël, la formation d'un gouvernement piétine",
+     "desc": "Les tractations s'intensifient en Israël pour tenter de former un nouveau gouvernement. Les équipes de négociation du Likoud et de Yashar se réunissent pour discuter des conditions d'un éventuel accord et des contours…",
+     "link": "https://www.france24.com/fr/vid%C3%A9o/20261115-en-isra%C3%ABl-la-formation-d-un-gouvernement-pi%C3%A9tine",
+     "source": "France 24",
+     "date": "2026-11-15T17:31:25+00:00"
+    },
+    {
+     "title": "« Fractures françaises » : un paysage politique clivé, dans lequel l’élection présidentielle n’est plus vue comme une solution",
+     "desc": "Réalisée par Ipsos BVA-CESI Ecole d’ingénieurs pour « Le Monde », le Cevipof, la Fondation Jean Jaurès et l’Institut Montaigne, cette grande enquête annuelle sur les valeurs des Français donne un instantané précieux de…",
+     "link": "https://www.lemonde.fr/politique/article/2026/11/15/fractures-francaises-un-paysage-politique-clive-dans-lequel-l-election-presidentielle-n-est-plus-vue-comme-une-solution_6811038_823448.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T17:20:21+00:00"
+    },
+    {
+     "title": "Staggered age of consent to be discussed after Brand case, minister says",
+     "desc": "A woman who alleges she was raped by the jailed comedian when she was 16 is campaigning to see relationships between 16-and 17-year-olds and adults made illegal.",
+     "link": "https://www.bbc.co.uk/news/articles/cwdr1dmn563do?at_medium=RSS&at_campaign=rss",
+     "source": "BBC",
+     "date": "2026-11-15T17:15:46+00:00"
+    },
+    {
+     "title": "MMA : Ciryl Gane conserve sa ceinture de champion des poids lourds de l'UFC",
+     "desc": "Ciryl Gane a conservé son titre de champion incontesté des poids lourds de l'UFC après un combat très disputé face à l'Américain Josh Hokit au Madison Square Garden. Bousculé lors des premiers rounds, le Français a fait…",
+     "link": "https://www.france24.com/fr/vid%C3%A9o/20261115-mma-ciryl-gane-conserve-sa-ceinture-de-champion-des-poids-lourds-de-l-ufc",
+     "source": "France 24",
+     "date": "2026-11-15T17:13:55+00:00"
+    },
+    {
+     "title": "L'Estonie accuse Moscou de tentative de sabotage et décide de fermer sa frontière",
+     "desc": "⁠L'Estonie fermera tous ⁠ses postes-frontières avec ​la Russie à compter du 1ᵉʳ décembre, a déclaré ​dimanche le ministre estonien des Affaires étrangères, à la suite d'une tentative d'incendie d'une entreprise du…",
+     "link": "https://www.france24.com/fr/europe/20261115-estonie-accuse-russie-tentative-sabotage-et-d%C3%A9cide-de-fermer-fronti%C3%A8re",
+     "source": "France 24",
+     "date": "2026-11-15T17:12:20+00:00"
+    },
+    {
+     "title": "Au Cambodge, qui organise le sommet de l’Organisation internationale de la francophonie, le long déclin de la langue française",
+     "desc": "Phnom Penh accueille jusqu’au 16 novembre le XXᵉ sommet de l’Organisation internationale de la francophonie. Mais dans l’ancien protectorat, la langue de Sihanouk recule face à l’anglais et au chinois. Elle ne survit…",
+     "link": "https://www.lemonde.fr/international/article/2026/11/15/au-cambodge-qui-organise-le-sommet-de-l-organisation-internationale-de-la-francophonie-le-long-declin-de-la-langue-francaise_6811037_3210.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T17:00:07+00:00"
+    },
+    {
+     "title": "Lyon : « Volonté de lynchage », aucune interpellation… Ce que l’on sait de l’agression des journalistes de BFMTV",
+     "desc": "Une équipe de BFMTV a été violemment agressée samedi en marge de la manifestation lyonnaise. Le caméraman a été roué de coups, une enquête est ouverte",
+     "link": "https://www.20minutes.fr/faits_divers/4262973-20261115-lyon-volonte-lynchage-aucune-interpellation-sait-agression-journalistes-bfmtv?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T16:31:59+00:00"
+    },
+    {
+     "title": "Détestés à droite, doublés sur leur gauche, déclassés économiquement : le crépuscule des bobos",
+     "desc": "RÉCIT - Les scènes d’émeutes du 17 octobre dans le Paris des coffee shops ont mis à nu le déclassement des bobos. Devenue la cible favorite de la gauche mélenchoniste, qui lui reproche sa tiédeur, cette population est…",
+     "link": "https://www.lefigaro.fr/vox/societe/detestes-a-droite-doubles-sur-leur-gauche-declasses-economiquement-le-crepuscule-des-bobos-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T16:30:00+00:00"
+    },
+    {
+     "title": "Elections législatives : le chantier sans cesse repoussé du redécoupage électoral",
+     "desc": "Si des élections législatives sont organisées en 2027 après la présidentielle, elles reposeront sur une carte électorale qui n’a plus été retouchée depuis 2009. Alors que les autorités politiques tardent à se lancer…",
+     "link": "https://www.lemonde.fr/politique/article/2026/11/15/elections-legislatives-le-chantier-sans-cesse-repousse-du-redecoupage-electoral_6811034_823448.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T16:08:57+00:00"
+    },
+    {
+     "title": "Alice Ekman, sinologue : « Malgré ses difficultés, la Chine veut accélérer la restructuration de la gouvernance mondiale et marginaliser les pays occidentaux »",
+     "desc": "Pékin entend faire du sommet de la Coopération économique Asie-Pacifique (APEC), qui doit se tenir les 18 et 19 novembre, une vitrine de sa puissance dans le but de bâtir « un nouveau type de mondialisation sous son…",
+     "link": "https://www.lemonde.fr/idees/article/2026/11/15/alice-ekman-sinologue-malgre-ses-difficultes-la-chine-veut-accelerer-la-restructuration-de-la-gouvernance-mondiale-et-marginaliser-les-pays-occidentaux_6811033_3232.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T16:00:20+00:00"
     },
     {
      "title": "\"Des courriers ont pu être lus\" : ce que l'on sait de la cyberattaque contre Maileva, filiale de La Poste, qui a conduit au vol de données de 22 millions de personnes",
@@ -34,18 +335,213 @@
      "date": "2026-11-15T14:33:41+00:00"
     },
     {
-     "title": "Confrontée à un El Niño historique, l’Amazonie brésilienne en état d’urgence environnemental",
-     "desc": "L’Etat du Para et cinquante villes de l’Etat de l’Amazonas ont été placés en état d’urgence afin de mobiliser tous les moyens pour combattre les feux de forêt et venir en aide aux quelque 161 000 familles touchées.",
-     "link": "https://www.lemonde.fr/planete/article/2026/11/15/confrontee-a-un-el-nino-historique-l-amazonie-bresilienne-en-etat-d-urgence-environnemental_6811024_3244.html",
-     "source": "Le Monde",
-     "date": "2026-11-15T14:30:41+00:00"
+     "title": "Minister backs legal right to job support for young people",
+     "desc": "The work and pensions secretary said the level of support currently on offer was too vague.",
+     "link": "https://www.bbc.co.uk/news/articles/cqr7gn1zmlj1o?at_medium=RSS&at_campaign=rss",
+     "source": "BBC",
+     "date": "2026-11-15T13:06:15+00:00"
     },
     {
-     "title": "Mouvement social : plus de 400 personnes interpellées en France lors des manifestations de samedi",
-     "desc": "Selon les autorités, «la situation sur le territoire national est demeurée globalement maîtrisée». A Paris, le parquet évoque des «groupements en vue de commettre des violences».",
-     "link": "https://www.liberation.fr/societe/police-justice/mouvement-social-plus-de-400-personnes-interpellees-en-france-lors-des-manifestations-de-samedi-20261115_LLKQO2PKRBFAVFQKMOMZWLENZM/",
-     "source": "Libération",
-     "date": "2026-11-15T14:25:44+00:00"
+     "title": "How Jensen Huang’s Secret Led to His Downfall at Nvidia",
+     "desc": "Nvidia’s leader said his relationship with a female customer was just about business. But what he was concealing eventually led to his resignation from the company he created.",
+     "link": "https://www.nytimes.com/2026/11/14/technology/jensen-huang-nvidia-board.html",
+     "source": "The New York Times",
+     "date": "2026-11-15T12:40:04+00:00"
+    },
+    {
+     "title": "Man and woman die and four arrested after police pursuit crash in Leeds",
+     "desc": "Four people have been arrested on suspicion of causing death by dangerous driving, police say.",
+     "link": "https://www.bbc.co.uk/news/articles/cm3eg8x9zkvno?at_medium=RSS&at_campaign=rss",
+     "source": "BBC",
+     "date": "2026-11-15T12:38:28+00:00"
+    },
+    {
+     "title": "‘She was a monster’: the real Patricia Highsmith, by the people who knew her",
+     "desc": "A new film starring Helen Mirren explores the Ripley writer’s later years, but was she really so rude and eccentric? Editors and publishers who worked with her look back Publisher and bookseller Otto Penzler has loved…",
+     "link": "https://www.theguardian.com/books/2026/nov/15/she-was-a-monster-the-real-patricia-highsmith-by-the-people-who-knew-her",
+     "source": "The Guardian",
+     "date": "2026-11-15T12:00:12+00:00"
+    },
+    {
+     "title": "France-Turquie : Kylian Mbappé, pourquoi le retour du patron des Bleus est (très) attendu",
+     "desc": "DÉCRYPTAGE - Forfait jeudi lors de la défaite en Italie, le capitaine doit reprendre du service dimanche contre la Turquie. Zinédine Zidane est impatient de le retrouver.",
+     "link": "https://www.lefigaro.fr/sports/football/ligue-des-nations/france-turquie-kylian-mbappe-pourquoi-le-retour-du-patron-des-bleus-est-tres-attendu-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T11:00:00+00:00"
+    },
+    {
+     "title": "Lutnick Pushed to Weaken Chip Rules That Overlap With His Family Business",
+     "desc": "The commerce secretary has been writing new rules that would affect Southeast Asian data centers, some of which are clients of his former firm.",
+     "link": "https://www.nytimes.com/2026/11/15/us/politics/trump-lutnick-ai-chips-nvidia-cantor-fitzgerald.html",
+     "source": "The New York Times",
+     "date": "2026-11-15T10:02:05+00:00"
+    },
+    {
+     "title": "Ten years, thousands of staff and a billion dollars: the exclusive inside story of Grand Theft Auto VI",
+     "desc": "The latest instalment of the epic crime saga is finally here. We visit Rockstar Games for a hands-on encounter with the cultural event of the decade – and can confirm it more than lives up to the hype It still comes as…",
+     "link": "https://www.theguardian.com/games/ng-interactive/2026/nov/15/grand-theft-auto-vi-inside-rockstar-games",
+     "source": "The Guardian",
+     "date": "2026-11-15T10:00:10+00:00"
+    },
+    {
+     "title": "Stress et règlements de compte interne… Ambassadeur russe est-il le métier le plus dangereux au monde ?",
+     "desc": "Le décès brutal de l’ambassadeur russe aux États-Unis, Alexandre Dartchiev, ravive le souvenir et des interrogations après plusieurs décès soudains de diplomates russes depuis dix ans",
+     "link": "https://www.20minutes.fr/monde/russie/4262654-20261115-stress-reglements-compte-interne-ambassadeur-russe-metier-plus-dangereux-monde?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T07:17:36+00:00"
+    },
+    {
+     "title": "En images : Mélenchon, Chirac, Sarkozy, Royal… Les insultes marquantes de la Ve République",
+     "desc": "Au-delà de simples dérapages accidentels, l’injure et l’invective politique remplissent des fonctions stratégiques et identitaires. Découvrez notre diaporama des insultes politiques les plus marquantes de ces dernières…",
+     "link": "https://www.20minutes.fr/diaporama/diaporama-4261582-images-melenchon-chirac-sarkozy-royal-insultes-marquantes-ve-republique?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T06:02:37+00:00"
+    },
+    {
+     "title": "Ex-Met Police inspector lied about wife's death in Barbados hotel room, BBC learns",
+     "desc": "Warren Arter faced claims of sexually exploiting crime victims - his wife was found in a blood-stained room.",
+     "link": "https://www.bbc.co.uk/news/articles/c6jd7k7g57x5o?at_medium=RSS&at_campaign=rss",
+     "source": "BBC",
+     "date": "2026-11-15T06:01:46+00:00"
+    },
+    {
+     "title": "‘Like many men of his generation, he tends to push his feelings down from his heart to his toes’: Meera Sodha on her father’s homecoming",
+     "desc": "After a childhood of grief, hardship and hunger, the Guardian food writer’s father Raj always resisted going back to Uganda. What happened when he finally agreed to accompany her on a bittersweet journey into the past?…",
+     "link": "https://www.theguardian.com/lifeandstyle/2026/nov/15/meera-sodha-father-homecoming-uganda",
+     "source": "The Guardian",
+     "date": "2026-11-15T06:00:07+00:00"
+    },
+    {
+     "title": "‘Jensen Huang lost his mind’: how AI’s smartest man fell for the world’s oldest trick",
+     "desc": "Jensen Huang’s affair with a suspected spy is Silicon Valley’s worst nightmare come true The resignation this week of Nvidia’s founder and CEO Jensen Huang is one of the most astonishing corporate scandals in memory,…",
+     "link": "https://www.theguardian.com/technology/2026/nov/14/jensen-huang-affair-nvidia-nightmare",
+     "source": "The Guardian",
+     "date": "2026-11-15T06:00:06+00:00"
+    },
+    {
+     "title": "At 17, I dated a 36-year-old. That decision looks very different to me now | Polly Hudson",
+     "desc": "As teenagers, my friends and I thought it was glamorous to have relationships with older men. But after the revelations about Russell Brand and David Walliams, I have started to see that period of my life in a new light…",
+     "link": "https://www.theguardian.com/commentisfree/2026/nov/15/at-17-i-dated-a-36-year-old-that-decision-looks-very-different-to-me-now",
+     "source": "The Guardian",
+     "date": "2026-11-15T05:00:04+00:00"
+    },
+    {
+     "title": "Présidentielle 2027 : Rousseau appelle les Écologistes à se rallier à LFI pour la présidentielle, Tondelier dénonce une « provocation »",
+     "desc": "",
+     "link": "https://www.leparisien.fr/politique/presidentielle-2027-rousseau-appelle-les-ecologistes-a-se-rallier-a-lfi-pour-la-presidentielle-tondelier-denonce-une-provocation-15-11-2026-D3HHDNGM5VEQ7JDCSCYCXE6XA4.php",
+     "source": "Le Parisien",
+     "date": ""
+    },
+    {
+     "title": "Un coéquipier de Van der Poel raconte comment le Néerlandais et son équipe ont failli louper le départ de la dernière étape du Tour",
+     "desc": "",
+     "link": "https://www.leparisien.fr/sports/cyclisme/un-coequipier-de-van-der-poel-raconte-comment-le-neerlandais-et-son-equipe-ont-failli-louper-le-depart-de-la-derniere-etape-du-tour-15-11-2026-WI6PQQ3RORABPJ7I2HHM3D4TMQ.php",
+     "source": "Le Parisien",
+     "date": ""
+    },
+    {
+     "title": "France-Turquie : touché à l’ischio droit, Désiré Doué absent de la feuille de match",
+     "desc": "",
+     "link": "https://www.leparisien.fr/sports/football/equipe-de-france/france-turquie-touche-a-lischio-droit-desire-doue-absent-de-la-feuille-de-match-15-11-2026-2PK34KO2IFGMTGRGTD2GF42HIU.php",
+     "source": "Le Parisien",
+     "date": ""
+    },
+    {
+     "title": "« La vie, je ne la comprends pas » : Lorie revient sur le décès de sa meilleure amie Mialy, qui lui a inspiré l’un de ses tubes",
+     "desc": "",
+     "link": "https://www.leparisien.fr/culture-loisirs/musique/la-vie-je-ne-la-comprends-pas-lorie-revient-sur-le-deces-de-sa-meilleure-amie-mialy-qui-lui-a-inspire-lun-de-ses-tubes-15-11-2026-NGFZU6NCMNEZPBXQ34OZWLTEYE.php",
+     "source": "Le Parisien",
+     "date": ""
+    },
+    {
+     "title": "France-Turquie : la composition officielle des Bleus avec Diouf, Kumbedi et Mbappé titulaires",
+     "desc": "",
+     "link": "https://www.leparisien.fr/sports/football/equipe-de-france/france-turquie-la-composition-officielle-des-bleus-avec-diouf-kumbedi-et-mbappe-titulaires-15-11-2026-Y5AWR32CNFGI5GS5PGKF6EJ2TE.php",
+     "source": "Le Parisien",
+     "date": ""
+    },
+    {
+     "title": "Le rappeur SDM et PSG Communities ont distribué 1300 colis solidaires à des étudiants précaires",
+     "desc": "",
+     "link": "https://www.leparisien.fr/sports/football/psg/le-rappeur-sdm-et-psg-communities-ont-distribue-1300-colis-solidaires-a-des-etudiants-precaires-15-11-2026-DRBHHNZ5E5D7JCQN6DWWSUUWAY.php",
+     "source": "Le Parisien",
+     "date": ""
+    }
+   ]
+  },
+  {
+   "id": "eco",
+   "title": "Économie",
+   "items": [
+    {
+     "title": "Un homme a été mis en examen et écroué dans les Yvelines, après un crypto-rapt à 900 000 euros",
+     "desc": "Début mars, un homme et une femme d'une cinquantaine d'années avaient été séquestrés à leur domicile au Chesnay (Yvelines) et forcés à virer 900 000 euros en bitcoins à leurs agresseurs.",
+     "link": "https://www.franceinfo.fr/economie/bitcoin/un-homme-a-ete-mis-en-examen-et-ecroue-dans-les-yvelines-apres-un-crypto-rapt-a-900-000-euros_8283848.html#xtor=RSS-3-%5Beconomie%5D",
+     "source": "franceinfo",
+     "date": "2026-11-15T19:26:01+00:00"
+    },
+    {
+     "title": "Suspension des vols aux Etats-Unis : retour à la normale du trafic aérien espéré lundi ; Donald Trump qualifie la gestion de l’aviation par Joe Biden de « désastre »",
+     "desc": "Encore plus de 1 500 vols ont été supprimés dimanche matin aux Etats-Unis, après que plus de 18 000 l’avaient déjà été vendredi et samedi. « Nous allons sans doute voir les choses revenir complètement à la normale lundi…",
+     "link": "https://www.lemonde.fr/international/article/2026/11/15/suspension-des-vols-aux-etats-unis-retour-a-la-normale-du-trafic-aerien-espere-lundi-donald-trump-qualifie-la-gestion-de-l-aviation-par-joe-biden-de-desastre_6811046_3210.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T18:20:27+00:00"
+    },
+    {
+     "title": "Les Tchèques manifestent en masse contre la réforme du financement des médias publics",
+     "desc": "Selon les critiques, cette réforme risque d'accroître la dépendance des médias publics à l'égard du pouvoir politique.",
+     "link": "https://www.franceinfo.fr/monde/europe/les-tcheques-manifestent-en-masse-contre-la-reforme-du-financement-des-medias-publics_8283761.html#xtor=RSS-3-%5Beconomie%5D",
+     "source": "franceinfo",
+     "date": "2026-11-15T17:54:41+00:00"
+    },
+    {
+     "title": "Burnham pledges early intervention and ‘benefits backstop’ to tackle youth jobs crisis",
+     "desc": "Prime minister promises ‘root-and-branch rethink’ of support for young people as Milburn report advises sweeping changes to some benefits Andy Burnham: The crisis facing Britain’s young people is politicians’ fault. To…",
+     "link": "https://www.theguardian.com/society/2026/nov/15/no-free-lunch-milburn-mcfadden-kuenssberg-uk-benefits-youth-unemployment-neet",
+     "source": "The Guardian",
+     "date": "2026-11-15T17:04:55+00:00"
+    },
+    {
+     "title": "Yémen : Menacée par les Houthis, l’armée déploie des troupes supplémentaires autour d’Aden",
+     "desc": "Afin de sécuriser la capitale provisoire Aden au Yémen, où le gouvernement s’est replié après la prise en 2014 de la capitale Sanaa par les Houthis, l’armée déploie des troupes supplémentaires après une attaque qui a…",
+     "link": "https://www.20minutes.fr/monde/yemen/4262964-20261115-yemen-menacee-houthis-armee-deploie-troupes-supplementaires-autour-aden?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T16:07:09+00:00"
+    },
+    {
+     "title": "Faux comptes à rebours, options payantes précochées… Que sont les «dark patterns», ces pièges numériques auxquels l’UE s’attaque ?",
+     "desc": "Conçues pour influencer les décisions des internautes, ces «interfaces trompeuses» sont partout, des sites de commerces en ligne aux réseaux sociaux. Bruxelles souhaite les encadrer pour mieux protéger les consommateurs.",
+     "link": "https://www.lefigaro.fr/secteur/high-tech/faux-comptes-a-rebours-options-payantes-precochees-que-sont-les-dark-patterns-ces-pieges-numeriques-auxquels-l-ue-s-attaque-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T16:02:53+00:00"
+    },
+    {
+     "title": "Après avoir subi des inondations \"apocalyptiques\", des agriculteurs pakistanais réclament des dédommagements à deux géants industriels allemands qui \"répandent de la pollution\"",
+     "desc": "Des agriculteurs du sud du Pakistan attaquent le groupe énergétique RWE et le cimentier Heidelberg Materials, les accusant de \"répandre de la pollution\" et demandent un dédommagement après avoir subi des inondations…",
+     "link": "https://www.bfmtv.com/economie/international/apres-avoir-subi-des-inondations-apocalyptiques-des-agriculteurs-pakistanais-reclament-des-dedommagements-a-deux-geants-industriels-allemands-qui-repandent-de-la-pollution_AD-202611150293.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T15:27:28+00:00"
+    },
+    {
+     "title": "Jean-Pierre Robin : « À la recherche de la décennie perdue, 2017-2027, dont les Français sortent éreintés »",
+     "desc": "CHRONIQUE - Des « gilets jaunes » aux colères des lycéens, le pays a connu dix ans durant une succession ininterrompue de crises jamais vraiment résolues et toutes fatales pour l’économie.",
+     "link": "https://www.lefigaro.fr/conjoncture/jean-pierre-robin-a-la-recherche-de-la-decennie-perdue-2017-2027-dont-les-francais-sortent-ereintes-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T15:23:30+00:00"
+    },
+    {
+     "title": "La France et le Cambodge scellent leur \"partenariat renouvelé\" avec 29 accords",
+     "desc": "Les domaines de la santé, de la culture, du patrimoine, de la défense, mais aussi de l'énergie et de l'agroalimentaire sont concernés.",
+     "link": "https://www.franceinfo.fr/monde/asie/la-france-et-le-cambodge-scellent-leur-partenariat-renouvele-avec-29-accords_8283617.html#xtor=RSS-3-%5Beconomie%5D",
+     "source": "franceinfo",
+     "date": "2026-11-15T15:06:22+00:00"
+    },
+    {
+     "title": "Suspected China spy linked to Nvidia's ex-boss left in 2025, Megaspeed says",
+     "desc": "The Nvidia scandal has raised questions over whether advanced AI chips ended up in China, despite US restrictions.",
+     "link": "https://www.bbc.co.uk/news/articles/cmdx1vpprk9vo?at_medium=RSS&at_campaign=rss",
+     "source": "BBC",
+     "date": "2026-11-15T14:56:21+00:00"
     },
     {
      "title": "Energie, agroalimentaire, défense... France et Cambodge scellent leur \"partenariat renouvelé\" avec 29 accords",
@@ -53,41 +549,6 @@
      "link": "https://www.bfmtv.com/economie/entreprises/energie-agroalimentaire-defense-france-et-cambodge-scellent-leur-partenariat-renouvele-avec-29-accords_AD-202611150285.html",
      "source": "BFM TV",
      "date": "2026-11-15T14:25:06+00:00"
-    },
-    {
-     "title": "A Lyon, une équipe de BFM TV agressée en marge de la manifestation",
-     "desc": "Deux journalistes et deux agents de sécurité de la chaîne d’info ont été attaqués samedi 14 novembre alors qu’ils couvraient la mobilisation dans le Rhône. La police est intervenue pour les «protéger».",
-     "link": "https://www.liberation.fr/economie/medias/a-lyon-une-equipe-de-bfm-tv-agressee-en-marge-de-la-manifestation-20261115_NJ3DNAPMOBASXN2U2V336KF4NI/",
-     "source": "Libération",
-     "date": "2026-11-15T14:22:21+00:00"
-    },
-    {
-     "title": "Présidentielle 2027 : « Il n'a pas d'expérience… » Les doutes de Lilian Thuram sur la candidature de son « ami » Riner",
-     "desc": "L’ex international des bleus espère que le judoka français sera bien « accompagné » pour sa campagne présidentielle",
-     "link": "https://www.20minutes.fr/politique/4262951-20261115-presidentielle-2027-surpris-doutes-lilian-thuram-candidature-ami-riner?at_medium=display&at_campaign=149",
-     "source": "20 Minutes",
-     "date": "2026-11-15T14:21:22+00:00"
-    },
-    {
-     "title": "«Justice pour Pengo, justice pour toutes les victimes»: une marche en hommage à Pengo Bossio Wangi et à toutes les victimes de l’attentat de Trappes organisée à Cergy (Val-d’Oise)",
-     "desc": "Une marche blanche a été organisée ce dimanche 15 novembre 2026 à Cergy (Val-d’Oise) en hommage à Pengo Bossio Wangi et à toutes les victimes de l’attentat de Trappes survenu le 23 octobre 2026.",
-     "link": "https://www.bfmtv.com/police-justice/video-justice-pour-pengo-justice-pour-toutes-les-victimes-une-marche-en-hommage-a-pengo-bossio-wangi-et-a-toutes-les-victimes-de-l-attentat-de-trappes-organisee-a-cergy-val-d-oise_VN-202611150284.html",
-     "source": "BFM TV",
-     "date": "2026-11-15T14:21:05+00:00"
-    },
-    {
-     "title": "«Le Cambodge change, mais une constante demeure, la France se tient à vos côtés dans les bons moments comme dans les crises»: Emmanuel Macron revient sur la coopération franco-cambodgienne en marge…",
-     "desc": "Emmanuel Macron est revenu ce dimanche 15 novembre 2026 sur la coopération franco-cambodgienne en assurant que la France se tenait aux côtés du pays dans les bons moments comme dans les crises, et en détaillant les…",
-     "link": "https://www.bfmtv.com/international/video-le-cambodge-change-mais-une-constante-demeure-la-france-se-tient-a-vos-cotes-dans-les-bons-moments-comme-dans-les-crises-emmanuel-macron-revient-sur-la-cooperation-franco-cambodgienne-en-marge-de-son-deplacement-au-cambodge_VN-202611150283.html",
-     "source": "BFM TV",
-     "date": "2026-11-15T14:19:22+00:00"
-    },
-    {
-     "title": "Patrick Radden Keefe, journaliste : le voir en peinture",
-     "desc": "L’écrivain américain et enquêteur au «New Yorker» veut continuer de travailler à l’ancienne et de jouer les dilettantes obsessionnels.",
-     "link": "https://www.liberation.fr/portraits/patrick-radden-keefe-journaliste-le-voir-en-peinture-20261115_N7D4FV7AEVBH3HHTYDEV32DS7U/",
-     "source": "Libération",
-     "date": "2026-11-15T14:15:00+00:00"
     },
     {
      "title": "Ils représentent 70 milliards d'euros par an: le gouvernement veut toucher aux allègements de cotisations sur le travail, les entreprises craignent d'être mises \"au tapis\"",
@@ -104,264 +565,6 @@
      "date": "2026-11-15T14:06:48+00:00"
     },
     {
-     "title": "Aide à l'Ukraine : \"Si Marine Le Pen décide de tout couper à l’Ukraine, elle nous isolera en Europe\", estime l'entourage d'Emmanuel Macron, alors que le chef de l'État est en déplacement au Cambodge",
-     "desc": "L'entourage du chef de l'État estime que la décision que pourrait prendre Marine Le Pen, si elle devenait présidente en 2027, de \"tout couper à l'Ukraine\" pourrait \"jouer contre la France\". Selon l'entourage d'Emmanuel…",
-     "link": "https://www.bfmtv.com/politique/elections/presidentielle/video-aide-a-l-ukraine-si-marine-le-pen-decide-de-tout-couper-a-l-ukraine-elle-nous-isolera-en-europe-estime-l-entourage-d-emmanuel-macron-alors-que-le-chef-de-l-etat-est-en-deplacement-au-cambodge_VN-202611150274.html",
-     "source": "BFM TV",
-     "date": "2026-11-15T14:04:33+00:00"
-    },
-    {
-     "title": "Attentat de Trappes : Sandrine Rousseau accuse le gouvernement de «sous-estimer la menace venant de l’extrême droite»",
-     "desc": "La députée écologiste, dont le nom figurait sur une liste de personnalités de gauche retrouvée au domicile de Kévin Tessier, s’est insurgée ce dimanche 15 novembre sur BFM TV contre la «complaisance» de l’exécutif.",
-     "link": "https://www.liberation.fr/politique/attentat-de-trappes-sandrine-rousseau-accuse-le-gouvernement-de-sous-estimer-la-menace-venant-de-lextreme-droite-20261115_MNZSLAZJUVAHDMBRDHOBIAYQBI/",
-     "source": "Libération",
-     "date": "2026-11-15T13:51:38+00:00"
-    },
-    {
-     "title": "Débat, primaire, irruption de Teddy Riner et David Lisnard… La campagne en défense d’Édouard Philippe",
-     "desc": "REPORTAGE - Dépassé dans les sondages par la dynamique de Jean-Luc Mélenchon, le candidat Horizons est désormais rattrapé par David Lisnard. Agacé par les critiques de son camp, le maire du Havre est cerné par les…",
-     "link": "https://www.lefigaro.fr/elections/presidentielles/candidats/debat-primaire-irruption-de-teddy-riner-et-david-lisnard-la-campagne-en-defense-d-edouard-philippe-20261115",
-     "source": "Le Figaro",
-     "date": "2026-11-15T13:37:23+00:00"
-    },
-    {
-     "title": "Manifestations en Espagne, naufrage au Sénégal, retour du pape au Pérou : la semaine en images",
-     "desc": "Retour sur les temps forts de l'actualité de la semaine écoulée et sur ses images les plus marquantes : un naufrage de pirogue meurtrier au large de la côte nord-ouest du Sénégal, les grèves générales pour le logement…",
-     "link": "https://www.france24.com/fr/am%C3%A9riques/20261115-manifestations-espagne-naufrage-senegal-retour-pape-perou-semaine-en-images",
-     "source": "France 24",
-     "date": "2026-11-15T13:30:56+00:00"
-    },
-    {
-     "title": "Guerre en Ukraine : Emmanuel Macron s’en prend « à ceux qui veulent rationner les moyens » de Kiev ; Marine Le Pen le renvoie à « sa propre turpitude »",
-     "desc": "Le chef de l’Etat ne cite pas Marine Le Pen, mais la candidate du RN a déjà annoncé que, si elle était élue, elle couperait l’aide financière à l’Ukraine après une période de six mois.",
-     "link": "https://www.lemonde.fr/international/article/2026/11/15/guerre-en-ukraine-emmanuel-macron-s-en-prend-a-ceux-qui-veulent-rationner-les-moyens-de-kiev-marine-le-pen-le-renvoie-a-sa-propre-turpitude_6811019_3210.html",
-     "source": "Le Monde",
-     "date": "2026-11-15T13:22:32+00:00"
-    },
-    {
-     "title": "40 affirmations-chocs des candidats à la présidentielle de 2027 et de leurs soutiens fact-checkées",
-     "desc": "Les Décodeurs du « Monde » confrontent, dans cette base de données évolutive, les arguments des politiques aux données indépendantes disponibles.",
-     "link": "https://www.lemonde.fr/les-decodeurs/article/2026/11/15/presidentielle-2027-40-declarations-des-candidats-et-de-leurs-soutiens-passees-au-crible_6811018_4355770.html",
-     "source": "Le Monde",
-     "date": "2026-11-15T13:19:59+00:00"
-    },
-    {
-     "title": "Présidentielle 2027 : «57% sont opposés à voir les sportifs se présenter à une élection», les Français donnent leur avis sur la candidature de Teddy Riner",
-     "desc": "Odoxa a réalisé un sondage pour Winamax et RTL, «Les Français et la candidature de Teddy Riner à l’élection présidentielle». S’il reste très apprécié, sa popularité s’est néanmoins dégradée.",
-     "link": "https://www.lefigaro.fr/sports/autres-sports/57-sont-opposes-a-voir-les-sportifs-se-presenter-a-une-election-les-francais-donnent-leur-avis-sur-la-candidature-de-teddy-riner-a-la-presidentielle-20261115",
-     "source": "Le Figaro",
-     "date": "2026-11-15T13:07:06+00:00"
-    },
-    {
-     "title": "Une usine pétrochimique frappée par des drones ukrainiens dans le centre de la Russie",
-     "desc": "La zone industrielle de Nijnekamsk, dans le centre de la Russie, a été touchée par des frappes ukrainiennes dimanche, selon les autorités locales. Un incendie s'est déclaré dans une usine pétrochimique, trois personnes…",
-     "link": "https://www.france24.com/fr/europe/20261115-usine-p%C3%A9trochimique-frapp%C3%A9e-par-drones-ukrainiens-dans-centre-russie",
-     "source": "France 24",
-     "date": "2026-11-15T13:02:51+00:00"
-    },
-    {
-     "title": "Au Pérou, le pape alerte sur l'exode rural dans les Andes",
-     "desc": "Lors de son étape au Pérou, le pape a évoqué l'exode rural dans les Andes, qu'il décrit comme une \"souffrance\" pour les habitants. Une visite à forte dimension personnelle dans un pays dont il a acquis la nationalité et…",
-     "link": "https://www.france24.com/fr/vid%C3%A9o/20261115-au-p%C3%A9rou-le-pape-alerte-sur-l-exode-rural-dans-les-andes",
-     "source": "France 24",
-     "date": "2026-11-15T13:02:06+00:00"
-    },
-    {
-     "title": "Pourquoi la maladie de Parkinson est en forte augmentation en France et touche particulièrement certains départements",
-     "desc": "Cette maladie neurodégénérative touche près de 300 000 personnes en France. Elle augmente fortement en raison principalement du vieillissement de la population mais aussi de la présence des métaux lourds et des…",
-     "link": "https://www.franceinfo.fr/sante/pourquoi-la-maladie-de-parkinson-est-en-forte-augmentation-en-france-et-touche-particulierement-certains-departements_8279975.html#xtor=RSS-3-[lestitres]",
-     "source": "franceinfo",
-     "date": "2026-11-15T13:01:53+00:00"
-    },
-    {
-     "title": "Guerre en Ukraine : des drones évacuent les soldats blessés du front",
-     "desc": "Sur le front ukrainien, les drones ne servent plus seulement à mener des frappes. Ils sont aussi utilisés pour évacuer des soldats blessés, dans des zones où les secours sont devenus particulièrement dangereux.…",
-     "link": "https://www.france24.com/fr/vid%C3%A9o/20261115-guerre-en-ukraine-des-drones-%C3%A9vacuent-les-soldats-bless%C3%A9s-du-front",
-     "source": "France 24",
-     "date": "2026-11-15T12:59:41+00:00"
-    },
-    {
-     "title": "Les Philippines remportent la première édition de l'Eurovision en Asie",
-     "desc": "Les Philippines ont remporté à Bangkok la première édition asiatique du Concours Eurovision de la chanson. La chanteuse Carmelle s'est imposée face à dix autres candidats avec un titre consacré à l'émancipation des…",
-     "link": "https://www.france24.com/fr/vid%C3%A9o/20261115-les-philippines-remportent-la-premi%C3%A8re-%C3%A9dition-de-l-eurovision-en-asie",
-     "source": "France 24",
-     "date": "2026-11-15T12:57:22+00:00"
-    },
-    {
-     "title": "Présidentielle 2027 : la députée écologiste Sandrine Rousseau appelle Marine Tondelier \"à se retirer\"",
-     "desc": "Invitée de BFMTV dimanche, la parlementaire de Paris a de nouveau appelé son parti à rejoindre Jean-Luc Mélenchon.",
-     "link": "https://www.franceinfo.fr/elections/direct-presidentielle-2027-l-entourage-d-emmanuel-macron-etrille-les-candidats-qui-veulent-baisser-l-aide-financiere-a-l-ukraine-dont-marine-le-pen_8283293.html#xtor=RSS-3-[lestitres]",
-     "source": "franceinfo",
-     "date": "2026-11-15T12:47:22+00:00"
-    },
-    {
-     "title": "L'Iran revendique une attaque contre un site militaire américain à Bahreïn",
-     "desc": "L'Iran affirme avoir ciblé à Bahreïn une installation militaire américaine, notamment des radars. Comment Téhéran justifie-t-il cette opération et dans quelle stratégie s'inscrit-elle ? Les explications de Siavosh…",
-     "link": "https://www.france24.com/fr/vid%C3%A9o/20261115-l-iran-revendique-une-attaque-contre-un-site-militaire-am%C3%A9ricain-%C3%A0-bahre%C3%AFn",
-     "source": "France 24",
-     "date": "2026-11-15T12:46:56+00:00"
-    },
-    {
-     "title": "\"On voyait que l'eau était en train de monter\" : des automobilistes racontent leur nuit piégés par les intempéries dans l'Hérault",
-     "desc": "Après de violents orages dans la nuit du samedi 14 novembre, le département de l'Hérault s'est retrouvé sous les eaux. Au sud de Montpellier, des dizaines d'automobilistes ont été piégés par les inondations. Une femme…",
-     "link": "https://www.franceinfo.fr/environnement/evenements-meteorologiques-extremes/herault-apres-les-violents-orages-des-automobilistes-temoignent-de-leur-nuit-pieges-par-les-eaux_8283527.html#xtor=RSS-3-[lestitres]",
-     "source": "franceinfo",
-     "date": "2026-11-15T12:36:55+00:00"
-    },
-    {
-     "title": "Manifestation du 14 novembre : A Paris, une centaine de gardes à vue, dont 38 mineurs",
-     "desc": "Le parquet de Paris évoque « principalement » des « groupements en vue de commettre des violences »",
-     "link": "https://www.20minutes.fr/societe/4262946-20261115-manifestation-14-novembre-paris-centaine-gardes-vue-dont-38-mineurs?at_medium=display&at_campaign=149",
-     "source": "20 Minutes",
-     "date": "2026-11-15T12:32:49+00:00"
-    },
-    {
-     "title": "Intempéries dans l’Hérault : Automobilistes bloqués, routes fermées… Les images impressionnantes des inondations",
-     "desc": "Un violent épisode de pluie a frappé le secteur de Montpellier et le littoral méditerranéen dans la nuit de samedi à dimanche. Les inondations ont provoqué d’importantes perturbations",
-     "link": "https://www.20minutes.fr/societe/4262943-20261115-intemperies-automobilistes-bloques-routes-fermees-images-impressionnantes-inondations-herault?at_medium=display&at_campaign=149",
-     "source": "20 Minutes",
-     "date": "2026-11-15T11:37:50+00:00"
-    },
-    {
-     "title": "« On reçoit des coups de fil avec des menaces de saisir un avocat » : quand les parents contestent les décisions scolaires dans les grandes écoles",
-     "desc": "La propension grandissante des familles à demander des justifications sur les notes et les dossiers de leurs enfants, déjà observée au lycée, apparaît désormais dans le supérieur. Dans les écoles de commerce en…",
-     "link": "https://www.lemonde.fr/campus/article/2026/11/15/on-recoit-des-coups-de-fil-avec-des-menaces-de-saisir-un-avocat-quand-les-parents-contestent-les-decisions-scolaires-dans-les-grandes-ecoles_6811012_4401467.html",
-     "source": "Le Monde",
-     "date": "2026-11-15T11:00:07+00:00"
-    },
-    {
-     "title": "Finances publiques : Les revalorisations du smic et des bas salaires coûteront plus d’un milliard d’euros",
-     "desc": "En pleine crise sociale, le gouvernement a annoncé une hausse de 0,6 % du Smic et une revalorisation des rémunérations des fonctionnaires les plus modestes",
-     "link": "https://www.20minutes.fr/politique/4262935-20261115-finances-publiques-revalorisations-smic-bas-salaires-couteront-plus-milliard-euros?at_medium=display&at_campaign=149",
-     "source": "20 Minutes",
-     "date": "2026-11-15T09:38:56+00:00"
-    },
-    {
-     "title": "Présidentielle 2027 : Mélenchon propose un congé de deuil pour un ami, vraiment une idée farfelue ?",
-     "desc": "Le 7 novembre, Jean-Luc Mélenchon a présenté le programme de La France insoumise pour la présidentielle 2027. L’une des 1.069 propositions a fait réagir les internautes : le congé deuil pour un ami. Mais pourquoi ?",
-     "link": "https://www.20minutes.fr/politique/4261937-20261115-presidentielle-2027-melenchon-propose-conge-deuil-ami-vraiment-idee-farfelue?at_medium=display&at_campaign=149",
-     "source": "20 Minutes",
-     "date": "2026-11-15T09:02:37+00:00"
-    },
-    {
-     "title": "Les revalorisations annoncées pour les plus bas salaires coûteront \"un peu plus d'un milliard d'euros\" aux finances publiques, déclare le ministre David Amiel",
-     "desc": "David Amiel confirme, dans le \"8h30 franceinfo\" dimanche, une augmentation \"pour les plus bas salaires de la fonction publique\" représentant \"350 euros brut par an\".",
-     "link": "https://www.franceinfo.fr/economie/pouvoir-achat/il-y-aura-bien-une-hausse-des-points-pour-les-plus-bas-salaires-de-la-fonction-publique-confirme-le-ministre-david-amiel_8283254.html#xtor=RSS-3-[lestitres]",
-     "source": "franceinfo",
-     "date": "2026-11-15T08:49:24+00:00"
-    },
-    {
-     "title": "Réquisitions, taxe foncière progressive, résidences secondaires en sursis… Comment Mélenchon veut administrer la propriété privée",
-     "desc": "DÉCRYPTAGE - Dans son programme pour 2027, le candidat LFI cible en priorité les multipropriétaires et les bailleurs aisés. Ces derniers seraient invités à mettre la main à la poche et à laisser éventuellement l’État…",
-     "link": "https://immobilier.lefigaro.fr/article/requisitions-taxe-fonciere-progressive-residences-secondaires-en-sursis-comment-melenchon-veut-administrer-la-propriete-privee-20261115",
-     "source": "Le Figaro",
-     "date": "2026-11-15T08:36:04+00:00"
-    },
-    {
-     "title": "En images : Mélenchon, Chirac, Sarkozy, Royal… Les insultes marquantes de la Ve République",
-     "desc": "Au-delà de simples dérapages accidentels, l’injure et l’invective politique remplissent des fonctions stratégiques et identitaires. Découvrez notre diaporama des insultes politiques les plus marquantes de ces dernières…",
-     "link": "https://www.20minutes.fr/diaporama/diaporama-4261582-images-melenchon-chirac-sarkozy-royal-insultes-marquantes-ve-republique?at_medium=display&at_campaign=149",
-     "source": "20 Minutes",
-     "date": "2026-11-15T06:02:37+00:00"
-    },
-    {
-     "title": "\"Ce n'est pas un simple jeu vidéo\" : comment les fans se préparent à la sortie de \"GTA VI\" après treize ans d'attente",
-     "desc": "La franchise culte \"Grand Theft Auto\" a marqué de nombreux joueurs depuis sa création en 1997 par l'éditeur américain Rockstar Games. Pour profiter au mieux du nouvel opus, disponible jeudi, beaucoup ont investi et même…",
-     "link": "https://www.franceinfo.fr/culture/jeux-video/gta-vi/temoignages-ce-n-est-pas-un-simple-jeu-video-comment-les-fans-se-preparent-a-la-sortie-de-gta-vi-apres-treize-ans-d-attente_8265593.html#xtor=RSS-3-[lestitres]",
-     "source": "franceinfo",
-     "date": "2026-11-15T05:49:52+00:00"
-    },
-    {
-     "title": "Sur les traces de « ChatNoir » et « Casquette », ces deux jeunes de 18 et 16 ans soupçonnés d’avoir piraté le site des impôts",
-     "desc": "Ces adolescents sont mis en examen dans de multiples procédures, dont les piratages d’ampleur du fisc et de l’éducation nationale durant l’été, et sont aussi suspectés d’avoir ciblé Free et BFM-TV.",
-     "link": "https://www.lemonde.fr/societe/article/2026/11/15/sur-les-traces-de-chatnoir-et-casquette-le-duo-d-adolescents-soupconnes-d-avoir-pirate-le-site-des-impots_6810985_3224.html",
-     "source": "Le Monde",
-     "date": "2026-11-15T05:15:04+00:00"
-    },
-    {
-     "title": "«Je suis un pur produit français» : le candidat Teddy Riner s’offre un premier bain de foule au salon du Made in France à Paris",
-     "desc": "REPORTAGE - Pour son deuxième déplacement de campagne, Teddy Riner a arpenté pendant plus de trois heures les allées du salon du Made in France, à Paris.",
-     "link": "https://www.lefigaro.fr/elections/presidentielles/je-suis-un-pur-produit-francais-le-candidat-teddy-riner-s-offre-un-premier-bain-de-foule-au-salon-du-made-in-france-a-paris-20261114",
-     "source": "Le Figaro",
-     "date": "2026-11-14T20:55:06+00:00"
-    },
-    {
-     "title": "À peine arrivé, l’ex-ministre de la Santé François Braun quitte la campagne de Teddy Riner",
-     "desc": "Il était présenté comme une figure crédible, donnant du poids à celle du champion de judo. Six jours après le lancement de la campagne du candidat ni de droite ni de gauche, l’ex-ministre du gouvernement Borne quitte le…",
-     "link": "https://www.lefigaro.fr/politique/a-peine-arrive-l-ex-ministre-de-la-sante-francois-braun-quitte-la-campagne-de-teddy-riner-20261114",
-     "source": "Le Figaro",
-     "date": "2026-11-14T10:44:31+00:00"
-    },
-    {
-     "title": "Programme de Jean-Luc Mélenchon : quelles sont les mesures qui vous concernent ?",
-     "desc": "OUTIL INTERACTIF - Retraités, propriétaires, patrons, héritiers… Le Figaro a passé le programme de Jean-Luc Mélenchon au crible d’une analyse sémantique pour vous aider à repérer les mesures qui vous concernent…",
-     "link": "https://www.lefigaro.fr/elections/presidentielles/programmes/programme-de-jean-luc-melenchon-quelles-mesures-vous-concernent-20261110",
-     "source": "Le Figaro",
-     "date": "2026-11-10T14:49:09+00:00"
-    },
-    {
-     "title": "La Courneuve : le cadavre de Mahendradevi, disparue depuis le 9 novembre, retrouvé chez le garagiste grâce à la géolocalisation",
-     "desc": "",
-     "link": "https://www.leparisien.fr/seine-saint-denis-93/la-courneuve-le-cadavre-de-mahendradevi-disparue-depuis-le-9-novembre-retrouve-chez-le-garagiste-grace-a-la-geolocalisation-15-11-2026-GAO4PHJIYFFDXF5IBCSGXPZZPE.php",
-     "source": "Le Parisien",
-     "date": ""
-    },
-    {
-     "title": "« Il était devenu psychotique » : un an et demi après le suicide de son fils Diego, Lio se confie",
-     "desc": "",
-     "link": "https://www.leparisien.fr/culture-loisirs/musique/il-etait-devenu-psychotique-un-an-et-demi-apres-le-suicide-de-son-fils-diego-lio-se-confie-15-11-2026-E2CTD4CLS5DJXO5N7NYVYGRIP4.php",
-     "source": "Le Parisien",
-     "date": ""
-    },
-    {
-     "title": "France-Turquie : une minute d’applaudissement en mémoire de Carlo Molinari avant le match de Ligue des nations",
-     "desc": "",
-     "link": "https://www.leparisien.fr/sports/football/equipe-de-france/france-turquie-une-minute-dapplaudissement-en-memoire-de-carlo-molinari-avant-le-match-de-ligue-des-nations-15-11-2026-ZD6GZTYK3ZHT7CWKZQ5LSKI57E.php",
-     "source": "Le Parisien",
-     "date": ""
-    },
-    {
-     "title": "« Si c’est pour reparler d’une primaire, je ne vois pas l’intérêt » : Édouard Philippe répond à la main tendue de Gérard Larcher",
-     "desc": "",
-     "link": "https://www.leparisien.fr/elections/presidentielle/si-cest-pour-reparler-dune-primaire-je-ne-vois-pas-linteret-edouard-philippe-repond-a-la-main-tendue-de-gerard-larcher-15-11-2026-QJM7DPPZKFDK5AAVOTLGTBJ4RE.php",
-     "source": "Le Parisien",
-     "date": ""
-    },
-    {
-     "title": "« Le personnage n’est pas érotisé » : « Badh », c’est quoi ce « Jason Bourne » au féminin n°1 de Netflix ?",
-     "desc": "",
-     "link": "https://www.leparisien.fr/culture-loisirs/cinema/le-personnage-nest-pas-erotise-badh-cest-quoi-ce-jason-bourne-au-feminin-n1-de-netflix-15-11-2026-LNKYC4LQIBGLJBTR2UIKLDXMHQ.php",
-     "source": "Le Parisien",
-     "date": ""
-    },
-    {
-     "title": "« Le véhicule a fait plusieurs tonneaux » : un accident de la route dans l’Orne fait deux morts et deux blessés graves",
-     "desc": "",
-     "link": "https://www.leparisien.fr/orne-61/le-vehicule-a-fait-plusieurs-tonneaux-un-accident-de-la-route-dans-lorne-fait-deux-morts-et-deux-blesses-graves-15-11-2026-SR7GWRQTEZD2HKISX42W2R67PE.php",
-     "source": "Le Parisien",
-     "date": ""
-    }
-   ]
-  },
-  {
-   "id": "eco",
-   "title": "Économie",
-   "items": [
-    {
-     "title": "La France et le Cambodge scellent leur \"partenariat renouvelé\" avec 29 accords",
-     "desc": "Les domaines de la santé, de la culture, du patrimoine, de la défense, mais aussi de l'énergie et de l'agroalimentaire sont concernés.",
-     "link": "https://www.franceinfo.fr/monde/asie/la-france-et-le-cambodge-scellent-leur-partenariat-renouvele-avec-29-accords_8283617.html#xtor=RSS-3-%5Beconomie%5D",
-     "source": "franceinfo",
-     "date": "2026-11-15T14:29:53+00:00"
-    },
-    {
-     "title": "«Sur les courses de Noël, ça ira» : Michel-Édouard Leclerc écarte une nouvelle flambée des prix pour les fêtes",
-     "desc": "Le président du comité stratégique des centres E.Leclerc s’est voulu rassurant sur les prix à l’approche des fêtes, tout en alertant sur la fragilité de la consommation et les incertitudes économiques pour 2027.",
-     "link": "https://www.lefigaro.fr/conso/sur-les-courses-de-noel-ca-ira-michel-edouard-leclerc-ecarte-une-nouvelle-flambee-des-prix-pour-les-fetes-20261115",
-     "source": "Le Figaro",
-     "date": "2026-11-15T14:03:59+00:00"
-    },
-    {
      "title": "Cyberattaque chez Maileva, filiale de La Poste : ce que l’on sait du vol des données personnelles de 22 millions de personnes",
      "desc": "DÉCRYPTAGE - Victime d’une cyberattaque mi-septembre, la plateforme spécialisée dans l’envoi de courriers professionnels a subi le vol des coordonnées de 22 millions de personnes.",
      "link": "https://www.lefigaro.fr/secteur/high-tech/cyberattaque-chez-maileva-filiale-de-la-poste-ce-que-l-on-sait-du-vol-des-donnees-personnelles-d-un-tiers-de-la-population-francaise-20261115",
@@ -369,11 +572,25 @@
      "date": "2026-11-15T13:54:17+00:00"
     },
     {
+     "title": "Poundland pins rescue hopes on Yorkshire Tea, Pot Noodle and Gloria Gaynor",
+     "desc": "Chain restocks stores in operation named after singer of I Will Survive, as US owners release some of withheld funds Poundland’s under-fire US owners have released funds to help the stricken discount chain restock…",
+     "link": "https://www.theguardian.com/business/2026/nov/15/poundland-pins-rescue-hopes-on-yorkshire-tea-pot-noodle-and-gloria-gaynor",
+     "source": "The Guardian",
+     "date": "2026-11-15T13:41:01+00:00"
+    },
+    {
      "title": "Le patron de Dassault assure que Jean-Luc Mélenchon \"est admiratif de la réussite de l'industrie française\"",
      "desc": "Sur RTL ce dimanche, Éric Trappier, le président du géant aéronautique français, estime que \"tous les candidats ont la volonté que l’industrie se relève\".",
      "link": "https://www.bfmtv.com/economie/entreprises/industries/le-patron-de-dassault-assure-que-jean-luc-melenchon-est-admiratif-de-la-reussite-de-l-industrie-francaise_AV-202611150262.html",
      "source": "BFM TV",
      "date": "2026-11-15T13:40:39+00:00"
+    },
+    {
+     "title": "Who’s duping whom? Cut-price versions of luxury items are Christmas hit",
+     "desc": "From Aldi candles to Quince’s cashmere jumpers, cheaper dupes of high-end goods have gone mainstream. But is it fair? For fans of the festive season nothing is more Christmassy than lighting a super-sized botanical…",
+     "link": "https://www.theguardian.com/money/2026/nov/15/christmas-dupes-gift-aldi-candles-quince-cashmere-jumpers-price",
+     "source": "The Guardian",
+     "date": "2026-11-15T13:00:14+00:00"
     },
     {
      "title": "« L’objectif de Pékin n’est pas seulement l’autosuffisance, c’est la dépendance des autres pays »",
@@ -425,11 +642,53 @@
      "date": "2026-11-15T10:09:57+00:00"
     },
     {
-     "title": "«Un peu plus d’un milliard d’euros» : le coût de la hausse du Smic et des bas salaires des fonctionnaires dévoilé par le gouvernement",
-     "desc": "Le ministre des Comptes publics, David Amiel, a précisé ce dimanche que ces mesures pèseraient principalement sur les dépenses de la fonction publique, mais aussi sur d’autres postes budgétaires liés à la revalorisation…",
-     "link": "https://www.lefigaro.fr/conjoncture/un-peu-plus-d-un-milliard-d-euros-le-cout-de-la-hausse-du-smic-et-des-bas-salaires-des-fonctionnaires-devoile-par-le-gouvernement-20261115",
-     "source": "Le Figaro",
-     "date": "2026-11-15T10:02:55+00:00"
+     "title": "Microsoft Outlook Outage and FAA Groundstop Show Dependence on Fragile Technology",
+     "desc": "Incidents involving Microsoft’s Outlook and the Federal Aviation Administration this past week demonstrated our dependence on fragile technology.",
+     "link": "https://www.nytimes.com/2026/11/15/business/technology-dependence-microsoft-airlines.html",
+     "source": "The New York Times",
+     "date": "2026-11-15T10:02:06+00:00"
+    },
+    {
+     "title": "Jensen Huang’s Downfall Brings Disbelief in Taiwan",
+     "desc": "The Nvidia chief executive’s resignation shocked people in his birthplace, where he is called “the people’s dad.”",
+     "link": "https://www.nytimes.com/2026/11/15/business/jensen-huang-taiwan.html",
+     "source": "The New York Times",
+     "date": "2026-11-15T10:01:57+00:00"
+    },
+    {
+     "title": "A Human Reads the Anthropic I.P.O. Filing",
+     "desc": "The prospectus is unparalleled in its willingness to discuss existential risk. But does honesty bring comfort?",
+     "link": "https://www.nytimes.com/2026/11/15/business/anthropic-ipo-filing-prospectus.html",
+     "source": "The New York Times",
+     "date": "2026-11-15T10:01:56+00:00"
+    },
+    {
+     "title": "They Want to Be Doctors. Student Loan Caps Are Complicating Their Dreams.",
+     "desc": "This year, the first class of medical students will begin their journey to becoming physicians under new rules limiting how much they can borrow for school.",
+     "link": "https://www.nytimes.com/2026/11/15/business/medical-school-student-loan-caps.html",
+     "source": "The New York Times",
+     "date": "2026-11-15T10:01:42+00:00"
+    },
+    {
+     "title": "Behind the All-American Ralph Lauren Brand Is a French C.E.O.",
+     "desc": "Patrice Louvet on working with Ralph Lauren, the man, winning over Generation Z and striking a balance between magic and logic.",
+     "link": "https://www.nytimes.com/2026/11/15/business/ralph-lauren-patrice-louvet.html",
+     "source": "The New York Times",
+     "date": "2026-11-15T10:00:51+00:00"
+    },
+    {
+     "title": "In a Sloppified A.I. World, Only Humans Can Build ‘Ecosystems’",
+     "desc": "The people ushering in the artificial intelligence revolution are also doubling down on in-person relationships in their own industry.",
+     "link": "https://www.nytimes.com/2026/11/15/business/tech-jobs-ai-ecosystem.html",
+     "source": "The New York Times",
+     "date": "2026-11-15T10:00:14+00:00"
+    },
+    {
+     "title": "Troubled Scottish steel supplier raises questions over Royal Navy contracts",
+     "desc": "Liberty Steel Dalzell plant in Motherwell with order for 34,000 tonnes of metal plate to build three warships has struggled to pay bills The Royal Navy is facing questions over whether three new warships will be built…",
+     "link": "https://www.theguardian.com/business/2026/nov/15/liberty-steel-dalzell-scotland-royal-navy-contracts-warships",
+     "source": "The Guardian",
+     "date": "2026-11-15T10:00:10+00:00"
     },
     {
      "title": "Moins nombreuses, plus esthétiques et efficaces… Comment Emmanuel Grégoire veut transformer les poubelles de Paris",
@@ -453,25 +712,11 @@
      "date": "2026-11-15T09:38:11+00:00"
     },
     {
-     "title": "68 ans dès 2030 et jusqu'à 72 ans à terme: la Grèce se prépare à un nouveau recul spectaculaire (et automatique) de l'âge de départ à la retraite",
-     "desc": "Après avoir relevé l'âge légal de départ à la retraite à 67 ans pendant la crise de la dette, la Grèce pourrait franchir un nouveau cap dès 2030. Le vieillissement accéléré de sa population menace l'équilibre de son…",
-     "link": "https://www.bfmtv.com/economie/economie-social/68-ans-des-2030-et-jusqu-a-72-ans-a-terme-la-grece-se-prepare-a-un-nouveau-recul-spectaculaire-et-automatique-de-l-age-de-depart-a-la-retraite_AV-202611150164.html",
-     "source": "BFM TV",
-     "date": "2026-11-15T09:18:09+00:00"
-    },
-    {
      "title": "Perturbations, trajets alternatifs… Tout savoir sur la fermeture pour travaux du tunnel de l’A13, qui bouleverse la circulation en région parisienne",
      "desc": "Accueillant près de 80.000 véhicules quotidiennement, le tunnel de Saint-Cloud sera fermé dans le sens Paris-Province à partir du lundi 16 novembre. De quoi pousser les conducteurs et les autorités à s’adapter.",
      "link": "https://www.lefigaro.fr/conjoncture/perturbations-trajets-alternatifs-tout-savoir-sur-la-fermeture-pour-travaux-du-tunnel-de-l-a13-qui-bouleverse-la-circulation-en-region-parisienne-20261115",
      "source": "Le Figaro",
      "date": "2026-11-15T09:15:00+00:00"
-    },
-    {
-     "title": "Un montant de \"350 euros brut par an\": le ministre des Comptes publics confirme une revalorisation des plus bas salaires de la fonction publique",
-     "desc": "Sur franceinfo ce dimanche, David Amiel précise que les revalorisations salariales annoncées pour le Smic et les fonctionnaires coûteront plus d'un milliard d'euros aux finances publiques.",
-     "link": "https://www.bfmtv.com/economie/economie-social/finances-publiques/un-montant-de-350-euros-brut-par-an-le-ministre-des-comptes-publics-confirme-une-revalorisation-des-plus-bas-salaires-de-la-fonction-publique_AV-202611150156.html",
-     "source": "BFM TV",
-     "date": "2026-11-15T09:02:04+00:00"
     },
     {
      "title": "Katharina Pistor, professeure de droit : « Les citoyens s’apprêtent à n’être qu’une simple ressource gérée par des patrons de la tech tels que Musk, Thiel et Zuckerberg »",
@@ -481,39 +726,25 @@
      "date": "2026-11-15T09:00:21+00:00"
     },
     {
-     "title": "« Sans les thermes, Royat est morte » : le possible déremboursement des cures thermales menace un modèle déjà fragilisé",
-     "desc": "Dans la petite ville du Puy-de-Dôme, comme dans les autres stations, le thermalisme est essentiel aux hôtels et aux commerces. En proposant de transférer 200 millions d’euros de prise en charge des cures aux…",
-     "link": "https://www.lemonde.fr/economie/article/2026/11/15/sans-les-thermes-royat-est-morte-le-possible-deremboursement-des-cures-thermales-menace-un-modele-deja-fragilise_6811001_3234.html",
-     "source": "Le Monde",
-     "date": "2026-11-15T09:00:10+00:00"
+     "title": "‘I’m scared about my future’: young people on the stress and desperation of jobseeking",
+     "desc": "In the second in our series, four young Britons reveal how the search has taken a toll on their mental and physical health ‘The social contract is broken’: young people on feeling shut out of careers Guardian to follow…",
+     "link": "https://www.theguardian.com/business/2026/nov/15/young-people-stress-seeking-a-job-mental-physical-health",
+     "source": "The Guardian",
+     "date": "2026-11-15T07:00:07+00:00"
     },
     {
-     "title": "Au Royaume-Uni, deux affaires de violences sexuelles relancent le débat sur la \"culture du silence\" dans le monde du divertissement",
-     "desc": "Ces deux histoires, mettant en cause un humoriste populaire et une ex-star de la télévision, ont secoué l'Angleterre. Une nouvelle onde de choc qui ravive les appels à une meilleure protection des femmes.",
-     "link": "https://www.franceinfo.fr/monde/royaume-uni/au-royaume-uni-deux-affaires-de-violences-sexuelles-relancent-le-debat-sur-la-culture-du-silence-dans-le-monde-du-divertissement_8282621.html#xtor=RSS-3-%5Beconomie%5D",
-     "source": "franceinfo",
-     "date": "2026-11-15T08:53:26+00:00"
+     "title": "Gymshark in trademark battle that threatens future of small fitness business",
+     "desc": "Exclusive: British sportswear firm is seeking to obtain rights to The Conditioning Club, which is also the name of a Gloucestershire gym Gymshark, the £1bn British sportswear firm started in a family garage , is locked…",
+     "link": "https://www.theguardian.com/law/2026/nov/15/gymshark-trademark-battle-the-conditioning-club-gloucestershire",
+     "source": "The Guardian",
+     "date": "2026-11-15T06:00:07+00:00"
     },
     {
-     "title": "La panne ayant provoqué plus de 19.000 annulations de vols aux Etats-Unis est due au remplacement de câbles en cuivre vétustes",
-     "desc": "L'autorité de l'aviation civile a indiqué que 12.000 vols avaient été annulés vendredi puis 6.400 samedi, et recensait déjà, aux premières heures de dimanche, plus de 1.000 autres pour la journée à venir.",
-     "link": "https://www.bfmtv.com/economie/entreprises/transports/la-panne-ayant-provoque-des-milliers-d-annulations-de-vols-aux-etats-unis-est-due-au-remplacement-de-cables-en-cuivre-vetustes_AD-202611150149.html",
-     "source": "BFM TV",
-     "date": "2026-11-15T08:37:49+00:00"
-    },
-    {
-     "title": "83 % des dirigeants de PME trouvent difficile de recruter et d'employer une personne en situation de handicap",
-     "desc": "La semaine européenne pour l'emploi des personnes handicapées débute demain. À cette occasion, la banque publique d'investissement Bpifrance a interrogé des dirigeants de petites et moyennes entreprises sur leur…",
-     "link": "https://www.franceinfo.fr/replay-radio/c-est-mon-boulot/83-des-dirigeants-de-pme-trouvent-difficile-de-recruter-et-d-employer-une-personne-en-situation-de-handicap_8242261.html#xtor=RSS-3-%5Beconomie%5D",
-     "source": "franceinfo",
-     "date": "2026-11-15T08:00:03+00:00"
-    },
-    {
-     "title": "Immobilier : les sommes reçues des promoteurs en échange du désistement d’un recours contre leur permis de construire doivent-elles être déclarées au fisc ?",
-     "desc": "Bercy affirme que les indemnités sont toujours taxables. Mais la jurisprudence distingue celles qui compensent un véritable préjudice de celles qui rémunèrent un service rendu.",
-     "link": "https://www.lemonde.fr/argent/article/2026/11/15/immobilier-les-sommes-recues-des-promoteurs-en-echange-du-desistement-d-un-recours-contre-leur-permis-de-construire-doivent-elles-etre-declarees-au-fisc_6810993_1657007.html",
-     "source": "Le Monde",
-     "date": "2026-11-15T06:09:22+00:00"
+     "title": "Beauty advent calendars can cost hundreds but are they value for money?",
+     "desc": "Beauty calendars have become a Christmas staple and have become particularly popular with female shoppers.",
+     "link": "https://www.bbc.co.uk/news/articles/cqn83l442724o?at_medium=RSS&at_campaign=rss",
+     "source": "BBC",
+     "date": "2026-11-15T00:01:07+00:00"
     },
     {
      "title": "À Saint-Denis, la majorité de Bally Bagayoko supprime la baisse des primes des agents en arrêt maladie",
@@ -537,11 +768,11 @@
      "date": "2026-11-14T13:18:56+00:00"
     },
     {
-     "title": "Deux-Sèvres : Une commune investit dans une chaudière à bois pour diviser sa facture par deux",
-     "desc": "La municipalité d’Azay-le-Brûlé a fait prélever la matière première pour alimenter sa chaudière à la fin du mois d’octobre, rapporte « ICI Poitou »",
-     "link": "https://www.20minutes.fr/economie/4262719-20261114-deux-sevres-commune-investit-chaudiere-bois-diviser-facture-deux?at_medium=display&at_campaign=149",
-     "source": "20 Minutes",
-     "date": "2026-11-14T08:02:36+00:00"
+     "title": "Microsoft says services fully restored after day-long global outage",
+     "desc": "Efforts to address the underlying problem with Outlook, Teams and Copilot are complete, the tech firm says.",
+     "link": "https://www.bbc.co.uk/news/articles/c6rrg51rkz09o?at_medium=RSS&at_campaign=rss",
+     "source": "BBC",
+     "date": "2026-11-14T06:42:27+00:00"
     },
     {
      "title": "Panne de Microsoft : le géant américain affirme que ses services sont entièrement rétablis",
@@ -556,6 +787,13 @@
      "link": "https://www.france24.com/fr/%C3%A9co-tech/20261114-etats-unis-suspension-des-vols-reouverture-espace-aerien-faa",
      "source": "France 24",
      "date": "2026-11-14T02:42:17+00:00"
+    },
+    {
+     "title": "How the Jensen Huang scandal created a headache for business-friendly Singapore",
+     "desc": "The scandal has cast a spotlight on Singapore's success as a chip hub - and a location for alleged illicit trade.",
+     "link": "https://www.bbc.co.uk/news/articles/ck1exevgql4qo?at_medium=RSS&at_campaign=rss",
+     "source": "BBC",
+     "date": "2026-11-13T23:00:31+00:00"
     },
     {
      "title": "« Nous dansons sur un volcan »… Sarkozy prédit un « tsunami » financier, peut-être avant la présidentielle",
@@ -598,6 +836,20 @@
      "link": "https://www.france24.com/fr/%C3%A9co-tech/20261113-affaire-nvidia-ex-patron-jensen-huang-convoqu%C3%A9-devant-congr%C3%A8s-am%C3%A9ricain-d%C3%A9cembre",
      "source": "France 24",
      "date": "2026-11-13T10:59:04+00:00"
+    },
+    {
+     "title": "Heat pumps: How much heat does your home really need?",
+     "desc": "Knowing how much heat your home loses is important before installing a new heating system.",
+     "link": "https://www.bbc.co.uk/news/articles/cqy43zk3kk04o?at_medium=RSS&at_campaign=rss",
+     "source": "BBC",
+     "date": "2026-11-13T09:29:25+00:00"
+    },
+    {
+     "title": "The rise of 'housefishing' - when does using AI go from enhancing to misleading?",
+     "desc": "Experts warn that using AI to enhance property images can go too far and mislead prospective buyers.",
+     "link": "https://www.bbc.co.uk/news/articles/cm62y0wrnz9zo?at_medium=RSS&at_campaign=rss",
+     "source": "BBC",
+     "date": "2026-11-13T00:13:35+00:00"
     }
    ]
   },
@@ -606,11 +858,235 @@
    "title": "Monde",
    "items": [
     {
+     "title": "Présidentielle : \"Toutes celles et ceux qui veulent nous abattre soutiennent Marine Le Pen\", dénonce Marine Tondelier en évoquant les appuis de Donald Trump et Elon Musk à la candidate RN",
+     "desc": "Marine Tondelier était l'invitée du Grand Enjeu sur franceinfo ce dimanche 15 novembre. La candidate des Écologistes à l'élection présidentielle est revenue sur les déclarations d'Emmanuel Macron concernant Marine Le…",
+     "link": "https://www.franceinfo.fr/replay-magazine/franceinfo/le-grand-enjeu/presidentielle-toutes-celles-et-ceux-qui-veulent-nous-abattre-soutiennent-marine-le-pen-denonce-marine-tondelier-en-evoquant-les-appuis-de-donald-trump-et-elon-musk-a-la-candidate-rn_8283797.html#xtor=RSS-3-%5Bmonde%5D",
+     "source": "franceinfo",
+     "date": "2026-11-15T19:02:15+00:00"
+    },
+    {
+     "title": "« Les Américains nous avaient donné un faux espoir » : au Venezuela, le régime chaviste toujours en place malgré le retour de l’opposante Machado",
+     "desc": "DÉCRYPTAGE - Les États-Unis, qui ont capturé Nicolás Maduro en janvier, ont accru leur influence sur les décisions du pays, sans mettre à bas le régime.",
+     "link": "https://www.lefigaro.fr/international/les-americains-nous-avaient-donne-un-faux-espoir-au-venezuela-le-regime-chaviste-toujours-en-place-malgre-le-retour-de-l-opposante-machado-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T18:55:17+00:00"
+    },
+    {
+     "title": "En Cisjordanie, un pigiste de l’Agence France-Presse arrêté par les forces israéliennes",
+     "desc": "Un porte-parole de l’armée israélienne a confirmé l’arrestation du journaliste en précisant qu’il était « suspecté de liens avec le Hamas », sans fournir de preuves ni d’éléments pour étayer cette accusation.",
+     "link": "https://www.lemonde.fr/international/article/2026/11/15/en-cisjordanie-un-pigiste-de-l-agence-france-presse-arrete-par-les-forces-israeliennes_6811047_3210.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T18:52:58+00:00"
+    },
+    {
+     "title": "Au Yémen, le camp gouvernemental masse des renforts autour d'Aden, menacée par les Houthis",
+     "desc": "Le gouvernement internationalement reconnu s'est replié à Aden après la prise, en 2014 par les Houthis, de la capitale Sanaa et de grands pans du nord du pays, les plus peuplés.",
+     "link": "https://www.franceinfo.fr/monde/proche-orient/yemen/au-yemen-le-camp-gouvernemental-masse-des-renforts-autour-d-aden-menacee-par-les-houthis_8283851.html#xtor=RSS-3-%5Bmonde%5D",
+     "source": "franceinfo",
+     "date": "2026-11-15T18:47:11+00:00"
+    },
+    {
+     "title": "L’Otan au cœur des négociations diplomatiques entre l’Ukraine, la Russie et les États-Unis",
+     "desc": "ANALYSE - Les États-Unis ont proposé à l’Ukraine de renoncer au Donbass en échange d’une entrée dans l’Otan. Mais la Russie exige au contraire un recul de l’Alliance sur le continent européen.",
+     "link": "https://www.lefigaro.fr/international/l-otan-au-coeur-des-negociations-diplomatiques-entre-l-ukraine-la-russie-et-les-etats-unis-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T18:39:20+00:00"
+    },
+    {
+     "title": "Guerre Israël-Hamas",
+     "desc": "La guerre entre Israël et le Hamas a été déclenchée par l'attaque sanglante sans précédent du mouvement terroriste palestinien le 7 octobre 2023 sur le sol israélien à partir de la bande de Gaza. D’après les autorités…",
+     "link": "https://www.bfmtv.com/international/moyen-orient/guerre-israel-hamas_DN-202310300603.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T18:29:17+00:00"
+    },
+    {
+     "title": "Israël annonce avoir tué à Gaza un commandant du Hamas parmi \"les plus importants dans la planification de l'attaque du 7-octobre\"",
+     "desc": "L'armée israélienne annonce avoir tué un commandant du Hamas lors d'une opération menée dans la nuit de samedi à dimanche dans le sud de Gaza.",
+     "link": "https://www.bfmtv.com/international/moyen-orient/israel/israel-annonce-avoir-tue-a-gaza-un-commandant-du-hamas-parmi-les-plus-importants-dans-la-plannification-de-l-attaque-du-7-octobre_AD-202611150358.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T18:29:17+00:00"
+    },
+    {
+     "title": "Benjamin Haddad au Figaro : « Une mauvaise paix, une abdication forcée, c’est la garantie de la guerre demain »",
+     "desc": "ENTRETIEN - Le ministre délégué chargé de l’Europe revient sur les récentes négociations d’Abu Dhabi, dans lesquelles se sont impliqués Américains, Russes, Ukrainiens et Européens, et sur l’état des pourparlers pour…",
+     "link": "https://www.lefigaro.fr/international/benjamin-haddad-au-figaro-une-mauvaise-paix-une-abdication-forcee-c-est-la-garantie-de-la-guerre-demain-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T18:25:42+00:00"
+    },
+    {
+     "title": "La marine nationale intercepte un semi-submersible chargé de plusieurs tonnes de cocaïne dans l’Atlantique ; quatre suspects interpellés",
+     "desc": "Lorsque la frégate de la marine s’est approchée de l’embarcation, trois personnes se sont jetées à l’eau, avant d’être repêchées. Un quatrième suspect, qui a eu le temps de saborder l’engin, a été appréhendé à bord du…",
+     "link": "https://www.lemonde.fr/societe/article/2026/11/15/la-marine-nationale-intercepte-un-semi-submersible-charge-de-plusieurs-tonnes-de-cocaine-dans-l-atlantique-quatre-suspects-interpelles_6811045_3224.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T18:00:35+00:00"
+    },
+    {
+     "title": "Au Cambodge, Emmanuel Macron appelle à l'\"unité\" de l'Organisation internationale de la francophonie, secouée par une rivalité entre la RDC et le Rwanda",
+     "desc": "Les deux pays africains s'affrontent autour du nom du prochain secrétaire général de l'institution qui œuvre notamment pour la promotion de la langue française, reléguant des enjeux politiques au second plan.",
+     "link": "https://www.franceinfo.fr/culture/patrimoine/francophonie/au-cambodge-emmanuel-macron-appelle-a-l-unite-de-l-organisation-internationale-de-la-francophonie-secouee-par-une-rivalite-entre-la-rdc-et-le-rwanda_8283593.html#xtor=RSS-3-%5Bmonde%5D",
+     "source": "franceinfo",
+     "date": "2026-11-15T17:48:41+00:00"
+    },
+    {
+     "title": "Une juge ordonne qu’un parc de Washington dont Donald Trump souhaite faire un golf de luxe reste ouvert",
+     "desc": "Le président américain souhaite réaménager le parc East Potomac pour en faire un site pouvant accueillir des compétitions de golf de très haut niveau. Son administration avait demandé la fermeture, dimanche, de cet…",
+     "link": "https://www.lemonde.fr/international/article/2026/11/15/une-juge-ordonne-qu-un-parc-de-washington-dont-donald-trump-souhaite-faire-un-golf-de-luxe-reste-ouvert_6811041_3210.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T17:36:44+00:00"
+    },
+    {
+     "title": "Etats-Unis : Toujours pas de retour à la normale ce dimanche dans le ciel américain après la gigantesque panne",
+     "desc": "Depuis vendredi après-midi et la gigantesque panne qui a entraîné la suspension de tous les décollages, la situation s’améliore - sans pour autant se normaliser - dans le ciel américain",
+     "link": "https://www.20minutes.fr/monde/etats-unis/4262979-20261115-etats-unis-toujours-retour-normale-dimanche-ciel-americain-apres-gigantesque-panne?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T17:29:50+00:00"
+    },
+    {
+     "title": "Czechs rally against plan to switch funding of public media",
+     "desc": "Protesters say the move will stifle media freedom, while the government insists broadcasters need to cut costs.",
+     "link": "https://www.bbc.co.uk/news/articles/cm8e0knr7604o?at_medium=RSS&at_campaign=rss",
+     "source": "BBC",
+     "date": "2026-11-15T17:23:40+00:00"
+    },
+    {
+     "title": "Immigration : près de 1 500 migrants sont arrivés aux îles Canaries en une seule journée",
+     "desc": "Samedi, 1 488 personnes, à bord de 14 embarcations, ont été secourues par les gardes-côtes de l’archipel espagnol. Un record d’arrivées en une seule journée depuis 2020, selon l’agence de presse espagnole EFE.",
+     "link": "https://www.lemonde.fr/international/video/2026/11/15/immigration-pres-de-1-500-migrants-sont-arrives-aux-iles-canaries-en-une-seule-journee_6811039_3210.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T17:20:25+00:00"
+    },
+    {
+     "title": "In Banff, a Grizzly Bear Known as ‘the Boss’ Rules the National Park",
+     "desc": "Bear 122 has survived a train, cars and rival bears. Some fear the biggest threat to his life now is his own fame.",
+     "link": "https://www.nytimes.com/2026/11/15/world/canada/grizzly-bear-boss-banff-national-park-alberta.html",
+     "source": "The New York Times",
+     "date": "2026-11-15T17:07:07+00:00"
+    },
+    {
+     "title": "L’équipe chinoise Bilibili Gaming met fin à l’hégémonie coréenne en gagnant les Mondiaux de “League of Legends”",
+     "desc": "Samedi soir de folie à New York : l’équipe sud-coréenne Gen.G. a été battue par la formation chinoise Bilibili Gaming, devenue championne du monde 2026 du célébrissime jeu d’arène de Riot Games. Elle avait déjà éliminé…",
+     "link": "https://www.courrierinternational.com/article/jeu-video-l-equipe-chinoise-bilibili-gaming-met-fin-a-l-hegemonie-coreenne-en-gagnant-les-mondiaux-de-league-of-legends_287367",
+     "source": "Courrier international",
+     "date": "2026-11-15T17:04:43+00:00"
+    },
+    {
+     "title": "«Mes professeurs sont les meilleurs guides pour faire émerger des idées audacieuses»: dans l’Himalaya, apprendre en travaillant sur des projets locaux",
+     "desc": "ÉCOLE: CES SOLUTIONS VENUES D’AILLEURS 4/4 - Sur le toit du monde, les élèves de Secmol, fondé par Sonam Wangchuk, sont responsabilisés en se penchant notamment sur la gestion des ressources de leur pays, le Ladakh.",
+     "link": "https://www.lefigaro.fr/actualite-france/mes-professeurs-sont-les-meilleurs-guides-pour-faire-emerger-des-idees-audacieuses-dans-l-himalaya-apprendre-en-travaillant-sur-des-projets-locaux-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T17:00:12+00:00"
+    },
+    {
+     "title": "“Ralentir l’émigration persistante”, enjeu au cœur de l’élection présidentielle au Cap-Vert",
+     "desc": "Les électeurs capverdiens se rendent aux urnes ce dimanche 15 novembre pour choisir leur président. Au centre des débats, un défi : juguler l’émigration persistante des jeunes qui quittent l’archipel à la recherche d’un…",
+     "link": "https://www.courrierinternational.com/article/analyse-ralentir-l-emigration-persistante-enjeu-au-c-ur-de-l-election-presidentielle-au-cap-vert_287334",
+     "source": "Courrier international",
+     "date": "2026-11-15T16:47:07+00:00"
+    },
+    {
+     "title": "\"Nous ne nous laisserons pas intimider\": l'Estonie dénonce une tentative d'incendie d'une usine de drones orchestrée par Moscou et ferme sa frontière avec la Russie",
+     "desc": "L'Estonie annonce ce dimanche la fermeture de sa frontière avec la Russie en rétorsion à une tentative d'incendie d'une usine de drone attribuée au renseignement militaire russe.",
+     "link": "https://www.bfmtv.com/international/europe/nous-ne-nous-laisserons-pas-intimider-l-estonie-denonce-une-tentative-d-incendie-d-une-usine-de-drones-orchestree-par-moscou-et-ferme-sa-frontiere-avec-la-russie_AD-202611150308.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T16:18:53+00:00"
+    },
+    {
+     "title": "Des “trésors” du Centre Pompidou exposés à Mexico",
+     "desc": "Dédiée à l’art optique et à l’art cinétique, l’exposition “Les formes de l’énergie” est présentée au Palacio de Bellas Artes dans le cadre des célébrations des deux cents ans des relations diplomatiques entre la France…",
+     "link": "https://www.courrierinternational.com/article/art-moderne-des-tresors-du-centre-pompidou-exposes-a-mexico_287037",
+     "source": "Courrier international",
+     "date": "2026-11-15T16:03:43+00:00"
+    },
+    {
+     "title": "Plus de 2 millions de personnes touchées : à Cuba, le manque d’eau pousse à bout la population",
+     "desc": "REPORTAGE - Après le manque d’électricité, accentué par le blocus pétrolier des États-Unis depuis janvier dernier, l’eau fait désormais cruellement défaut sur l’île.",
+     "link": "https://www.lefigaro.fr/international/plus-de-2-millions-de-personnes-touchees-a-cuba-le-manque-d-eau-pousse-a-bout-la-population-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T16:02:02+00:00"
+    },
+    {
+     "title": "Au cœur du plus vibrant foyer culturel de Pologne, Cracovie, ville à l’honneur du festival parisien Un week-end à l’Est",
+     "desc": "L’énergie de la grande cité polonaise animera le festival Un week-end à l’Est, à Paris, du 16 au 28 novembre. Rencontre, sur place, avec quelques-uns de ses écrivains et artistes les plus en vue.",
+     "link": "https://www.lemonde.fr/livres/article/2026/11/15/au-c-ur-du-plus-vibrant-foyer-culturel-de-pologne-cracovie-ville-a-l-honneur-du-festival-parisien-un-week-end-a-l-est_6811031_3260.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T16:00:15+00:00"
+    },
+    {
+     "title": "Judge blocks Trump closure of 'Trash Island' Washington DC golf course on Sunday",
+     "desc": "The temporary order is part of a months-long challenge to the US president's plans to upgrade East Potomac Golf Links into a championship course.",
+     "link": "https://www.bbc.co.uk/news/articles/c6j9mn7l14y0o?at_medium=RSS&at_campaign=rss",
+     "source": "BBC",
+     "date": "2026-11-15T15:57:03+00:00"
+    },
+    {
+     "title": "Iran Attacks Bahrain for the Second Time in Days",
+     "desc": "The resumption of attacks after a two-month lull comes as peace talks between the U.S. and Iran appear to have stalled.",
+     "link": "https://www.nytimes.com/2026/11/15/world/middleeast/bahrain-iran-israel.html",
+     "source": "The New York Times",
+     "date": "2026-11-15T15:55:09+00:00"
+    },
+    {
+     "title": "Saudi-Backed Forces in Yemen Retreat From Red Sea as Houthis Advance",
+     "desc": "The move is a setback for the Yemeni government and its ally Saudi Arabia, as analysts said the balance of power in the country’s civil war was tilting toward the Iran-backed Houthi militia.",
+     "link": "https://www.nytimes.com/2026/11/15/world/middleeast/saudi-houthis-yemen-red-sea.html",
+     "source": "The New York Times",
+     "date": "2026-11-15T15:42:25+00:00"
+    },
+    {
+     "title": "Yémen : le camp gouvernemental masse des renforts autour d’Aden, menacée par les houthistes",
+     "desc": "Le redéploiement des troupes gouvernementales de la région de Bab Al-Mandab vers la capitale provisoire va permettre aux houthistes de consolider leur contrôle du détroit stratégique de Bab Al-Mandab, qui relie l’Asie à…",
+     "link": "https://www.lemonde.fr/international/article/2026/11/15/yemen-les-forces-gouvernementales-redeploient-leurs-troupes-des-environs-du-detroit-de-bab-el-mandeb-vers-aden-menacee-par-les-houthistes_6811027_3210.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T15:33:16+00:00"
+    },
+    {
+     "title": "États-Unis : Des manifestants réclament un traité entre Pékin et Washington pour stopper « la course à l’IA »",
+     "desc": "À San Francisco, devant OpenAI, comme à Paris et dans d’autres villes, des manifestants ont dénoncé samedi la « course à l’IA ». Ils réclament un traité entre la Chine et les États-Unis pour interdire la «…",
+     "link": "https://www.20minutes.fr/monde/etats-unis/4262955-20261115-etats-unis-manifestants-reclament-traite-entre-pekin-washington-stopper-course-ia?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T15:27:07+00:00"
+    },
+    {
+     "title": "“Sur TikTok 24 heures sur 24” : les seniors, nouveaux accros aux écrans",
+     "desc": "Le phénomène tient en un néologisme : “screenagers”. Il s’agit des utilisateurs de plus de 65 ans qui passent le plus clair de leur temps devant leurs écrans. Outre l’isolement et l’anxiété qui découlent de cet usage…",
+     "link": "https://www.courrierinternational.com/stories/addiction-sur-tiktok-24-heures-sur-24-les-seniors-nouveaux-accros-aux-ecrans_286758",
+     "source": "Courrier international",
+     "date": "2026-11-15T15:26:24+00:00"
+    },
+    {
+     "title": "L'Iran fait état de deux pétroliers en feu dans le détroit d'Ormuz",
+     "desc": "L'un des deux navires, \"un superpétrolier transportant plus de 2 millions de barils de pétrole brut\", a coulé.",
+     "link": "https://www.franceinfo.fr/monde/iran/crise-dans-le-detroit-d-ormuz/l-iran-fait-etat-de-deux-petroliers-en-feu-dans-le-detroit-d-ormuz_8283602.html#xtor=RSS-3-%5Bmonde%5D",
+     "source": "franceinfo",
+     "date": "2026-11-15T14:57:13+00:00"
+    },
+    {
+     "title": "Brésil : Lula achève sa tournée internationale par une rencontre avec Pedro Sánchez, lundi à Madrid",
+     "desc": "Le président brésilien multiplie les rencontres diplomatiques depuis sa réélection à la tête du Brésil",
+     "link": "https://www.20minutes.fr/monde/bresil/4262956-20261115-bresil-lula-acheve-tournee-internationale-rencontre-pedro-sanchez-lundi-madrid?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T14:55:07+00:00"
+    },
+    {
+     "title": "Étouffés par le blocus américain, les Cubains n’attendent rien de la défaite de Donald Trump aux midterms",
+     "desc": "REPORTAGE - Sur l’île communiste, les habitants pensent d’abord à survivre et n’imaginent plus que leur salut puisse venir du président ou des démocrates.",
+     "link": "https://www.lefigaro.fr/international/etouffes-par-le-blocus-americain-les-cubains-n-attendent-rien-de-la-defaite-de-donald-trump-aux-midterms-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T14:54:12+00:00"
+    },
+    {
      "title": "\"Je suis là pour vivre un moment spécial de ma vie\" : à 46 ans, Ronaldinho rechausse les crampons pour un match officiel en troisième division italienne",
      "desc": "L'ancien Ballon d'or 2005 et champion du monde 2002 n'avait plus disputé de match officiel depuis onze ans. Un événement autant marketing que sportif.",
      "link": "https://www.franceinfo.fr/sports/foot/je-suis-la-pour-vivre-un-moment-special-de-ma-vie-a-46-ans-ronaldinho-rechausse-les-crampons-pour-un-match-officiel-en-troisieme-division-italienne_8283596.html#xtor=RSS-3-%5Bmonde%5D",
      "source": "franceinfo",
      "date": "2026-11-15T14:39:37+00:00"
+    },
+    {
+     "title": "«Le Cambodge change, mais une constante demeure, la France se tient à vos côtés dans les bons moments comme dans les crises»: Emmanuel Macron revient sur la coopération franco-cambodgienne en marge…",
+     "desc": "Emmanuel Macron est revenu ce dimanche 15 novembre 2026 sur la coopération franco-cambodgienne en assurant que la France se tenait aux côtés du pays dans les bons moments comme dans les crises, et en détaillant les…",
+     "link": "https://www.bfmtv.com/international/video-le-cambodge-change-mais-une-constante-demeure-la-france-se-tient-a-vos-cotes-dans-les-bons-moments-comme-dans-les-crises-emmanuel-macron-revient-sur-la-cooperation-franco-cambodgienne-en-marge-de-son-deplacement-au-cambodge_VN-202611150283.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T14:19:22+00:00"
     },
     {
      "title": "Pourquoi le Japon abrite-t-il une “tombe de Jésus-Christ” ?",
@@ -620,20 +1096,6 @@
      "date": "2026-11-15T14:14:43+00:00"
     },
     {
-     "title": "L'Iran fait état de deux pétroliers en feu dans le détroit d'Ormuz",
-     "desc": "L'un des deux navires, \"un superpétrolier transportant plus de 2 millions de barils de pétrole brut\", a coulé.",
-     "link": "https://www.franceinfo.fr/monde/iran/crise-dans-le-detroit-d-ormuz/l-iran-fait-etat-de-deux-petroliers-en-feu-dans-le-detroit-d-ormuz_8283602.html#xtor=RSS-3-%5Bmonde%5D",
-     "source": "franceinfo",
-     "date": "2026-11-15T14:07:37+00:00"
-    },
-    {
-     "title": "La Bataille de Gaulle arrive en salles aux États-Unis : «Ici, il est vu comme une figure d’autorité qui a su rétablir l’honneur de la France»",
-     "desc": "ENTRETIEN - À l’occasion de la sortie des deux films sur de Gaulle aux États-Unis, le spécialiste des relations franco-américaines Luke Foster revient sur l’image du général français aux États-Unis.",
-     "link": "https://www.lefigaro.fr/international/la-bataille-de-gaulle-arrive-en-salles-aux-etats-unis-ici-il-est-vu-comme-une-figure-d-autorite-qui-a-su-retablir-l-honneur-de-la-france-20261115",
-     "source": "Le Figaro",
-     "date": "2026-11-15T14:03:07+00:00"
-    },
-    {
      "title": "Pourquoi les puces américaines de l'IA sont-elles fabriquées à Taïwan ?",
      "desc": "La fabrication des microprocesseurs, autrement dit les \"puces\", est un enjeu crucial dans l’industrie de l’intelligence artificielle. (Un rendez-vous en partenariat avec le magazine \"Sciences et Avenir\")",
      "link": "https://www.franceinfo.fr/replay-radio/nouveau-monde/pourquoi-les-puces-americaines-de-l-ia-sont-elles-fabriquees-a-taiwan_8242249.html#xtor=RSS-3-%5Bmonde%5D",
@@ -641,11 +1103,11 @@
      "date": "2026-11-15T14:00:02+00:00"
     },
     {
-     "title": "EN DIRECT, guerre en Ukraine : les dernières informations",
-     "desc": "Selon le président ukrainien, la Russie avait utilisé « plus de 2 300 drones d’attaque, 1 590 bombes aériennes et 15 missiles de différents types » au cours de la semaine passée. « De nombreuses de ces attaques sont…",
-     "link": "https://www.lemonde.fr/international/live/2026/11/15/en-direct-guerre-en-ukraine-les-restrictions-d-acces-a-starshield-persistent-et-empechent-kiev-de-se-proteger-des-attaques-russes-dit-volodymyr-zelensky_6810982_3210.html",
-     "source": "Le Monde",
-     "date": "2026-11-15T13:48:24+00:00"
+     "title": "Iran targets US military base in Bahrain with drone attack",
+     "desc": "It marks the second attack on the country in three days and comes as the US and Iran remain locked in a stand-off over the Strait of Hormuz.",
+     "link": "https://www.bbc.co.uk/news/articles/cqn4e2py48kwo?at_medium=RSS&at_campaign=rss",
+     "source": "BBC",
+     "date": "2026-11-15T13:42:58+00:00"
     },
     {
      "title": "Des liasses de billets dormaient dans des forêts: en Hongrie, 17 millions d'euros en liquide saisis dans une enquête anticorruption sur l'ère Orban",
@@ -655,18 +1117,11 @@
      "date": "2026-11-15T13:42:42+00:00"
     },
     {
-     "title": "L’Iran a reconstitué un stock d’environ 2500 missiles, affirme le renseignement américain",
-     "desc": "L’Iran aurait reconstitué plus de la moitié de son stock de missiles d’avant-guerre, selon les services de renseignement américains. Une estimation qui contredit les affirmations de Donald Trump.",
-     "link": "https://www.lefigaro.fr/international/l-iran-a-reconstitue-un-stock-d-environ-2500-missiles-affirme-le-renseignement-americain-20261115",
-     "source": "Le Figaro",
-     "date": "2026-11-15T13:33:45+00:00"
-    },
-    {
-     "title": "REPORTAGE. \"Ça va être un jour très calme au bureau\" : aux États-Unis, des fans prêts à poser des jours de congé pour jouer à \"GTA VI\"",
-     "desc": "Treize ans après le précédent opus, le nouvel épisode de la saga Rockstar suscite une immense attente. Dans la banlieue d'Atlanta, en Géorgie, certains joueurs ont déjà tout prévu pour profiter pleinement de leur…",
-     "link": "https://www.franceinfo.fr/culture/jeux-video/gta-vi/reportage-ca-va-etre-un-jour-tres-calme-au-bureau-aux-etats-unis-des-fans-prets-a-poser-des-jours-de-conge-pour-jouer-a-gta-vi_8283536.html#xtor=RSS-3-%5Bmonde%5D",
-     "source": "franceinfo",
-     "date": "2026-11-15T13:31:26+00:00"
+     "title": "South Korea's top scorer in tax accountancy exam admits cheating",
+     "desc": "Han Won-seok, 34, confessed to using a hidden camera and AI to get a near-perfect mark on the significant test.",
+     "link": "https://www.bbc.co.uk/news/articles/ckvg2ezvpe08o?at_medium=RSS&at_campaign=rss",
+     "source": "BBC",
+     "date": "2026-11-15T13:37:45+00:00"
     },
     {
      "title": "Mais qui a volé les Mozart de Salzbourg ?",
@@ -676,53 +1131,11 @@
      "date": "2026-11-15T13:15:04+00:00"
     },
     {
-     "title": "Guerre en Ukraine : les États-Unis auraient proposé un retrait ukrainien du Donbass en échange d'une adhésion à l'OTAN",
-     "desc": "Une proposition américaine pour mettre fin à la guerre en Ukraine suscite de vives réactions. Selon Volodymyr Zelensky, Washington aurait évoqué un retrait des forces ukrainiennes du Donbass en échange d'une adhésion de…",
-     "link": "https://www.franceinfo.fr/monde/europe/manifestations-en-ukraine/guerre-en-ukraine-les-etats-unis-auraient-propose-un-retrait-ukrainien-du-donbass-en-echange-d-une-adhesion-a-l-otan_8283569.html#xtor=RSS-3-%5Bmonde%5D",
-     "source": "franceinfo",
-     "date": "2026-11-15T13:10:47+00:00"
-    },
-    {
      "title": "Famine à Gaza : comment nos reporters racontent l'enfer ? La journaliste Fanny Morel raconte les coulisses de son documentaire",
      "desc": "Dans l'enclave palestinienne, l'armée israélienne interdit toujours l'accès à la zone aux journalistes internationaux. Un accès au terrain pourtant indispensable pour raconter les faits. La journaliste Fanny Morel…",
      "link": "https://www.bfmtv.com/international/moyen-orient/palestine/video-famine-a-gaza-comment-nos-reporters-racontent-l-enfer-la-journaliste-fanny-morel-raconte-les-coulisses-de-son-documentaire_VN-202611150239.html",
      "source": "BFM TV",
      "date": "2026-11-15T12:46:38+00:00"
-    },
-    {
-     "title": "“Mon compagnon n’a pas d’amis” : ces femmes hétéros inquiètes de vivre avec des ours",
-     "desc": "De plus en plus d’hommes déclarent n’avoir aucun ami proche, et, même lorsqu’ils en ont, certains ne les voient que rarement. Un comportement parfois pesant pour leurs compagnes, qui ressentent une forme de culpabilité…",
-     "link": "https://www.courrierinternational.com/article/amour-mon-compagnon-n-a-pas-d-amis-ces-femmes-heteros-inquietes-de-vivre-avec-des-ours_285975",
-     "source": "Courrier international",
-     "date": "2026-11-15T12:20:02+00:00"
-    },
-    {
-     "title": "Ukraine-Russie: la guerre",
-     "desc": "Après des années de tension, le président russe Vladimir Poutine a relancé le conflit entre son pays et l'Ukraine - dirigée par Volodymyr Zelensky - en annonçant, le 21 février 2022, \"reconnaître l'indépendance de la…",
-     "link": "https://www.bfmtv.com/international/europe/ukraine-russie-le-bras-de-fer-mondial_DN-201904150203.html",
-     "source": "BFM TV",
-     "date": "2026-11-15T12:16:02+00:00"
-    },
-    {
-     "title": "\"Une attaque massive et prolongée\": un important site industriel russe touché par des frappes de drones ukrainiens",
-     "desc": "Dimanche 15 novembre au matin, des frappes ukrainiennes ont frappé la zone industrielle de Nijnekamsk ainsi que la ville portuaire de Taganrog. Kiev dit viser des installations industrielles russes en réponse aux…",
-     "link": "https://www.bfmtv.com/international/asie/russie/une-attaque-massive-et-prolongee-un-important-site-industriel-russe-touche-dans-des-frappes-de-drones-ukrainiens_AD-202611150230.html",
-     "source": "BFM TV",
-     "date": "2026-11-15T12:16:02+00:00"
-    },
-    {
-     "title": "La crise d’Ormuz est une “autre chute du mur de Berlin”",
-     "desc": "Le blocage du détroit d’Ormuz aura agi en révélateur, au sens chimique du terme, du bouleversement géopolitique et économique à l’œuvre à l’échelle mondiale, analyse l’économiste algérien Idriss Hadj Nacer pour “Twala”.…",
-     "link": "https://www.courrierinternational.com/article/analyse-la-crise-d-ormuz-est-une-autre-chute-du-mur-de-berlin_249896_1",
-     "source": "Courrier international",
-     "date": "2026-11-15T12:14:57+00:00"
-    },
-    {
-     "title": "En tenant son 20e sommet au Cambodge, la francophonie cherche à s’ancrer sur les cinq continents",
-     "desc": "Jusqu’au 16 novembre, Phnom Penh accueille les représentants de 81 pays pour un sommet qui souhaite “réinvestir la paix”. Cela faisait vingt-neuf ans que la rencontre internationale ne s’était pas déroulée en Asie.",
-     "link": "https://www.courrierinternational.com/article/rencontre-en-tenant-son-20e-sommet-au-cambodge-la-francophonie-cherche-a-s-ancrer-sur-les-cinq-continents_287301",
-     "source": "Courrier international",
-     "date": "2026-11-15T12:11:13+00:00"
     },
     {
      "title": "Nord : Au moins 89 rescapés lors d’un naufrage d’une traversée clandestine, mais un possible disparu",
@@ -732,39 +1145,11 @@
      "date": "2026-11-15T11:20:00+00:00"
     },
     {
-     "title": "Un important site industriel russe touché par des frappes attribuées à Kiev",
-     "desc": "Les autorités de la république du Tatarstan, citées par les médias russes, ont fait état de trois blessés dimanche, tandis que le gouverneur de la région russe de Rostov-sur-le-Don a annoncé un mort.",
-     "link": "https://www.franceinfo.fr/monde/europe/manifestations-en-ukraine/un-important-site-industriel-russe-touche-par-des-frappes-attribuees-a-kiev_8283350.html#xtor=RSS-3-%5Bmonde%5D",
-     "source": "franceinfo",
-     "date": "2026-11-15T11:15:34+00:00"
-    },
-    {
-     "title": "L’inexorable effondrement démocratique du Nicaragua",
-     "desc": "Si le pays affiche une certaine stabilité économique, les atteintes aux droits ne cessent de s’aggraver. Interrogé par la revue spécialisée “Americas Quarterly”, Carlos Fernando Chamorro, directeur du média en exil…",
-     "link": "https://www.courrierinternational.com/article/analyse-l-inexorable-effondrement-democratique-du-nicaragua_280621",
-     "source": "Courrier international",
-     "date": "2026-11-15T11:14:48+00:00"
-    },
-    {
-     "title": "\"Les entrepreneuses et les entrepreneurs du monde entier viennent de la francophonie\": Emmanuel Macron s’exprime au Francotech, le salon de l'innovation et de la francophonie économique, organisé en…",
-     "desc": "Emmanuel Macron s’est exprimé, ce dimanche 15 novembre 2026, au Francotech, le salon de l'innovation et de la francophonie économique, organisé en marge du Sommet de la Francophonie, au Cambodge.",
-     "link": "https://www.bfmtv.com/international/video-les-entrepreneuses-et-les-entrepreneurs-du-monde-entier-viennent-de-la-francophonie-emmanuel-macron-s-exprime-au-francotech-le-salon-de-l-innovation-et-de-la-francophonie-economique-organise-en-marge-du-sommet-de-la-francophonie-au-cambodge_VN-202611150186.html",
-     "source": "BFM TV",
-     "date": "2026-11-15T10:32:30+00:00"
-    },
-    {
-     "title": "Au Sénégal, travailler sous 38 °C toute l’année",
-     "desc": "La photographe Adrienne Surprenant raconte les défis climatiques auxquels les agriculteurs sénégalais font face dans le nord-est du pays et leurs tentatives d’adaptation.",
-     "link": "https://www.lemonde.fr/afrique/article/2026/11/15/au-senegal-travailler-sous-38-c-toute-l-annee_6811008_3212.html",
-     "source": "Le Monde",
-     "date": "2026-11-15T10:06:01+00:00"
-    },
-    {
-     "title": "Jordanie : trois hommes condamnés à mort pour l’attaque meurtrière d’une église orthodoxe en octobre",
-     "desc": "Neuf personnes avaient été tuées et 25 avaient été blessées dans cette attaque sans précédent contre les chrétiens du royaume, le 23 octobre.",
-     "link": "https://www.lemonde.fr/international/article/2026/11/15/jordanie-trois-hommes-condamnes-a-mort-pour-l-attaque-meurtriere-d-une-eglise-orthodoxe-en-octobre_6810998_3210.html",
-     "source": "Le Monde",
-     "date": "2026-11-15T08:52:09+00:00"
+     "title": "Three men sentenced to death in Jordan over fatal church mass shooting",
+     "desc": "The attack on funeral at a Greek Orthodox church killed nine and injured 34 others last month.",
+     "link": "https://www.bbc.co.uk/news/articles/c3rrg9xgqlwpo?at_medium=RSS&at_campaign=rss",
+     "source": "BBC",
+     "date": "2026-11-15T11:06:32+00:00"
     },
     {
      "title": "Explosions à Bahreïn : L’Iran revendique une attaque contre une base américaine",
@@ -774,32 +1159,25 @@
      "date": "2026-11-15T08:49:22+00:00"
     },
     {
-     "title": "États-Unis: SpaceX réussi à rattraper l'étage supérieur de sa méga fusée Starship",
-     "desc": "Un engin de plus de 50m de haut, rattrapé par d'immenses bras métalliques. La manœuvre n'avait jamais été tentée. C'est Une étape indispensable pour faire de Starship une fusée entièrement réutilisable et donc beaucoup…",
-     "link": "https://www.bfmtv.com/international/video-etats-unis-space-x-reussi-a-rattraper-l-etage-superieur-de-sa-mega-fusee-starship_VN-202611150130.html",
-     "source": "BFM TV",
-     "date": "2026-11-15T07:57:17+00:00"
+     "title": "Israel kills Hamas commander in strike on Gaza camp, officials say",
+     "desc": "Both Hamas and IDF officials confirm the death of Samir Abu Younis, commander of the Rafah Brigade.",
+     "link": "https://www.bbc.co.uk/news/articles/cqrkg4r6mg7xo?at_medium=RSS&at_campaign=rss",
+     "source": "BBC",
+     "date": "2026-11-15T08:17:41+00:00"
     },
     {
-     "title": "Sommet de la francophonie : Emmanuel Macron appelle à l’« unité » et au « consensus » face aux tensions entre la RDC et le Rwanda",
-     "desc": "Kinshasa, qui accuse Kigali de soutenir le groupe armé rebelle du M23 dans ses provinces de l’Est, s’oppose à la reconduction de la Rwandaise Louise Mushikiwabo à la tête de l’OIF.",
-     "link": "https://www.lemonde.fr/international/article/2026/11/15/somment-de-la-francophonie-emmanuel-macron-appelle-a-l-unite-et-au-consensus-face-aux-tensions-entre-la-rdc-et-le-rwanda_6810995_3210.html",
-     "source": "Le Monde",
-     "date": "2026-11-15T07:45:48+00:00"
+     "title": "Is Italy the Model for Europe’s Future?",
+     "desc": "Over more than a quarter-century, I’ve watched Europe’s politics become more like Italy’s, with all the resulting instability, as the far right came in from the cold.",
+     "link": "https://www.nytimes.com/2026/11/15/world/europe/italy-italianization-europe-horowitz.html",
+     "source": "The New York Times",
+     "date": "2026-11-15T05:01:24+00:00"
     },
     {
-     "title": "« Les Nations unies vont-elles se vendre au plus offrant ? »",
-     "desc": "La campagne des Emirats arabes unis pour s’emparer de la direction de l’ONU menace les fondements mêmes du multilatéralisme, estime Jean-Pierre Filiu dans sa chronique.",
-     "link": "https://www.lemonde.fr/un-si-proche-orient/article/2026/11/15/les-nations-unies-vont-elles-se-vendre-au-plus-offrant_6810991_6116995.html",
-     "source": "Le Monde",
-     "date": "2026-11-15T06:00:08+00:00"
-    },
-    {
-     "title": "L’Iran revendique une attaque de drones contre une base américaine à Bahreïn",
-     "desc": "Les gardiens de la révolution iraniens avaient déjà annoncé, vendredi, une attaque contre un système de radar américain à Bahreïn, première frappe contre un pays du Golfe depuis le début de septembre.",
-     "link": "https://www.lemonde.fr/international/article/2026/11/15/l-iran-revendique-une-attaque-de-drones-contre-une-base-americaine-a-bahrein_6810990_3210.html",
-     "source": "Le Monde",
-     "date": "2026-11-15T05:58:52+00:00"
+     "title": "In Europe, an Emboldened Iran Contributes to a Sense of Anxiety",
+     "desc": "Prosecutors and government officials believe Iran or its proxies are behind a series of security breaches and threats in Britain and Europe, unsettling the region.",
+     "link": "https://www.nytimes.com/2026/11/15/world/europe/iran-attacks-threats-europe.html",
+     "source": "The New York Times",
+     "date": "2026-11-15T05:01:20+00:00"
     },
     {
      "title": "Israël : Netanyahou appelle à un gouvernement d’union face à l’Iran, Eisenkot dénonce des « ruses »",
@@ -809,53 +1187,53 @@
      "date": "2026-11-14T22:14:18+00:00"
     },
     {
-     "title": "Censure soviétique et « littérature destructrice » : à Moscou, plongée dans l’« enfer » des livres interdits par la Russie d’hier et d’aujourd’hui",
-     "desc": "REPORTAGE - Au sein de la célèbre Bibliothèque Lénine, un fonds secret conservait, à l’époque de l’URSS, les ouvrages mis à l’index. Un nouveau dépôt y a été ajouté l’an dernier pour entreposer, hors du domaine public,…",
-     "link": "https://www.lefigaro.fr/international/censure-sovietique-et-litterature-destructrice-a-moscou-plongee-dans-l-enfer-des-livres-interdits-par-la-russie-d-hier-et-d-aujourd-hui-20261114",
-     "source": "Le Figaro",
-     "date": "2026-11-14T20:00:00+00:00"
+     "title": "A ‘Generational Clash’ Is Fueling Europe’s Protests",
+     "desc": "As retirees live longer, governments need to spend more on pensions. That makes it harder to fund other services, spurring protests like those in France.",
+     "link": "https://www.nytimes.com/2026/11/14/world/europe/student-protests-pensions-generations.html",
+     "source": "The New York Times",
+     "date": "2026-11-14T18:40:00+00:00"
     },
     {
-     "title": "Ukraine : Emmanuel Macron alerte sur les dangers d’une « paix injuste » après les déclarations de Marine Le Pen",
-     "desc": "Dans un message publié samedi sur X, Emmanuel Macron a défendu la poursuite de l’aide à Kiev, mettant en garde contre les conséquences d’une « paix injuste » pour la sécurité de l’Europe",
-     "link": "https://www.20minutes.fr/monde/ukraine/4262895-20261114-ukraine-emmanuel-macron-alerte-dangers-paix-injuste-apres-declarations-marine-pen?at_medium=display&at_campaign=149",
-     "source": "20 Minutes",
-     "date": "2026-11-14T19:49:16+00:00"
+     "title": "Choking fires, deadly heat and devastating floods: 2026 in extreme weather",
+     "desc": "People around the world have contended with unprecedented weather events and their fatal effects caused by the climate catastrophe After the world’s hottest summer since records began in 1850, the death toll from…",
+     "link": "https://www.theguardian.com/world/2026/nov/14/fires-heat-floods-extreme-weather-2026",
+     "source": "The Guardian",
+     "date": "2026-11-14T13:00:44+00:00"
     },
     {
-     "title": "Après les inondations à Gaza, l’Union européenne presse Israël de laisser entrer l’aide humanitaire",
-     "desc": "Après les pluies diluviennes du 6 au 8 novembre, qui ont inondé des milliers de tentes et fait cinq morts selon les secours palestiniens, l’Union européenne demande à Israël de faciliter l’accès de l’aide humanitaire",
-     "link": "https://www.20minutes.fr/monde/israel/4262863-20261114-apres-inondations-gaza-union-europeenne-presse-israel-laisser-entrer-aide-humanitaire?at_medium=display&at_campaign=149",
-     "source": "20 Minutes",
-     "date": "2026-11-14T15:41:07+00:00"
+     "title": "Zimbabwean author Simbarashe Kundizeza cleared of using AI to write prize-winning story",
+     "desc": "After a month-long investigation it was concluded that Kundizeza’s story The Blue Fighter, which won the £10,000 Caine prize, was ‘human-written’ The Zimbabwean author Simbarashe Kundizeza has been cleared of using AI…",
+     "link": "https://www.theguardian.com/books/2026/nov/12/zimbabwean-author-simbarashe-kundizeza-cleared-ai-caine-prize-winning-story",
+     "source": "The Guardian",
+     "date": "2026-11-12T13:14:38+00:00"
     },
     {
-     "title": "Pourquoi Marine, gagnante de la « Star Academy » a l’interdiction d’aller à la rencontre de ses fans",
-     "desc": "La gagnante de la « Star Academy » Marine a déçu certains admirateurs car elle ne vient plus les voir à la sortie des salles. Sur Instagram, la chanteuse de 26 ans en a donné la raison, rapporte « Paris Match »",
-     "link": "https://www.20minutes.fr/arts-stars/4262861-20261114-pourquoi-marine-gagnante-star-academy-interdiction-aller-rencontre-fans?at_medium=display&at_campaign=149",
-     "source": "20 Minutes",
-     "date": "2026-11-14T14:45:18+00:00"
+     "title": "Lewis Hamilton visits Egypt’s Rafah crossing and Gaza aid facilities",
+     "desc": "Seven-time F1 world champion tours border area and logistics warehouses operated by Egyptian Red Crescent Lewis Hamilton has visited Egypt’s Rafah border crossing with the Gaza Strip to meet organisations sending…",
+     "link": "https://www.theguardian.com/world/2026/nov/10/lewis-hamilton-egypt-rafah-crossing-gaza-aid-facilities",
+     "source": "The Guardian",
+     "date": "2026-11-10T15:39:26+00:00"
     },
     {
-     "title": "«Vu d’Ailleurs» N°195 - Le contentieux qui empoisonne Varsovie et Berlin",
-     "desc": "LETTRE EXCLUSIVE ABONNÉS - La revue de presse européenne, par Édouard de Mareschal.",
-     "link": "https://www.lefigaro.fr/international/vu-d-ailleurs-n0195-le-contentieux-qui-empoisonne-varsovie-et-berlin-20261114",
-     "source": "Le Figaro",
-     "date": "2026-11-14T12:47:06+00:00"
+     "title": "Collision of two trains in Egypt kills at least seven",
+     "desc": "President orders prompt investigation after one train derails in collision in al-Ayyat about 50km from Cairo Seven people were killed and at least 125 injured when two trains collided on Sunday south of the Egyptian…",
+     "link": "https://www.theguardian.com/world/2026/nov/08/egypt-two-trains-deadly-collision",
+     "source": "The Guardian",
+     "date": "2026-11-08T17:51:17+00:00"
     },
     {
-     "title": "«Ce n’est pas arrivé depuis le 11-Septembre» : l’inquiétude et l’agacement des centaines de milliers de passagers bloqués dans les aéroports américains",
-     "desc": "TÉMOIGNAGES - Les vols aux États-Unis ont été suspendus vendredi pendant plusieurs heures en raison d’une importante panne de communication. Près de 6000 voyages ont été annulés et des centaines de milliers de passagers…",
-     "link": "https://www.lefigaro.fr/international/ce-n-est-pas-arrive-depuis-le-11-septembre-l-inquietude-et-l-agacement-des-centaines-de-milliers-de-passagers-bloques-dans-les-aeroports-americains-20261114",
-     "source": "Le Figaro",
-     "date": "2026-11-14T09:52:57+00:00"
+     "title": "How African philosophies inspired a new approach to staging film festivals in Manchester",
+     "desc": "See My World, an event highlighting the pan-African thought via film, poetry and dance, builds on momentum sparked by local activists and creatives African philosophies including exploring how lessons from the past can…",
+     "link": "https://www.theguardian.com/news/2026/nov/08/african-philosophies-see-my-world-film-festival-manchester",
+     "source": "The Guardian",
+     "date": "2026-11-08T12:00:39+00:00"
     },
     {
-     "title": "En Pologne, les victimes de l’occupation s’éteignent sans avoir reçu d’indemnisation : une fondation fait appel à la générosité des citoyens allemands",
-     "desc": "RÉCIT - Jerzy Tarasiewicz, président de la section de Gdańsk de l’Association des Polonais persécutés par le IIIe Reich, est décédé en septembre, à l’âge de 84 ans.",
-     "link": "https://www.lefigaro.fr/international/en-pologne-les-victimes-de-l-occupation-s-eteignent-sans-avoir-recu-d-indemnisation-une-fondation-fait-appel-a-la-generosite-des-citoyens-allemands-20261114",
-     "source": "Le Figaro",
-     "date": "2026-11-14T08:15:00+00:00"
+     "title": "Kenyan doomsday sect leader jailed for 200 years for murder of 190 children",
+     "desc": "Paul Mackenzie convicted over deaths of children and one adult after followers were ordered to starve themselves and their families The leader of a Kenyan doomsday sect has been sentenced to 200 years in prison for the…",
+     "link": "https://www.theguardian.com/world/2026/nov/06/kenyan-doomsday-sect-leader-jailed-murders-paul-mackenzie",
+     "source": "The Guardian",
+     "date": "2026-11-06T15:08:43+00:00"
     }
    ]
   },
@@ -864,60 +1242,207 @@
    "title": "Sport",
    "items": [
     {
-     "title": "En larmes, Rory McIlroy dédie son sacre sur le circuit européen à son père : « Celle-ci, elle est pour lui »",
-     "desc": "Ce dimanche, Rory McIlroy a égalé la légende Colin Montgomerie en remportant pour la huitième fois le classement général du circuit européen. Interviewé à chaud, le Nord-Irlandais a été submergé par l'émotion et a dédié…",
-     "link": "https://www.lequipe.fr/Golf/Actualites/En-larmes-rory-mcilroy-dedie-son-sacre-sur-le-circuit-europeen-a-son-pere-celle-ci-elle-est-pour-lui/1743812#at_medium=RSS_feeds",
+     "title": "EN DIRECT - France-Turquie : Mbappé est bien de retour, les Bleus de Zidane en quête de rachat",
+     "desc": "Les Bleus reçoivent la Turquie à Bordeaux ce dimanche pour faire oublier leur défaite en Italie jeudi dernier. Ils n’ont besoin que d’un match nul afin de se qualifier pour les quarts de finale de la Ligue des nations.",
+     "link": "https://www.lefigaro.fr/sports/football/live/ligue-des-nations/2026/2627015/france-turquie",
+     "source": "Le Figaro",
+     "date": "2026-11-15T19:33:02+00:00"
+    },
+    {
+     "title": "Ronaldinho, 46, makes comeback for Ravenna",
+     "desc": "Brazil legend Ronaldinho makes his comeback aged 46 for Ravenna, playing the first half of their Italian third-tier derby against Forli.",
+     "link": "https://www.bbc.co.uk/sport/football/articles/ckregz4g823xo?at_medium=RSS&at_campaign=rss",
+     "source": "BBC",
+     "date": "2026-11-15T19:31:48+00:00"
+    },
+    {
+     "title": "Quatre médailles par équipes pour la France sur la deuxième étape de Coupe du monde de la saison",
+     "desc": "Pour le deuxième week-end de Coupe du monde de la saison, les Bleus ont décroché quatre médailles sur les épreuves par équipes ce dimanche, avec deux podiums au sabre au Caire (Égypte), l'argent pour le fleuret femmes à…",
+     "link": "https://www.lequipe.fr/Escrime/Actualites/Quatre-medailles-par-equipes-pour-la-france-sur-la-deuxieme-etape-de-coupe-du-monde-de-la-saison/1743873#at_medium=RSS_feeds",
      "source": "L'Équipe",
-     "date": "2026-11-15T14:13:19+00:00"
+     "date": "2026-11-15T19:28:59+00:00"
     },
     {
-     "title": "Foot : Hugo Lloris, premier joueur français à franchir les 1 000 matchs professionnels",
-     "desc": "Le 26 octobre, Hugo Lloris est entré dans l’histoire en devenant le premier Français à dépasser les 1 000 matchs professionnels. Une performance qui vient couronner près de deux décennies au plus haut niveau.",
-     "link": "https://www.lefigaro.fr/sports/football/foot-hugo-lloris-premier-joueur-francais-a-franchir-les-1-000-matchs-professionnels-20261115",
+     "title": "France-Turquie : une minute d’applaudissements en hommage aux pompiers de Gironde",
+     "desc": "Après les incendies de l’été dernier dans la région bordelaise, un hommage a été rendu aux pompiers dimanche soir avant la rencontre des Bleus face à la Turquie.",
+     "link": "https://www.lefigaro.fr/sports/football/ligue-des-nations/france-turquie-une-minute-d-applaudissements-en-hommage-aux-pompiers-de-gironde-20261115",
      "source": "Le Figaro",
-     "date": "2026-11-15T14:10:42+00:00"
+     "date": "2026-11-15T19:28:51+00:00"
     },
     {
-     "title": "Coupe de France: un club de R1 dénonce l'attitude de Reims qui a pris sa part de recette... pour un tout petit chèque",
-     "desc": "Auprès de la Voix du Nord, le président de l'US Tourcoing a regretté que le Stade de Reims ne laisse pas sa part de la recette dans la foulée du 7e tour de la Coupe de France.",
-     "link": "https://rmcsport.bfmtv.com/football/coupe-de-france/coupe-de-france-un-club-de-r1-denonce-l-attitude-de-reims-qui-a-pris-sa-part-de-recette-pour-un-tout-petit-cheque_AN-202611150276.html",
+     "title": "NFL week 10: Lions thrash Patriots, Vikings v Packers and more – live",
+     "desc": "Drake Maye injured as Lions beat Patriots 35-10 Get in touch: email Graham and follow us on BlueSky Patriots 3-28 Lions 1:54, 3rd quarter Some stattage for now and later: Lions running back Jahmyr Gibbs has tied HoF’er…",
+     "link": "https://www.theguardian.com/sport/live/2026/nov/15/nfl-week-10-lions-v-patriots-and-more-live",
+     "source": "The Guardian",
+     "date": "2026-11-15T19:26:47+00:00"
+    },
+    {
+     "title": "Spain v England: Nations League – live",
+     "desc": "Updates from 7.45pm (GMT) kick-off in Madrid Get in touch: email Daniel and follow us on BlueSky Tuchel speaks, telling ITV that “it’s a beautiful match”. They’ve qualified, done their homework and now can try and top…",
+     "link": "https://www.theguardian.com/football/live/2026/nov/15/spain-v-england-nations-league-live",
+     "source": "The Guardian",
+     "date": "2026-11-15T19:25:22+00:00"
+    },
+    {
+     "title": "EN DIRECT - Tennis : Arthur Fils défie Ben Shelton pour ses débuts au Masters",
+     "desc": "Le Français de 22 ans va tenter de renverser le 4e joueur mondial, finaliste du dernier Masters 1000 parisien.",
+     "link": "https://www.lefigaro.fr/sports/tennis/en-direct-tennis-arthur-fils-defie-ben-shelton-pour-ses-debuts-au-masters-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T19:24:02+00:00"
+    },
+    {
+     "title": "WTA Finals final: Elina Svitolina v Mirra Andreeva – live",
+     "desc": "Players meet for end of year championship Sabalenka apologizes to Svitolina after outburst If you like off-court drama, this is the tournament for you. Coco Gauff expressed but then clarified some reservations about the…",
+     "link": "https://www.theguardian.com/sport/live/2026/nov/15/wta-finals-final-elina-svitolina-v-mirra-andreeva-live",
+     "source": "The Guardian",
+     "date": "2026-11-15T19:16:34+00:00"
+    },
+    {
+     "title": "Bagarre générale, six cartons rouges: le match amical New York Red Bull-Club America part en vrille",
+     "desc": "Le match amical entre les New York Red Bull et le Club America, disputé dans la nuit de samedi à dimanche, a totalement dérapé dans les dernières minutes. Une bagarre générale a éclaté et l'arbitre a dégainé une pluie…",
+     "link": "https://rmcsport.bfmtv.com/football/bagarre-generale-six-cartons-rouges-le-match-amical-new-york-red-bull-club-america-part-en-vrille_AN-202611150379.html",
      "source": "RMC Sport",
-     "date": "2026-11-15T14:08:39+00:00"
+     "date": "2026-11-15T19:11:18+00:00"
     },
     {
-     "title": "Ligue des nations : stade Atlantique à guichets fermés, hommage à Carlo Molinari… Les dernières informations avant le match France-Turquie",
-     "desc": "La France reçoit la Turquie ce dimanche soir à Bordeaux (20h45) pour le compte de la 6e et dernière journée de la phase de groupes de Ligue des nations. Découvrez les dernières infos de cette rencontre.",
-     "link": "https://www.lefigaro.fr/sports/football/ligue-des-nations/ligue-des-nations-stade-atlantique-a-guichets-fermes-hommage-a-carlo-molinari-les-informations-avant-le-match-france-turquie-20261115",
+     "title": "Tennis : invités surprises, Arribagé et Olivetti s'inclinent d'entrée au double du Masters ATP",
+     "desc": "La paire française composée de Théo Arribagé et Albano Olivetti s’est inclinée ce dimanche lors de son match d’ouverture du double du Masters ATP.",
+     "link": "https://www.lefigaro.fr/sports/tennis/tennis-invites-surprises-arribage-et-olivetti-s-inclinent-d-entree-au-double-du-masters-atp-20261115",
      "source": "Le Figaro",
-     "date": "2026-11-15T14:00:38+00:00"
+     "date": "2026-11-15T19:09:23+00:00"
     },
     {
-     "title": "Karting, karaoké et mont Fuji : dans les pas de Seixas en Asie",
+     "title": "Judo: Mkheidze, Gobert, Fontaine... Trois médailles de bronze pour les Bleus à Zagreb",
+     "desc": "L’équipe de France ramène trois médailles de bronze de Zagreb ce week-end grâce à Luka Mkheidze (-60kg), Maxime Gobert (-73kg) et Léa Fontaine (+78kg). Une relance en vue d’un mois de décembre très dense.",
+     "link": "https://rmcsport.bfmtv.com/judo/judo-mkheidze-gobert-fontaine-trois-medailles-de-bronze-pour-les-bleus-a-zagreb_AV-202611150376.html",
+     "source": "RMC Sport",
+     "date": "2026-11-15T19:08:33+00:00"
+    },
+    {
+     "title": "Une gifle contre la Finlande mais un moment historique : Nicola Nanni a inscrit le premier doublé de l'histoire de Saint-Marin",
+     "desc": "Si Saint-Marin a été lourdement battu par la Finlande (2-7) dimanche soir en Ligue des nations, Nicola Nanni a marqué l'histoire de sa sélection en devenant le premier joueur à inscrire un doublé.",
+     "link": "https://www.lequipe.fr/Football/Actualites/Une-gifle-contre-la-finlande-mais-un-moment-historique-nicola-nanni-a-inscrit-le-premier-double-de-l-histoire-de-saint-marin/1743867#at_medium=RSS_feeds",
+     "source": "L'Équipe",
+     "date": "2026-11-15T19:06:11+00:00"
+    },
+    {
+     "title": "Matthieu Dossevi : «Zaïre-Emery apporterait un meilleur équilibre»",
      "desc": "",
-     "link": "https://www.lequipe.fr/Cyclisme-sur-route/Article/Karting-karaoke-et-mont-fuji-dix-jours-dans-les-pas-de-paul-seixas-en-asie/1743810#at_medium=RSS_feeds",
+     "link": "https://www.lequipe.fr/Football/Video/Ligue-des-nations-matthieu-dossevi-warren-zaire-emery-apporterait-un-meilleur-equilibre-a-la-place-de-rayan-cherki/20245642#at_medium=RSS_feeds",
      "source": "L'Équipe",
-     "date": "2026-11-15T13:55:58+00:00"
+     "date": "2026-11-15T19:06:00+00:00"
     },
     {
-     "title": "Masters: à quelle heure et sur quelle chaîne TV regarder le match entre Arthur Fils et Ben Shelton",
-     "desc": "Premier tennisman français à disputer les Masters depuis 2016, Arthur Fils entre en lice dimanche soir face à l’Américain Ben Shelton, récent finaliste du Masters 1000 de Paris.",
-     "link": "https://rmcsport.bfmtv.com/tennis/atp/masters-a-quelle-heure-et-sur-quelle-chaine-tv-regarder-le-match-entre-arthur-fils-et-ben-shelton_AV-202611150264.html",
+     "title": "Lucu : «C'était mon plus gros défi avec l'équipe de France»",
+     "desc": "",
+     "link": "https://www.lequipe.fr/Rugby/Article/Replace-en-10-contre-l-afrique-du-sud-maxime-lucu-se-souviendra-de-ce-match-toute-sa-vie-c-etait-mon-plus-gros-defi-avec-l-equipe-de-france/1743734#at_medium=RSS_feeds",
+     "source": "L'Équipe",
+     "date": "2026-11-15T19:05:00+00:00"
+    },
+    {
+     "title": "Tribune spéciale, passe-clé sur le but, sourires et attrait médiatique: le débrief du match de Ronaldinho, de retour chez les pros avec Ravenne",
+     "desc": "La star du football brésilien Ronaldinho a fait son retour chez les professionnels ce dimanche avec le club italien du Ravenna FC en Serie C (troisième division). À 46 ans, le Ballon d'or 2005 n'aura tenu qu'une…",
+     "link": "https://rmcsport.bfmtv.com/football/tribune-speciale-passe-cle-sur-le-but-sourires-et-attrait-mediatique-le-debrief-du-match-de-ronaldinho-de-retour-chez-les-pros-avec-ravenne_AN-202611150375.html",
      "source": "RMC Sport",
-     "date": "2026-11-15T13:55:09+00:00"
+     "date": "2026-11-15T19:04:43+00:00"
     },
     {
-     "title": "Déçu par son dernier tour, Victor Perez, 5e du DP World Tour Championship, évoquait « une journée difficile »",
-     "desc": "Jamais dans le rythme sur les greens, contrairement aux jours précédents, le Français Victor Perez n'a pas réussi à maintenir la cadence imposée par son partenaire de dernière partie Tyrrell Hatton, vainqueur avec 5…",
-     "link": "https://www.lequipe.fr/Golf/Actualites/Decu-par-son-dernier-tour-victor-perez-5e-du-dp-world-tour-championship-evoquait-une-journee-difficile/1743809#at_medium=RSS_feeds",
+     "title": "«Combat fou» : les stars du MMA emballées par le duel Gane-Hokit",
+     "desc": "",
+     "link": "https://www.lequipe.fr/Mma/Actualites/-combat-fou-super-guerre-les-stars-du-mma-emballees-apres-le-combat-remporte-par-ciryl-gane-contre-josh-hokit/1743795#at_medium=RSS_feeds",
      "source": "L'Équipe",
-     "date": "2026-11-15T13:50:39+00:00"
+     "date": "2026-11-15T19:04:00+00:00"
     },
     {
-     "title": "La mémoire de Carlo Molinari sera honorée avant France-Turquie",
-     "desc": "Une minute d'applaudissement sera observée en hommage à Carlo Molinari, mythique président du FC Metz décédé le 4 novembre, avant la rencontre de Ligue des nations entre la France et la Turquie ce dimanche (20 h 45).",
-     "link": "https://www.lequipe.fr/Football/Actualites/La-memoire-de-carlo-molinari-sera-honoree-avant-france-turquie/1743808#at_medium=RSS_feeds",
+     "title": "12 jours après la mort sur le terrain de son attaquant Jesus de Miguel, Tenerife a rejoué et gagné pour « Demi »",
+     "desc": "Douze jours après le décès de Jesus de Miguel dans un accident tragique, le CD Tenerife a rejoué dans son stade face à l'AD Ceuta dimanche. Et l'a emporté (2-0) au bout d'une journée particulière, bercée de souvenirs et…",
+     "link": "https://www.lequipe.fr/Football/Actualites/Pres-de-deux-semaines-apres-la-mort-sur-le-terrain-de-son-attaquant-jesus-de-miguel-tenerife-a-rejoue-et-gagne-pour-demi/1743863#at_medium=RSS_feeds",
      "source": "L'Équipe",
-     "date": "2026-11-15T13:33:22+00:00"
+     "date": "2026-11-15T19:02:25+00:00"
+    },
+    {
+     "title": "Basket : Nanterre remporte le choc contre Dijon, Gravelines gagne enfin",
+     "desc": "Le duel de haut de tableau entre Dijon et Nanterre a tourné à l’avantage des Nanterriens (101-91), dimanche, lors de la 8e journée du championnat de France.",
+     "link": "https://www.lefigaro.fr/sports/basket/basket-nanterre-remporte-le-choc-contre-dijon-gravelines-gagne-enfin-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T19:00:33+00:00"
+    },
+    {
+     "title": "Foot : «Nous nous souviendrons toujours», le retour à la compétition de Tenerife marqué par un hommage poignant à Jesús de Miguel",
+     "desc": "Seulement quelques jours après le drame, Tenerife retrouvait la compétition ce dimanche face à Ceuta, à l’occasion d’une rencontre chargée en émotion.",
+     "link": "https://www.lefigaro.fr/sports/football/foot-nous-nous-souviendrons-toujours-le-retour-a-la-competition-de-tenerife-marque-par-un-hommage-poignant-a-jesus-de-miguel-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T18:55:03+00:00"
+    },
+    {
+     "title": "Coupe du monde de patinage de vitesse à Pékin : Le bilan des Bleus",
+     "desc": "L’étape de Pékin s’est terminée dimanche avec la 4e place des Français en poursuite, à 36 centièmes des États-Unis",
+     "link": "https://www.20minutes.fr/sport/4262983-20261115-coupe-monde-patinage-vitesse-pekin-bilan-bleus?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T18:54:11+00:00"
+    },
+    {
+     "title": "Mary Earps frustrates Arsenal as London City Lionesses earn battling draw",
+     "desc": "Arsenal and London City Lionesses played out an entertaining 1-1 draw but the result did little to bolster European qualification hopes for Renée Slegers’s side as the visitors’ goalkeeper Mary Earps produced a fine…",
+     "link": "https://www.theguardian.com/football/2026/nov/15/arsenal-london-city-lionesses-womens-super-league-wsl-match-report",
+     "source": "The Guardian",
+     "date": "2026-11-15T18:53:08+00:00"
+    },
+    {
+     "title": "\"Si le président m'appelle, je serai là\": Ronaldinho pas fermé à jouer encore un match avec Ravenne en Italie",
+     "desc": "Titularisé ce dimanche avec Ravenne en troisième division italienne onze ans après avoir pris sa retraite, Ronaldinho a réussi à tenir 45 minutes et même été à l'origine du premier but de son équipe. À 46 ans, celui qui…",
+     "link": "https://rmcsport.bfmtv.com/football/serie-a/si-le-president-m-appelle-je-serai-la-ronaldinho-pas-ferme-a-jouer-encore-un-match-avec-ravenne-en-itali_AN-202611150368.html",
+     "source": "RMC Sport",
+     "date": "2026-11-15T18:52:26+00:00"
+    },
+    {
+     "title": "Aberdeen appoint Liechtenstein's Frick as head coach",
+     "desc": "Former Liechtenstein striker Mario Frick is announced as the new head coach of Aberdeen.",
+     "link": "https://www.bbc.co.uk/sport/football/articles/cqrmgz9ypvwko?at_medium=RSS&at_campaign=rss",
+     "source": "BBC",
+     "date": "2026-11-15T18:27:08+00:00"
+    },
+    {
+     "title": "EN DIRECT, France-Turquie : Kylian Mbappé de retour avec les Bleus, première sélection pour Saël Kumbedi",
+     "desc": "Après leur défaite contre les Italiens, les Bleus ont perdu la première place de leur groupe en Ligue des nations. Pour espérer la retrouver et se qualifier pour les quarts de finale, ils devront s’imposer face à la…",
+     "link": "https://www.lemonde.fr/sport/live/2026/11/15/en-direct-france-turquie-suivez-le-match-de-ligue-des-nations-de-football_6811042_3242.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T17:45:08+00:00"
+    },
+    {
+     "title": "Scotland hold off late Australia rally to secure narrow victory",
+     "desc": "Scotland 15-12 Australia Fagerson and Dempsey touch down in Murrayfiield After the pyrotechnics in Paris on Friday and a wondrous Welsh win in Cardiff on Saturday, this was a much more prosaic affair. Not that the…",
+     "link": "https://www.theguardian.com/sport/2026/nov/15/scotland-australia-nations-championship-rugby-union-match-report",
+     "source": "The Guardian",
+     "date": "2026-11-15T17:37:08+00:00"
+    },
+    {
+     "title": "Final whistle a blessing as Scotland edge dull Test against Australia",
+     "desc": "Scotland edge a dull Nations Championship encounter against Australia at Murrayfield.",
+     "link": "https://www.bbc.co.uk/sport/rugby-union/articles/cmd91np3pqk0o?at_medium=RSS&at_campaign=rss",
+     "source": "BBC",
+     "date": "2026-11-15T17:17:57+00:00"
+    },
+    {
+     "title": "Victime d’une grosse chute en 2024, Eddy Merckx donne des nouvelles rassurantes après ses neuf opérations à la hanche",
+     "desc": "Le « Cannibale » semble optimiste quant à ses capacités de remonter sur un vélo de course après avoir subi neuf opérations de la hanche, consécutives à une lourde chute en décembre 2024",
+     "link": "https://www.20minutes.fr/sport/cyclisme/4262980-20261115-victime-grosse-chute-2024-eddy-merckx-donne-nouvelles-rassurantes-apres-neuf-operations-hanche?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T17:14:46+00:00"
+    },
+    {
+     "title": "Chapecoense crash survivor wins promotion in final game",
+     "desc": "Alan Ruschel, one of six survivors in the 2016 plane crash that was carrying members of the Chapecoense team, wins promotion to Brazil‘s Serie A in his final match before retiring.",
+     "link": "https://www.bbc.co.uk/sport/football/articles/ckp8017p1e3go?at_medium=RSS&at_campaign=rss",
+     "source": "BBC",
+     "date": "2026-11-15T17:10:24+00:00"
+    },
+    {
+     "title": "DIRECT. Espagne-Angleterre: suivez le choc de la 6e journée de la Ligue des nations",
+     "desc": "Depuis son sacre lors de la Coupe du monde cet été, l'Espagne a enchaîné cinq victoires de suite en Ligue des nations. Ce dimanche (20h45), à Madrid, la Roja reçoit l'Angleterre pour un match comptant pour la dernière…",
+     "link": "https://rmcsport.bfmtv.com/football/ligue-des-nations/direct-espagne-angleterre-suivez-le-choc-de-la-6e-journee-de-la-ligue-des-nations_LS-202611150260.html",
+     "source": "RMC Sport",
+     "date": "2026-11-15T16:45:49+00:00"
     },
     {
      "title": "Ronaldinho effectue son grand retour sur les terrains de foot… avec le Ravenna FC, en troisième division italienne",
@@ -925,41 +1450,6 @@
      "link": "https://www.lemonde.fr/sport/article/2026/11/15/ronaldinho-ballon-d-or-2005-effectue-son-grand-retour-sur-le-terrain-en-troisieme-division-italienne_6811022_3242.html",
      "source": "Le Monde",
      "date": "2026-11-15T13:30:08+00:00"
-    },
-    {
-     "title": "\"Humiliation\", \"leçon de football\", Crisitano Ronaldo \"hante déjà le pays\"... La presse portugaise sans merci après la déroute face au Danemark",
-     "desc": "Pour son premier match après la retraite internationale de Cristiano Ronaldo, le Portugal a été humilié à domicile contre le Danemark en Ligue des nations ce samedi (4-1). Une déroute historique que la presse portugaise…",
-     "link": "https://rmcsport.bfmtv.com/football/equipe-portugal/humiliation-lecon-de-football-crisitano-ronaldo-hante-deja-le-pays-la-presse-portugaise-sans-merci-apres-la-deroute-face-au-danemark_AV-202611150253.html",
-     "source": "RMC Sport",
-     "date": "2026-11-15T13:23:52+00:00"
-    },
-    {
-     "title": "Le milieu, la petite révolution opérée par Zidane",
-     "desc": "",
-     "link": "https://www.lequipe.fr/Football/Article/Record-de-passes-vers-la-surface-mais-espaces-beants-forces-et-faiblesses-de-la-revolution-par-le-milieu-lancee-par-zinedine-zidane/1743726#at_medium=RSS_feeds",
-     "source": "L'Équipe",
-     "date": "2026-11-15T13:22:00+00:00"
-    },
-    {
-     "title": "Jeanmonnot : «J’ai cru que j’allais me faire avoir»",
-     "desc": "",
-     "link": "https://www.lequipe.fr/Biathlon/Video/Bleues-lou-jeanmonnot-apres-sa-victoire-sur-la-mass-start-de-bessans-j-ai-cru-que-j-allais-me-faire-avoir-il-fallait-se-depouiller-jusqu-a-la-fin/20245614#at_medium=RSS_feeds",
-     "source": "L'Équipe",
-     "date": "2026-11-15T13:21:00+00:00"
-    },
-    {
-     "title": "Ski alpin : Clément Noël dauphin de Lucas Pinheiro Braathen lors du slalom de Levi",
-     "desc": "Le Français n’a rien pu faire pour contrecarrer la domination du Brésilien, net vainqueur sur le tracé finlandais.",
-     "link": "https://www.lefigaro.fr/sports/sports-d-hiver/ski-alpin-clement-noel-dauphin-de-lucas-pinheiro-braathen-lors-du-slalom-de-levi-20261115",
-     "source": "Le Figaro",
-     "date": "2026-11-15T13:20:48+00:00"
-    },
-    {
-     "title": "Ski: Clément Noël sur le podium du slalom de Levi",
-     "desc": "Clément Noël a pris la deuxième place du premier slalom de la saison de Coupe du monde ce dimanche à Levi en Finlande, seulement devancé par le Brésilien Lucas Pinheiro Braathen.",
-     "link": "https://rmcsport.bfmtv.com/sports-d-hiver/ski-alpin/ski-clement-noel-sur-le-podium-du-slalom-de-levi_AV-202611150251.html",
-     "source": "RMC Sport",
-     "date": "2026-11-15T13:17:30+00:00"
     },
     {
      "title": "Comment le jeu vidéo \"Absolum\" a-t-il été créé ?",
@@ -970,31 +1460,31 @@
     },
     {
      "title": "Clément Noël deuxième du premier slalom de la saison de Coupe du monde, remporté par Lucas Pinheiro Braathen",
-     "desc": "Belle performance de Clément Noël pour sa reprise avec une deuxième place à Levi dimanche, où Lucas Pinheiro Braathen a enchaîné un deuxième succès.",
+     "desc": "Le Français a signé une jolie performance pour sa reprise avec une deuxième place à Levi (Finlande) dimanche, où le Brésilien a enchaîné un deuxième succès.",
      "link": "https://www.franceinfo.fr/sports/sports-d-hiver/ski-alpin/coupe-du-monde/clement-noel-deuxieme-du-premier-slalom-de-la-saison-de-coupe-du-monde-remporte-par-lucas-pinheiro-braathen_8283554.html#xtor=RSS-3-%5Bsports%5D",
      "source": "franceinfo",
      "date": "2026-11-15T12:57:23+00:00"
     },
     {
-     "title": "DIRECT. Coupe de France: Nantes, Saint-Etienne, Red Star, Metz... suivez la suite et fin du 7e tour",
-     "desc": "Le septième tour de la Coupe de France se poursuit ce dimanche, avec plusieurs rencontres impliquant des clubs de Ligue 2 dont Nantes, Saint-Etienne, Metz et le Red Star notamment. La journée est à suivre en direct…",
-     "link": "https://rmcsport.bfmtv.com/football/coupe-de-france/direct-coupe-de-france-nantes-saint-etienne-red-star-metz-suivez-la-suite-et-fin-du-7e-tour_LS-202611150240.html",
-     "source": "RMC Sport",
-     "date": "2026-11-15T12:52:25+00:00"
+     "title": "'We got disrespected' - Walsh and Australia make World Cup point",
+     "desc": "Reece Walsh gave a powerful response to Australia's critics as they secured a fourth successive World Cup triumph, saying that: \"I feel we got disrespected.\"",
+     "link": "https://www.bbc.co.uk/sport/rugby-league/articles/cw808lm89x81o?at_medium=RSS&at_campaign=rss",
+     "source": "BBC",
+     "date": "2026-11-15T12:50:36+00:00"
     },
     {
-     "title": "Surf : Johanne Defay se rapproche du titre lors des Championnats du monde",
-     "desc": "La Française est la dernière rescapée française de la compétition organisée à Punta Rocas, au Pérou. Kauli Vaast, lui, a été éliminé.",
-     "link": "https://www.lefigaro.fr/sports/autres-sports/surf-johanne-defay-se-rapproche-du-titre-lors-des-championnats-du-monde-20261115",
-     "source": "Le Figaro",
-     "date": "2026-11-15T11:33:03+00:00"
+     "title": "Tearful McIlroy dedicates record-equalling win to ill dad",
+     "desc": "Rory McIlroy wipes away tears as he dedicates his record-equalling eighth Race to Dubai title to his ill father, Gerry.",
+     "link": "https://www.bbc.co.uk/sport/golf/articles/c6kg7rwmz1g8o?at_medium=RSS&at_campaign=rss",
+     "source": "BBC",
+     "date": "2026-11-15T12:14:04+00:00"
     },
     {
-     "title": "France-Turquie : Kylian Mbappé, pourquoi le retour du patron des Bleus est (très) attendu",
-     "desc": "DÉCRYPTAGE - Forfait jeudi lors de la défaite en Italie, le capitaine doit reprendre du service dimanche contre la Turquie. Zinédine Zidane est impatient de le retrouver.",
-     "link": "https://www.lefigaro.fr/sports/football/ligue-des-nations/france-turquie-kylian-mbappe-pourquoi-le-retour-du-patron-des-bleus-est-tres-attendu-20261115",
-     "source": "Le Figaro",
-     "date": "2026-11-15T11:00:00+00:00"
+     "title": "Banton’s century leads England to emphatic win in second ODI amid Australian soap opera",
+     "desc": "Australia’s sandpaper soap opera has become one of alternative facts, but recollections of the second game in this one-day international series are unlikely to differ too greatly. For Tom Banton and Gus Atkinson,…",
+     "link": "https://www.theguardian.com/sport/2026/nov/15/tom-banton-century-england-win-second-mens-cricket-odi-australia",
+     "source": "The Guardian",
+     "date": "2026-11-15T11:51:53+00:00"
     },
     {
      "title": "Paul Seixas remporte le Critérium de Saitama, un succès pour « bien finir » sa belle année 2026",
@@ -1004,15 +1494,8 @@
      "date": "2026-11-15T10:51:55+00:00"
     },
     {
-     "title": "Ski alpin : Lucas Pinheiro Braathen survole la première manche du slalom de Levi, Clément Noël très bien placé",
-     "desc": "Le Brésilien a réalisé une prestation magnifique pour prendre plus de six dixièmes d’avance sur le Français avant le second acte.",
-     "link": "https://www.lefigaro.fr/sports/sports-d-hiver/ski-alpin-lucas-pinheiro-braathen-survole-la-premiere-manche-du-slalom-de-levi-clement-noel-tres-bien-place-20261115",
-     "source": "Le Figaro",
-     "date": "2026-11-15T10:45:23+00:00"
-    },
-    {
      "title": "Paul Seixas conclut sa saison en remportant le critérium de Saitama devant le champion du monde Brandon McNulty",
-     "desc": "La star du cyclisme français s'est jouée de l'Américain de la formation UAE Emirates – XRG dans les derniers kilomètres pour remporter l'épreuve, qui ne compte pas pour le calendrier UCI.",
+     "desc": "La star du cyclisme français s'est jouée de l'Américain de la formation UAE Emirates–XRG dans les derniers kilomètres pour remporter l'épreuve, qui ne compte pas pour le calendrier UCI.",
      "link": "https://www.franceinfo.fr/sports/cyclisme/paul-seixas-conclut-sa-saison-en-remportant-le-criterium-de-saitama-devant-le-champion-du-monde-brandon-mcnulty_8283323.html#xtor=RSS-3-%5Bsports%5D",
      "source": "franceinfo",
      "date": "2026-11-15T10:37:16+00:00"
@@ -1025,8 +1508,8 @@
      "date": "2026-11-15T09:51:59+00:00"
     },
     {
-     "title": "Après un rude combat, Ciryl Gane conserve son titre des poids lourds de l'UFC",
-     "desc": "Dans le mythique Madison Square Garden de New York, le Français a dû attendre la fin des cinq rounds samedi pour obtenir la victoire contre l'Américain Josh Hokit, et réussir son premier combat à défendre sa ceinture.",
+     "title": "MMA : après un rude combat, Ciryl Gane conserve son titre des poids lourds de l'UFC",
+     "desc": "Dans le mythique Madison Square Garden de New York, le Français a dû attendre la fin des cinq rounds, samedi, pour obtenir la victoire contre l'Américain Josh Hokit, et réussir son premier combat à défendre sa ceinture.",
      "link": "https://www.franceinfo.fr/sports/mma/apres-un-rude-combat-ciryl-gane-conserve-son-titre-des-poids-lourds-de-l-ufc_8283269.html#xtor=RSS-3-%5Bsports%5D",
      "source": "franceinfo",
      "date": "2026-11-15T08:32:42+00:00"
@@ -1060,18 +1543,11 @@
      "date": "2026-11-15T06:32:37+00:00"
     },
     {
-     "title": "France-Turquie : Sur quelle chaîne TV et à quelle heure voir la 6e journée de la Ligue des nations ?",
-     "desc": "Dimanche à 20h45, les Bleus, leaders ex aequo avec l’Italie, doivent valider leur qualification en quarts de finale de la compétition face aux Turcs, lanterne rouge du groupe 1",
-     "link": "https://www.20minutes.fr/sport/football/4262878-20261115-france-turquie-chaine-tv-heure-voir-6e-journee-ligue-nations?at_medium=display&at_campaign=149",
-     "source": "20 Minutes",
-     "date": "2026-11-15T06:17:37+00:00"
-    },
-    {
      "title": "Finales ATP : entre les blessures des uns et les progrès des autres, l’élite du tennis se renouvelle",
      "desc": "Quatre des huit joueurs engagés disputent pour la première fois le traditionnel tournoi de fin de saison, qui démarre le 15 novembre à Turin. Leur qualification tient autant à leurs performances qu’à la succession de…",
      "link": "https://www.lemonde.fr/sport/article/2026/11/15/finales-atp-entre-les-blessures-des-uns-et-les-progres-des-autres-l-elite-du-tennis-se-renouvelle_6810989_3242.html",
      "source": "Le Monde",
-     "date": "2026-11-15T05:30:21+00:00"
+     "date": "2026-11-15T05:30:13+00:00"
     },
     {
      "title": "Tennis : Sabalenka fait son mea culpa pour sa colère lors de sa défaite contre Svitolina",
@@ -1100,20 +1576,6 @@
      "link": "https://www.lemonde.fr/pixels/article/2026/11/14/the-finalslam-un-show-de-catch-entre-influenceurs-qui-crispe-certains-passionnes_6810455_4408996.html",
      "source": "Le Monde",
      "date": "2026-11-14T17:00:08+00:00"
-    },
-    {
-     "title": "Finales ATP 2026 : Sur quelle chaîne TV voir les matches ?",
-     "desc": "Les premiers matches des Nitto ATP Finals se jouent ce dimanche à Turin, avec notamment l’entrée en lice d’Arthur Fils contre Ben Shelton. Découvrez comment suivre les rencontres en direct",
-     "link": "https://www.20minutes.fr/sport/tennis/4262879-20261114-finales-atp-2026-chaine-tv-voir-matches?at_medium=display&at_campaign=149",
-     "source": "20 Minutes",
-     "date": "2026-11-14T16:43:13+00:00"
-    },
-    {
-     "title": "Le Pays de Galles signe un exploit en rugby, en battant la Nouvelle-Zélande pour la première fois depuis 1953",
-     "desc": "Le XV du Poireau s’est imposé 35-28 face aux All Blacks, samedi à Cardiff, dans le cadre de la cinquième journée du Championnat des nations, grâce à cinq essais marqués et une défense acharnée en fin de match.",
-     "link": "https://www.lemonde.fr/sport/article/2026/11/14/le-pays-de-galles-signe-un-exploit-en-rugby-en-battant-la-nouvelle-zelande-pour-la-premiere-fois-depuis-1953_6810451_3242.html",
-     "source": "Le Monde",
-     "date": "2026-11-14T16:39:10+00:00"
     }
    ]
   }

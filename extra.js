@@ -228,6 +228,24 @@ const appLabel = (s) => (APP_STATUS.find((x) => x.id === s) || APP_STATUS[0]).la
 const appOpen = (a) => a.status === 'todo' || a.status === 'doing';
 const appWaiting = (a) => a.status === 'sent' || a.status === 'interview';
 
+// Bulle d'ajout d'une candidature.
+function openNewApp() {
+  $('#sheetBody').innerHTML = `
+    <div class="grab"></div>
+    <h2>Nouvelle candidature</h2>
+    <form class="stack" data-f="addApp">
+      <label>Intitulé<input name="title" placeholder="Ex. ESSEC — dossier AST, Stage chez…" autocomplete="off"></label>
+      <div class="two">
+        <label>Type<select name="kind">${APP_KINDS.map((k) => `<option>${k}</option>`).join('')}</select></label>
+        <label>Date limite (optionnelle)<input type="date" name="due"></label>
+      </div>
+      <button class="btn primary wide">Ajouter la candidature</button>
+    </form>
+    <button class="link" data-a="closeSheet">Annuler</button>`;
+  $('#sheet').hidden = false;
+  $('#sheetBody').scrollTop = 0;
+}
+
 function viewApps() {
   const t = today();
   const byDue = (a, b) => (a.due || '9999').localeCompare(b.due || '9999') || a.at - b.at;
@@ -257,14 +275,7 @@ function viewApps() {
       <div class="${next && next.due < t ? 'neg' : ''}"><b>${next ? esc(countdown(next.due)) : '—'}</b><small>prochaine échéance</small></div>
     </section>`;
 
-  html += card('Nouvelle candidature', `<form class="stack" data-f="addApp">
-      <input name="title" placeholder="Ex. ESSEC — dossier AST, Stage chez…" autocomplete="off" enterkeyhint="done">
-      <div class="two">
-        <label>Type<select name="kind">${APP_KINDS.map((k) => `<option>${k}</option>`).join('')}</select></label>
-        <label>Date limite<input type="date" name="due"></label>
-      </div>
-      <button class="btn primary wide">Ajouter la candidature</button>
-    </form>`);
+  html += `<button class="btn primary wide add-dl" data-a="newApp">${ICON.plus}<span>Ajouter une candidature</span></button>`;
 
   html += card('À préparer', open.length ? `<ul class="rows">${open.map(row).join('')}</ul>` : empty('Aucune candidature à préparer.'), `<span class="count">trié par urgence</span>`);
   if (waiting.length) html += card('Envoyées, en attente de réponse', `<ul class="rows">${waiting.map(row).join('')}</ul>`, `<span class="count">${waiting.length}</span>`);
@@ -390,6 +401,7 @@ const EXTRA_ACTIONS = {
     a.pinned = !a.pinned;
     toast(a.pinned ? 'Épinglé 📌 — affiché à chaque ouverture' : 'Épingle retirée');
   },
+  newApp: openNewApp,
   delApp(id) {
     const a = S.apps.find((x) => x.id === id);
     if (a && confirm(`Supprimer la candidature « ${a.title} » ?`)) S.apps = S.apps.filter((x) => x.id !== id);
@@ -405,6 +417,7 @@ const EXTRA_FORMS = {
     const title = f.title.trim();
     if (!title) { toast('Donne un nom à la candidature'); return false; }
     S.apps.push({ id: uid(), title, kind: f.kind || 'Autre', due: f.due || '', status: 'todo', pinned: false, at: Date.now(), log: [{ s: 'todo', at: Date.now() }] });
+    closeSheet();
     toast('Candidature ajoutée');
   },
 };

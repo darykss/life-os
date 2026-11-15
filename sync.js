@@ -16,7 +16,7 @@
    ============================================================ */
 
 // Parties synchronisées. L'agenda, les actualités et le minuteur restent propres à chaque appareil.
-const SYNC_KEYS = ['settings', 'pins', 'tasks', 'wk', 'li', 'habits', 'fin', 'habitList', 'work', 'apps', 'modules', 'tabOrder', 'dlCats', 'evCat'];
+const SYNC_KEYS = ['settings', 'pins', 'tasks', 'wk', 'li', 'habits', 'fin', 'habitList', 'work', 'apps', 'modules', 'tabOrder', 'dlCats', 'evCat', 'newsOff'];
 const SYNC_MUSCU = '_muscu';   // données de l'app Séances, rangées à part dans le stockage de l'appareil
 
 const syncOn = () => !!APP.sync && S.sync.on && !!S.settings.gcalUrl;

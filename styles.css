@@ -653,3 +653,7 @@ body.framed { overflow: hidden; }
 .due-dot { width: 28px; height: 28px; flex: none; display: grid; place-items: center; }
 .due-dot::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 4px var(--red-soft); }
 .count.hot { background: var(--red-soft); color: var(--red); padding: 2px 9px; border-radius: 10px; }
+
+/* Bouton d'ajout d'échéance */
+.add-dl { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 4px 0 14px; }
+.add-dl svg { width: 18px; height: 18px; }

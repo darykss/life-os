@@ -317,6 +317,13 @@ function ago(iso) {
   if (min < 48 * 60) return `il y a ${Math.round(min / 60)} h`;
   return `il y a ${Math.round(min / 1440)} j`;
 }
+const NEWS_EN = ['BBC', 'The Guardian', 'The New York Times'];   // sites en anglais, rangés à part dans la liste
+// Tous les sites de l'édition du jour (masqués compris), français d'abord.
+function newsSites() {
+  const d = S.news.data, seen = {};
+  if (d) for (const sec of d.sections) for (const it of sec.items) seen[it.source] = 1;
+  return Object.keys(seen).sort((a, b) => NEWS_EN.includes(a) - NEWS_EN.includes(b) || a.localeCompare(b));
+}
 function viewNews() {
   const d = S.news.data;
   if (!d || !d.sections.length) {
@@ -325,12 +332,13 @@ function viewNews() {
   const g = new Date(d.generatedAt);
   // Sites présents dans l'édition du jour, du plus fourni au moins fourni.
   const count = {};
-  for (const sec of d.sections) for (const it of sec.items) count[it.source] = (count[it.source] || 0) + 1;
+  for (const sec of d.sections) for (const it of sec.items) if (!S.newsOff[it.source]) count[it.source] = (count[it.source] || 0) + 1;
+  if (!Object.keys(count).length) return `<section class="card">${empty('Tous les sites sont masqués. Réactive-en dans les réglages ⚙︎, rubrique « Sites d’actualités ».')}</section>`;
   const sources = Object.keys(count).sort((a, b) => count[b] - count[a] || a.localeCompare(b));
   const src = sources.includes(S.newsSrc) ? S.newsSrc : '';
-  const secs = d.sections.map((s) => ({ ...s, items: src ? s.items.filter((it) => it.source === src) : s.items })).filter((s) => s.items.length);
+  const secs = d.sections.map((s) => ({ ...s, items: s.items.filter((it) => (src ? it.source === src : !S.newsOff[it.source])) })).filter((s) => s.items.length);
 
-  let html = `<label class="news-src">Site d’information<select data-c="newsSrc"><option value="">Tous les sites (${sources.length})</option>${sources.map((x) => `<option value="${esc(x)}" ${x === src ? 'selected' : ''}>${esc(x)}</option>`).join('')}</select></label>`;
+  let html = `<label class="news-src">Site d’information<select data-c="newsSrc"><option value="">Tous les sites (${sources.length})</option>${[['En français', sources.filter((x) => !NEWS_EN.includes(x))], ['In English', sources.filter((x) => NEWS_EN.includes(x))]].filter((g) => g[1].length).map((g) => `<optgroup label="${g[0]}">${g[1].map((x) => `<option value="${esc(x)}" ${x === src ? 'selected' : ''}>${esc(x)}</option>`).join('')}</optgroup>`).join('')}</select></label>`;
   html += `<p class="hint center">Édition du ${g.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })} à ${g.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</p>`;
   if (!secs.length) return html + `<section class="card">${empty('Aucun titre de ce site aujourd’hui.')}</section>`;
   const sel = UI.newsSec && secs.some((s) => s.id === UI.newsSec) ? UI.newsSec : secs[0].id;
@@ -386,7 +394,9 @@ function moduleRowsInner() {
       ${APP.applePay ? `<li><div><b>Apple Pay dans Finances</b><small>Récupère tes paiements Apple Pay pour les valider</small></div>${switchBtn('applePay', payOn())}</li>` : ''}
       ${APP.sync ? `<li><div><b>Synchronisation entre appareils</b><small>${sy.on ? (sy.error ? 'Erreur : ' + esc(sy.error) : sy.at ? 'Dernière synchro à ' + new Date(sy.at).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) : 'Activée') : 'Mêmes données sur le téléphone et l’ordinateur'}</small></div><button type="button" class="switch ${sy.on ? 'on' : ''}" data-a="syncToggle" role="switch" aria-checked="${sy.on}"><i></i></button></li>` : ''}
     </ul>`;
-  return `<p class="group">Onglets (flèches : ordre dans la barre du bas)</p><ul class="toggles">${tabs}</ul><p class="group">Blocs de l’accueil</p><ul class="toggles">${blocks}</ul>${extras}`;
+  const sites = newsSites();
+  const news = modOn('news') && sites.length ? `<p class="group">Sites d’actualités</p><ul class="toggles">${sites.map((x) => `<li><div><b>${esc(x)}</b>${NEWS_EN.includes(x) ? '<small>En anglais</small>' : ''}</div><button type="button" class="switch ${S.newsOff[x] ? '' : 'on'}" data-a="newsSite" data-id="${esc(x)}" role="switch" aria-checked="${!S.newsOff[x]}"><i></i></button></li>`).join('')}</ul>` : '';
+  return `<p class="group">Onglets (flèches : ordre dans la barre du bas)</p><ul class="toggles">${tabs}</ul><p class="group">Blocs de l’accueil</p><ul class="toggles">${blocks}</ul>${extras}${news}`;
 }
 
 function openOnboarding() {
@@ -551,6 +561,11 @@ function closeSheet() {
 }
 
 Object.assign(EXTRA_ACTIONS, {
+  newsSite(id) {
+    if (S.newsOff[id]) delete S.newsOff[id]; else S.newsOff[id] = 1;
+    if (S.newsSrc === id) S.newsSrc = '';
+    const box = $('#modRows'); if (box) box.innerHTML = moduleRowsInner();
+  },
   toggleModule(id) {
     const cur = id === 'parents' ? parentsOn() : S.modules[id] !== false;
     const on = !cur;                          // état après le clic

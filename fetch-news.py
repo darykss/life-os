@@ -2,7 +2,8 @@
 """Fabrique news.json à partir des flux RSS publics de la presse française.
 
 Sources : Le Monde, franceinfo, Le Figaro, BFM TV, 20 Minutes, France 24,
-Le Parisien, Libération, Courrier international, L'Équipe et RMC Sport.
+Le Parisien, Libération, Courrier international, L'Équipe, RMC Sport,
+et en anglais : BBC, The Guardian, The New York Times.
 
 Lancé chaque matin par la tâche planifiée GitHub (.github/workflows/news.yml).
 L'app lit ensuite news.json : aucun service payant, aucune clé.
@@ -29,6 +30,9 @@ SECTIONS = [
         ("France 24", "https://www.france24.com/fr/rss"),
         ("Le Parisien", "https://feeds.leparisien.fr/leparisien/rss"),
         ("Libération", "https://www.liberation.fr/arc/outboundfeeds/rss-all/?outputType=xml"),
+        ("BBC", "https://feeds.bbci.co.uk/news/rss.xml"),
+        ("The Guardian", "https://www.theguardian.com/international/rss"),
+        ("The New York Times", "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"),
     ]),
     ("eco", "Économie", [
         ("Le Monde", "https://www.lemonde.fr/economie/rss_full.xml"),
@@ -37,6 +41,9 @@ SECTIONS = [
         ("BFM TV", "https://www.bfmtv.com/rss/economie/"),
         ("20 Minutes", "https://www.20minutes.fr/feeds/rss-economie.xml"),
         ("France 24", "https://www.france24.com/fr/%C3%A9co-tech/rss"),
+        ("BBC", "https://feeds.bbci.co.uk/news/business/rss.xml"),
+        ("The Guardian", "https://www.theguardian.com/uk/business/rss"),
+        ("The New York Times", "https://rss.nytimes.com/services/xml/rss/nyt/Business.xml"),
     ]),
     ("monde", "Monde", [
         ("Le Monde", "https://www.lemonde.fr/international/rss_full.xml"),
@@ -45,6 +52,9 @@ SECTIONS = [
         ("BFM TV", "https://www.bfmtv.com/rss/international/"),
         ("20 Minutes", "https://www.20minutes.fr/feeds/rss-monde.xml"),
         ("Courrier international", "https://www.courrierinternational.com/feed/all/rss.xml"),
+        ("BBC", "https://feeds.bbci.co.uk/news/world/rss.xml"),
+        ("The Guardian", "https://www.theguardian.com/world/rss"),
+        ("The New York Times", "https://rss.nytimes.com/services/xml/rss/nyt/World.xml"),
     ]),
     ("sport", "Sport", [
         ("franceinfo", "https://www.francetvinfo.fr/sports.rss"),
@@ -53,6 +63,8 @@ SECTIONS = [
         ("L'Équipe", "https://dwh.lequipe.fr/api/edito/rss?path=/"),
         ("RMC Sport", "https://rmcsport.bfmtv.com/rss/fil-sport/"),
         ("20 Minutes", "https://www.20minutes.fr/feeds/rss-sport.xml"),
+        ("BBC", "https://feeds.bbci.co.uk/sport/rss.xml"),
+        ("The Guardian", "https://www.theguardian.com/uk/sport/rss"),
     ]),
 ]
 PAR_SOURCE = 6   # nombre de titres gardés par source et par rubrique

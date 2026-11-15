@@ -335,6 +335,126 @@
   var KEY = (MAIN || 'local') + '.muscu';
   var clone = function (x) { return JSON.parse(JSON.stringify(x)); };
 
+  // Images illustrant les exercices (liens repris du tableau « Suivi muscu officiel » de Raphaël).
+  var IMG_BASE = 'https://www.docteur-fitness.com/wp-content/uploads/';
+  var IMAGES = {
+    "Développé incliné haltères": "2000/06/developpe-incline-halteres-exercice-musculation.gif",
+    "Développé couché": "2019/08/developpe-couche.gif",
+    "Dips lestés": "2000/01/dips-pectoraux.gif",
+    "Pec deck": "2000/06/pec-deck-butterfly-exercice-musculation.gif",
+    "Extension triceps au-dessus de la tête": "2021/10/extension-triceps-poulie-haute-corde.gif",
+    "Triceps poulie": "2021/10/extension-triceps-poulie-haute-corde.gif",
+    "Développé militaire": "2000/08/developpe-militaire-exercice-musculation.gif",
+    "Pec deck inversé": "2021/12/pec-deck-inverse.gif",
+    "Tractions": "2022/02/traction-musculation-dos.gif",
+    "T-bar row": "2021/08/rowing-barre-t-landmine.gif",
+    "Rowing haltère": "2021/08/rowing-haltere-un-bras.gif",
+    "Tirage vertical": "2022/01/tirage-vertical-prise-inversee.gif",
+    "Curl biceps incliné": "2022/01/curl-pupitre-machine-prechargee.gif",
+    "Curl biceps": "2022/08/curl-biceps-avec-halteres-alterne.gif",
+    "Curl haltère incliné avec rotation": "2021/10/curl-haltere-incline.gif",
+    "Curl marto": "2022/09/curl-haltere-prise-neutre.gif",
+    "Presse à cuisses": "2022/08/presse-a-cuisses-inclinee.gif",
+    "Leg extension": "2000/06/leg-extension-exercice-musculation.gif",
+    "Leg curl": "2022/02/leg-curl-assis-machine.gif",
+    "Mollets debout": "2021/10/extension-mollets-debout-machine.gif",
+    "Fente Bulgare": "2000/06/squat-bulgare-halteres-exercice-musculation.gif",
+    "Pull Over avec Alter": "2021/12/pullover-haltere.gif",
+    "Développé décliné": "2021/12/developpe-decline-barre.gif",
+    "Extension lombaire": "2021/08/extension-lombaire-au-banc-45.gif",
+    "Squat": "2021/11/homme-faisant-un-squat-avec-barre.gif",
+    "Soulevé de terre": "2021/12/souleve-de-terre.gif",
+    "Soulevé de terre roumain": "2022/04/souleve-de-terre-roumain.gif",
+    "Hip thrust": "2021/12/hips-thrust.gif",
+    "Fentes avant haltères": "2000/06/fentes-avant-exercice-musculation.gif",
+    "Hack squat": "2022/01/hack-squat.gif",
+    "Squat goblet": "2000/06/squat-goblet-exercice-musculation.gif",
+    "Mollets assis": "2021/10/extension-mollets-assis-machine.gif",
+    "Développé couché haltères": "2000/05/developpe-couche-halteres-exercice-musculation.gif",
+    "Écarté couché haltères": "2022/09/ecarte-couche-haltere.gif",
+    "Pompes": "2020/10/pompe-musculation.gif",
+    "Élévations latérales": "2000/08/elevations-laterales-exercice-musculation.gif",
+    "Développé épaules haltères": "2022/02/developpe-epaule-halteres.gif",
+    "Face pull": "2022/01/face-pull.gif",
+    "Shrugs haltères": "2022/11/shrugs-avec-halteres.gif",
+    "Rowing barre": "2021/09/rowing-barre.gif",
+    "Tirage horizontal poulie": "2022/02/tirage-horizontal-poulie.gif",
+    "Curl barre": "2021/09/curl-barre.gif",
+    "Barre au front": "2000/09/barre-front.gif",
+    "Crunch au sol": "2000/07/crunch-au-sol-exercice-musculation.gif",
+    "Planche": "2022/05/planche-abdos.gif",
+    "Chaise (maintien)": "2021/12/squat-statique-contre-mur-exercice-chaise.gif",
+    "Leg extension (maintien)": "2000/06/leg-extension-exercice-musculation.gif",
+    "Mollets debout (maintien)": "2021/10/extension-mollets-debout-machine.gif",
+    "Pont fessier (maintien)": "2022/08/setu-bandhasana-posture-du-pont.gif",
+    "Suspension à la barre": "2025/11/dead-hang-suspension-passive.gif",
+    "Rotation externe épaule (maintien)": "2022/04/rotation-externe-epaule-poulie.gif",
+    "Élévation latérale (maintien)": "2000/08/elevations-laterales-exercice-musculation.gif",
+    "Curl à 90° (maintien)": "2022/08/curl-biceps-avec-halteres-alterne.gif",
+    "Maintien du fermier": "2025/11/marche-du-fermier-avec-kettlebells.gif"
+  };
+  var imgKey = function (s) { return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim(); };
+  var IMG_BY = {}; Object.keys(IMAGES).forEach(function (k) { IMG_BY[imgKey(k)] = IMG_BASE + IMAGES[k]; });
+  // Donne une image aux exercices qui n'en ont pas encore (une seule fois par version de la liste).
+  function addImages(d) {
+    if (d._img === 1) return false;
+    d.Exercices.forEach(function (e) { if (!e.image_url && IMG_BY[imgKey(e.nom)]) e.image_url = IMG_BY[imgKey(e.nom)]; });
+    d._img = 1; return true;
+  }
+
+  // Exercices du tableau de Raphaël absents de la liste de départ : ajoutés une fois à la bibliothèque.
+  var EXOS_PLUS = [
+    ["Pec deck inversé", "deltoides_post,trapezes", "charge", "Garde les coudes légèrement fléchis et ouvre les bras en effectuant un mouvement circulaire vers l'arrière."],
+    ["Curl biceps incliné", "biceps,avant_bras", "charge", "Assis, bras sur banc incliné. Coudes fixes, pas d'élan, descente lente."],
+    ["Curl haltère incliné avec rotation", "biceps,avant_bras", "charge", "Assis sur banc incliné. Coudes fixes, pas d'élan, descente lente, rotation à la montée."],
+    ["Curl marto", "biceps,avant_bras", "charge", "Coudes fixes, pas d'élan, descente lente."],
+    ["Fente Bulgare", "quadriceps,fessiers", "charge", "Contrôle, le genou ne dépasse pas le pied, remontée explosive."],
+    ["Pull Over avec Alter", "pectoraux,dorsaux", "charge", "Allongé sur le dos, ramène un haltère au-dessus de la tête, fesses sous le niveau du banc pour l'étirement."],
+    ["Développé décliné", "pectoraux", "charge", "Développé couché sur banc décliné, omoplates serrées l'une contre l'autre."],
+    ["Extension lombaire", "lombaires", "charge", "Prends un poids dans les mains, descends pour l'étirement."],
+    ["Squat", "quadriceps,fessiers", "charge", "Amène les fesses en arrière, pieds largeur d'épaules, les genoux ne dépassent pas les pieds."],
+    ["Pull Over", "dorsaux", "charge", "Dos plat, ne pas utiliser les triceps."],
+    ["Soulevé de terre", "lombaires,fessiers,ischios,trapezes,dorsaux", "charge", "Barre contre les tibias, dos plat et gainé. Pousse le sol avec les jambes, la barre reste collée au corps."],
+    ["Soulevé de terre roumain", "ischios,fessiers,lombaires", "charge", "Genoux à peine fléchis, recule les hanches en gardant le dos plat. Descends jusqu'à sentir l'étirement des ischios."],
+    ["Hip thrust", "fessiers,ischios", "charge", "Haut du dos sur le banc, menton rentré. Pousse dans les talons et serre les fessiers 1 s en haut, sans cambrer."],
+    ["Fentes avant haltères", "quadriceps,fessiers,ischios", "charge", "Grand pas en avant, buste droit. Le genou avant reste au-dessus du pied, le genou arrière frôle le sol."],
+    ["Hack squat", "quadriceps,fessiers", "charge", "Dos plaqué au dossier, pieds largeur d'épaules. Descends contrôlé, genoux dans l'axe des pieds, ne verrouille pas en haut."],
+    ["Squat goblet", "quadriceps,fessiers,abdos", "charge", "Haltère contre la poitrine, coudes vers le bas. Descends entre tes genoux en gardant le buste droit."],
+    ["Mollets assis", "mollets", "charge", "Avant du pied sur la cale. Descends le talon au maximum, monte haut et marque 1 s de pause."],
+    ["Développé couché haltères", "pectoraux,epaules,triceps", "charge", "Omoplates serrées, pieds ancrés. Descends les haltères au niveau des pecs, coudes à 45°, pousse sans les entrechoquer."],
+    ["Écarté couché haltères", "pectoraux,epaules", "charge", "Coudes légèrement fléchis et fixes. Ouvre les bras jusqu'à l'étirement des pecs, puis referme en serrant."],
+    ["Pompes", "pectoraux,triceps,epaules,abdos", "poids_du_corps", "Corps gainé de la tête aux talons, mains sous les épaules. Descends la poitrine près du sol, coudes à 45°."],
+    ["Élévations latérales", "epaules,trapezes", "charge", "Coudes légèrement fléchis, monte les bras jusqu'à l'horizontale sans élan ni hausser les épaules. Descente lente."],
+    ["Développé épaules haltères", "epaules,triceps,trapezes", "charge", "Assis, dos calé, abdos gainés. Pousse les haltères au-dessus de la tête, redescends à hauteur des oreilles."],
+    ["Face pull", "deltoides_post,trapezes", "charge", "Poulie à hauteur du visage. Tire la corde vers le front en écartant les mains, coudes hauts, serre les omoplates."],
+    ["Shrugs haltères", "trapezes,avant_bras", "charge", "Bras tendus le long du corps. Hausse les épaules vers les oreilles, pause 1 s en haut, sans rouler les épaules."],
+    ["Rowing barre", "dorsaux,trapezes,biceps,lombaires", "charge", "Buste penché à 45°, dos plat. Tire la barre vers le nombril en serrant les omoplates, sans élan du buste."],
+    ["Tirage horizontal poulie", "dorsaux,trapezes,biceps", "charge", "Dos droit, poitrine sortie. Tire la poignée vers le ventre, coudes près du corps, contrôle le retour."],
+    ["Curl barre", "biceps,avant_bras", "charge", "Coudes collés au corps, buste immobile. Monte la barre sans élan, descente lente et complète."],
+    ["Barre au front", "triceps", "charge", "Allongé, bras verticaux, coudes fixes et serrés. Descends la barre vers le front, puis tends les bras."],
+    ["Crunch au sol", "abdos", "poids_du_corps", "Bas du dos collé au sol. Enroule le buste en soufflant, sans tirer sur la nuque, redescends lentement."],
+    ["Planche", "abdos,obliques,lombaires", "poids_du_corps", "Coudes sous les épaules, corps aligné, fessiers et abdos serrés. Ne creuse pas le dos, respire. Compte les secondes dans la colonne reps."],
+    ["Chaise (maintien)", "quadriceps,fessiers", "poids_du_corps", "Tendon du genou. Dos plaqué au mur, cuisses parallèles au sol, genoux à 90° au-dessus des chevilles. Tiens sans bouger, respire. Reps = secondes."],
+    ["Leg extension (maintien)", "quadriceps", "charge", "Tendon rotulien. Monte la charge puis bloque genoux fléchis à environ 60°, sans verrouiller. Charge lourde mais tenable, douleur max 3/10. Reps = secondes."],
+    ["Mollets debout (maintien)", "mollets", "charge", "Tendon d'Achille. Monte sur la pointe des pieds à mi-hauteur et tiens, chevilles droites, sans rebond. Reps = secondes."],
+    ["Pont fessier (maintien)", "ischios,fessiers,lombaires", "poids_du_corps", "Tendons des ischios. Allongé, talons au sol, monte le bassin jusqu'à aligner épaules-hanches-genoux et tiens, fessiers serrés. Reps = secondes."],
+    ["Suspension à la barre", "avant_bras,dorsaux,epaules", "poids_du_corps", "Épaules, coudes et mains. Suspendu bras tendus, épaules légèrement engagées (pas avachies), prise ferme. Lâche avant que la prise glisse. Reps = secondes."],
+    ["Rotation externe épaule (maintien)", "deltoides_post,epaules", "charge", "Coiffe des rotateurs. Coude collé au corps à 90°, ouvre l'avant-bras vers l'extérieur contre la poulie et tiens à mi-course. Charge légère. Fais chaque bras. Reps = secondes."],
+    ["Élévation latérale (maintien)", "epaules,trapezes", "charge", "Tendons de l'épaule. Monte les haltères à environ 45° (pas plus haut que l'horizontale) et tiens, épaules basses. Charge légère. Reps = secondes."],
+    ["Curl à 90° (maintien)", "biceps,avant_bras", "charge", "Tendons du coude. Coudes au corps, avant-bras à l'horizontale, tiens les haltères sans bouger ni te pencher en arrière. Reps = secondes."],
+    ["Extension du poignet (maintien)", "avant_bras", "charge", "Coude (épicondyle) et poignet. Avant-bras posé sur un banc, paume vers le sol, poignet dans l'axe : tiens l'haltère sans laisser tomber la main. Fais chaque bras. Reps = secondes."],
+    ["Maintien du fermier", "avant_bras,trapezes", "charge", "Mains et prise. Debout, un haltère lourd dans chaque main, bras tendus, épaules basses et dos droit. Serre fort sans bouger. Reps = secondes."]
+  ];
+  function addExos(d) {
+    if (d._ex === 1) return false;
+    var have = {}; d.Exercices.forEach(function (e) { have[imgKey(e.nom)] = 1; });
+    EXOS_PLUS.forEach(function (e) {
+      if (have[imgKey(e[0])]) return;
+      d.Exercices.push({ nom: e[0], muscles: e[1], type_charge: e[2], consigne: e[3], image_url: IMG_BY[imgKey(e[0])] || '' });
+    });
+    d._ex = 1; return true;
+  }
+
   function seed() {
     var ex = [
       ['Développé incliné haltères', 'pectoraux,epaules,triceps', 'charge', 'Banc à 30°, omoplates serrées, descends contrôlé jusqu\'au haut des pecs.'],
@@ -383,8 +503,8 @@
     };
   }
   function load() {
-    try { var d = JSON.parse(localStorage.getItem(KEY)); if (d && d.Exercices && d.Reglages) return d; } catch (e) { }
-    var fresh = seed(); save(fresh); return fresh;
+    try { var d = JSON.parse(localStorage.getItem(KEY)); if (d && d.Exercices && d.Reglages) { var ch = addImages(d); if (addExos(d) || ch) save(d); return d; } } catch (e) { }
+    var fresh = seed(); addImages(fresh); addExos(fresh); save(fresh); return fresh;
   }
   function save(d) { localStorage.setItem(KEY, JSON.stringify(d)); }
 
