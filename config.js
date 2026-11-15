@@ -5,7 +5,8 @@ var APP = {
   name: 'Life OS',
   key: 'lifeos.v1',              // clé de stockage sur l'appareil
   repo: 'darykss/life-os',       // dépôt GitHub qui publie news.json chaque matin
-  tabs: ['home', 'work', 'habits', 'seances', 'apps', 'li', 'news', 'fin'],
+  tabs: ['home', 'dl', 'work', 'habits', 'li', 'news', 'fin'],
+  candidatures: true,            // suivi des candidatures dans l'onglet Échéances
   onboarding: false,             // écran de bienvenue au premier lancement
   sync: true,                    // synchronisation entre appareils via le script Google
   refunds: true,                 // suivi « Remboursements parents » activé par défaut (réglable dans l'app)

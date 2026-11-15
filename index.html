@@ -12,7 +12,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-180.png">
-<link rel="stylesheet" href="styles.css?v=12">
+<link rel="stylesheet" href="styles.css?v=14">
 </head>
 <body>
 
@@ -36,7 +36,14 @@
 
 <nav class="tabs" id="tabs"></nav>
 
-<iframe id="seancesFrame" title="Séances de sport" hidden></iframe>
+<!-- App Séances : plein écran, ouverte depuis le bouton de l'accueil -->
+<div id="seancesWrap" hidden>
+  <div class="sw-bar">
+    <button class="sw-back" data-a="closeSeances" aria-label="Retour"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg><span>Retour</span></button>
+    <b>Séances</b>
+  </div>
+  <iframe id="seancesFrame" title="Séances de sport"></iframe>
+</div>
 
 <div id="sheet" class="sheet" hidden>
   <div class="sheet-bg" data-a="closeSheet"></div>
@@ -45,12 +52,12 @@
 
 <div id="toast" class="toast" hidden></div>
 
-<script src="config.js?v=12"></script>
-<script src="quotes.js?v=12"></script>
-<script src="targets.js?v=12"></script>
-<script src="extra.js?v=12"></script>
-<script src="sync.js?v=12"></script>
-<script src="shell.js?v=12"></script>
-<script src="app.js?v=12"></script>
+<script src="config.js?v=14"></script>
+<script src="quotes.js?v=14"></script>
+<script src="targets.js?v=14"></script>
+<script src="extra.js?v=14"></script>
+<script src="sync.js?v=14"></script>
+<script src="shell.js?v=14"></script>
+<script src="app.js?v=14"></script>
 </body>
 </html>

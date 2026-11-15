@@ -444,8 +444,7 @@ body.flash-break::after { background: var(--accent); animation: flash 1.6s ease-
 /* Glissement entre les onglets : couches affichées pendant le mouvement (voir shell.js) */
 #view { touch-action: pan-y; }
 .pg-layer { position: fixed; left: 0; right: 0; bottom: 0; overflow: hidden; background: var(--bg); pointer-events: none; will-change: transform; transform-origin: 50% 50%; backface-visibility: hidden; }
-.pg-layer.incoming, #seancesFrame.incoming { box-shadow: -26px 0 44px rgba(0, 0, 0, .8), -1px 0 0 rgba(124, 92, 255, .22); }
-#seancesFrame { will-change: transform; transform-origin: 50% 50%; }
+.pg-layer.incoming { box-shadow: -26px 0 44px rgba(0, 0, 0, .8), -1px 0 0 rgba(124, 92, 255, .22); }
 
 /* Écran de lancement */
 .splash { cursor: pointer; flex-direction: column; }
@@ -483,9 +482,13 @@ body.flash-break::after { background: var(--accent); animation: flash 1.6s ease-
 .news .src { color: var(--accent); font-weight: 700; }
 
 /* Séances de sport (app intégrée dans un cadre) */
-#seancesFrame { position: fixed; left: 0; right: 0; width: 100%; border: 0; z-index: 10; background: #08090b; }
+#seancesWrap { position: fixed; inset: 0; z-index: 50; background: #08090b; display: flex; flex-direction: column; padding-top: var(--safe-t); padding-bottom: var(--safe-b); animation: up .26s ease both; }
+.sw-bar { position: relative; flex: none; height: 46px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--line); }
+.sw-bar b { font-size: 16px; font-weight: 700; }
+.sw-back { position: absolute; left: 6px; top: 0; height: 46px; padding: 0 12px 0 6px; display: flex; align-items: center; gap: 2px; color: var(--accent); font-size: 16px; font-weight: 600; }
+.sw-back svg { width: 22px; height: 22px; stroke-width: 2.4; }
+#seancesFrame { flex: 1; min-height: 0; width: 100%; border: 0; background: #08090b; }
 body.framed { overflow: hidden; }
-body.framed #view { display: none; }
 
 /* Réseau : secteur */
 .sector { font-size: 12px; }
@@ -610,3 +613,43 @@ body.framed #view { display: none; }
 .bg-app .pg-layer::before { position: absolute; left: 0; right: 0; bottom: 0; height: 100vh; }
 /* Les cartes laissent deviner la photo derrière elles. */
 .bg-app main .card { background-color: rgba(21, 21, 28, .8); }
+
+/* Accueil : bouton Séances et sommaire */
+.seance-btn { display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; padding: 16px; border-radius: var(--r); background: linear-gradient(135deg, #123524, #0d1512 70%); border: 1px solid rgba(57, 255, 142, .28); color: var(--text); }
+.seance-btn .ico { width: 48px; height: 48px; flex: none; border-radius: 15px; display: grid; place-items: center; background: rgba(57, 255, 142, .14); color: #39ff8e; }
+.seance-btn .ico svg { width: 27px; height: 27px; }
+.seance-btn .txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.seance-btn b { font-size: 17px; font-weight: 750; letter-spacing: -.01em; }
+.seance-btn small { color: #9fb5a8; }
+.seance-btn .chev { font-size: 26px; color: #39ff8e; line-height: 1; }
+.seance-btn:active { transform: scale(.98); }
+.toc { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.toc button { display: flex; align-items: center; gap: 10px; text-align: left; padding: 12px; border-radius: 15px; background: var(--card2); color: var(--text); min-width: 0; }
+.toc svg { width: 24px; height: 24px; color: var(--accent); }
+.toc span { min-width: 0; display: flex; flex-direction: column; }
+.toc b { font-size: 14.5px; font-weight: 650; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.toc small { font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.toc button:active { transform: scale(.97); }
+
+/* Sport : séance annulée */
+.ghost.skip.on { color: var(--red); background: var(--red-soft); }
+.week i.skip { background: var(--red-soft); color: var(--red); }
+
+/* Échéances */
+.chips button.edit { width: 36px; padding: 0; display: grid; place-items: center; }
+.chips button.edit svg { width: 17px; height: 17px; }
+.sec { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 8px 4px -4px; }
+.what small.desc { margin-top: 3px; color: #b4b4c2; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.cats-list { margin-bottom: 12px; }
+.ev-cat { display: block; margin-top: 14px; font-size: 13px; color: var(--muted); }
+.sheet label { font-size: 13px; color: var(--muted); }
+.sheet label input, .sheet label select, .sheet label textarea { margin-top: 6px; color: var(--text); }
+
+/* Actualités : choix du site */
+.news-src { display: block; font-size: 12px; font-weight: 600; color: var(--muted); }
+.news-src select { margin-top: 6px; background-color: var(--card); border: 1px solid var(--line); }
+
+/* Accueil : à finir aujourd'hui */
+.due-dot { width: 28px; height: 28px; flex: none; display: grid; place-items: center; }
+.due-dot::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 4px var(--red-soft); }
+.count.hot { background: var(--red-soft); color: var(--red); padding: 2px 9px; border-radius: 10px; }

@@ -1,37 +1,247 @@
 {
- "generatedAt": "2026-11-15T10:56:31.695089+00:00",
+ "generatedAt": "2026-11-15T14:45:59.511705+00:00",
  "sections": [
   {
    "id": "une",
    "title": "À la une",
    "items": [
     {
-     "title": "EN DIRECT, guerre en Ukraine : l’émissaire américain Jared Kushner regrette la diffusion de « positions maximalistes » après les négociations avec l’Ukraine et la Russie",
-     "desc": "Les Etats-Unis ont pour la première fois soumis l’hypothèse à l’Ukraine de céder des territoires – le Donbass – en échange de son adhésion à l’OTAN, a affirmé, samedi, Volodymyr Zelensky.",
-     "link": "https://www.lemonde.fr/international/live/2026/11/15/en-direct-guerre-en-ukraine-l-emissaire-americain-jared-kushner-regrette-la-diffusion-de-positions-maximalistes-apres-les-negociations-avec-l-ukraine-et-la-russie_6810982_3210.html",
-     "source": "Le Monde",
-     "date": "2026-11-15T09:59:59+00:00"
+     "title": "La Chine ne veut plus seulement vendre des électriques bon marché: avec sa limousine qui s'inspire de la cour impériale chinoise, BYD dévoile sa \"Rolls-Royce\" en 40% moins cher",
+     "desc": "Dévoilée à Abou Dabi en marge du record de vitesse à 503 km/h de sa supercar U9 Xtreme, la limousine électrique Altior marque l'offensive de BYD sur le segment très fermé de l'ultra-luxe. En puisant dans l'artisanat…",
+     "link": "https://www.bfmtv.com/auto/nouveautes/la-chine-ne-veut-plus-seulement-vendre-des-electriques-bon-marche-avec-sa-limousine-qui-s-inspire-de-la-cour-imperiale-chinoise-byd-devoile-sa-rolls-royce-en-40-moins-cher_AV-202611150286.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T14:38:43+00:00"
     },
     {
-     "title": "Intempéries dans l'Hérault : la septuagénaire recherchée a été retrouvée saine et sauve",
-     "desc": "Les sapeurs-pompiers ont effectué une centaine d'interventions en raison des fortes pluies qui ont secoué l'est du département.",
-     "link": "https://www.franceinfo.fr/faits-divers/une-septuagenaire-disparue-a-candillargues-apres-les-intemperies-dans-l-herault_8283239.html#xtor=RSS-3-[lestitres]",
+     "title": "Avions cloués au sol aux Etats-Unis : des câbles en cuivre vétustes à l’origine des perturbations",
+     "desc": "Deux jours après l’incident majeur qui a entraîné une paralysie totale du trafic aérien outre-Atlantique, les autorités évoquent le remplacement raté d’anciennes lignes de communication qui aurait eu des conséquences en…",
+     "link": "https://www.liberation.fr/international/amerique/avions-cloues-au-sol-aux-etats-unis-des-cables-en-cuivre-vetustes-a-lorigine-des-perturbations-20261115_7BLQEXRP2NHQ3G46IQIYY3KJLQ/",
+     "source": "Libération",
+     "date": "2026-11-15T14:38:18+00:00"
+    },
+    {
+     "title": "Primaire à droite : au tour de Gérard Larcher de demander une réunion entre candidats",
+     "desc": "Le président LR du Sénat propose aux candidats une réunion «dans les meilleurs délais» pour évoquer une «méthode de départage» qui aboutirait à une candidature unique. La pression s’accentue sur Edouard Philippe, qui…",
+     "link": "https://www.liberation.fr/politique/primaire-a-droite-au-tour-de-gerard-larcher-de-demander-une-reunion-entre-candidats-20261114_GEGE46CXONGIDOR67OIMO4SHYE/",
+     "source": "Libération",
+     "date": "2026-11-15T14:35:11+00:00"
+    },
+    {
+     "title": "\"Des courriers ont pu être lus\" : ce que l'on sait de la cyberattaque contre Maileva, filiale de La Poste, qui a conduit au vol de données de 22 millions de personnes",
+     "desc": "La brigade de lutte contre la cybercriminalité a été chargée de l'enquête, a confirmé dimanche le parquet de Paris. Les investigations ont été ouvertes pour \"atteinte à un système de traitement automatisé de données\"…",
+     "link": "https://www.franceinfo.fr/internet/securite-sur-internet/cyberattaques/des-courriers-ont-pu-etre-lus-ce-que-l-on-sait-de-la-cyberattaque-contre-maileva-filiale-de-la-poste-qui-a-conduit-au-vol-de-donnees-de-22-millions-de-personnes_8283266.html#xtor=RSS-3-[lestitres]",
      "source": "franceinfo",
-     "date": "2026-11-15T09:36:42+00:00"
+     "date": "2026-11-15T14:33:41+00:00"
     },
     {
-     "title": "Le gouvernement interdit la vente de mortiers d'artifice jusqu'au 27 novembre",
-     "desc": "L'exécutif invoque la prévention des \"risques de troubles graves à l'ordre public lors des blocages en cours devant des lycées et des universités, ainsi qu'à l'occasion des manifestations\".",
-     "link": "https://www.franceinfo.fr/faits-divers/le-gouvernement-interdit-la-vente-de-mortiers-d-artifice-jusqu-au-27-novembre_8283236.html#xtor=RSS-3-[lestitres]",
-     "source": "franceinfo",
-     "date": "2026-11-15T09:25:59+00:00"
-    },
-    {
-     "title": "« Sans les thermes, Royat est morte » : le possible déremboursement des cures thermales menace un modèle déjà fragilisé",
-     "desc": "Dans la petite ville du Puy-de-Dôme, comme dans les autres stations, le thermalisme est essentiel aux hôtels et aux commerces. En proposant de transférer 200 millions d’euros de prise en charge des cures aux…",
-     "link": "https://www.lemonde.fr/economie/article/2026/11/15/sans-les-thermes-royat-est-morte-le-possible-deremboursement-des-cures-thermales-menace-un-modele-deja-fragilise_6811001_3234.html",
+     "title": "Confrontée à un El Niño historique, l’Amazonie brésilienne en état d’urgence environnemental",
+     "desc": "L’Etat du Para et cinquante villes de l’Etat de l’Amazonas ont été placés en état d’urgence afin de mobiliser tous les moyens pour combattre les feux de forêt et venir en aide aux quelque 161 000 familles touchées.",
+     "link": "https://www.lemonde.fr/planete/article/2026/11/15/confrontee-a-un-el-nino-historique-l-amazonie-bresilienne-en-etat-d-urgence-environnemental_6811024_3244.html",
      "source": "Le Monde",
-     "date": "2026-11-15T09:00:10+00:00"
+     "date": "2026-11-15T14:30:41+00:00"
+    },
+    {
+     "title": "Mouvement social : plus de 400 personnes interpellées en France lors des manifestations de samedi",
+     "desc": "Selon les autorités, «la situation sur le territoire national est demeurée globalement maîtrisée». A Paris, le parquet évoque des «groupements en vue de commettre des violences».",
+     "link": "https://www.liberation.fr/societe/police-justice/mouvement-social-plus-de-400-personnes-interpellees-en-france-lors-des-manifestations-de-samedi-20261115_LLKQO2PKRBFAVFQKMOMZWLENZM/",
+     "source": "Libération",
+     "date": "2026-11-15T14:25:44+00:00"
+    },
+    {
+     "title": "Energie, agroalimentaire, défense... France et Cambodge scellent leur \"partenariat renouvelé\" avec 29 accords",
+     "desc": "Le président français Emmanuel Macron et le Premier ministre cambodgien Hun Manet ont signé 29 accords économiques de coopération.",
+     "link": "https://www.bfmtv.com/economie/entreprises/energie-agroalimentaire-defense-france-et-cambodge-scellent-leur-partenariat-renouvele-avec-29-accords_AD-202611150285.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T14:25:06+00:00"
+    },
+    {
+     "title": "A Lyon, une équipe de BFM TV agressée en marge de la manifestation",
+     "desc": "Deux journalistes et deux agents de sécurité de la chaîne d’info ont été attaqués samedi 14 novembre alors qu’ils couvraient la mobilisation dans le Rhône. La police est intervenue pour les «protéger».",
+     "link": "https://www.liberation.fr/economie/medias/a-lyon-une-equipe-de-bfm-tv-agressee-en-marge-de-la-manifestation-20261115_NJ3DNAPMOBASXN2U2V336KF4NI/",
+     "source": "Libération",
+     "date": "2026-11-15T14:22:21+00:00"
+    },
+    {
+     "title": "Présidentielle 2027 : « Il n'a pas d'expérience… » Les doutes de Lilian Thuram sur la candidature de son « ami » Riner",
+     "desc": "L’ex international des bleus espère que le judoka français sera bien « accompagné » pour sa campagne présidentielle",
+     "link": "https://www.20minutes.fr/politique/4262951-20261115-presidentielle-2027-surpris-doutes-lilian-thuram-candidature-ami-riner?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T14:21:22+00:00"
+    },
+    {
+     "title": "«Justice pour Pengo, justice pour toutes les victimes»: une marche en hommage à Pengo Bossio Wangi et à toutes les victimes de l’attentat de Trappes organisée à Cergy (Val-d’Oise)",
+     "desc": "Une marche blanche a été organisée ce dimanche 15 novembre 2026 à Cergy (Val-d’Oise) en hommage à Pengo Bossio Wangi et à toutes les victimes de l’attentat de Trappes survenu le 23 octobre 2026.",
+     "link": "https://www.bfmtv.com/police-justice/video-justice-pour-pengo-justice-pour-toutes-les-victimes-une-marche-en-hommage-a-pengo-bossio-wangi-et-a-toutes-les-victimes-de-l-attentat-de-trappes-organisee-a-cergy-val-d-oise_VN-202611150284.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T14:21:05+00:00"
+    },
+    {
+     "title": "«Le Cambodge change, mais une constante demeure, la France se tient à vos côtés dans les bons moments comme dans les crises»: Emmanuel Macron revient sur la coopération franco-cambodgienne en marge…",
+     "desc": "Emmanuel Macron est revenu ce dimanche 15 novembre 2026 sur la coopération franco-cambodgienne en assurant que la France se tenait aux côtés du pays dans les bons moments comme dans les crises, et en détaillant les…",
+     "link": "https://www.bfmtv.com/international/video-le-cambodge-change-mais-une-constante-demeure-la-france-se-tient-a-vos-cotes-dans-les-bons-moments-comme-dans-les-crises-emmanuel-macron-revient-sur-la-cooperation-franco-cambodgienne-en-marge-de-son-deplacement-au-cambodge_VN-202611150283.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T14:19:22+00:00"
+    },
+    {
+     "title": "Patrick Radden Keefe, journaliste : le voir en peinture",
+     "desc": "L’écrivain américain et enquêteur au «New Yorker» veut continuer de travailler à l’ancienne et de jouer les dilettantes obsessionnels.",
+     "link": "https://www.liberation.fr/portraits/patrick-radden-keefe-journaliste-le-voir-en-peinture-20261115_N7D4FV7AEVBH3HHTYDEV32DS7U/",
+     "source": "Libération",
+     "date": "2026-11-15T14:15:00+00:00"
+    },
+    {
+     "title": "Ils représentent 70 milliards d'euros par an: le gouvernement veut toucher aux allègements de cotisations sur le travail, les entreprises craignent d'être mises \"au tapis\"",
+     "desc": "Le gouvernement doit faire le grand écart pour enrayer une crise sociale majeure tout en rassurant les entreprises qui doivent augmenter les salaires.",
+     "link": "https://www.bfmtv.com/economie/entreprises/ils-representent-70-milliards-d-euros-par-an-le-gouvernement-veut-toucher-aux-allegements-de-cotisations-sur-le-travail-les-entreprises-craignent-d-etre-mises-au-tapis_AD-202611150277.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T14:08:48+00:00"
+    },
+    {
+     "title": "Tout savoir sur la fermeture de l’autoroute A13 entre Paris et Caen : durée des travaux, itinéraire de substitution et craintes de congestion",
+     "desc": "Une portion de cette autoroute qui relie Paris à Caen doit fermer durant huit mois, dès lundi 16 novembre, pour permettre de consolider un tunnel.",
+     "link": "https://www.lemonde.fr/economie/article/2026/11/15/fermeture-de-l-a13-derriere-les-travaux-indispensables-la-crainte-de-congestion-sur-les-routes-des-hauts-de-seine_6811023_3234.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T14:06:48+00:00"
+    },
+    {
+     "title": "Aide à l'Ukraine : \"Si Marine Le Pen décide de tout couper à l’Ukraine, elle nous isolera en Europe\", estime l'entourage d'Emmanuel Macron, alors que le chef de l'État est en déplacement au Cambodge",
+     "desc": "L'entourage du chef de l'État estime que la décision que pourrait prendre Marine Le Pen, si elle devenait présidente en 2027, de \"tout couper à l'Ukraine\" pourrait \"jouer contre la France\". Selon l'entourage d'Emmanuel…",
+     "link": "https://www.bfmtv.com/politique/elections/presidentielle/video-aide-a-l-ukraine-si-marine-le-pen-decide-de-tout-couper-a-l-ukraine-elle-nous-isolera-en-europe-estime-l-entourage-d-emmanuel-macron-alors-que-le-chef-de-l-etat-est-en-deplacement-au-cambodge_VN-202611150274.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T14:04:33+00:00"
+    },
+    {
+     "title": "Attentat de Trappes : Sandrine Rousseau accuse le gouvernement de «sous-estimer la menace venant de l’extrême droite»",
+     "desc": "La députée écologiste, dont le nom figurait sur une liste de personnalités de gauche retrouvée au domicile de Kévin Tessier, s’est insurgée ce dimanche 15 novembre sur BFM TV contre la «complaisance» de l’exécutif.",
+     "link": "https://www.liberation.fr/politique/attentat-de-trappes-sandrine-rousseau-accuse-le-gouvernement-de-sous-estimer-la-menace-venant-de-lextreme-droite-20261115_MNZSLAZJUVAHDMBRDHOBIAYQBI/",
+     "source": "Libération",
+     "date": "2026-11-15T13:51:38+00:00"
+    },
+    {
+     "title": "Débat, primaire, irruption de Teddy Riner et David Lisnard… La campagne en défense d’Édouard Philippe",
+     "desc": "REPORTAGE - Dépassé dans les sondages par la dynamique de Jean-Luc Mélenchon, le candidat Horizons est désormais rattrapé par David Lisnard. Agacé par les critiques de son camp, le maire du Havre est cerné par les…",
+     "link": "https://www.lefigaro.fr/elections/presidentielles/candidats/debat-primaire-irruption-de-teddy-riner-et-david-lisnard-la-campagne-en-defense-d-edouard-philippe-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T13:37:23+00:00"
+    },
+    {
+     "title": "Manifestations en Espagne, naufrage au Sénégal, retour du pape au Pérou : la semaine en images",
+     "desc": "Retour sur les temps forts de l'actualité de la semaine écoulée et sur ses images les plus marquantes : un naufrage de pirogue meurtrier au large de la côte nord-ouest du Sénégal, les grèves générales pour le logement…",
+     "link": "https://www.france24.com/fr/am%C3%A9riques/20261115-manifestations-espagne-naufrage-senegal-retour-pape-perou-semaine-en-images",
+     "source": "France 24",
+     "date": "2026-11-15T13:30:56+00:00"
+    },
+    {
+     "title": "Guerre en Ukraine : Emmanuel Macron s’en prend « à ceux qui veulent rationner les moyens » de Kiev ; Marine Le Pen le renvoie à « sa propre turpitude »",
+     "desc": "Le chef de l’Etat ne cite pas Marine Le Pen, mais la candidate du RN a déjà annoncé que, si elle était élue, elle couperait l’aide financière à l’Ukraine après une période de six mois.",
+     "link": "https://www.lemonde.fr/international/article/2026/11/15/guerre-en-ukraine-emmanuel-macron-s-en-prend-a-ceux-qui-veulent-rationner-les-moyens-de-kiev-marine-le-pen-le-renvoie-a-sa-propre-turpitude_6811019_3210.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T13:22:32+00:00"
+    },
+    {
+     "title": "40 affirmations-chocs des candidats à la présidentielle de 2027 et de leurs soutiens fact-checkées",
+     "desc": "Les Décodeurs du « Monde » confrontent, dans cette base de données évolutive, les arguments des politiques aux données indépendantes disponibles.",
+     "link": "https://www.lemonde.fr/les-decodeurs/article/2026/11/15/presidentielle-2027-40-declarations-des-candidats-et-de-leurs-soutiens-passees-au-crible_6811018_4355770.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T13:19:59+00:00"
+    },
+    {
+     "title": "Présidentielle 2027 : «57% sont opposés à voir les sportifs se présenter à une élection», les Français donnent leur avis sur la candidature de Teddy Riner",
+     "desc": "Odoxa a réalisé un sondage pour Winamax et RTL, «Les Français et la candidature de Teddy Riner à l’élection présidentielle». S’il reste très apprécié, sa popularité s’est néanmoins dégradée.",
+     "link": "https://www.lefigaro.fr/sports/autres-sports/57-sont-opposes-a-voir-les-sportifs-se-presenter-a-une-election-les-francais-donnent-leur-avis-sur-la-candidature-de-teddy-riner-a-la-presidentielle-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T13:07:06+00:00"
+    },
+    {
+     "title": "Une usine pétrochimique frappée par des drones ukrainiens dans le centre de la Russie",
+     "desc": "La zone industrielle de Nijnekamsk, dans le centre de la Russie, a été touchée par des frappes ukrainiennes dimanche, selon les autorités locales. Un incendie s'est déclaré dans une usine pétrochimique, trois personnes…",
+     "link": "https://www.france24.com/fr/europe/20261115-usine-p%C3%A9trochimique-frapp%C3%A9e-par-drones-ukrainiens-dans-centre-russie",
+     "source": "France 24",
+     "date": "2026-11-15T13:02:51+00:00"
+    },
+    {
+     "title": "Au Pérou, le pape alerte sur l'exode rural dans les Andes",
+     "desc": "Lors de son étape au Pérou, le pape a évoqué l'exode rural dans les Andes, qu'il décrit comme une \"souffrance\" pour les habitants. Une visite à forte dimension personnelle dans un pays dont il a acquis la nationalité et…",
+     "link": "https://www.france24.com/fr/vid%C3%A9o/20261115-au-p%C3%A9rou-le-pape-alerte-sur-l-exode-rural-dans-les-andes",
+     "source": "France 24",
+     "date": "2026-11-15T13:02:06+00:00"
+    },
+    {
+     "title": "Pourquoi la maladie de Parkinson est en forte augmentation en France et touche particulièrement certains départements",
+     "desc": "Cette maladie neurodégénérative touche près de 300 000 personnes en France. Elle augmente fortement en raison principalement du vieillissement de la population mais aussi de la présence des métaux lourds et des…",
+     "link": "https://www.franceinfo.fr/sante/pourquoi-la-maladie-de-parkinson-est-en-forte-augmentation-en-france-et-touche-particulierement-certains-departements_8279975.html#xtor=RSS-3-[lestitres]",
+     "source": "franceinfo",
+     "date": "2026-11-15T13:01:53+00:00"
+    },
+    {
+     "title": "Guerre en Ukraine : des drones évacuent les soldats blessés du front",
+     "desc": "Sur le front ukrainien, les drones ne servent plus seulement à mener des frappes. Ils sont aussi utilisés pour évacuer des soldats blessés, dans des zones où les secours sont devenus particulièrement dangereux.…",
+     "link": "https://www.france24.com/fr/vid%C3%A9o/20261115-guerre-en-ukraine-des-drones-%C3%A9vacuent-les-soldats-bless%C3%A9s-du-front",
+     "source": "France 24",
+     "date": "2026-11-15T12:59:41+00:00"
+    },
+    {
+     "title": "Les Philippines remportent la première édition de l'Eurovision en Asie",
+     "desc": "Les Philippines ont remporté à Bangkok la première édition asiatique du Concours Eurovision de la chanson. La chanteuse Carmelle s'est imposée face à dix autres candidats avec un titre consacré à l'émancipation des…",
+     "link": "https://www.france24.com/fr/vid%C3%A9o/20261115-les-philippines-remportent-la-premi%C3%A8re-%C3%A9dition-de-l-eurovision-en-asie",
+     "source": "France 24",
+     "date": "2026-11-15T12:57:22+00:00"
+    },
+    {
+     "title": "Présidentielle 2027 : la députée écologiste Sandrine Rousseau appelle Marine Tondelier \"à se retirer\"",
+     "desc": "Invitée de BFMTV dimanche, la parlementaire de Paris a de nouveau appelé son parti à rejoindre Jean-Luc Mélenchon.",
+     "link": "https://www.franceinfo.fr/elections/direct-presidentielle-2027-l-entourage-d-emmanuel-macron-etrille-les-candidats-qui-veulent-baisser-l-aide-financiere-a-l-ukraine-dont-marine-le-pen_8283293.html#xtor=RSS-3-[lestitres]",
+     "source": "franceinfo",
+     "date": "2026-11-15T12:47:22+00:00"
+    },
+    {
+     "title": "L'Iran revendique une attaque contre un site militaire américain à Bahreïn",
+     "desc": "L'Iran affirme avoir ciblé à Bahreïn une installation militaire américaine, notamment des radars. Comment Téhéran justifie-t-il cette opération et dans quelle stratégie s'inscrit-elle ? Les explications de Siavosh…",
+     "link": "https://www.france24.com/fr/vid%C3%A9o/20261115-l-iran-revendique-une-attaque-contre-un-site-militaire-am%C3%A9ricain-%C3%A0-bahre%C3%AFn",
+     "source": "France 24",
+     "date": "2026-11-15T12:46:56+00:00"
+    },
+    {
+     "title": "\"On voyait que l'eau était en train de monter\" : des automobilistes racontent leur nuit piégés par les intempéries dans l'Hérault",
+     "desc": "Après de violents orages dans la nuit du samedi 14 novembre, le département de l'Hérault s'est retrouvé sous les eaux. Au sud de Montpellier, des dizaines d'automobilistes ont été piégés par les inondations. Une femme…",
+     "link": "https://www.franceinfo.fr/environnement/evenements-meteorologiques-extremes/herault-apres-les-violents-orages-des-automobilistes-temoignent-de-leur-nuit-pieges-par-les-eaux_8283527.html#xtor=RSS-3-[lestitres]",
+     "source": "franceinfo",
+     "date": "2026-11-15T12:36:55+00:00"
+    },
+    {
+     "title": "Manifestation du 14 novembre : A Paris, une centaine de gardes à vue, dont 38 mineurs",
+     "desc": "Le parquet de Paris évoque « principalement » des « groupements en vue de commettre des violences »",
+     "link": "https://www.20minutes.fr/societe/4262946-20261115-manifestation-14-novembre-paris-centaine-gardes-vue-dont-38-mineurs?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T12:32:49+00:00"
+    },
+    {
+     "title": "Intempéries dans l’Hérault : Automobilistes bloqués, routes fermées… Les images impressionnantes des inondations",
+     "desc": "Un violent épisode de pluie a frappé le secteur de Montpellier et le littoral méditerranéen dans la nuit de samedi à dimanche. Les inondations ont provoqué d’importantes perturbations",
+     "link": "https://www.20minutes.fr/societe/4262943-20261115-intemperies-automobilistes-bloques-routes-fermees-images-impressionnantes-inondations-herault?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T11:37:50+00:00"
+    },
+    {
+     "title": "« On reçoit des coups de fil avec des menaces de saisir un avocat » : quand les parents contestent les décisions scolaires dans les grandes écoles",
+     "desc": "La propension grandissante des familles à demander des justifications sur les notes et les dossiers de leurs enfants, déjà observée au lycée, apparaît désormais dans le supérieur. Dans les écoles de commerce en…",
+     "link": "https://www.lemonde.fr/campus/article/2026/11/15/on-recoit-des-coups-de-fil-avec-des-menaces-de-saisir-un-avocat-quand-les-parents-contestent-les-decisions-scolaires-dans-les-grandes-ecoles_6811012_4401467.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T11:00:07+00:00"
+    },
+    {
+     "title": "Finances publiques : Les revalorisations du smic et des bas salaires coûteront plus d’un milliard d’euros",
+     "desc": "En pleine crise sociale, le gouvernement a annoncé une hausse de 0,6 % du Smic et une revalorisation des rémunérations des fonctionnaires les plus modestes",
+     "link": "https://www.20minutes.fr/politique/4262935-20261115-finances-publiques-revalorisations-smic-bas-salaires-couteront-plus-milliard-euros?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T09:38:56+00:00"
+    },
+    {
+     "title": "Présidentielle 2027 : Mélenchon propose un congé de deuil pour un ami, vraiment une idée farfelue ?",
+     "desc": "Le 7 novembre, Jean-Luc Mélenchon a présenté le programme de La France insoumise pour la présidentielle 2027. L’une des 1.069 propositions a fait réagir les internautes : le congé deuil pour un ami. Mais pourquoi ?",
+     "link": "https://www.20minutes.fr/politique/4261937-20261115-presidentielle-2027-melenchon-propose-conge-deuil-ami-vraiment-idee-farfelue?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T09:02:37+00:00"
     },
     {
      "title": "Les revalorisations annoncées pour les plus bas salaires coûteront \"un peu plus d'un milliard d'euros\" aux finances publiques, déclare le ministre David Amiel",
@@ -41,11 +251,18 @@
      "date": "2026-11-15T08:49:24+00:00"
     },
     {
-     "title": "L'Ukraine et la Russie bataillent dans l'espace pour se doter de constellations satellitaires souveraines",
-     "desc": "Les deux belligérants cherchent des alternatives à Starlink, afin de disposer d'une infrastructure fiable pour leurs communications, notamment militaires.",
-     "link": "https://www.franceinfo.fr/monde/europe/manifestations-en-ukraine/l-ukraine-et-la-russie-bataillent-dans-l-espace-pour-se-doter-de-constellations-satellitaires-souveraines_8279132.html#xtor=RSS-3-[lestitres]",
-     "source": "franceinfo",
-     "date": "2026-11-15T05:50:36+00:00"
+     "title": "Réquisitions, taxe foncière progressive, résidences secondaires en sursis… Comment Mélenchon veut administrer la propriété privée",
+     "desc": "DÉCRYPTAGE - Dans son programme pour 2027, le candidat LFI cible en priorité les multipropriétaires et les bailleurs aisés. Ces derniers seraient invités à mettre la main à la poche et à laisser éventuellement l’État…",
+     "link": "https://immobilier.lefigaro.fr/article/requisitions-taxe-fonciere-progressive-residences-secondaires-en-sursis-comment-melenchon-veut-administrer-la-propriete-privee-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T08:36:04+00:00"
+    },
+    {
+     "title": "En images : Mélenchon, Chirac, Sarkozy, Royal… Les insultes marquantes de la Ve République",
+     "desc": "Au-delà de simples dérapages accidentels, l’injure et l’invective politique remplissent des fonctions stratégiques et identitaires. Découvrez notre diaporama des insultes politiques les plus marquantes de ces dernières…",
+     "link": "https://www.20minutes.fr/diaporama/diaporama-4261582-images-melenchon-chirac-sarkozy-royal-insultes-marquantes-ve-republique?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T06:02:37+00:00"
     },
     {
      "title": "\"Ce n'est pas un simple jeu vidéo\" : comment les fans se préparent à la sortie de \"GTA VI\" après treize ans d'attente",
@@ -55,39 +272,74 @@
      "date": "2026-11-15T05:49:52+00:00"
     },
     {
-     "title": "Le lent déclin économique de la France face au reste de l’Europe",
-     "desc": "L’Hexagone affiche l’une des plus faibles croissances européennes cette année. Un phénomène qui accentue la chute du pays dans le classement européen en PIB par habitant, désormais en dessous de la moyenne.",
-     "link": "https://www.lemonde.fr/economie/article/2026/11/15/le-lent-declin-economique-de-la-france-face-au-reste-de-l-europe_6810984_3234.html",
+     "title": "Sur les traces de « ChatNoir » et « Casquette », ces deux jeunes de 18 et 16 ans soupçonnés d’avoir piraté le site des impôts",
+     "desc": "Ces adolescents sont mis en examen dans de multiples procédures, dont les piratages d’ampleur du fisc et de l’éducation nationale durant l’été, et sont aussi suspectés d’avoir ciblé Free et BFM-TV.",
+     "link": "https://www.lemonde.fr/societe/article/2026/11/15/sur-les-traces-de-chatnoir-et-casquette-le-duo-d-adolescents-soupconnes-d-avoir-pirate-le-site-des-impots_6810985_3224.html",
      "source": "Le Monde",
-     "date": "2026-11-15T05:15:07+00:00"
+     "date": "2026-11-15T05:15:04+00:00"
     },
     {
-     "title": "Présidentielle 2027 : Edouard Philippe tente de déployer son contre-agenda face aux vents contraires",
-     "desc": "Sous pression de ses concurrents de la droite et du centre qui veulent une primaire, le candidat maintient son refus d’y participer. Il s’est lancé dans un nouveau tour de France pour essayer de contrer les sondages et…",
-     "link": "https://www.lemonde.fr/politique/article/2026/11/15/presidentielle-2027-edouard-philippe-tente-de-deployer-son-contre-agenda-face-aux-vents-contraires_6810973_823448.html",
-     "source": "Le Monde",
-     "date": "2026-11-15T04:30:08+00:00"
+     "title": "«Je suis un pur produit français» : le candidat Teddy Riner s’offre un premier bain de foule au salon du Made in France à Paris",
+     "desc": "REPORTAGE - Pour son deuxième déplacement de campagne, Teddy Riner a arpenté pendant plus de trois heures les allées du salon du Made in France, à Paris.",
+     "link": "https://www.lefigaro.fr/elections/presidentielles/je-suis-un-pur-produit-francais-le-candidat-teddy-riner-s-offre-un-premier-bain-de-foule-au-salon-du-made-in-france-a-paris-20261114",
+     "source": "Le Figaro",
+     "date": "2026-11-14T20:55:06+00:00"
     },
     {
-     "title": "Flavie Flament, dix ans de combat contre les violences sexuelles : « Quand on a été violée, on est en danger de viol toute sa vie »",
-     "desc": "En 2016, l’animatrice de télévision révélait que le photographe David Hamilton l’avait violée alors qu’elle avait 13 ans. Cette année, elle a porté plainte pour viol contre Patrick Bruel et publie « La Parole », une…",
-     "link": "https://www.lemonde.fr/m-le-mag/article/2026/11/15/flavie-flament-dix-ans-de-combat-contre-les-violences-sexuelles-quand-on-a-ete-violee-on-est-en-danger-de-viol-toute-sa-vie_6810941_4500055.html",
-     "source": "Le Monde",
-     "date": "2026-11-15T04:30:08+00:00"
+     "title": "À peine arrivé, l’ex-ministre de la Santé François Braun quitte la campagne de Teddy Riner",
+     "desc": "Il était présenté comme une figure crédible, donnant du poids à celle du champion de judo. Six jours après le lancement de la campagne du candidat ni de droite ni de gauche, l’ex-ministre du gouvernement Borne quitte le…",
+     "link": "https://www.lefigaro.fr/politique/a-peine-arrive-l-ex-ministre-de-la-sante-francois-braun-quitte-la-campagne-de-teddy-riner-20261114",
+     "source": "Le Figaro",
+     "date": "2026-11-14T10:44:31+00:00"
     },
     {
-     "title": "La vente des mortiers d’artifice, utilisés dans les manifestations et dans certains lycées, interdite jusqu’au 27 novembre",
-     "desc": "Face à une utilisation dangereuse de ces engins lors des manifestations, et parfois même dans les lycées, l’interdiction vise les artifices de catégories F2 et F3.",
-     "link": "https://www.lemonde.fr/societe/article/2026/11/15/la-vente-des-mortiers-d-artifice-interdite-jusqu-au-27-novembre-par-le-gouvernement_6810775_3224.html",
-     "source": "Le Monde",
-     "date": "2026-11-15T00:47:24+00:00"
+     "title": "Programme de Jean-Luc Mélenchon : quelles sont les mesures qui vous concernent ?",
+     "desc": "OUTIL INTERACTIF - Retraités, propriétaires, patrons, héritiers… Le Figaro a passé le programme de Jean-Luc Mélenchon au crible d’une analyse sémantique pour vous aider à repérer les mesures qui vous concernent…",
+     "link": "https://www.lefigaro.fr/elections/presidentielles/programmes/programme-de-jean-luc-melenchon-quelles-mesures-vous-concernent-20261110",
+     "source": "Le Figaro",
+     "date": "2026-11-10T14:49:09+00:00"
     },
     {
-     "title": "Victime d'une cyberattaque, Maileva, une filiale du groupe La Poste, annonce un vol de données touchant 22 millions de personnes",
-     "desc": "Maileva \"a notifié la Commission nationale de l'informatique et des libertés et déposé une plainte. Une enquête judiciaire est en cours\", a précisé La Poste.",
-     "link": "https://www.franceinfo.fr/internet/securite-sur-internet/cyberattaques/victime-d-une-cyberattaque-maileva-une-filiale-du-groupe-la-poste-annonce-un-vol-de-donnees-touchant-22-millions-de-personnes_8282825.html#xtor=RSS-3-[lestitres]",
-     "source": "franceinfo",
-     "date": "2026-11-14T20:15:18+00:00"
+     "title": "La Courneuve : le cadavre de Mahendradevi, disparue depuis le 9 novembre, retrouvé chez le garagiste grâce à la géolocalisation",
+     "desc": "",
+     "link": "https://www.leparisien.fr/seine-saint-denis-93/la-courneuve-le-cadavre-de-mahendradevi-disparue-depuis-le-9-novembre-retrouve-chez-le-garagiste-grace-a-la-geolocalisation-15-11-2026-GAO4PHJIYFFDXF5IBCSGXPZZPE.php",
+     "source": "Le Parisien",
+     "date": ""
+    },
+    {
+     "title": "« Il était devenu psychotique » : un an et demi après le suicide de son fils Diego, Lio se confie",
+     "desc": "",
+     "link": "https://www.leparisien.fr/culture-loisirs/musique/il-etait-devenu-psychotique-un-an-et-demi-apres-le-suicide-de-son-fils-diego-lio-se-confie-15-11-2026-E2CTD4CLS5DJXO5N7NYVYGRIP4.php",
+     "source": "Le Parisien",
+     "date": ""
+    },
+    {
+     "title": "France-Turquie : une minute d’applaudissement en mémoire de Carlo Molinari avant le match de Ligue des nations",
+     "desc": "",
+     "link": "https://www.leparisien.fr/sports/football/equipe-de-france/france-turquie-une-minute-dapplaudissement-en-memoire-de-carlo-molinari-avant-le-match-de-ligue-des-nations-15-11-2026-ZD6GZTYK3ZHT7CWKZQ5LSKI57E.php",
+     "source": "Le Parisien",
+     "date": ""
+    },
+    {
+     "title": "« Si c’est pour reparler d’une primaire, je ne vois pas l’intérêt » : Édouard Philippe répond à la main tendue de Gérard Larcher",
+     "desc": "",
+     "link": "https://www.leparisien.fr/elections/presidentielle/si-cest-pour-reparler-dune-primaire-je-ne-vois-pas-linteret-edouard-philippe-repond-a-la-main-tendue-de-gerard-larcher-15-11-2026-QJM7DPPZKFDK5AAVOTLGTBJ4RE.php",
+     "source": "Le Parisien",
+     "date": ""
+    },
+    {
+     "title": "« Le personnage n’est pas érotisé » : « Badh », c’est quoi ce « Jason Bourne » au féminin n°1 de Netflix ?",
+     "desc": "",
+     "link": "https://www.leparisien.fr/culture-loisirs/cinema/le-personnage-nest-pas-erotise-badh-cest-quoi-ce-jason-bourne-au-feminin-n1-de-netflix-15-11-2026-LNKYC4LQIBGLJBTR2UIKLDXMHQ.php",
+     "source": "Le Parisien",
+     "date": ""
+    },
+    {
+     "title": "« Le véhicule a fait plusieurs tonneaux » : un accident de la route dans l’Orne fait deux morts et deux blessés graves",
+     "desc": "",
+     "link": "https://www.leparisien.fr/orne-61/le-vehicule-a-fait-plusieurs-tonneaux-un-accident-de-la-route-dans-lorne-fait-deux-morts-et-deux-blesses-graves-15-11-2026-SR7GWRQTEZD2HKISX42W2R67PE.php",
+     "source": "Le Parisien",
+     "date": ""
     }
    ]
   },
@@ -96,25 +348,102 @@
    "title": "Économie",
    "items": [
     {
-     "title": "Les revalorisations du smic et des « bas salaires » des fonctionnaires coûteront « un peu plus de 1 milliard d’euros » aux finances publiques, selon le gouvernement",
+     "title": "La France et le Cambodge scellent leur \"partenariat renouvelé\" avec 29 accords",
+     "desc": "Les domaines de la santé, de la culture, du patrimoine, de la défense, mais aussi de l'énergie et de l'agroalimentaire sont concernés.",
+     "link": "https://www.franceinfo.fr/monde/asie/la-france-et-le-cambodge-scellent-leur-partenariat-renouvele-avec-29-accords_8283617.html#xtor=RSS-3-%5Beconomie%5D",
+     "source": "franceinfo",
+     "date": "2026-11-15T14:29:53+00:00"
+    },
+    {
+     "title": "«Sur les courses de Noël, ça ira» : Michel-Édouard Leclerc écarte une nouvelle flambée des prix pour les fêtes",
+     "desc": "Le président du comité stratégique des centres E.Leclerc s’est voulu rassurant sur les prix à l’approche des fêtes, tout en alertant sur la fragilité de la consommation et les incertitudes économiques pour 2027.",
+     "link": "https://www.lefigaro.fr/conso/sur-les-courses-de-noel-ca-ira-michel-edouard-leclerc-ecarte-une-nouvelle-flambee-des-prix-pour-les-fetes-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T14:03:59+00:00"
+    },
+    {
+     "title": "Cyberattaque chez Maileva, filiale de La Poste : ce que l’on sait du vol des données personnelles de 22 millions de personnes",
+     "desc": "DÉCRYPTAGE - Victime d’une cyberattaque mi-septembre, la plateforme spécialisée dans l’envoi de courriers professionnels a subi le vol des coordonnées de 22 millions de personnes.",
+     "link": "https://www.lefigaro.fr/secteur/high-tech/cyberattaque-chez-maileva-filiale-de-la-poste-ce-que-l-on-sait-du-vol-des-donnees-personnelles-d-un-tiers-de-la-population-francaise-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T13:54:17+00:00"
+    },
+    {
+     "title": "Le patron de Dassault assure que Jean-Luc Mélenchon \"est admiratif de la réussite de l'industrie française\"",
+     "desc": "Sur RTL ce dimanche, Éric Trappier, le président du géant aéronautique français, estime que \"tous les candidats ont la volonté que l’industrie se relève\".",
+     "link": "https://www.bfmtv.com/economie/entreprises/industries/le-patron-de-dassault-assure-que-jean-luc-melenchon-est-admiratif-de-la-reussite-de-l-industrie-francaise_AV-202611150262.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T13:40:39+00:00"
+    },
+    {
+     "title": "« L’objectif de Pékin n’est pas seulement l’autosuffisance, c’est la dépendance des autres pays »",
+     "desc": "La Chine fait tout pour que le reste du monde n’apprenne pas à se passer d’elle. L’Europe et la France peuvent encore déjouer cette stratégie, à condition de sortir de leur aveuglement, estime la politiste Elvire Fabry…",
+     "link": "https://www.lemonde.fr/idees/article/2026/11/15/l-objectif-de-pekin-n-est-pas-seulement-l-autosuffisance-c-est-la-dependance-des-autres-pays_6811017_3232.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T13:00:05+00:00"
+    },
+    {
+     "title": "\"Moins l'ennemi nous voit, mieux c'est\": pour évacuer discrètement ses soldats blessés au front, l'Ukraine mise sur des drones et constitue des pelotons pour ses missions de sauvetage",
+     "desc": "Il y a quelques jours, un soldat ukrainien blessé sur la ligne de front a été évacué à l'aide d'un drone aérien conçu spécialement pour ce type de missions. Kiev mise sur cette technologie pour protéger le plus possible…",
+     "link": "https://www.bfmtv.com/economie/entreprises/defense/moins-l-ennemi-nous-voit-mieux-c-est-pour-evacuer-discretement-ses-soldats-blesses-au-front-l-ukraine-mise-sur-des-drones-et-constitue-des-pelotons-pour-ses-missions-de-sauvetage_AV-202611150238.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T12:44:52+00:00"
+    },
+    {
+     "title": "\"Ça ne rattrapera pas un bon samedi\" : les commerçants lyonnais peu convaincus par les ouvertures dominicales supplémentaires",
+     "desc": "Après les dégradations du 17 octobre et les manifestations organisées tous les samedis, le préfet du Rhône autorise les commerces lyonnais à ouvrir trois dimanches supplémentaires. Mais les commerçants savent que les…",
+     "link": "https://www.franceinfo.fr/economie/commerce/ca-ne-rattrapera-pas-un-bon-samedi-les-commercants-lyonnais-peu-convaincus-par-les-ouvertures-dominicales-supplementaires_8283347.html#xtor=RSS-3-%5Beconomie%5D",
+     "source": "franceinfo",
+     "date": "2026-11-15T12:06:49+00:00"
+    },
+    {
+     "title": "Repos insuffisant, micro-siestes dans le cockpit, heures supp: un rapport pointe la fatigue persistante des pilotes de ligne, \"un signal d’alarme clair pour les compagnies\"",
+     "desc": "Cette étude menée auprès de 7.200 pilotes dans 32 pays, publiée par l’European Cockpit Association, souligne que la situation ne s'est pas améliorée depuis 2023 quand une enquête similaire avait été publiée.",
+     "link": "https://www.bfmtv.com/economie/entreprises/aeronautique/repos-insuffisant-micro-siestes-dans-le-cockpit-heures-supp-un-rapport-pointe-la-fatigue-persistante-des-pilotes-de-ligne-un-signal-d-alarme-clair-pour-les-compagnies_AN-202611150218.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T11:58:16+00:00"
+    },
+    {
+     "title": "David Amiel annonce une revalorisation du point d'indice pour les fonctionnaires aux plus bas salaires",
+     "desc": "Alors que le gouvernement a annoncé une hausse du smic à 1502 euros net le 1er décembre, le ministre de l'Action et des Comptes publics ajoute que les plus bas salaires parmi les fonctionnaires verront également leur…",
+     "link": "https://www.franceinfo.fr/economie/david-amiel-annonce-une-revalorisation-du-point-d-indice-pour-les-fonctionnaires-aux-plus-bas-salaires_8283416.html#xtor=RSS-3-%5Beconomie%5D",
+     "source": "franceinfo",
+     "date": "2026-11-15T11:00:03+00:00"
+    },
+    {
+     "title": "États-Unis : Des câbles en cuivre vétustes à l’origine de l’arrêt du trafic aérien",
+     "desc": "L’arrêt du trafic aérien qui a touché les États-Unis samedi et cloué les avions au sol serait dû à un remplacement raté d’anciennes lignes de communications en fil de cuivre par de la fibre optique",
+     "link": "https://www.20minutes.fr/monde/etats-unis/4262938-20261115-etats-unis-cables-cuivre-vetustes-origine-arret-trafic-aerien?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T10:46:21+00:00"
+    },
+    {
+     "title": "La hausse de 1,6 % du smic et des « bas salaires » des fonctionnaires coûtera « un peu plus de 1 milliard d’euros », selon le gouvernement",
      "desc": "L’exécutif avait annoncé cette semaine, en pleines mobilisations sociales, la revalorisation du salaire minimal de 1,6 % à partir du 1ᵉʳ décembre et celle des « bas salaires » de plus d’un million d’agents de la…",
      "link": "https://www.lemonde.fr/politique/article/2026/11/15/les-revalorisations-du-smic-et-des-bas-salaires-des-fonctionnaires-couteront-un-peu-plus-de-1-milliard-d-euros-aux-finances-publiques-selon-le-gouvernement_6811009_823448.html",
      "source": "Le Monde",
-     "date": "2026-11-15T10:09:59+00:00"
+     "date": "2026-11-15T10:09:57+00:00"
     },
     {
-     "title": "Des câbles en cuivre vétustes sont à l'origine des perturbations de milliers de vols aux Etats-Unis, assure l'administration Trump",
-     "desc": "Le remplacement de câbles vétustes a \"provoqué des problèmes dans la communication avec les avions\" ainsi que sur des radars, a détaillé samedi le ministre des Transports américain.",
-     "link": "https://www.franceinfo.fr/monde/usa/des-cables-en-cuivre-vetustes-a-l-origine-des-perturbations-de-milliers-de-vols-aux-etats-unis-selon-l-administration-trump_8283218.html#xtor=RSS-3-%5Beconomie%5D",
-     "source": "franceinfo",
-     "date": "2026-11-15T10:05:14+00:00"
+     "title": "«Un peu plus d’un milliard d’euros» : le coût de la hausse du Smic et des bas salaires des fonctionnaires dévoilé par le gouvernement",
+     "desc": "Le ministre des Comptes publics, David Amiel, a précisé ce dimanche que ces mesures pèseraient principalement sur les dépenses de la fonction publique, mais aussi sur d’autres postes budgétaires liés à la revalorisation…",
+     "link": "https://www.lefigaro.fr/conjoncture/un-peu-plus-d-un-milliard-d-euros-le-cout-de-la-hausse-du-smic-et-des-bas-salaires-des-fonctionnaires-devoile-par-le-gouvernement-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T10:02:55+00:00"
+    },
+    {
+     "title": "Moins nombreuses, plus esthétiques et efficaces… Comment Emmanuel Grégoire veut transformer les poubelles de Paris",
+     "desc": "Très attendu sur la propreté de la capitale, le maire PS de Paris entend repenser le maillage des poubelles de rue. Changement de quantité, de modèles, d’apparence : le chantier ne fait que commencer.",
+     "link": "https://www.lefigaro.fr/social/moins-nombreuses-plus-esthetiques-et-efficaces-comment-emmanuel-gregoire-veut-transformer-les-poubelles-de-paris-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T10:00:00+00:00"
     },
     {
      "title": "« Nier les discriminations tout en cultivant les stéréotypes sur lesquels elles prolifèrent, c’est casser le thermomètre en attisant la fièvre »",
      "desc": "Contrairement aux affirmations répétées par le Rassemblement national, l’expérience des discriminations, solidement établie par les sciences, est omniprésente dans notre société, dénonce un collectif de chercheurs dans…",
      "link": "https://www.lemonde.fr/idees/article/2026/11/15/nier-les-discriminations-tout-en-cultivant-les-stereotypes-sur-lesquels-elles-proliferent-c-est-casser-le-thermometre-en-attisant-la-fievre_6811003_3232.html",
      "source": "Le Monde",
-     "date": "2026-11-15T09:49:47+00:00"
+     "date": "2026-11-15T09:49:45+00:00"
     },
     {
      "title": "Dette publique française : \"La France ne va pas être la Grèce\", affirme Clément Beaune",
@@ -124,11 +453,39 @@
      "date": "2026-11-15T09:38:11+00:00"
     },
     {
+     "title": "68 ans dès 2030 et jusqu'à 72 ans à terme: la Grèce se prépare à un nouveau recul spectaculaire (et automatique) de l'âge de départ à la retraite",
+     "desc": "Après avoir relevé l'âge légal de départ à la retraite à 67 ans pendant la crise de la dette, la Grèce pourrait franchir un nouveau cap dès 2030. Le vieillissement accéléré de sa population menace l'équilibre de son…",
+     "link": "https://www.bfmtv.com/economie/economie-social/68-ans-des-2030-et-jusqu-a-72-ans-a-terme-la-grece-se-prepare-a-un-nouveau-recul-spectaculaire-et-automatique-de-l-age-de-depart-a-la-retraite_AV-202611150164.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T09:18:09+00:00"
+    },
+    {
+     "title": "Perturbations, trajets alternatifs… Tout savoir sur la fermeture pour travaux du tunnel de l’A13, qui bouleverse la circulation en région parisienne",
+     "desc": "Accueillant près de 80.000 véhicules quotidiennement, le tunnel de Saint-Cloud sera fermé dans le sens Paris-Province à partir du lundi 16 novembre. De quoi pousser les conducteurs et les autorités à s’adapter.",
+     "link": "https://www.lefigaro.fr/conjoncture/perturbations-trajets-alternatifs-tout-savoir-sur-la-fermeture-pour-travaux-du-tunnel-de-l-a13-qui-bouleverse-la-circulation-en-region-parisienne-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T09:15:00+00:00"
+    },
+    {
+     "title": "Un montant de \"350 euros brut par an\": le ministre des Comptes publics confirme une revalorisation des plus bas salaires de la fonction publique",
+     "desc": "Sur franceinfo ce dimanche, David Amiel précise que les revalorisations salariales annoncées pour le Smic et les fonctionnaires coûteront plus d'un milliard d'euros aux finances publiques.",
+     "link": "https://www.bfmtv.com/economie/economie-social/finances-publiques/un-montant-de-350-euros-brut-par-an-le-ministre-des-comptes-publics-confirme-une-revalorisation-des-plus-bas-salaires-de-la-fonction-publique_AV-202611150156.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T09:02:04+00:00"
+    },
+    {
      "title": "Katharina Pistor, professeure de droit : « Les citoyens s’apprêtent à n’être qu’une simple ressource gérée par des patrons de la tech tels que Musk, Thiel et Zuckerberg »",
      "desc": "Dans une tribune au « Monde », Katharina Pistor, professeure de droit, compare la domination exercée par la « confrérie de la tech » sur les citoyens à l’approche adoptée autrefois par les colons envers les peuples…",
      "link": "https://www.lemonde.fr/idees/article/2026/11/15/les-citoyens-s-appretent-a-n-etre-qu-une-simple-ressource-geree-par-des-patrons-de-la-tech-tels-que-musk-thiel-et-zuckerberg_6811002_3232.html",
      "source": "Le Monde",
      "date": "2026-11-15T09:00:21+00:00"
+    },
+    {
+     "title": "« Sans les thermes, Royat est morte » : le possible déremboursement des cures thermales menace un modèle déjà fragilisé",
+     "desc": "Dans la petite ville du Puy-de-Dôme, comme dans les autres stations, le thermalisme est essentiel aux hôtels et aux commerces. En proposant de transférer 200 millions d’euros de prise en charge des cures aux…",
+     "link": "https://www.lemonde.fr/economie/article/2026/11/15/sans-les-thermes-royat-est-morte-le-possible-deremboursement-des-cures-thermales-menace-un-modele-deja-fragilise_6811001_3234.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T09:00:10+00:00"
     },
     {
      "title": "Au Royaume-Uni, deux affaires de violences sexuelles relancent le débat sur la \"culture du silence\" dans le monde du divertissement",
@@ -138,11 +495,11 @@
      "date": "2026-11-15T08:53:26+00:00"
     },
     {
-     "title": "Les revalorisations annoncées pour les plus bas salaires coûteront \"un peu plus d'un milliard d'euros\" aux finances publiques, déclare le ministre David Amiel",
-     "desc": "David Amiel confirme, dans le \"8h30 franceinfo\" dimanche, une augmentation \"pour les plus bas salaires de la fonction publique\" représentant \"350 euros brut par an\".",
-     "link": "https://www.franceinfo.fr/economie/pouvoir-achat/il-y-aura-bien-une-hausse-des-points-pour-les-plus-bas-salaires-de-la-fonction-publique-confirme-le-ministre-david-amiel_8283254.html#xtor=RSS-3-%5Beconomie%5D",
-     "source": "franceinfo",
-     "date": "2026-11-15T08:49:24+00:00"
+     "title": "La panne ayant provoqué plus de 19.000 annulations de vols aux Etats-Unis est due au remplacement de câbles en cuivre vétustes",
+     "desc": "L'autorité de l'aviation civile a indiqué que 12.000 vols avaient été annulés vendredi puis 6.400 samedi, et recensait déjà, aux premières heures de dimanche, plus de 1.000 autres pour la journée à venir.",
+     "link": "https://www.bfmtv.com/economie/entreprises/transports/la-panne-ayant-provoque-des-milliers-d-annulations-de-vols-aux-etats-unis-est-due-au-remplacement-de-cables-en-cuivre-vetustes_AD-202611150149.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T08:37:49+00:00"
     },
     {
      "title": "83 % des dirigeants de PME trouvent difficile de recruter et d'employer une personne en situation de handicap",
@@ -152,18 +509,95 @@
      "date": "2026-11-15T08:00:03+00:00"
     },
     {
-     "title": "REPORTAGE. \"On n'en est pas encore là\" : les vins de de Bourgogne résistent mieux à la crise grâce à ses exportations",
-     "desc": "Les ventes de bouteilles de vin reculent de 4% chaque année, à l'exception de celles en provenance de Bourgogne, portées par ses exports à l'international et sa renommée mondiale.",
-     "link": "https://www.franceinfo.fr/economie/emploi/metiers/agriculture/on-n-en-est-pas-encore-la-les-vins-de-de-bourgogne-resistent-mieux-a-la-crise-grace-a-ses-exportations_8282870.html#xtor=RSS-3-%5Beconomie%5D",
-     "source": "franceinfo",
-     "date": "2026-11-15T06:47:07+00:00"
-    },
-    {
      "title": "Immobilier : les sommes reçues des promoteurs en échange du désistement d’un recours contre leur permis de construire doivent-elles être déclarées au fisc ?",
      "desc": "Bercy affirme que les indemnités sont toujours taxables. Mais la jurisprudence distingue celles qui compensent un véritable préjudice de celles qui rémunèrent un service rendu.",
      "link": "https://www.lemonde.fr/argent/article/2026/11/15/immobilier-les-sommes-recues-des-promoteurs-en-echange-du-desistement-d-un-recours-contre-leur-permis-de-construire-doivent-elles-etre-declarees-au-fisc_6810993_1657007.html",
      "source": "Le Monde",
      "date": "2026-11-15T06:09:22+00:00"
+    },
+    {
+     "title": "À Saint-Denis, la majorité de Bally Bagayoko supprime la baisse des primes des agents en arrêt maladie",
+     "desc": "La municipalité insoumise a mis fin à un dispositif instauré en 2021 par l’ancien maire socialiste Mathieu Hanotin. Une décision qui a provoqué un vif débat au conseil municipal.",
+     "link": "https://www.lefigaro.fr/conjoncture/a-saint-denis-la-majorite-de-bally-bagayoko-supprime-la-baisse-des-primes-des-agents-en-arret-maladie-20261114",
+     "source": "Le Figaro",
+     "date": "2026-11-14T18:24:24+00:00"
+    },
+    {
+     "title": "Grande distribution : Intermarché, Auchan et Casino soupçonnés de pratiques anticoncurrentielles",
+     "desc": "L’Autorité de la concurrence soupçonne l’alliance regroupant les trois géants de la distribution de pratiques anticoncurrentielles",
+     "link": "https://www.20minutes.fr/economie/4262856-20261114-grande-distribution-intermarche-auchan-casino-soupconnes-pratiques-anticoncurrentielles?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-14T13:59:52+00:00"
+    },
+    {
+     "title": "L'affaire Nvidia s'invite dans les discussions sur la sécurité de l'IA entre la Chine et les États-Unis",
+     "desc": "Le président américain Donald Trump et son homologue chinois Xi Jinping tenteront la semaine prochaine de dépasser l'affaire Nvidia pour trouver un terrain d'entente sur la sécurité en matière d'IA, lors du sommet de la…",
+     "link": "https://www.france24.com/fr/%C3%A9co-tech/20261114-affaire-nvidia-invite-dans-discussions-s%C3%A9curit%C3%A9-ia-entre-chine-%C3%A9tats-unis",
+     "source": "France 24",
+     "date": "2026-11-14T13:18:56+00:00"
+    },
+    {
+     "title": "Deux-Sèvres : Une commune investit dans une chaudière à bois pour diviser sa facture par deux",
+     "desc": "La municipalité d’Azay-le-Brûlé a fait prélever la matière première pour alimenter sa chaudière à la fin du mois d’octobre, rapporte « ICI Poitou »",
+     "link": "https://www.20minutes.fr/economie/4262719-20261114-deux-sevres-commune-investit-chaudiere-bois-diviser-facture-deux?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-14T08:02:36+00:00"
+    },
+    {
+     "title": "Panne de Microsoft : le géant américain affirme que ses services sont entièrement rétablis",
+     "desc": "Le géant américain des logiciels et services en ligne a annoncé samedi que l'intégralité de ses services Outlook, Teams et Copilot étaient rétablis, après une panne informatique de plus de 24 heures ayant affecté 74…",
+     "link": "https://www.france24.com/fr/%C3%A9co-tech/20261114-les-services-de-microsoft-sont-quasiment-r%C3%A9tablis-l-entreprise-se-dit-profond%C3%A9ment-d%C3%A9sol%C3%A9e",
+     "source": "France 24",
+     "date": "2026-11-14T06:19:17+00:00"
+    },
+    {
+     "title": "Des vols toujours annulés aux États-Unis malgré la réouverture de l'espace aérien",
+     "desc": "Près de 2 000 vols ont été annulés samedi aux États-Unis, malgré la réouverture de l'espace aérien au niveau national. Après la plus longue interruption nationale du trafic aérien en 25 ans, le retour à la normale sera…",
+     "link": "https://www.france24.com/fr/%C3%A9co-tech/20261114-etats-unis-suspension-des-vols-reouverture-espace-aerien-faa",
+     "source": "France 24",
+     "date": "2026-11-14T02:42:17+00:00"
+    },
+    {
+     "title": "« Nous dansons sur un volcan »… Sarkozy prédit un « tsunami » financier, peut-être avant la présidentielle",
+     "desc": "Dans un entretien au « Figaro », l’ancien président alerte sur une crise financière qu’il juge inévitable et plaide pour réduire les dépenses publiques et repousser l’âge de la retraite",
+     "link": "https://www.20minutes.fr/politique/4262783-20261113-dansons-volcan-sarkozy-predit-tsunami-financier-peut-etre-avant-presidentielle?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-13T18:35:59+00:00"
+    },
+    {
+     "title": "Urgence climatique : la rente pétrolière difficile à lâcher ?",
+     "desc": "Alors que l’urgence climatique s’aggrave, la mobilisation politique s’essouffle. Ouverte ce lundi à Antalya, en Turquie, la COP31 se déroule dans une indifférence quasi générale. L’absence de nombreux dirigeants, les…",
+     "link": "https://www.france24.com/fr/%C3%A9missions/la-semaine-de-l-%C3%A9co/20261113-urgence-climatique-la-rente-p%C3%A9troli%C3%A8re-difficile-%C3%A0-l%C3%A2cher",
+     "source": "France 24",
+     "date": "2026-11-13T18:26:21+00:00"
+    },
+    {
+     "title": "Le jour où Outlook s'est tu : autopsie d'un black-out mondial",
+     "desc": "Il est un peu moins de 19 h à Paris, jeudi 12 novembre, lorsque l'écran se fige pour des millions de travailleurs et de particuliers. Ce qui ressemble d'abord à un simple hoquet de la messagerie Outlook aux États-Unis…",
+     "link": "https://www.france24.com/fr/%C3%A9missions/tech-24/20261113-le-jour-o%C3%B9-outlook-s-est-tu-autopsie-d-un-black-out-mondial",
+     "source": "France 24",
+     "date": "2026-11-13T17:04:04+00:00"
+    },
+    {
+     "title": "Gard : Un nouveau magasin Action fait le buzz",
+     "desc": "Un nouveau magasin Action ouvrira le samedi 21 novembre à Bagnols-sur-Cèze dans le Gard. Il s’agira du douzième magasin de la marque dans le département, selon « ActuNîmes »",
+     "link": "https://www.20minutes.fr/economie/4262770-20261113-gard-nouveau-magasin-action-fait-buzz?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-13T16:29:43+00:00"
+    },
+    {
+     "title": "Michelin : Le plan prévoyant 1.500 départs volontaires sur trois ans entériné par plusieurs syndicats",
+     "desc": "Les syndicats CFDT, Sud et CFE-CGC ont accepté un accord avec le géant du pneumatique sans pour autant cautionner l’objectif des 1.500 suppressions de postes prévues dans les trois prochaines années",
+     "link": "https://www.20minutes.fr/economie/4262757-20261113-michelin-pse-prevoyant-1-500-departs-volontaires-trois-ans-enterine-plusieurs-syndicats?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-13T15:45:33+00:00"
+    },
+    {
+     "title": "Affaire Nvidia : l'ex-patron Jensen Huang convoqué devant le Congrès américain en décembre",
+     "desc": "L'ex-patron de Nvidia, Jensen Huang, devra s'expliquer le 3 décembre devant une commission parlementaire du Sénat américain sur ses liens avec une espionne chinoise présumée, a déclaré jeudi Tim Scott, le président de…",
+     "link": "https://www.france24.com/fr/%C3%A9co-tech/20261113-affaire-nvidia-ex-patron-jensen-huang-convoqu%C3%A9-devant-congr%C3%A8s-am%C3%A9ricain-d%C3%A9cembre",
+     "source": "France 24",
+     "date": "2026-11-13T10:59:04+00:00"
     }
    ]
   },
@@ -172,11 +606,151 @@
    "title": "Monde",
    "items": [
     {
+     "title": "\"Je suis là pour vivre un moment spécial de ma vie\" : à 46 ans, Ronaldinho rechausse les crampons pour un match officiel en troisième division italienne",
+     "desc": "L'ancien Ballon d'or 2005 et champion du monde 2002 n'avait plus disputé de match officiel depuis onze ans. Un événement autant marketing que sportif.",
+     "link": "https://www.franceinfo.fr/sports/foot/je-suis-la-pour-vivre-un-moment-special-de-ma-vie-a-46-ans-ronaldinho-rechausse-les-crampons-pour-un-match-officiel-en-troisieme-division-italienne_8283596.html#xtor=RSS-3-%5Bmonde%5D",
+     "source": "franceinfo",
+     "date": "2026-11-15T14:39:37+00:00"
+    },
+    {
+     "title": "Pourquoi le Japon abrite-t-il une “tombe de Jésus-Christ” ?",
+     "desc": "Après avoir échappé à la crucifixion, Jésus-Christ se serait installé au Japon et y aurait vécu jusqu’à ses 106 ans : dans le nord de l’archipel, un village abritant sa tombe supposée perpétue cette légende, qui attire…",
+     "link": "https://www.courrierinternational.com/article/spiritualite-pourquoi-le-japon-abrite-t-il-une-tombe-de-jesus-christ_282009",
+     "source": "Courrier international",
+     "date": "2026-11-15T14:14:43+00:00"
+    },
+    {
+     "title": "L'Iran fait état de deux pétroliers en feu dans le détroit d'Ormuz",
+     "desc": "L'un des deux navires, \"un superpétrolier transportant plus de 2 millions de barils de pétrole brut\", a coulé.",
+     "link": "https://www.franceinfo.fr/monde/iran/crise-dans-le-detroit-d-ormuz/l-iran-fait-etat-de-deux-petroliers-en-feu-dans-le-detroit-d-ormuz_8283602.html#xtor=RSS-3-%5Bmonde%5D",
+     "source": "franceinfo",
+     "date": "2026-11-15T14:07:37+00:00"
+    },
+    {
+     "title": "La Bataille de Gaulle arrive en salles aux États-Unis : «Ici, il est vu comme une figure d’autorité qui a su rétablir l’honneur de la France»",
+     "desc": "ENTRETIEN - À l’occasion de la sortie des deux films sur de Gaulle aux États-Unis, le spécialiste des relations franco-américaines Luke Foster revient sur l’image du général français aux États-Unis.",
+     "link": "https://www.lefigaro.fr/international/la-bataille-de-gaulle-arrive-en-salles-aux-etats-unis-ici-il-est-vu-comme-une-figure-d-autorite-qui-a-su-retablir-l-honneur-de-la-france-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T14:03:07+00:00"
+    },
+    {
+     "title": "Pourquoi les puces américaines de l'IA sont-elles fabriquées à Taïwan ?",
+     "desc": "La fabrication des microprocesseurs, autrement dit les \"puces\", est un enjeu crucial dans l’industrie de l’intelligence artificielle. (Un rendez-vous en partenariat avec le magazine \"Sciences et Avenir\")",
+     "link": "https://www.franceinfo.fr/replay-radio/nouveau-monde/pourquoi-les-puces-americaines-de-l-ia-sont-elles-fabriquees-a-taiwan_8242249.html#xtor=RSS-3-%5Bmonde%5D",
+     "source": "franceinfo",
+     "date": "2026-11-15T14:00:02+00:00"
+    },
+    {
+     "title": "EN DIRECT, guerre en Ukraine : les dernières informations",
+     "desc": "Selon le président ukrainien, la Russie avait utilisé « plus de 2 300 drones d’attaque, 1 590 bombes aériennes et 15 missiles de différents types » au cours de la semaine passée. « De nombreuses de ces attaques sont…",
+     "link": "https://www.lemonde.fr/international/live/2026/11/15/en-direct-guerre-en-ukraine-les-restrictions-d-acces-a-starshield-persistent-et-empechent-kiev-de-se-proteger-des-attaques-russes-dit-volodymyr-zelensky_6810982_3210.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T13:48:24+00:00"
+    },
+    {
+     "title": "Des liasses de billets dormaient dans des forêts: en Hongrie, 17 millions d'euros en liquide saisis dans une enquête anticorruption sur l'ère Orban",
+     "desc": "Les autorités hongroises ont annoncé ce vendredi avoir récupéré près de 17,7 millions d'euros en liquide. Un ancien ministre de l'ère Orban est accusé d'avoir enterré dans des forêts d'importantes sommes d'argent…",
+     "link": "https://www.bfmtv.com/international/europe/des-liasses-de-billets-dormaient-dans-des-forets-en-hongrie-17-millions-d-euros-en-liquide-saisis-dans-une-enquete-anticorruption-sur-l-ere-orban_AD-202611150263.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T13:42:42+00:00"
+    },
+    {
+     "title": "L’Iran a reconstitué un stock d’environ 2500 missiles, affirme le renseignement américain",
+     "desc": "L’Iran aurait reconstitué plus de la moitié de son stock de missiles d’avant-guerre, selon les services de renseignement américains. Une estimation qui contredit les affirmations de Donald Trump.",
+     "link": "https://www.lefigaro.fr/international/l-iran-a-reconstitue-un-stock-d-environ-2500-missiles-affirme-le-renseignement-americain-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T13:33:45+00:00"
+    },
+    {
+     "title": "REPORTAGE. \"Ça va être un jour très calme au bureau\" : aux États-Unis, des fans prêts à poser des jours de congé pour jouer à \"GTA VI\"",
+     "desc": "Treize ans après le précédent opus, le nouvel épisode de la saga Rockstar suscite une immense attente. Dans la banlieue d'Atlanta, en Géorgie, certains joueurs ont déjà tout prévu pour profiter pleinement de leur…",
+     "link": "https://www.franceinfo.fr/culture/jeux-video/gta-vi/reportage-ca-va-etre-un-jour-tres-calme-au-bureau-aux-etats-unis-des-fans-prets-a-poser-des-jours-de-conge-pour-jouer-a-gta-vi_8283536.html#xtor=RSS-3-%5Bmonde%5D",
+     "source": "franceinfo",
+     "date": "2026-11-15T13:31:26+00:00"
+    },
+    {
+     "title": "Mais qui a volé les Mozart de Salzbourg ?",
+     "desc": "Pour célébrer le 270ᵉ anniversaire du compositeur autrichien, des centaines de statuettes à son effigie ont été installées dans sa ville natale. Mais petit à petit, les œuvres se sont mises à disparaître, suscitant la…",
+     "link": "https://www.courrierinternational.com/long-format/mystere-mais-qui-a-vole-les-mozart-de-salzbourg_276914",
+     "source": "Courrier international",
+     "date": "2026-11-15T13:15:04+00:00"
+    },
+    {
+     "title": "Guerre en Ukraine : les États-Unis auraient proposé un retrait ukrainien du Donbass en échange d'une adhésion à l'OTAN",
+     "desc": "Une proposition américaine pour mettre fin à la guerre en Ukraine suscite de vives réactions. Selon Volodymyr Zelensky, Washington aurait évoqué un retrait des forces ukrainiennes du Donbass en échange d'une adhésion de…",
+     "link": "https://www.franceinfo.fr/monde/europe/manifestations-en-ukraine/guerre-en-ukraine-les-etats-unis-auraient-propose-un-retrait-ukrainien-du-donbass-en-echange-d-une-adhesion-a-l-otan_8283569.html#xtor=RSS-3-%5Bmonde%5D",
+     "source": "franceinfo",
+     "date": "2026-11-15T13:10:47+00:00"
+    },
+    {
+     "title": "Famine à Gaza : comment nos reporters racontent l'enfer ? La journaliste Fanny Morel raconte les coulisses de son documentaire",
+     "desc": "Dans l'enclave palestinienne, l'armée israélienne interdit toujours l'accès à la zone aux journalistes internationaux. Un accès au terrain pourtant indispensable pour raconter les faits. La journaliste Fanny Morel…",
+     "link": "https://www.bfmtv.com/international/moyen-orient/palestine/video-famine-a-gaza-comment-nos-reporters-racontent-l-enfer-la-journaliste-fanny-morel-raconte-les-coulisses-de-son-documentaire_VN-202611150239.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T12:46:38+00:00"
+    },
+    {
+     "title": "“Mon compagnon n’a pas d’amis” : ces femmes hétéros inquiètes de vivre avec des ours",
+     "desc": "De plus en plus d’hommes déclarent n’avoir aucun ami proche, et, même lorsqu’ils en ont, certains ne les voient que rarement. Un comportement parfois pesant pour leurs compagnes, qui ressentent une forme de culpabilité…",
+     "link": "https://www.courrierinternational.com/article/amour-mon-compagnon-n-a-pas-d-amis-ces-femmes-heteros-inquietes-de-vivre-avec-des-ours_285975",
+     "source": "Courrier international",
+     "date": "2026-11-15T12:20:02+00:00"
+    },
+    {
+     "title": "Ukraine-Russie: la guerre",
+     "desc": "Après des années de tension, le président russe Vladimir Poutine a relancé le conflit entre son pays et l'Ukraine - dirigée par Volodymyr Zelensky - en annonçant, le 21 février 2022, \"reconnaître l'indépendance de la…",
+     "link": "https://www.bfmtv.com/international/europe/ukraine-russie-le-bras-de-fer-mondial_DN-201904150203.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T12:16:02+00:00"
+    },
+    {
+     "title": "\"Une attaque massive et prolongée\": un important site industriel russe touché par des frappes de drones ukrainiens",
+     "desc": "Dimanche 15 novembre au matin, des frappes ukrainiennes ont frappé la zone industrielle de Nijnekamsk ainsi que la ville portuaire de Taganrog. Kiev dit viser des installations industrielles russes en réponse aux…",
+     "link": "https://www.bfmtv.com/international/asie/russie/une-attaque-massive-et-prolongee-un-important-site-industriel-russe-touche-dans-des-frappes-de-drones-ukrainiens_AD-202611150230.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T12:16:02+00:00"
+    },
+    {
+     "title": "La crise d’Ormuz est une “autre chute du mur de Berlin”",
+     "desc": "Le blocage du détroit d’Ormuz aura agi en révélateur, au sens chimique du terme, du bouleversement géopolitique et économique à l’œuvre à l’échelle mondiale, analyse l’économiste algérien Idriss Hadj Nacer pour “Twala”.…",
+     "link": "https://www.courrierinternational.com/article/analyse-la-crise-d-ormuz-est-une-autre-chute-du-mur-de-berlin_249896_1",
+     "source": "Courrier international",
+     "date": "2026-11-15T12:14:57+00:00"
+    },
+    {
+     "title": "En tenant son 20e sommet au Cambodge, la francophonie cherche à s’ancrer sur les cinq continents",
+     "desc": "Jusqu’au 16 novembre, Phnom Penh accueille les représentants de 81 pays pour un sommet qui souhaite “réinvestir la paix”. Cela faisait vingt-neuf ans que la rencontre internationale ne s’était pas déroulée en Asie.",
+     "link": "https://www.courrierinternational.com/article/rencontre-en-tenant-son-20e-sommet-au-cambodge-la-francophonie-cherche-a-s-ancrer-sur-les-cinq-continents_287301",
+     "source": "Courrier international",
+     "date": "2026-11-15T12:11:13+00:00"
+    },
+    {
+     "title": "Nord : Au moins 89 rescapés lors d’un naufrage d’une traversée clandestine, mais un possible disparu",
+     "desc": "Une personne est « possiblement portée disparue » et 89 autres ont été secourues samedi soir après le naufrage d’une embarcation dans la Manche qui tentait de rejoindre clandestinement l’Angleterre",
+     "link": "https://www.20minutes.fr/monde/4262940-20261115-nord-moins-89-rescapes-lors-naufrage-traversee-clandestine-possible-disparu?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T11:20:00+00:00"
+    },
+    {
      "title": "Un important site industriel russe touché par des frappes attribuées à Kiev",
      "desc": "Les autorités de la république du Tatarstan, citées par les médias russes, ont fait état de trois blessés dimanche, tandis que le gouverneur de la région russe de Rostov-sur-le-Don a annoncé un mort.",
      "link": "https://www.franceinfo.fr/monde/europe/manifestations-en-ukraine/un-important-site-industriel-russe-touche-par-des-frappes-attribuees-a-kiev_8283350.html#xtor=RSS-3-%5Bmonde%5D",
      "source": "franceinfo",
-     "date": "2026-11-15T10:41:17+00:00"
+     "date": "2026-11-15T11:15:34+00:00"
+    },
+    {
+     "title": "L’inexorable effondrement démocratique du Nicaragua",
+     "desc": "Si le pays affiche une certaine stabilité économique, les atteintes aux droits ne cessent de s’aggraver. Interrogé par la revue spécialisée “Americas Quarterly”, Carlos Fernando Chamorro, directeur du média en exil…",
+     "link": "https://www.courrierinternational.com/article/analyse-l-inexorable-effondrement-democratique-du-nicaragua_280621",
+     "source": "Courrier international",
+     "date": "2026-11-15T11:14:48+00:00"
+    },
+    {
+     "title": "\"Les entrepreneuses et les entrepreneurs du monde entier viennent de la francophonie\": Emmanuel Macron s’exprime au Francotech, le salon de l'innovation et de la francophonie économique, organisé en…",
+     "desc": "Emmanuel Macron s’est exprimé, ce dimanche 15 novembre 2026, au Francotech, le salon de l'innovation et de la francophonie économique, organisé en marge du Sommet de la Francophonie, au Cambodge.",
+     "link": "https://www.bfmtv.com/international/video-les-entrepreneuses-et-les-entrepreneurs-du-monde-entier-viennent-de-la-francophonie-emmanuel-macron-s-exprime-au-francotech-le-salon-de-l-innovation-et-de-la-francophonie-economique-organise-en-marge-du-sommet-de-la-francophonie-au-cambodge_VN-202611150186.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T10:32:30+00:00"
     },
     {
      "title": "Au Sénégal, travailler sous 38 °C toute l’année",
@@ -186,27 +760,6 @@
      "date": "2026-11-15T10:06:01+00:00"
     },
     {
-     "title": "Des câbles en cuivre vétustes sont à l'origine des perturbations de milliers de vols aux Etats-Unis, assure l'administration Trump",
-     "desc": "Le remplacement de câbles vétustes a \"provoqué des problèmes dans la communication avec les avions\" ainsi que sur des radars, a détaillé samedi le ministre des Transports américain.",
-     "link": "https://www.franceinfo.fr/monde/usa/des-cables-en-cuivre-vetustes-a-l-origine-des-perturbations-de-milliers-de-vols-aux-etats-unis-selon-l-administration-trump_8283218.html#xtor=RSS-3-%5Bmonde%5D",
-     "source": "franceinfo",
-     "date": "2026-11-15T10:05:14+00:00"
-    },
-    {
-     "title": "L'Iran revendique une attaque de drones contre une base américaine au Bahreïn",
-     "desc": "Des explosions ont retenti dimanche matin dans le pays du Golfe, Téhéran assurant avoir ciblé avec des drones un système de radar de défense aérienne de la base d'hélicoptères d'al-Riffa.",
-     "link": "https://www.franceinfo.fr/monde/iran/guerre-entre-les-etats-unis-israel-et-l-iran/l-iran-revendique-une-attaque-contre-une-base-americaine-au-bahrein_8283197.html#xtor=RSS-3-%5Bmonde%5D",
-     "source": "franceinfo",
-     "date": "2026-11-15T09:56:24+00:00"
-    },
-    {
-     "title": "Au Royaume-Uni, deux affaires de violences sexuelles relancent le débat sur la \"culture du silence\" dans le monde du divertissement",
-     "desc": "Ces deux histoires, mettant en cause un humoriste populaire et une ex-star de la télévision, ont secoué l'Angleterre. Une nouvelle onde de choc qui ravive les appels à une meilleure protection des femmes.",
-     "link": "https://www.franceinfo.fr/monde/royaume-uni/au-royaume-uni-deux-affaires-de-violences-sexuelles-relancent-le-debat-sur-la-culture-du-silence-dans-le-monde-du-divertissement_8282621.html#xtor=RSS-3-%5Bmonde%5D",
-     "source": "franceinfo",
-     "date": "2026-11-15T08:53:26+00:00"
-    },
-    {
      "title": "Jordanie : trois hommes condamnés à mort pour l’attaque meurtrière d’une église orthodoxe en octobre",
      "desc": "Neuf personnes avaient été tuées et 25 avaient été blessées dans cette attaque sans précédent contre les chrétiens du royaume, le 23 octobre.",
      "link": "https://www.lemonde.fr/international/article/2026/11/15/jordanie-trois-hommes-condamnes-a-mort-pour-l-attaque-meurtriere-d-une-eglise-orthodoxe-en-octobre_6810998_3210.html",
@@ -214,18 +767,18 @@
      "date": "2026-11-15T08:52:09+00:00"
     },
     {
-     "title": "Données personnelles : Meta écope d’une amende de 805 millions d’euros en Italie",
-     "desc": "En Italie, “Meta” vient d’écoper d’une amende record de 805 millions d’euros pour avoir puisé dans les bibliothèques d’images de millions d’utilisateurs. Un nouveau revers pour le groupe, déjà épinglé aux États-Unis.",
-     "link": "https://www.franceinfo.fr/internet/reseaux-sociaux/facebook/donnees-personnelles-meta-ecope-d-une-amende-de-805-millions-d-euros-en-italie_8283257.html#xtor=RSS-3-%5Bmonde%5D",
-     "source": "franceinfo",
-     "date": "2026-11-15T08:22:31+00:00"
+     "title": "Explosions à Bahreïn : L’Iran revendique une attaque contre une base américaine",
+     "desc": "Les Gardiens de la Révolution ont indiqué avoir ciblé de « six drones » la petite base aérienne d’hélicoptères américaine d’Al-Riffa",
+     "link": "https://www.20minutes.fr/monde/etats-unis/4262932-20261115-explosions-bahrein-iran-revendique-attaque-contre-base-americaine?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T08:49:22+00:00"
     },
     {
-     "title": "\"La guerre silencieuse\", menace sur la civilisation numérique",
-     "desc": "Cette semaine, plongée vers l'immense réseau de câbles sous-marins indispensables au fonctionnement d'Internet, qui pourrait être le talon d'Achille de l'Europe face aux nouveaux impérialismes.",
-     "link": "https://www.franceinfo.fr/replay-radio/livre-actu/la-guerre-silencieuse-menace-sur-la-civilisation-numerique_8242231.html#xtor=RSS-3-%5Bmonde%5D",
-     "source": "franceinfo",
-     "date": "2026-11-15T08:00:02+00:00"
+     "title": "États-Unis: SpaceX réussi à rattraper l'étage supérieur de sa méga fusée Starship",
+     "desc": "Un engin de plus de 50m de haut, rattrapé par d'immenses bras métalliques. La manœuvre n'avait jamais été tentée. C'est Une étape indispensable pour faire de Starship une fusée entièrement réutilisable et donc beaucoup…",
+     "link": "https://www.bfmtv.com/international/video-etats-unis-space-x-reussi-a-rattraper-l-etage-superieur-de-sa-mega-fusee-starship_VN-202611150130.html",
+     "source": "BFM TV",
+     "date": "2026-11-15T07:57:17+00:00"
     },
     {
      "title": "Sommet de la francophonie : Emmanuel Macron appelle à l’« unité » et au « consensus » face aux tensions entre la RDC et le Rwanda",
@@ -240,6 +793,69 @@
      "link": "https://www.lemonde.fr/un-si-proche-orient/article/2026/11/15/les-nations-unies-vont-elles-se-vendre-au-plus-offrant_6810991_6116995.html",
      "source": "Le Monde",
      "date": "2026-11-15T06:00:08+00:00"
+    },
+    {
+     "title": "L’Iran revendique une attaque de drones contre une base américaine à Bahreïn",
+     "desc": "Les gardiens de la révolution iraniens avaient déjà annoncé, vendredi, une attaque contre un système de radar américain à Bahreïn, première frappe contre un pays du Golfe depuis le début de septembre.",
+     "link": "https://www.lemonde.fr/international/article/2026/11/15/l-iran-revendique-une-attaque-de-drones-contre-une-base-americaine-a-bahrein_6810990_3210.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T05:58:52+00:00"
+    },
+    {
+     "title": "Israël : Netanyahou appelle à un gouvernement d’union face à l’Iran, Eisenkot dénonce des « ruses »",
+     "desc": "Le Premier ministre israélien sortant a renouvelé son appel à former un gouvernement d’union nationale avec son rival Gadi Eisenkot. Ce dernier l’accuse de manœuvres politiques pour entraver la formation d’une nouvelle…",
+     "link": "https://www.20minutes.fr/monde/4262900-20261114-israel-netanyahou-appelle-gouvernement-union-face-iran-eisenkot-denonce-ruses?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-14T22:14:18+00:00"
+    },
+    {
+     "title": "Censure soviétique et « littérature destructrice » : à Moscou, plongée dans l’« enfer » des livres interdits par la Russie d’hier et d’aujourd’hui",
+     "desc": "REPORTAGE - Au sein de la célèbre Bibliothèque Lénine, un fonds secret conservait, à l’époque de l’URSS, les ouvrages mis à l’index. Un nouveau dépôt y a été ajouté l’an dernier pour entreposer, hors du domaine public,…",
+     "link": "https://www.lefigaro.fr/international/censure-sovietique-et-litterature-destructrice-a-moscou-plongee-dans-l-enfer-des-livres-interdits-par-la-russie-d-hier-et-d-aujourd-hui-20261114",
+     "source": "Le Figaro",
+     "date": "2026-11-14T20:00:00+00:00"
+    },
+    {
+     "title": "Ukraine : Emmanuel Macron alerte sur les dangers d’une « paix injuste » après les déclarations de Marine Le Pen",
+     "desc": "Dans un message publié samedi sur X, Emmanuel Macron a défendu la poursuite de l’aide à Kiev, mettant en garde contre les conséquences d’une « paix injuste » pour la sécurité de l’Europe",
+     "link": "https://www.20minutes.fr/monde/ukraine/4262895-20261114-ukraine-emmanuel-macron-alerte-dangers-paix-injuste-apres-declarations-marine-pen?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-14T19:49:16+00:00"
+    },
+    {
+     "title": "Après les inondations à Gaza, l’Union européenne presse Israël de laisser entrer l’aide humanitaire",
+     "desc": "Après les pluies diluviennes du 6 au 8 novembre, qui ont inondé des milliers de tentes et fait cinq morts selon les secours palestiniens, l’Union européenne demande à Israël de faciliter l’accès de l’aide humanitaire",
+     "link": "https://www.20minutes.fr/monde/israel/4262863-20261114-apres-inondations-gaza-union-europeenne-presse-israel-laisser-entrer-aide-humanitaire?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-14T15:41:07+00:00"
+    },
+    {
+     "title": "Pourquoi Marine, gagnante de la « Star Academy » a l’interdiction d’aller à la rencontre de ses fans",
+     "desc": "La gagnante de la « Star Academy » Marine a déçu certains admirateurs car elle ne vient plus les voir à la sortie des salles. Sur Instagram, la chanteuse de 26 ans en a donné la raison, rapporte « Paris Match »",
+     "link": "https://www.20minutes.fr/arts-stars/4262861-20261114-pourquoi-marine-gagnante-star-academy-interdiction-aller-rencontre-fans?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-14T14:45:18+00:00"
+    },
+    {
+     "title": "«Vu d’Ailleurs» N°195 - Le contentieux qui empoisonne Varsovie et Berlin",
+     "desc": "LETTRE EXCLUSIVE ABONNÉS - La revue de presse européenne, par Édouard de Mareschal.",
+     "link": "https://www.lefigaro.fr/international/vu-d-ailleurs-n0195-le-contentieux-qui-empoisonne-varsovie-et-berlin-20261114",
+     "source": "Le Figaro",
+     "date": "2026-11-14T12:47:06+00:00"
+    },
+    {
+     "title": "«Ce n’est pas arrivé depuis le 11-Septembre» : l’inquiétude et l’agacement des centaines de milliers de passagers bloqués dans les aéroports américains",
+     "desc": "TÉMOIGNAGES - Les vols aux États-Unis ont été suspendus vendredi pendant plusieurs heures en raison d’une importante panne de communication. Près de 6000 voyages ont été annulés et des centaines de milliers de passagers…",
+     "link": "https://www.lefigaro.fr/international/ce-n-est-pas-arrive-depuis-le-11-septembre-l-inquietude-et-l-agacement-des-centaines-de-milliers-de-passagers-bloques-dans-les-aeroports-americains-20261114",
+     "source": "Le Figaro",
+     "date": "2026-11-14T09:52:57+00:00"
+    },
+    {
+     "title": "En Pologne, les victimes de l’occupation s’éteignent sans avoir reçu d’indemnisation : une fondation fait appel à la générosité des citoyens allemands",
+     "desc": "RÉCIT - Jerzy Tarasiewicz, président de la section de Gdańsk de l’Association des Polonais persécutés par le IIIe Reich, est décédé en septembre, à l’âge de 84 ans.",
+     "link": "https://www.lefigaro.fr/international/en-pologne-les-victimes-de-l-occupation-s-eteignent-sans-avoir-recu-d-indemnisation-une-fondation-fait-appel-a-la-generosite-des-citoyens-allemands-20261114",
+     "source": "Le Figaro",
+     "date": "2026-11-14T08:15:00+00:00"
     }
    ]
   },
@@ -247,6 +863,153 @@
    "id": "sport",
    "title": "Sport",
    "items": [
+    {
+     "title": "En larmes, Rory McIlroy dédie son sacre sur le circuit européen à son père : « Celle-ci, elle est pour lui »",
+     "desc": "Ce dimanche, Rory McIlroy a égalé la légende Colin Montgomerie en remportant pour la huitième fois le classement général du circuit européen. Interviewé à chaud, le Nord-Irlandais a été submergé par l'émotion et a dédié…",
+     "link": "https://www.lequipe.fr/Golf/Actualites/En-larmes-rory-mcilroy-dedie-son-sacre-sur-le-circuit-europeen-a-son-pere-celle-ci-elle-est-pour-lui/1743812#at_medium=RSS_feeds",
+     "source": "L'Équipe",
+     "date": "2026-11-15T14:13:19+00:00"
+    },
+    {
+     "title": "Foot : Hugo Lloris, premier joueur français à franchir les 1 000 matchs professionnels",
+     "desc": "Le 26 octobre, Hugo Lloris est entré dans l’histoire en devenant le premier Français à dépasser les 1 000 matchs professionnels. Une performance qui vient couronner près de deux décennies au plus haut niveau.",
+     "link": "https://www.lefigaro.fr/sports/football/foot-hugo-lloris-premier-joueur-francais-a-franchir-les-1-000-matchs-professionnels-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T14:10:42+00:00"
+    },
+    {
+     "title": "Coupe de France: un club de R1 dénonce l'attitude de Reims qui a pris sa part de recette... pour un tout petit chèque",
+     "desc": "Auprès de la Voix du Nord, le président de l'US Tourcoing a regretté que le Stade de Reims ne laisse pas sa part de la recette dans la foulée du 7e tour de la Coupe de France.",
+     "link": "https://rmcsport.bfmtv.com/football/coupe-de-france/coupe-de-france-un-club-de-r1-denonce-l-attitude-de-reims-qui-a-pris-sa-part-de-recette-pour-un-tout-petit-cheque_AN-202611150276.html",
+     "source": "RMC Sport",
+     "date": "2026-11-15T14:08:39+00:00"
+    },
+    {
+     "title": "Ligue des nations : stade Atlantique à guichets fermés, hommage à Carlo Molinari… Les dernières informations avant le match France-Turquie",
+     "desc": "La France reçoit la Turquie ce dimanche soir à Bordeaux (20h45) pour le compte de la 6e et dernière journée de la phase de groupes de Ligue des nations. Découvrez les dernières infos de cette rencontre.",
+     "link": "https://www.lefigaro.fr/sports/football/ligue-des-nations/ligue-des-nations-stade-atlantique-a-guichets-fermes-hommage-a-carlo-molinari-les-informations-avant-le-match-france-turquie-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T14:00:38+00:00"
+    },
+    {
+     "title": "Karting, karaoké et mont Fuji : dans les pas de Seixas en Asie",
+     "desc": "",
+     "link": "https://www.lequipe.fr/Cyclisme-sur-route/Article/Karting-karaoke-et-mont-fuji-dix-jours-dans-les-pas-de-paul-seixas-en-asie/1743810#at_medium=RSS_feeds",
+     "source": "L'Équipe",
+     "date": "2026-11-15T13:55:58+00:00"
+    },
+    {
+     "title": "Masters: à quelle heure et sur quelle chaîne TV regarder le match entre Arthur Fils et Ben Shelton",
+     "desc": "Premier tennisman français à disputer les Masters depuis 2016, Arthur Fils entre en lice dimanche soir face à l’Américain Ben Shelton, récent finaliste du Masters 1000 de Paris.",
+     "link": "https://rmcsport.bfmtv.com/tennis/atp/masters-a-quelle-heure-et-sur-quelle-chaine-tv-regarder-le-match-entre-arthur-fils-et-ben-shelton_AV-202611150264.html",
+     "source": "RMC Sport",
+     "date": "2026-11-15T13:55:09+00:00"
+    },
+    {
+     "title": "Déçu par son dernier tour, Victor Perez, 5e du DP World Tour Championship, évoquait « une journée difficile »",
+     "desc": "Jamais dans le rythme sur les greens, contrairement aux jours précédents, le Français Victor Perez n'a pas réussi à maintenir la cadence imposée par son partenaire de dernière partie Tyrrell Hatton, vainqueur avec 5…",
+     "link": "https://www.lequipe.fr/Golf/Actualites/Decu-par-son-dernier-tour-victor-perez-5e-du-dp-world-tour-championship-evoquait-une-journee-difficile/1743809#at_medium=RSS_feeds",
+     "source": "L'Équipe",
+     "date": "2026-11-15T13:50:39+00:00"
+    },
+    {
+     "title": "La mémoire de Carlo Molinari sera honorée avant France-Turquie",
+     "desc": "Une minute d'applaudissement sera observée en hommage à Carlo Molinari, mythique président du FC Metz décédé le 4 novembre, avant la rencontre de Ligue des nations entre la France et la Turquie ce dimanche (20 h 45).",
+     "link": "https://www.lequipe.fr/Football/Actualites/La-memoire-de-carlo-molinari-sera-honoree-avant-france-turquie/1743808#at_medium=RSS_feeds",
+     "source": "L'Équipe",
+     "date": "2026-11-15T13:33:22+00:00"
+    },
+    {
+     "title": "Ronaldinho effectue son grand retour sur les terrains de foot… avec le Ravenna FC, en troisième division italienne",
+     "desc": "Agé de 46 ans, le Brésilien, champion du monde 2002 et considéré comme un esthète du football, doit sortir d’une retraite de plus de dix ans, dimanche.",
+     "link": "https://www.lemonde.fr/sport/article/2026/11/15/ronaldinho-ballon-d-or-2005-effectue-son-grand-retour-sur-le-terrain-en-troisieme-division-italienne_6811022_3242.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T13:30:08+00:00"
+    },
+    {
+     "title": "\"Humiliation\", \"leçon de football\", Crisitano Ronaldo \"hante déjà le pays\"... La presse portugaise sans merci après la déroute face au Danemark",
+     "desc": "Pour son premier match après la retraite internationale de Cristiano Ronaldo, le Portugal a été humilié à domicile contre le Danemark en Ligue des nations ce samedi (4-1). Une déroute historique que la presse portugaise…",
+     "link": "https://rmcsport.bfmtv.com/football/equipe-portugal/humiliation-lecon-de-football-crisitano-ronaldo-hante-deja-le-pays-la-presse-portugaise-sans-merci-apres-la-deroute-face-au-danemark_AV-202611150253.html",
+     "source": "RMC Sport",
+     "date": "2026-11-15T13:23:52+00:00"
+    },
+    {
+     "title": "Le milieu, la petite révolution opérée par Zidane",
+     "desc": "",
+     "link": "https://www.lequipe.fr/Football/Article/Record-de-passes-vers-la-surface-mais-espaces-beants-forces-et-faiblesses-de-la-revolution-par-le-milieu-lancee-par-zinedine-zidane/1743726#at_medium=RSS_feeds",
+     "source": "L'Équipe",
+     "date": "2026-11-15T13:22:00+00:00"
+    },
+    {
+     "title": "Jeanmonnot : «J’ai cru que j’allais me faire avoir»",
+     "desc": "",
+     "link": "https://www.lequipe.fr/Biathlon/Video/Bleues-lou-jeanmonnot-apres-sa-victoire-sur-la-mass-start-de-bessans-j-ai-cru-que-j-allais-me-faire-avoir-il-fallait-se-depouiller-jusqu-a-la-fin/20245614#at_medium=RSS_feeds",
+     "source": "L'Équipe",
+     "date": "2026-11-15T13:21:00+00:00"
+    },
+    {
+     "title": "Ski alpin : Clément Noël dauphin de Lucas Pinheiro Braathen lors du slalom de Levi",
+     "desc": "Le Français n’a rien pu faire pour contrecarrer la domination du Brésilien, net vainqueur sur le tracé finlandais.",
+     "link": "https://www.lefigaro.fr/sports/sports-d-hiver/ski-alpin-clement-noel-dauphin-de-lucas-pinheiro-braathen-lors-du-slalom-de-levi-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T13:20:48+00:00"
+    },
+    {
+     "title": "Ski: Clément Noël sur le podium du slalom de Levi",
+     "desc": "Clément Noël a pris la deuxième place du premier slalom de la saison de Coupe du monde ce dimanche à Levi en Finlande, seulement devancé par le Brésilien Lucas Pinheiro Braathen.",
+     "link": "https://rmcsport.bfmtv.com/sports-d-hiver/ski-alpin/ski-clement-noel-sur-le-podium-du-slalom-de-levi_AV-202611150251.html",
+     "source": "RMC Sport",
+     "date": "2026-11-15T13:17:30+00:00"
+    },
+    {
+     "title": "Comment le jeu vidéo \"Absolum\" a-t-il été créé ?",
+     "desc": "À l'occasion sortie du très attendu \"GTA VI\", les enfants de franceinfo junior ont pu visiter le studio Dotemu à Paris, où a été conçu le jeu vidéo \"Absolum\".",
+     "link": "https://www.franceinfo.fr/replay-radio/france-info-junior/comment-le-jeu-video-absolum-a-t-il-ete-cree_8242267.html#xtor=RSS-3-%5Bsports%5D",
+     "source": "franceinfo",
+     "date": "2026-11-15T13:00:02+00:00"
+    },
+    {
+     "title": "Clément Noël deuxième du premier slalom de la saison de Coupe du monde, remporté par Lucas Pinheiro Braathen",
+     "desc": "Belle performance de Clément Noël pour sa reprise avec une deuxième place à Levi dimanche, où Lucas Pinheiro Braathen a enchaîné un deuxième succès.",
+     "link": "https://www.franceinfo.fr/sports/sports-d-hiver/ski-alpin/coupe-du-monde/clement-noel-deuxieme-du-premier-slalom-de-la-saison-de-coupe-du-monde-remporte-par-lucas-pinheiro-braathen_8283554.html#xtor=RSS-3-%5Bsports%5D",
+     "source": "franceinfo",
+     "date": "2026-11-15T12:57:23+00:00"
+    },
+    {
+     "title": "DIRECT. Coupe de France: Nantes, Saint-Etienne, Red Star, Metz... suivez la suite et fin du 7e tour",
+     "desc": "Le septième tour de la Coupe de France se poursuit ce dimanche, avec plusieurs rencontres impliquant des clubs de Ligue 2 dont Nantes, Saint-Etienne, Metz et le Red Star notamment. La journée est à suivre en direct…",
+     "link": "https://rmcsport.bfmtv.com/football/coupe-de-france/direct-coupe-de-france-nantes-saint-etienne-red-star-metz-suivez-la-suite-et-fin-du-7e-tour_LS-202611150240.html",
+     "source": "RMC Sport",
+     "date": "2026-11-15T12:52:25+00:00"
+    },
+    {
+     "title": "Surf : Johanne Defay se rapproche du titre lors des Championnats du monde",
+     "desc": "La Française est la dernière rescapée française de la compétition organisée à Punta Rocas, au Pérou. Kauli Vaast, lui, a été éliminé.",
+     "link": "https://www.lefigaro.fr/sports/autres-sports/surf-johanne-defay-se-rapproche-du-titre-lors-des-championnats-du-monde-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T11:33:03+00:00"
+    },
+    {
+     "title": "France-Turquie : Kylian Mbappé, pourquoi le retour du patron des Bleus est (très) attendu",
+     "desc": "DÉCRYPTAGE - Forfait jeudi lors de la défaite en Italie, le capitaine doit reprendre du service dimanche contre la Turquie. Zinédine Zidane est impatient de le retrouver.",
+     "link": "https://www.lefigaro.fr/sports/football/ligue-des-nations/france-turquie-kylian-mbappe-pourquoi-le-retour-du-patron-des-bleus-est-tres-attendu-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T11:00:00+00:00"
+    },
+    {
+     "title": "Paul Seixas remporte le Critérium de Saitama, un succès pour « bien finir » sa belle année 2026",
+     "desc": "Le cycliste français a devancé le champion du monde américain Brandon McNulty sur la ligne d’arrivée de cette course d’exhibition organisée au Japon. Il conclut, à 20 ans, une saison qui l’aura vu décrocher ses premiers…",
+     "link": "https://www.lemonde.fr/sport/article/2026/11/15/paul-seixas-remporte-le-criterium-de-saitama-un-succes-pour-bien-finir-sa-belle-annee-2026_6811010_3242.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T10:51:55+00:00"
+    },
+    {
+     "title": "Ski alpin : Lucas Pinheiro Braathen survole la première manche du slalom de Levi, Clément Noël très bien placé",
+     "desc": "Le Brésilien a réalisé une prestation magnifique pour prendre plus de six dixièmes d’avance sur le Français avant le second acte.",
+     "link": "https://www.lefigaro.fr/sports/sports-d-hiver/ski-alpin-lucas-pinheiro-braathen-survole-la-premiere-manche-du-slalom-de-levi-clement-noel-tres-bien-place-20261115",
+     "source": "Le Figaro",
+     "date": "2026-11-15T10:45:23+00:00"
+    },
     {
      "title": "Paul Seixas conclut sa saison en remportant le critérium de Saitama devant le champion du monde Brandon McNulty",
      "desc": "La star du cyclisme français s'est jouée de l'Américain de la formation UAE Emirates – XRG dans les derniers kilomètres pour remporter l'épreuve, qui ne compte pas pour le calendrier UCI.",
@@ -276,18 +1039,81 @@
      "date": "2026-11-15T08:11:43+00:00"
     },
     {
-     "title": "Face à la Turquie, Kylian Mbappé à la recherche du temps perdu avec Zinédine Zidane",
-     "desc": "Absent lors des quatre derniers matchs, le capitaine de l’équipe de France n’a joué que 59 minutes sous les ordres du nouveau sélectionneur.",
-     "link": "https://www.franceinfo.fr/sports/foot/ligue-des-nations/face-a-la-turquie-kylian-mbappe-a-la-recherche-du-temps-perdu-avec-zinedine-zidane_8282852.html#xtor=RSS-3-%5Bsports%5D",
-     "source": "franceinfo",
-     "date": "2026-11-15T04:30:01+00:00"
+     "title": "MMA : Dans un combat âpre contre Hokit, Gane garde sa ceinture des lourds de l’UFC",
+     "desc": "Le combat de MMA a été difficile mais Ciryl Gane a su gagner contre Josh Hokit pour conserver son titre de champion incontesté des poids lourds de l’UFC",
+     "link": "https://www.20minutes.fr/sport/4262929-20261115-mma-combat-apre-contre-hokit-gane-garde-ceinture-lourds-ufc?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T07:25:31+00:00"
     },
     {
-     "title": "\"Rocky Run\" : une course pour célébrer le demi-siècle de légende du mythique boxeur incarné par Sylvester Stallone",
-     "desc": "Il y a 50 ans, le mythique Rocky sortait sur les écrans. L'histoire est celle d'un jeune boxeur issu des quartiers pauvres de Philadelphie qui va affronter le champion du monde. Derrière ce scénario se trouve un homme :…",
-     "link": "https://www.franceinfo.fr/replay-jt/france-2/20-heures/rocky-run-une-course-pour-celebrer-le-demi-siecle-de-legende-du-mythique-boxeur-incarne-par-sylvester-stallone_8282894.html#xtor=RSS-3-%5Bsports%5D",
-     "source": "franceinfo",
-     "date": "2026-11-14T23:18:04+00:00"
+     "title": "DIRECT. France-Turquie: suivez le match de Ligue des nations en live, avec le retour attendu de Mbappé et l'objectif qualification",
+     "desc": "Après sa défaite en Italie (3-1), la première de l'ère Zinedine Zidane, l'équipe de France reçoit la Turquie ce dimanche à Bordeaux, dans le cadre de la sixième journée de Ligue des nations. Les Bleus, qui devraient…",
+     "link": "https://rmcsport.bfmtv.com/football/ligue-des-nations/direct-france-turquie-suivez-le-match-de-ligue-des-nations-en-live-avec-le-retour-attendu-de-mbappe-et-l-objectif-qualification_LS-202611150061.html",
+     "source": "RMC Sport",
+     "date": "2026-11-15T07:03:00+00:00"
+    },
+    {
+     "title": "Shelton-Arthur Fils : Sur quelle chaîne TV et à quelle heure voir le 1er match des Finales ATP ?",
+     "desc": "Dimanche à 20h30, le Français, numéro 7 mondial, défie l’Américain, numéro 4, pour son entrée en lice à Turin",
+     "link": "https://www.20minutes.fr/sport/tennis/4262880-20261115-shelton-arthur-fils-chaine-tv-heure-voir-1er-match-finales-atp?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T06:32:37+00:00"
+    },
+    {
+     "title": "France-Turquie : Sur quelle chaîne TV et à quelle heure voir la 6e journée de la Ligue des nations ?",
+     "desc": "Dimanche à 20h45, les Bleus, leaders ex aequo avec l’Italie, doivent valider leur qualification en quarts de finale de la compétition face aux Turcs, lanterne rouge du groupe 1",
+     "link": "https://www.20minutes.fr/sport/football/4262878-20261115-france-turquie-chaine-tv-heure-voir-6e-journee-ligue-nations?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T06:17:37+00:00"
+    },
+    {
+     "title": "Finales ATP : entre les blessures des uns et les progrès des autres, l’élite du tennis se renouvelle",
+     "desc": "Quatre des huit joueurs engagés disputent pour la première fois le traditionnel tournoi de fin de saison, qui démarre le 15 novembre à Turin. Leur qualification tient autant à leurs performances qu’à la succession de…",
+     "link": "https://www.lemonde.fr/sport/article/2026/11/15/finales-atp-entre-les-blessures-des-uns-et-les-progres-des-autres-l-elite-du-tennis-se-renouvelle_6810989_3242.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T05:30:21+00:00"
+    },
+    {
+     "title": "Tennis : Sabalenka fait son mea culpa pour sa colère lors de sa défaite contre Svitolina",
+     "desc": "Une vidéo partagée sur les réseaux sociaux semble montrer la Biélorusse Aryna Sabalenka proférer des insultes lors de son match perdu contre l’Ukrainienne Elina Svitolina au Masters WTA, à Indian Wells",
+     "link": "https://www.20minutes.fr/sport/tennis/4262921-20261115-tennis-sabalenka-fait-mea-culpa-colere-lors-defaite-contre-svitolina?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T04:31:10+00:00"
+    },
+    {
+     "title": "Présidentielle 2027 : Teddy Riner découvre le combat politique, entre popularité et agacement",
+     "desc": "Le judoka a passé son samedi après-midi au salon du Made in France alors que sa campagne connaît déjà des premières turbulences. Au milieu d’une forêt de micros et caméras, le tout récent candidat a tenu à se démarquer…",
+     "link": "https://www.lemonde.fr/election-presidentielle-2027/article/2026/11/15/presidentielle-2027-teddy-riner-decouvre-le-combat-politique-entre-popularite-et-agacement_6810907_6205049.html",
+     "source": "Le Monde",
+     "date": "2026-11-15T04:15:01+00:00"
+    },
+    {
+     "title": "Équipe de France : Une présence qui « change tout »… Mbappé sera avec les Bleus contre la Turquie",
+     "desc": "Zidane a confirmé le retour de Mbappé contre la Turquie ce dimanche en Ligue des nations. Le capitaine des Bleus était forfait jeudi lors de la défaite 3-1 en Italie",
+     "link": "https://www.20minutes.fr/sport/football/4262920-20261115-equipe-france-presence-change-tout-mbappe-bleus-contre-turquie?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-15T03:34:37+00:00"
+    },
+    {
+     "title": "The FinalSlam, un show de catch entre influenceurs qui crispe certains passionnés",
+     "desc": "Aidé de catcheurs, le streameur AmineMaTue organise, samedi, à 20 heures, sur Twitch et à la Pléenitude Arena, à Nanterre (Hauts-de-Seine), des combats auxquels prendront part des stars d’Internet comme Squeezie,…",
+     "link": "https://www.lemonde.fr/pixels/article/2026/11/14/the-finalslam-un-show-de-catch-entre-influenceurs-qui-crispe-certains-passionnes_6810455_4408996.html",
+     "source": "Le Monde",
+     "date": "2026-11-14T17:00:08+00:00"
+    },
+    {
+     "title": "Finales ATP 2026 : Sur quelle chaîne TV voir les matches ?",
+     "desc": "Les premiers matches des Nitto ATP Finals se jouent ce dimanche à Turin, avec notamment l’entrée en lice d’Arthur Fils contre Ben Shelton. Découvrez comment suivre les rencontres en direct",
+     "link": "https://www.20minutes.fr/sport/tennis/4262879-20261114-finales-atp-2026-chaine-tv-voir-matches?at_medium=display&at_campaign=149",
+     "source": "20 Minutes",
+     "date": "2026-11-14T16:43:13+00:00"
+    },
+    {
+     "title": "Le Pays de Galles signe un exploit en rugby, en battant la Nouvelle-Zélande pour la première fois depuis 1953",
+     "desc": "Le XV du Poireau s’est imposé 35-28 face aux All Blacks, samedi à Cardiff, dans le cadre de la cinquième journée du Championnat des nations, grâce à cinq essais marqués et une défense acharnée en fin de match.",
+     "link": "https://www.lemonde.fr/sport/article/2026/11/14/le-pays-de-galles-signe-un-exploit-en-rugby-en-battant-la-nouvelle-zelande-pour-la-premiere-fois-depuis-1953_6810451_3242.html",
+     "source": "Le Monde",
+     "date": "2026-11-14T16:39:10+00:00"
     }
    ]
   }

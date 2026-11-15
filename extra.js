@@ -343,7 +343,7 @@ function openRecap(mon) {
         list([`<li><span>Jours travaillés</span><b>${r.workDays}/7</b></li>`, `<li><span>Série en cours</span><b>🔥 ${r.streak}</b></li>`]), r.workDays >= 5 ? 'good' : '')}
       ${!blockOn('todo') ? '' : tile('📝', 'Tâches', r.tasksDone.length, `tâche${r.tasksDone.length > 1 ? 's' : ''} terminée${r.tasksDone.length > 1 ? 's' : ''}`,
         list(r.tasksDone.slice(0, 6).map((x) => `<li><span>✓ ${esc(x.title)}</span></li>`)))}
-      ${!modOn('apps') ? '' : tile('🎯', 'Candidatures', r.appsNew.length + r.appsMoves.length, `avancée${r.appsNew.length + r.appsMoves.length > 1 ? 's' : ''} cette semaine`,
+      ${!appsOn() ? '' : tile('🎯', 'Candidatures', r.appsNew.length + r.appsMoves.length, `avancée${r.appsNew.length + r.appsMoves.length > 1 ? 's' : ''} cette semaine`,
         list(r.appsNew.map((a) => `<li><span>${esc(a.title)}</span><b>ajoutée</b></li>`).concat(r.appsMoves.map((m) => `<li><span>${esc(m.title)}</span><b>${esc(appLabel(m.status))}</b></li>`))))}
       ${!modOn('fin') ? '' : tile('💶', 'Finances', (bal > 0 ? '+' : '') + eur(bal), 'solde de la semaine',
         list([`<li><span>Gagné</span><b class="amt in">+${eur(r.fin.in)}</b></li>`, `<li><span>Dépensé</span><b class="amt out">−${eur(r.fin.out)}</b></li>`]), bal < 0 ? 'bad' : bal > 0 ? 'good' : '')}

@@ -30,7 +30,10 @@ const DEFAULTS = {
   cal: { events: [], at: 0, error: '' },
   pins: {},
   tasks: [],
-  wk: { done: {}, manual: [] },
+  wk: { done: {}, manual: [], skip: {} },   // skip : séances annulées ou non faites
+  dlCats: [{ id: 'work', label: 'Travail / cours' }, { id: 'pro', label: 'Stage / pro' }, { id: 'fin', label: 'Finances' }, { id: 'admin', label: 'Administratif' }, { id: 'perso', label: 'Perso' }],   // catégories d'échéances (modifiables)
+  evCat: {},                           // catégorie donnée à une échéance de l'agenda : { idÉvénement: idCatégorie }
+  newsSrc: '',                         // site d'info choisi dans Actualités ('' = tous)
   li: { history: [], offset: 0 },
   habits: {},
   fin: { entries: [], subs: [], pending: [], paySeen: {}, catMemo: {} },   // pending : paiements Apple Pay à valider ; paySeen : déjà traités ; catMemo : catégorie retenue par libellé
@@ -259,7 +262,7 @@ function pinnedItems() {
   const out = [];
   for (const p of Object.values(S.pins)) if (!p.date || p.date >= t) out.push({ title: p.title, date: p.date });
   for (const x of S.tasks) if (x.pinned && !x.done) out.push({ title: x.title, date: x.due || '' });
-  if (modOn('apps')) for (const a of S.apps) if (a.pinned && (appOpen(a) || appWaiting(a))) out.push({ title: a.title, date: a.due || '' });
+  if (appsOn()) for (const a of S.apps) if (a.pinned && (appOpen(a) || appWaiting(a))) out.push({ title: a.title, date: a.due || '' });
   return out.sort((a, b) => (a.date || '9999').localeCompare(b.date || '9999'));
 }
 
@@ -278,10 +281,9 @@ function render(fromRefresh) {
   $('#subtitle').textContent = S.lastRefresh ? 'Actualisé à ' + new Date(S.lastRefresh).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) : '';
   renderTabs();
   $('#view').innerHTML = viewHtml(UI.tab);
-  syncFrame();
 }
 const tabTitle = (tab) => (tab === 'home' ? cap(new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'short' })) : TAB_DEFS[tab].title);
-const viewHtml = (tab) => ({ home: viewHome, li: viewLinkedIn, habits: viewHabits, fin: viewFinance, work: viewWork, apps: viewApps, news: viewNews, seances: () => '' }[tab]());
+const viewHtml = (tab) => ({ home: viewHome, dl: viewDeadlines, li: viewLinkedIn, habits: viewHabits, fin: viewFinance, work: viewWork, news: viewNews }[tab]());
 
 const card = (title, body, extra) => `<section class="card"><div class="card-h"><h2>${title}</h2>${extra || ''}</div>${body}</section>`;
 const empty = (txt) => `<p class="empty">${txt}</p>`;
@@ -337,28 +339,64 @@ function viewHome() {
   day === t ? `<span class="count">${dayEvs.length || ''}</span>` : '<button class="chipbtn" data-a="agendaToday">Aujourd’hui</button>');
 
   }
-  if (blockOn('deadlines')) {
-  /* Échéances (événements rouges) */
-  const reds = evs.filter((e) => isRed(e) && (evDay(e) >= t || evOnDay(e, t))).sort((a, b) => evDay(a).localeCompare(evDay(b)));
-  const shown = UI.allDeadlines ? reds : reds.slice(0, 5);
-  html += card('Échéances à venir', reds.length ? `<ul class="rows">${shown.map((e) => {
-    const d = evDay(e) < t ? t : evDay(e);
-    const k = evKey(e);
-    const n = dayDiff(d, t);
-    return `<li>
-      <div class="datebox ${n <= 3 ? 'hot' : ''}"><b>${parseYmd(d).getDate()}</b><small>${parseYmd(d).toLocaleDateString('fr-FR', { month: 'short' }).replace('.', '')}</small></div>
-      <div class="what tap" data-a="event" data-id="${esc(k)}"><b>${esc(e.title)}</b><small>${esc(countdown(d))}${e.allDay ? '' : ' · ' + fmtTime(e.start)}</small></div>
-      <button class="pin ${S.pins[k] ? 'on' : ''}" data-a="pinEvent" data-id="${esc(k)}" aria-label="Épingler">${ICON.pin}</button>
-    </li>`;
-  }).join('')}</ul>${reds.length > 5 ? `<button class="link" data-a="toggleDeadlines">${UI.allDeadlines ? 'Voir moins' : `Voir les ${reds.length} échéances`}</button>` : ''}`
-    : empty(S.settings.gcalUrl ? 'Aucun événement rouge à venir dans ton agenda.' : 'Les événements en rouge de ton agenda apparaîtront ici.'),
-  '<span class="dot red"></span>');
-
+  if (blockOn('today')) html += viewDueToday(t);
+  if (seancesOn()) {
+    html += `<button class="seance-btn" data-a="openSeances">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M6.5 6.5v11M17.500 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11"/></svg></span>
+      <span class="txt"><b>Ma séance de sport</b><small>Programmes, séance guidée et progression</small></span>
+      <span class="chev">›</span>
+    </button>`;
   }
   if (blockOn('sport')) html += viewWorkouts(t, evs);
-  if (blockOn('todo')) html += viewTasks(t);
+  if (blockOn('toc')) html += viewToc(t);
   if (parseYmd(t).getDay() !== 0) html += '<button class="link" data-a="recap" data-id="last">Voir le récap de la semaine dernière</button>';
   return html;
+}
+
+// Ce qui est à finir aujourd'hui : échéances rouges de l'agenda, tâches, travaux de groupe et candidatures
+// dont la date est aujourd'hui, plus les tâches en retard pas encore terminées.
+function viewDueToday(t) {
+  const rows = [];
+  for (const e of S.cal.events) {
+    if (!isRed(e) || !evOnDay(e, t)) continue;
+    rows.push(`<li>
+      <span class="due-dot"></span>
+      <div class="what tap" data-a="event" data-id="${esc(evKey(e))}"><b>${esc(e.title)}</b><small>Agenda${e.allDay ? '' : ' · ' + fmtTime(e.start)}</small></div>
+    </li>`);
+  }
+  const tasks = S.tasks.filter((x) => !x.done && x.due && x.due <= t).sort((a, b) => a.due.localeCompare(b.due));
+  for (const x of tasks) {
+    rows.push(`<li>
+      <button class="check" data-a="toggleTask" data-id="${x.id}" aria-label="Terminer">${ICON.check}</button>
+      <div class="what tap" data-a="openTask" data-id="${x.id}"><b>${esc(x.title)}</b><small>${taskKind(x) === 'group' ? 'Travail de groupe' : 'To-do'}${x.due < t ? ` · <span class="late">en retard (${esc(fmtDate(x.due, { day: 'numeric', month: 'short' }))})</span>` : ''}</small></div>
+    </li>`);
+  }
+  if (appsOn()) for (const a of S.apps) {
+    if (!appOpen(a) || !a.due || a.due > t) continue;
+    rows.push(`<li>
+      <span class="due-dot"></span>
+      <div class="what tap" data-a="goto" data-id="dl"><b>${esc(a.title)}</b><small>Candidature${a.due < t ? ' · <span class="late">en retard</span>' : ''}</small></div>
+    </li>`);
+  }
+  return card('À finir aujourd’hui', rows.length ? `<ul class="rows">${rows.join('')}</ul>` : empty('Rien à rendre aujourd’hui. 🎉'),
+    rows.length ? `<span class="count hot">${rows.length}</span>` : '<button class="chipbtn" data-a="goto" data-id="dl">Échéances</button>');
+}
+
+// Sommaire : un raccourci vers chaque onglet, avec ce qui attend dedans.
+function viewToc(t) {
+  const info = {
+    dl: () => { const n = dlOpenCount(t); return n ? `${n} à venir` : 'Rien en attente'; },
+    work: () => 'Série et Pomodoro',
+    habits: () => { const st = habitStat(logicalDay()); return st.total ? `${st.n}/${st.total} aujourd’hui` : 'Routine du soir'; },
+    li: () => 'Contact de la semaine',
+    news: () => 'Les titres du jour',
+    fin: () => { const n = payOn() ? S.fin.pending.length : 0; return n ? `${n} paiement${n > 1 ? 's' : ''} à valider` : 'Dépenses et revenus'; },
+  };
+  const tabs = enabledTabs().filter((x) => x !== 'home');
+  if (!tabs.length) return '';
+  return card('Sommaire', `<div class="toc">${tabs.map((x) => `<button data-a="goto" data-id="${x}">
+      <svg viewBox="0 0 24 24">${TAB_DEFS[x].icon}</svg><span><b>${TAB_DEFS[x].title}</b><small>${info[x] ? esc(info[x]()) : ''}</small></span>
+    </button>`).join('')}</div>`);
 }
 
 // Description d'un événement Google : parfois du HTML. On n'en garde que le texte, avec ses retours à la ligne et ses liens.
@@ -390,6 +428,7 @@ function openEvent(k) {
       ${e.location ? `<li>📍 <a href="https://maps.apple.com/?q=${encodeURIComponent(e.location)}" target="_blank" rel="noopener">${esc(e.location)}</a></li>` : ''}
     </ul>
     ${desc}
+    ${isRed(e) ? `<label class="ev-cat">Catégorie de cette échéance<select data-c="evCat" data-id="${esc(e.id)}">${dlCatOptions(S.evCat[e.id])}</select></label>` : ''}
     <button class="link" data-a="closeSheet">Fermer</button>`;
   $('#sheet').hidden = false;
   $('#sheetBody').scrollTop = 0;
@@ -409,10 +448,13 @@ function viewWorkouts(t, evs) {
   const todays = all.filter((w) => w.date === t);
   const week = all.filter((w) => w.date >= mon && w.date <= addDays(mon, 6));
   const done = week.filter((w) => S.wk.done[w.key]).sort((a, b) => a.date.localeCompare(b.date));
+  const skip = (k) => !!S.wk.skip[k] && !S.wk.done[k];
+  const skipBtn = (w) => (S.wk.done[w.key] ? '' : `<button class="ghost skip ${skip(w.key) ? 'on' : ''}" data-a="skipWorkout" data-id="${esc(w.key)}" aria-label="${skip(w.key) ? 'Rétablir la séance' : 'Séance annulée ou non faite'}">${ICON.close}</button>`);
 
   let body = todays.length ? `<ul class="rows">${todays.map((w) => `<li>
       <button class="check ${S.wk.done[w.key] ? 'on' : ''}" data-a="toggleWorkout" data-id="${esc(w.key)}" aria-label="Fait">${ICON.check}</button>
-      <div class="what ${S.wk.done[w.key] ? 'struck' : ''} ${w.manual ? '' : 'tap'}" ${w.manual ? '' : `data-a="event" data-id="${esc(w.key)}"`}><b>${esc(w.title)}</b><small>${w.time ? 'Prévu à ' + w.time : 'Séance du jour'}${w.desc ? ' · voir le détail ›' : ''}</small></div>
+      <div class="what ${S.wk.done[w.key] || skip(w.key) ? 'struck' : ''} ${w.manual ? '' : 'tap'}" ${w.manual ? '' : `data-a="event" data-id="${esc(w.key)}"`}><b>${esc(w.title)}</b><small>${skip(w.key) ? 'Annulée / non faite' : (w.time ? 'Prévu à ' + w.time : 'Séance du jour') + (w.desc ? ' · voir le détail ›' : '')}</small></div>
+      ${skipBtn(w)}
       ${w.manual ? `<button class="ghost" data-a="delWorkout" data-id="${esc(w.key)}" aria-label="Supprimer">${ICON.trash}</button>` : ''}
     </li>`).join('')}</ul>` : empty('Pas de séance prévue aujourd’hui.');
 
@@ -420,45 +462,136 @@ function viewWorkouts(t, evs) {
 
   body += `<div class="week">${DOW.map((l, i) => {
     const d = addDays(mon, i);
-    const nDone = week.filter((w) => w.date === d && S.wk.done[w.key]).length;
-    const nPlan = week.filter((w) => w.date === d).length;
-    return `<div class="${d === t ? 'today' : ''}"><span>${l}</span><i class="${nDone ? 'done' : nPlan ? 'plan' : ''}">${nDone ? ICON.check : ''}</i></div>`;
+    const day = week.filter((w) => w.date === d);
+    const nDone = day.filter((w) => S.wk.done[w.key]).length;
+    const nPlan = day.filter((w) => !skip(w.key)).length;
+    const nSkip = day.length - nPlan;
+    return `<div class="${d === t ? 'today' : ''}"><span>${l}</span><i class="${nDone ? 'done' : nPlan ? 'plan' : nSkip ? 'skip' : ''}">${nDone ? ICON.check : !nPlan && nSkip ? ICON.close : ''}</i></div>`;
   }).join('')}</div>`;
 
-  // Récap de la semaine : séances faites + séances passées encore à valider.
-  const recap = week.filter((w) => S.wk.done[w.key] || w.date < t).sort((a, b) => a.date.localeCompare(b.date));
+  // Récap de la semaine : séances faites, annulées, et séances passées encore à valider.
+  const recap = week.filter((w) => S.wk.done[w.key] || skip(w.key) || w.date < t).sort((a, b) => a.date.localeCompare(b.date));
   body += recap.length
     ? `<ul class="rows recap">${recap.map((w) => `<li>
         <button class="check ${S.wk.done[w.key] ? 'on' : ''}" data-a="toggleWorkout" data-id="${esc(w.key)}" aria-label="Fait">${ICON.check}</button>
-        <div class="what"><b>${esc(w.title)}</b><small>${esc(cap(fmtDate(w.date, { weekday: 'long' })))}${S.wk.done[w.key] ? ' · fait' : ' · à valider si fait'}</small></div>
+        <div class="what ${skip(w.key) ? 'struck' : ''}"><b>${esc(w.title)}</b><small>${esc(cap(fmtDate(w.date, { weekday: 'long' })))}${S.wk.done[w.key] ? ' · fait' : skip(w.key) ? ' · annulée / non faite' : ' · à valider si fait'}</small></div>
+        ${skipBtn(w)}
       </li>`).join('')}</ul>`
     : '<p class="hint">Aucune séance validée cette semaine pour l’instant.</p>';
 
-  return card('Sport', body, `<span class="count">${done.length} cette semaine</span>`);
+  const nSkipped = week.filter((w) => skip(w.key)).length;
+  return card('Sport', body, `<span class="count">${done.length} faite${done.length > 1 ? 's' : ''}${nSkipped ? ` · ${nSkipped} annulée${nSkipped > 1 ? 's' : ''}` : ''}</span>`);
 }
 
-function viewTasks(t) {
-  const open = S.tasks.filter((x) => !x.done).sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0) || (a.due || '9999').localeCompare(b.due || '9999') || a.at - b.at);
-  const done = S.tasks.filter((x) => x.done).sort((a, b) => (b.doneAt || 0) - (a.doneAt || 0));
-  const row = (x) => `<li>
-      <button class="check ${x.done ? 'on' : ''}" data-a="toggleTask" data-id="${x.id}" aria-label="Terminer">${ICON.check}</button>
-      <div class="what ${x.done ? 'struck' : ''}"><b>${esc(x.title)}</b>${x.due ? `<small class="${!x.done && x.due < t ? 'late' : ''}">${esc(countdown(x.due))} · ${esc(fmtDate(x.due))}</small>` : ''}</div>
-      ${x.done ? '' : `<button class="pin ${x.pinned ? 'on' : ''}" data-a="pinTask" data-id="${x.id}" aria-label="Épingler">${ICON.pin}</button>`}
-      <button class="ghost" data-a="delTask" data-id="${x.id}" aria-label="Supprimer">${ICON.trash}</button>
+/* ---------- Onglet : Échéances ----------
+   Tout ce qui a une date limite, au même endroit : échéances de l'agenda (événements rouges),
+   travaux de groupe, candidatures et to-do. Des catégories (modifiables) filtrent l'ensemble. */
+
+const dlCatOf = (id) => S.dlCats.find((c) => c.id === id) || null;
+const dlCatLabel = (id) => (dlCatOf(id) ? dlCatOf(id).label : '');
+const dlMatch = (cat) => !UI.dlCat || (cat || '') === UI.dlCat;
+const dlCatOptions = (cur) => `<option value="">Sans catégorie</option>${S.dlCats.map((c) => `<option value="${esc(c.id)}" ${c.id === cur ? 'selected' : ''}>${esc(c.label)}</option>`).join('')}`;
+const redEvents = (t) => S.cal.events.filter((e) => isRed(e) && (evDay(e) >= t || evOnDay(e, t))).sort((a, b) => evDay(a).localeCompare(evDay(b)));
+const dlOpenCount = (t) => redEvents(t).length + S.tasks.filter((x) => !x.done).length + (appsOn() ? S.apps.filter(appOpen).length : 0);
+
+function viewDeadlines() {
+  const t = today();
+  if (UI.dlCat && !dlCatOf(UI.dlCat)) UI.dlCat = '';
+  let html = `<div class="chips"><button class="${UI.dlCat ? '' : 'on'}" data-a="dlCat" data-id="">Tout</button>${S.dlCats.map((c) => `<button class="${c.id === UI.dlCat ? 'on' : ''}" data-a="dlCat" data-id="${esc(c.id)}">${esc(c.label)}</button>`).join('')}<button class="edit" data-a="dlCats" aria-label="Gérer les catégories">${ICON.edit}</button></div>`;
+
+  /* Ajouter */
+  const kind = UI.dlKind === 'group' ? 'group' : 'todo';
+  html += card('Ajouter', `<form class="stack" data-f="addTask">
+      <div class="seg"><button type="button" class="${kind === 'todo' ? 'on' : ''}" data-a="dlKind" data-id="todo">To-do</button><button type="button" class="${kind === 'group' ? 'on' : ''}" data-a="dlKind" data-id="group">Travail de groupe</button></div>
+      <input name="title" placeholder="${kind === 'group' ? 'Ex. Exposé de marketing' : 'Nouvelle tâche…'}" autocomplete="off" enterkeyhint="done">
+      <div class="two"><label class="datefield"><span>Échéance (optionnelle)</span><input type="date" name="due"></label><label class="datefield"><span>Catégorie</span><select name="cat">${dlCatOptions(UI.dlCat)}</select></label></div>
+      <input name="desc" placeholder="Description (optionnelle)" autocomplete="off">
+      <button class="btn primary wide">Ajouter</button>
+    </form>`);
+
+  /* 1. Échéances de l'agenda (événements rouges) */
+  const reds = redEvents(t).filter((e) => dlMatch(S.evCat[e.id]));
+  const shown = UI.allDeadlines ? reds : reds.slice(0, 6);
+  html += card('Échéances de l’agenda', reds.length ? `<ul class="rows">${shown.map((e) => {
+    const d = evDay(e) < t ? t : evDay(e);
+    const k = evKey(e);
+    const n = dayDiff(d, t);
+    return `<li>
+      <div class="datebox ${n <= 3 ? 'hot' : ''}"><b>${parseYmd(d).getDate()}</b><small>${parseYmd(d).toLocaleDateString('fr-FR', { month: 'short' }).replace('.', '')}</small></div>
+      <div class="what tap" data-a="event" data-id="${esc(k)}"><b>${esc(e.title)}</b><small>${esc(countdown(d))}${e.allDay ? '' : ' · ' + fmtTime(e.start)}${dlCatLabel(S.evCat[e.id]) ? ' · ' + esc(dlCatLabel(S.evCat[e.id])) : ''}</small></div>
+      <button class="pin ${S.pins[k] ? 'on' : ''}" data-a="pinEvent" data-id="${esc(k)}" aria-label="Épingler">${ICON.pin}</button>
     </li>`;
-  let body = `<form class="task-form" data-f="addTask">
-      <input name="title" placeholder="Nouvelle tâche…" autocomplete="off" enterkeyhint="done">
-      <div class="task-form-row">
-        <label class="datefield"><span>Échéance (optionnelle)</span><input type="date" name="due"></label>
-        <button class="btn primary">Ajouter</button>
-      </div>
-    </form>`;
-  body += open.length ? `<ul class="rows">${open.map(row).join('')}</ul>` : empty('Aucune tâche en cours. 🎉');
+  }).join('')}</ul>${reds.length > 6 ? `<button class="link" data-a="toggleDeadlines">${UI.allDeadlines ? 'Voir moins' : `Voir les ${reds.length} échéances`}</button>` : ''}`
+    : empty(!S.settings.gcalUrl ? 'Les événements en rouge de ton agenda apparaîtront ici.' : UI.dlCat ? 'Aucune échéance de l’agenda dans cette catégorie. Touche une échéance pour lui donner une catégorie.' : 'Aucun événement rouge à venir dans ton agenda.'),
+  '<span class="dot red"></span>');
+
+  /* 2. Travaux de groupe */
+  html += viewTasks(t, 'group');
+
+  /* 3. Candidatures (rangées dans « Stage / pro ») */
+  if (appsOn() && (!UI.dlCat || UI.dlCat === 'pro')) html += `<h3 class="sec">Candidatures</h3>` + viewApps();
+
+  /* 4. To-do */
+  html += viewTasks(t, 'todo');
+  return html;
+}
+
+const taskKind = (x) => (x.kind === 'group' ? 'group' : 'todo');
+function viewTasks(t, kind) {
+  const mine = S.tasks.filter((x) => taskKind(x) === kind && dlMatch(x.cat));
+  const open = mine.filter((x) => !x.done).sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0) || (a.due || '9999').localeCompare(b.due || '9999') || a.at - b.at);
+  const done = mine.filter((x) => x.done).sort((a, b) => (b.doneAt || 0) - (a.doneAt || 0));
+  const showDone = kind === 'group' ? UI.showDoneG : UI.showDone;
+  const row = (x) => {
+    const bits = [];
+    if (x.due) bits.push(`<span class="${!x.done && x.due < t ? 'late' : ''}">${esc(countdown(x.due))} · ${esc(fmtDate(x.due))}</span>`);
+    if (dlCatLabel(x.cat)) bits.push(esc(dlCatLabel(x.cat)));
+    return `<li>
+      <button class="check ${x.done ? 'on' : ''}" data-a="toggleTask" data-id="${x.id}" aria-label="Terminer">${ICON.check}</button>
+      <div class="what tap ${x.done ? 'struck' : ''}" data-a="openTask" data-id="${x.id}"><b>${esc(x.title)}</b>${bits.length ? `<small>${bits.join(' · ')}</small>` : ''}${x.desc ? `<small class="desc">${esc(x.desc)}</small>` : ''}</div>
+      ${x.done ? '' : `<button class="pin ${x.pinned ? 'on' : ''}" data-a="pinTask" data-id="${x.id}" aria-label="Épingler">${ICON.pin}</button>`}
+      <button class="ghost" data-a="openTask" data-id="${x.id}" aria-label="Modifier">${ICON.edit}</button>
+    </li>`;
+  };
+  let body = open.length ? `<ul class="rows">${open.map(row).join('')}</ul>` : empty(kind === 'group' ? 'Aucun travail de groupe en cours.' : 'Aucune tâche en cours. 🎉');
   if (done.length) {
-    body += `<button class="link" data-a="toggleDone">${UI.showDone ? 'Masquer' : 'Afficher'} les ${done.length} terminée${done.length > 1 ? 's' : ''}</button>`;
-    if (UI.showDone) body += `<ul class="rows">${done.map(row).join('')}</ul><button class="link danger" data-a="clearDone">Effacer les tâches terminées</button>`;
+    body += `<button class="link" data-a="toggleDone" data-id="${kind}">${showDone ? 'Masquer' : 'Afficher'} les ${done.length} terminé${kind === 'group' ? '' : 'e'}${done.length > 1 ? 's' : ''}</button>`;
+    if (showDone) body += `<ul class="rows">${done.map(row).join('')}</ul><button class="link danger" data-a="clearDone" data-id="${kind}">Effacer les ${kind === 'group' ? 'travaux terminés' : 'tâches terminées'}</button>`;
   }
-  return card('To-do', body, `<span class="count">${open.length || ''}</span>`);
+  return card(kind === 'group' ? 'Travaux de groupe' : 'To-do', body, `<span class="count">${open.length || ''}</span>`);
+}
+
+// Fiche d'une tâche ou d'un travail de groupe : intitulé, date de rendu, type, catégorie, description.
+function openTask(id) {
+  const x = S.tasks.find((y) => y.id === id);
+  if (!x) return;
+  $('#sheetBody').innerHTML = `
+    <div class="grab"></div>
+    <h2>${taskKind(x) === 'group' ? 'Travail de groupe' : 'Tâche'}</h2>
+    <form class="stack" data-f="editTask">
+      <input type="hidden" name="id" value="${x.id}">
+      <label>Intitulé<input name="title" value="${esc(x.title)}" autocomplete="off"></label>
+      <div class="two"><label>Date de rendu<input type="date" name="due" value="${esc(x.due || '')}"></label><label>Type<select name="kind"><option value="todo" ${taskKind(x) === 'todo' ? 'selected' : ''}>To-do</option><option value="group" ${taskKind(x) === 'group' ? 'selected' : ''}>Travail de groupe</option></select></label></div>
+      <label>Catégorie<select name="cat">${dlCatOptions(x.cat)}</select></label>
+      <label>Description (optionnelle)<textarea name="desc" rows="4" placeholder="Consignes, lien, répartition du travail…">${esc(x.desc || '')}</textarea></label>
+      <button class="btn primary wide">Enregistrer</button>
+    </form>
+    <button class="link danger" data-a="delTask" data-id="${x.id}">Supprimer</button>
+    <button class="link" data-a="closeSheet">Fermer</button>`;
+  $('#sheet').hidden = false;
+  $('#sheetBody').scrollTop = 0;
+}
+
+// Gestion des catégories d'échéances.
+function openDlCats() {
+  $('#sheetBody').innerHTML = `
+    <div class="grab"></div>
+    <h2>Catégories</h2>
+    <p class="hint">Elles servent à trier les échéances, les travaux de groupe et les tâches. Supprimer une catégorie ne supprime pas ce qui était rangé dedans.</p>
+    <ul class="toggles cats-list">${S.dlCats.map((c) => `<li><div><b>${esc(c.label)}</b></div><button class="ghost" data-a="dlCatDel" data-id="${esc(c.id)}" aria-label="Supprimer">${ICON.trash}</button></li>`).join('') || '<li><div><small>Aucune catégorie.</small></div></li>'}</ul>
+    <form class="inline" data-f="addDlCat"><input name="label" placeholder="Nouvelle catégorie (ex. Association)" autocomplete="off" enterkeyhint="done"><button class="add" aria-label="Ajouter">${ICON.plus}</button></form>
+    <button class="link" data-a="closeSheet">Fermer</button>`;
+  $('#sheet').hidden = false;
 }
 
 /* ---------- Onglet 2 : LinkedIn ---------- */
@@ -720,7 +853,7 @@ function finRange(a, b) {
   for (const e of S.fin.entries) if (e.date >= a && e.date <= b) { r[e.type] += e.amount; if (isAdv(e)) r.adv += e.amount; }
   for (const ym of new Set([a.slice(0, 7), b.slice(0, 7)])) for (const s of S.fin.subs) {
     const d = subDate(s, ym);
-    if (subActive(s, ym) && d >= a && d <= b) { r.out += s.amount; r.subs += s.amount; }
+    if (subActive(s, ym) && d >= a && d <= b) { r.out += s.amount; r.subs += s.amount; if (s.by === 'parents') r.adv += s.amount; }
   }
   return r;
 }
@@ -785,7 +918,7 @@ function viewFinance() {
     </form>`);
 
   const moves = S.fin.entries.filter((e) => e.date >= m0 && e.date <= m1).map((e) => ({ ...e }))
-    .concat(S.fin.subs.filter((s) => subActive(s, ym)).map((s) => ({ id: '', type: 'out', amount: s.amount, label: s.label, date: subDate(s, ym), sub: true })))
+    .concat(S.fin.subs.filter((s) => subActive(s, ym)).map((s) => ({ id: '', type: 'out', amount: s.amount, label: s.label, date: subDate(s, ym), sub: true, by: s.by })))
     .sort((a, b) => b.date.localeCompare(a.date));
   html += finCats(ym, m0, m1);
   html += card('Mouvements du mois', moves.length ? `<ul class="rows">${moves.map((e) => `<li class="${e.sub || e.type === 'in' ? '' : 'wrap'}">
@@ -799,15 +932,17 @@ function viewFinance() {
   if (isCur) {
     const subs = S.fin.subs.filter((s) => subActive(s, ym));
     const subsTotal = subs.reduce((x, s) => x + s.amount, 0);
-    html += card('Abonnements mensuels', `${subs.length ? `<ul class="rows">${subs.map((s) => `<li>
+    html += card('Abonnements mensuels', `${subs.length ? `<ul class="rows">${subs.map((s) => `<li class="${parentsOn() ? 'wrap' : ''}">
         <div class="datebox"><b>${s.day}</b><small>/ mois</small></div>
         <div class="what"><b>${esc(s.label)}</b><small>Compté automatiquement chaque mois</small></div>
-        <b class="amt out">${eur(s.amount)}</b>
+        <b class="amt ${s.by === 'parents' && parentsOn() ? 'adv' : 'out'}">${eur(s.amount)}</b>
         <button class="ghost" data-a="delSub" data-id="${s.id}" aria-label="Arrêter">${ICON.trash}</button>
+        ${parentsOn() ? `<div class="tags">${byChip('subBy', s.id, s.by)}</div>` : ''}
       </li>`).join('')}</ul>` : empty('Ajoute tes abonnements fixes (Spotify, salle, forfait…).')}
       <form class="stack" data-f="addSub">
         <input name="label" placeholder="Nom de l’abonnement" autocomplete="off">
         <div class="two"><input name="amount" inputmode="decimal" placeholder="Montant € / mois" autocomplete="off"><input name="day" inputmode="numeric" placeholder="Jour de prélèvement (1-31)" autocomplete="off"></div>
+        ${parentsOn() ? '<label class="swrow"><span><b>Pris en charge par les parents</b><small>Chaque mois, il s’ajoute aux remboursements à recevoir</small></span><input type="checkbox" name="parents"></label>' : ''}
         <button class="btn wide">Ajouter l’abonnement</button>
       </form>`, `<span class="count">${subsTotal ? eur(subsTotal) + ' / mois' : ''}</span>`);
   }
@@ -830,10 +965,39 @@ function finCats(ym, m0, m1) {
     ${sums[''] ? '<p class="hint">Classe une dépense avec le menu « Catégorie » sous son nom, dans les mouvements du mois. L’app retient ton choix pour les prochaines dépenses du même nom.</p>' : ''}`, `<span class="count">${eur(total)}</span>`);
 }
 
+// Tout ce qui est à rembourser par les parents : les dépenses marquées, et chaque mensualité déjà
+// prélevée des abonnements pris en charge (une ligne par mois, identifiée « sub:idAbonnement:AAAA-MM »).
+function advItems() {
+  const out = S.fin.entries.filter(isAdv).map((e) => ({ id: e.id, label: e.label, date: e.date, cat: e.cat, amount: e.amount, paid: e.paid }));
+  const t = today(), cur = curMonth();
+  for (const s of S.fin.subs) {
+    if (s.by !== 'parents') continue;
+    for (let ym = s.from || cur; ym <= cur; ym = addMonths(ym, 1)) {
+      if (!subActive(s, ym)) continue;
+      const date = subDate(s, ym);
+      if (date > t) continue;
+      out.push({ id: `sub:${s.id}:${ym}`, label: `${s.label} (abonnement)`, date, amount: s.amount, paid: (s.paid || {})[ym] });
+    }
+  }
+  return out;
+}
+// Marque une ligne comme remboursée (ou annule).
+function advSetPaid(id, paid) {
+  if (id.startsWith('sub:')) {
+    const [, sid, ym] = id.split(':');
+    const s = S.fin.subs.find((x) => x.id === sid); if (!s) return;
+    s.paid = s.paid || {};
+    if (paid) s.paid[ym] = paid; else delete s.paid[ym];
+    return;
+  }
+  const e = S.fin.entries.find((x) => x.id === id); if (!e) return;
+  if (paid) e.paid = paid; else delete e.paid;
+}
+
 // Tableau des dépenses avancées pour les parents, en bas de l'onglet : le solde, puis l'état de chaque dépense.
 function finParents() {
   if (!parentsOn()) return '';
-  const adv = S.fin.entries.filter(isAdv);
+  const adv = advItems();
   const due = adv.filter((e) => !e.paid).sort((a, b) => a.date.localeCompare(b.date));
   const got = adv.filter((e) => e.paid).sort((a, b) => b.paid.localeCompare(a.paid) || b.date.localeCompare(a.date));
   const shown = UI.allPaid ? got : got.slice(0, 5);
@@ -855,7 +1019,7 @@ function finParents() {
       ${got.length > 5 ? `<button class="link" data-a="toggleAllPaid">${UI.allPaid ? 'Voir moins' : `Voir les ${got.length} dépenses remboursées`}</button>` : ''}
       ${due.length > 1 ? '<button class="btn wide" data-a="finPaidAll">Tout marquer comme remboursé</button>' : ''}
       <p class="hint">Coche une ligne quand tes parents t’ont remboursé. Ces dépenses comptent dans tes totaux comme les autres.</p>`
-    : empty('Active « Parents remboursent » sous une dépense pour la suivre ici.');
+    : empty('Active « Parents remboursent » sous une dépense ou un abonnement pour le suivre ici.');
   return card('Remboursements parents', body, `<span class="count">${due.length ? due.length + ' en attente' : ''}</span>`);
 }
 
@@ -884,7 +1048,19 @@ const ACTIONS = {
   event: openEvent,
   closeSheet,
   toggleDeadlines: () => { UI.allDeadlines = !UI.allDeadlines; },
-  toggleDone: () => { UI.showDone = !UI.showDone; },
+  toggleDone: (kind) => { if (kind === 'group') UI.showDoneG = !UI.showDoneG; else UI.showDone = !UI.showDone; },
+  openTask,
+  dlCats: openDlCats,
+  dlCat(id) { UI.dlCat = id || ''; },
+  dlKind(id) { UI.dlKind = id; },
+  dlCatDel(id) {
+    const c = dlCatOf(id);
+    if (!c || !confirm(`Supprimer la catégorie « ${c.label} » ?`)) return;
+    S.dlCats = S.dlCats.filter((x) => x.id !== id);
+    for (const x of S.tasks) if (x.cat === id) delete x.cat;
+    for (const k of Object.keys(S.evCat)) if (S.evCat[k] === id) delete S.evCat[k];
+    openDlCats();
+  },
 
   pinEvent(k) {
     if (S.pins[k]) { delete S.pins[k]; toast('Épingle retirée'); return; }
@@ -902,17 +1078,30 @@ const ACTIONS = {
     const x = S.tasks.find((y) => y.id === id); if (!x) return;
     x.done = !x.done; x.doneAt = x.done ? Date.now() : 0;
   },
-  delTask(id) { S.tasks = S.tasks.filter((y) => y.id !== id); },
-  clearDone() { S.tasks = S.tasks.filter((y) => !y.done); UI.showDone = false; },
+  delTask(id) {
+    const x = S.tasks.find((y) => y.id === id);
+    if (!x || !confirm(`Supprimer « ${x.title} » ?`)) return;
+    S.tasks = S.tasks.filter((y) => y.id !== id);
+    closeSheet();
+  },
+  clearDone(kind) { S.tasks = S.tasks.filter((y) => !(y.done && taskKind(y) === (kind === 'group' ? 'group' : 'todo'))); UI.showDone = UI.showDoneG = false; },
 
+  skipWorkout(k) {
+    if (S.wk.skip[k]) { delete S.wk.skip[k]; return; }
+    const info = workoutList(S.cal.events).find((x) => x.key === k) || {};
+    S.wk.skip[k] = { at: Date.now(), date: info.date || today() };
+    delete S.wk.done[k];
+    toast('Séance marquée comme annulée');
+  },
   toggleWorkout(k) {
     if (S.wk.done[k]) { delete S.wk.done[k]; return; }
+    delete S.wk.skip[k];
     const info = workoutList(S.cal.events).find((x) => x.key === k) || {};
     S.wk.done[k] = { at: Date.now(), title: info.title || 'Séance', date: info.date || today() };
     // Une séance faite aujourd'hui coche aussi l'habitude « Sport ».
     if (info.date === today() && S.habitList.some((h) => h.id === 'sport' && !h.end)) { const d = logicalDay(); (S.habits[d] = S.habits[d] || {}).sport = true; }
   },
-  delWorkout(k) { S.wk.manual = S.wk.manual.filter((m) => 'm:' + m.id !== k); delete S.wk.done[k]; },
+  delWorkout(k) { S.wk.manual = S.wk.manual.filter((m) => 'm:' + m.id !== k); delete S.wk.done[k]; delete S.wk.skip[k]; },
 
   liMsg(id) { UI.liMsg = id; },
   liSkip() { S.li.offset++; },
@@ -956,14 +1145,16 @@ const ACTIONS = {
     if (e.by === 'parents') { delete e.by; delete e.paid; } else e.by = 'parents';
   },
   finPaid(id) {
-    const e = S.fin.entries.find((x) => x.id === id); if (!e) return;
-    if (e.paid) delete e.paid; else { e.paid = today(); toast('Remboursement reçu ✓'); }
+    const e = advItems().find((x) => x.id === id); if (!e) return;
+    advSetPaid(id, e.paid ? '' : today());
+    if (!e.paid) toast('Remboursement reçu ✓');
   },
+  subBy(id) { const x = S.fin.subs.find((y) => y.id === id); if (x) { if (x.by === 'parents') delete x.by; else x.by = 'parents'; } },
   toggleAllPaid() { UI.allPaid = !UI.allPaid; },
   finPaidAll() {
-    const due = S.fin.entries.filter((e) => isAdv(e) && !e.paid);
+    const due = advItems().filter((e) => !e.paid);
     if (!due.length || !confirm(`Marquer ${due.length} dépenses comme remboursées ?`)) return;
-    for (const e of due) e.paid = today();
+    for (const e of due) advSetPaid(e.id, today());
   },
   payOk(id) { if (payAccept(id)) toast('Dépense ajoutée'); },
   payNo(id) {
@@ -995,12 +1186,36 @@ const ACTIONS = {
   },
 };
 Object.assign(ACTIONS, EXTRA_ACTIONS);
-const NO_RENDER = new Set(['refresh', 'settings', 'closeSheet', 'liCopy', 'export', 'recap', 'recapWeek', 'copyScript', 'copyExec', 'copyRappel', 'event', 'bgClear']);
+const NO_RENDER = new Set(['refresh', 'settings', 'closeSheet', 'liCopy', 'export', 'recap', 'recapWeek', 'copyScript', 'copyExec', 'copyRappel', 'event', 'bgClear', 'openSeances', 'closeSeances', 'goto', 'openTask', 'dlCats']);
 
 const FORMS = {
   addTask(f) {
     const title = f.title.trim(); if (!title) return false;
-    S.tasks.push({ id: uid(), title, due: f.due || '', done: false, pinned: false, at: Date.now() });
+    const x = { id: uid(), title, due: f.due || '', done: false, pinned: false, at: Date.now() };
+    if (UI.dlKind === 'group') x.kind = 'group';
+    if (f.cat) x.cat = f.cat;
+    if (f.desc && f.desc.trim()) x.desc = f.desc.trim();
+    S.tasks.push(x);
+    toast(x.kind === 'group' ? 'Travail de groupe ajouté' : 'Tâche ajoutée');
+  },
+  editTask(f) {
+    const x = S.tasks.find((y) => y.id === f.id);
+    const title = f.title.trim();
+    if (!x) return false;
+    if (!title) { toast('Donne un intitulé'); return false; }
+    x.title = title; x.due = f.due || '';
+    if (f.kind === 'group') x.kind = 'group'; else delete x.kind;
+    if (f.cat) x.cat = f.cat; else delete x.cat;
+    if (f.desc.trim()) x.desc = f.desc.trim(); else delete x.desc;
+    closeSheet();
+    toast('Modifié ✓');
+  },
+  addDlCat(f) {
+    const label = f.label.trim();
+    if (!label) return false;
+    if (S.dlCats.some((c) => c.label.toLowerCase() === label.toLowerCase())) { toast('Cette catégorie existe déjà'); return false; }
+    S.dlCats.push({ id: uid(), label });
+    openDlCats();
   },
   addWorkout(f) {
     const title = f.title.trim(); if (!title) return false;
@@ -1028,7 +1243,9 @@ const FORMS = {
     const amount = num(f.amount); const label = f.label.trim();
     if (!label || !amount) { toast('Nom et montant requis'); return false; }
     const day = Math.min(31, Math.max(1, parseInt(f.day, 10) || 1));
-    S.fin.subs.push({ id: uid(), label, amount, day, from: curMonth() });
+    const sub = { id: uid(), label, amount, day, from: curMonth() };
+    if (f.parents && parentsOn()) sub.by = 'parents';
+    S.fin.subs.push(sub);
   },
   addHabit(f) {
     const title = f.title.trim();
@@ -1055,6 +1272,8 @@ Object.assign(EXTRA_CHANGES, {
     const e = S.fin.entries.find((x) => x.id === id); if (!e) return;
     if (value) { e.cat = value; if (e.label) S.fin.catMemo[catKey(e.label)] = value; } else delete e.cat;
   },
+  evCat(id, value) { if (value) S.evCat[id] = value; else delete S.evCat[id]; },
+  newsSrc(_, value) { S.newsSrc = value; },
   payCat(id, value) { const p = S.fin.pending.find((x) => x.id === id); if (p) p.cat = value; },
 });
 
@@ -1138,7 +1357,6 @@ scheduleDailyRefresh();
 maybeSundayRecap();
 setInterval(pomoTick, 500);
 bindSwipe();
-window.addEventListener('resize', syncFrame);
 
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
   navigator.serviceWorker.register('sw.js').catch(() => {});

@@ -13,17 +13,16 @@ const TAB_DEFS = {
   home: { label: 'Accueil', title: '', icon: '<rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/>' },
   work: { label: 'Travail', title: 'Travail', desc: 'Série de jours et Pomodoro', icon: '<path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-1.8.7-3 1.7-4 .3 1.5 1 2.3 1.8 2.5C10 9 10.5 6 12 3z"/>' },
   habits: { label: 'Habitudes', title: 'Habitudes', desc: 'Routine du soir et progression', icon: '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16 9.8"/>' },
-  seances: { label: 'Séances', title: 'Séances de sport', desc: 'Programmes et suivi de musculation', icon: '<path d="M6.5 6.5v11M17.500 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11"/>' },
-  apps: { label: 'Candid.', title: 'Candidatures', desc: 'Suivi des candidatures', icon: '<path d="M21 3L10 14"/><path d="M21 3l-7 18-4-7-7-4z"/>' },
+  dl: { label: 'Échéances', title: 'Échéances', desc: 'Agenda, travaux de groupe, candidatures, to-do', icon: '<rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M9 15l2.2 2.2L15.500 13"/>' },
   li: { label: 'Réseau', title: 'Réseau LinkedIn', desc: 'Un contact LinkedIn par semaine', icon: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.2a5 5 0 0 1 4.5 5"/>' },
   news: { label: 'Actus', title: 'Actualités', desc: 'Les titres du jour', icon: '<path d="M4 5h13v14H6a2 2 0 0 1-2-2z"/><path d="M17 9h3v8a2 2 0 0 1-2 2"/><path d="M7.5 9h6M7.5 12.5h6M7.5 16h4"/>' },
   fin: { label: 'Finances', title: 'Finances', desc: 'Dépenses, revenus, abonnements', icon: '<rect x="2.5" y="5.5" width="19" height="13" rx="3"/><path d="M2.5 10h19"/><path d="M6.5 14.5h3"/>' },
 };
 const BLOCK_DEFS = {
   agenda: { title: 'Emploi du temps', desc: 'Programme du jour (Google Agenda)' },
-  deadlines: { title: 'Échéances', desc: 'Événements rouges de l’agenda' },
+  today: { title: 'À finir aujourd’hui', desc: 'Échéances, tâches et candidatures du jour' },
   sport: { title: 'Sport', desc: 'Séances du jour et de la semaine' },
-  todo: { title: 'To-do', desc: 'Tâches à faire' },
+  toc: { title: 'Sommaire', desc: 'Raccourcis vers les onglets' },
 };
 
 const modOn = (id) => APP.tabs.includes(id) && S.modules[id] !== false;
@@ -35,6 +34,8 @@ function orderedTabs() {
   return [...APP.tabs].sort((a, b) => rank(a) - rank(b));
 }
 const enabledTabs = () => orderedTabs().filter((t) => t === 'home' || modOn(t));
+const seancesOn = () => S.modules.seances !== false;                                   // app de musculation, ouverte depuis l'accueil
+const appsOn = () => !!APP.candidatures && S.modules.apps !== false;                    // candidatures, dans l'onglet Échéances
 const parentsOn = () => (S.modules.parents == null ? !!APP.refunds : S.modules.parents !== false);
 
 let tabsSig = '';
@@ -74,20 +75,8 @@ let pg = null;      // glissement en cours : { tabs, layers, pos, anim, end }
 let pgDrag = null;  // doigt posé : { x0, y0, lock, pts }
 
 const frameTop = () => $('.top').offsetHeight;
-function sizeFrame() {
-  const f = $('#seancesFrame');
-  const top = frameTop();
-  f.style.top = top + 'px';
-  f.style.height = Math.max(200, window.innerHeight - top - $('#tabs').offsetHeight) + 'px';
-}
 
 function pgLayer(tab, isCur) {
-  if (tab === 'seances') {
-    const f = $('#seancesFrame');
-    if (!f.getAttribute('src')) f.setAttribute('src', 'seances.html');
-    f.hidden = false; sizeFrame();
-    return f;
-  }
   const top = frameTop();
   const el = document.createElement('div');
   el.className = 'pg-layer';
@@ -158,13 +147,9 @@ function pgFinish(slot) {
     render();
     window.scrollTo(0, 0);
     syncSoon();
-  } else syncFrame();   // geste annulé : l'écran d'origine est resté tel quel
+  }                     // sinon, geste annulé : l'écran d'origine est resté tel quel
   $('#view').style.visibility = '';
-  for (const el of layers) {
-    if (el.id !== 'seancesFrame') { el.remove(); continue; }
-    el.classList.remove('incoming');
-    el.style.transform = el.style.filter = el.style.visibility = el.style.zIndex = '';
-  }
+  for (const el of layers) el.remove();
 }
 
 function pgAnimate(target) {
@@ -203,26 +188,20 @@ function scrollsX(el) {
   }
   return false;
 }
-function canSwipe(el, inFrame) {
-  if (!el || !el.closest || !$('#splash').hidden || !$('#sheet').hidden) return false;
+function canSwipe(el) {
+  if (!el || !el.closest || !$('#splash').hidden || !$('#sheet').hidden || UI.seances) return false;
   if (el.closest('input, textarea, select, .no-swipe') || scrollsX(el)) return false;
-  // Dans Séances : seulement sur ses écrans, pas pendant une séance en cours ni sur une fiche ouverte.
-  if (inFrame) return !!el.closest('#sport-pager') && !el.ownerDocument.body.classList.contains('sheet-open');
   return !el.closest('#tabs, .top');
 }
 
-function bindSwipeOn(doc, inFrame) {
-  // Dans le cadre Séances, les coordonnées sont celles du cadre, qui bouge avec le doigt : on les ramène à l'écran.
-  const pt = (t) => {
-    if (!inFrame) return [t.clientX, t.clientY];
-    const f = $('#seancesFrame'), r = f.getBoundingClientRect(), k = r.width / (f.clientWidth || 1);
-    return [r.left + t.clientX * k, r.top + t.clientY * k];
-  };
+function bindSwipe() {
+  const doc = document;
+  const pt = (t) => [t.clientX, t.clientY];
   doc.addEventListener('touchstart', (e) => {
     pgDrag = null;
     if (e.touches.length !== 1) return;
     if (pg) pgFinish(pg.end);               // un mouvement encore en cours se termine tout de suite
-    if (!canSwipe(e.target, inFrame)) return;
+    if (!canSwipe(e.target)) return;
     const [x, y] = pt(e.touches[0]);
     pgDrag = { x0: x, y0: y, lock: null, pts: [[performance.now(), x]] };
   }, { passive: true });
@@ -261,12 +240,6 @@ function bindSwipeOn(doc, inFrame) {
   };
   doc.addEventListener('touchend', end);
   doc.addEventListener('touchcancel', end);
-}
-
-function bindSwipe() {
-  bindSwipeOn(document, false);
-  const f = $('#seancesFrame');
-  f.addEventListener('load', () => { try { bindSwipeOn(f.contentDocument, true); } catch (e) { /* cadre inaccessible */ } });
 }
 
 /* ============================================================
@@ -350,33 +323,48 @@ function viewNews() {
     return `<section class="card">${empty('Les actualités arrivent chaque matin. Touche « Actualiser » pour réessayer.')}</section>`;
   }
   const g = new Date(d.generatedAt);
-  let html = `<p class="hint center">Édition du ${g.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })} à ${g.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</p>`;
-  const sel = UI.newsSec && d.sections.some((s) => s.id === UI.newsSec) ? UI.newsSec : d.sections[0].id;
-  html += `<div class="chips no-swipe">${d.sections.map((s) => `<button class="${s.id === sel ? 'on' : ''}" data-a="newsSec" data-id="${esc(s.id)}">${esc(s.title)}</button>`).join('')}</div>`;
-  const sec = d.sections.find((s) => s.id === sel);
+  // Sites présents dans l'édition du jour, du plus fourni au moins fourni.
+  const count = {};
+  for (const sec of d.sections) for (const it of sec.items) count[it.source] = (count[it.source] || 0) + 1;
+  const sources = Object.keys(count).sort((a, b) => count[b] - count[a] || a.localeCompare(b));
+  const src = sources.includes(S.newsSrc) ? S.newsSrc : '';
+  const secs = d.sections.map((s) => ({ ...s, items: src ? s.items.filter((it) => it.source === src) : s.items })).filter((s) => s.items.length);
+
+  let html = `<label class="news-src">Site d’information<select data-c="newsSrc"><option value="">Tous les sites (${sources.length})</option>${sources.map((x) => `<option value="${esc(x)}" ${x === src ? 'selected' : ''}>${esc(x)}</option>`).join('')}</select></label>`;
+  html += `<p class="hint center">Édition du ${g.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })} à ${g.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</p>`;
+  if (!secs.length) return html + `<section class="card">${empty('Aucun titre de ce site aujourd’hui.')}</section>`;
+  const sel = UI.newsSec && secs.some((s) => s.id === UI.newsSec) ? UI.newsSec : secs[0].id;
+  html += `<div class="chips">${secs.map((s) => `<button class="${s.id === sel ? 'on' : ''}" data-a="newsSec" data-id="${esc(s.id)}">${esc(s.title)}</button>`).join('')}</div>`;
+  const sec = secs.find((s) => s.id === sel);
   html += `<ul class="news">${sec.items.map((it) => `<li><a href="${esc(it.link)}" target="_blank" rel="noopener">
       <b>${esc(it.title)}</b>
       ${it.desc ? `<p>${esc(it.desc)}</p>` : ''}
       <small><span class="src">${esc(it.source)}</span>${it.date ? ' · ' + esc(ago(it.date)) : ''}</small>
     </a></li>`).join('')}</ul>`;
-  html += '<p class="hint center">Titres issus des flux publics du Monde et de franceinfo. Un toucher ouvre l’article sur le site d’origine.</p>';
+  html += '<p class="hint center">Titres issus des flux publics des sites d’information. Un toucher ouvre l’article sur le site d’origine.</p>';
   return html;
 }
 
 /* ============================================================
-   Séances de sport : l'app « Suivi muscu » de raph4L-hypen,
-   affichée telle quelle dans un cadre (données sur l'appareil).
+   Séances de sport : l'app « Suivi muscu » de raph4L-hypen, affichée telle
+   quelle dans un cadre plein écran (données sur l'appareil). On l'ouvre avec
+   le bouton de l'accueil et on revient à l'app avec « Retour ». À l'intérieur,
+   le glissement entre ses trois écrans est le sien.
    ============================================================ */
 
-function syncFrame() {
-  if (pg) return;   // pendant un glissement, les couches gèrent le cadre
+function openSeances() {
+  if (pg) pgFinish(pg.end);
   const f = $('#seancesFrame');
-  const show = UI.tab === 'seances';
-  f.hidden = !show;
-  document.body.classList.toggle('framed', show);
-  if (!show) return;
   if (!f.getAttribute('src')) f.setAttribute('src', 'seances.html');
-  sizeFrame();
+  UI.seances = true;
+  $('#seancesWrap').hidden = false;
+  document.body.classList.add('framed');
+}
+function closeSeances() {
+  UI.seances = false;
+  $('#seancesWrap').hidden = true;
+  document.body.classList.remove('framed');
+  syncSoon();   // les données de la séance partent vers les autres appareils
 }
 
 /* ============================================================
@@ -388,10 +376,12 @@ const moduleRows = () => `<div id="modRows">${moduleRowsInner()}</div>`;
 function moduleRowsInner() {
   const list = orderedTabs();
   const arrow = (t, d, i) => `<button type="button" class="mv" data-a="tabMove" data-id="${t}:${d}" ${i + d < 0 || i + d >= list.length ? 'disabled' : ''} aria-label="${d < 0 ? 'Monter' : 'Descendre'}"><svg viewBox="0 0 24 24"><path d="${d < 0 ? 'M6 15l6-6 6 6' : 'M6 9l6 6 6-6'}"/></svg></button>`;
-  const tabs = list.map((t, i) => `<li><span class="mvs">${arrow(t, -1, i)}${arrow(t, 1, i)}</span><div><b>${TAB_DEFS[t].title || TAB_DEFS[t].label}</b><small>${t === 'home' ? 'Agenda, échéances, sport, to-do' : TAB_DEFS[t].desc}</small></div>${t === 'home' ? '' : switchBtn(t, modOn(t))}</li>`).join('');
+  const tabs = list.map((t, i) => `<li><span class="mvs">${arrow(t, -1, i)}${arrow(t, 1, i)}</span><div><b>${TAB_DEFS[t].title || TAB_DEFS[t].label}</b><small>${t === 'home' ? 'Emploi du temps, sport, sommaire' : TAB_DEFS[t].desc}</small></div>${t === 'home' ? '' : switchBtn(t, modOn(t))}</li>`).join('');
   const blocks = Object.keys(BLOCK_DEFS).map((b) => `<li><div><b>${BLOCK_DEFS[b].title}</b><small>${BLOCK_DEFS[b].desc}</small></div>${switchBtn('b_' + b, blockOn(b))}</li>`).join('');
   const sy = S.sync;
   const extras = `<p class="group">Fonctions</p><ul class="toggles">
+      <li><div><b>Séances de sport</b><small>Bouton sur l’accueil : programmes et séance guidée de musculation</small></div>${switchBtn('seances', seancesOn())}</li>
+      ${APP.candidatures ? `<li><div><b>Candidatures</b><small>Suivi des candidatures, dans l’onglet Échéances</small></div>${switchBtn('apps', appsOn())}</li>` : ''}
       <li><div><b>Remboursements parents</b><small>Dans Finances : dépenses à te faire rembourser et suivi de ce que tu as reçu</small></div>${switchBtn('parents', parentsOn())}</li>
       ${APP.applePay ? `<li><div><b>Apple Pay dans Finances</b><small>Récupère tes paiements Apple Pay pour les valider</small></div>${switchBtn('applePay', payOn())}</li>` : ''}
       ${APP.sync ? `<li><div><b>Synchronisation entre appareils</b><small>${sy.on ? (sy.error ? 'Erreur : ' + esc(sy.error) : sy.at ? 'Dernière synchro à ' + new Date(sy.at).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) : 'Activée') : 'Mêmes données sur le téléphone et l’ordinateur'}</small></div><button type="button" class="switch ${sy.on ? 'on' : ''}" data-a="syncToggle" role="switch" aria-checked="${sy.on}"><i></i></button></li>` : ''}
@@ -581,6 +571,8 @@ Object.assign(EXTRA_ACTIONS, {
     const box = $('#modRows'); if (box) box.innerHTML = moduleRowsInner();
   },
   syncToggle() { syncToggle(); },
+  openSeances, closeSeances,
+  goto(id) { slideTo(id); },
   bgClear(kind) { try { localStorage.removeItem(bgKey(kind)); } catch (e) { /* rien */ } bgRepaint(); toast(BG_KINDS[kind].def + ' rétabli' + (kind === 'quote' ? 'e' : '')); },
   copyRappel() {
     const u = S.settings.gcalUrl;

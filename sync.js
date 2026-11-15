@@ -16,7 +16,7 @@
    ============================================================ */
 
 // Parties synchronisées. L'agenda, les actualités et le minuteur restent propres à chaque appareil.
-const SYNC_KEYS = ['settings', 'pins', 'tasks', 'wk', 'li', 'habits', 'fin', 'habitList', 'work', 'apps', 'modules', 'tabOrder'];
+const SYNC_KEYS = ['settings', 'pins', 'tasks', 'wk', 'li', 'habits', 'fin', 'habitList', 'work', 'apps', 'modules', 'tabOrder', 'dlCats', 'evCat'];
 const SYNC_MUSCU = '_muscu';   // données de l'app Séances, rangées à part dans le stockage de l'appareil
 
 const syncOn = () => !!APP.sync && S.sync.on && !!S.settings.gcalUrl;
@@ -109,7 +109,7 @@ function syncApply(k, v) {
 async function syncNow() {
   clearTimeout(syncTimer);
   if (!syncOn() || syncBusy || !syncSnap) return false;
-  if (UI.tab === 'seances') return false;     // pas pendant qu'on utilise Séances : ses données partiront en quittant l'onglet
+  if (UI.seances) return false;               // pas pendant qu'on utilise Séances : ses données partiront en la refermant
   syncBusy = true;
   let ok = false;
   try {
